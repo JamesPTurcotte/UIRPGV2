@@ -127,6 +127,19 @@ describe('the character playing', () => {
     expect(after).toBeLessThan(before)
   })
 
+  it('walks to a click even when a rock is in the way', () => {
+    const g = freshState()
+    enterHideout(g)
+    g.auto = false
+    g.playerX = 400
+    g.playerY = 400
+    g.rocks = [{ x: 470, y: 400, rx: 40, ry: 36 }]
+    setClickTarget(g, 700, 400)
+    for (let i = 0; i < 30; i++) step(g, 0.05)
+    expect(g.playerX).toBeGreaterThan(480)
+    expect(g.clickTarget).not.toBeNull()
+  })
+
   it('moves by hand when auto is off', () => {
     const g = freshState()
     enterHideout(g)

@@ -761,7 +761,10 @@ function steer(g: GameState, dt: number, keys: ReadonlySet<string>) {
     const ny = g.playerY + wish.y * PLAYER_SPEED * dt
     const beforeX = g.playerX
     const beforeY = g.playerY
-    const next = place(g.playerX, g.playerY, nx, ny, PLAYER_RADIUS, g.rocks, boundsOf(g), false)
+    let next = place(g.playerX, g.playerY, nx, ny, PLAYER_RADIUS, g.rocks, boundsOf(g), false)
+    if (next.x === beforeX && next.y === beforeY) {
+      next = place(g.playerX, g.playerY, nx, ny, PLAYER_RADIUS, g.rocks, boundsOf(g), true)
+    }
     g.playerX = next.x
     g.playerY = next.y
     if (next.x !== beforeX || next.y !== beforeY) {
@@ -771,6 +774,11 @@ function steer(g: GameState, dt: number, keys: ReadonlySet<string>) {
     return
   }
   if (!g.clickTarget) return
-  const arrived = !moveToward(g, g.clickTarget.x, g.clickTarget.y, 8, dt, false)
-  if (arrived) g.clickTarget = null
+  const remaining = Math.hypot(g.clickTarget.x - g.playerX, g.clickTarget.y - g.playerY)
+  if (remaining <= 8) {
+    g.clickTarget = null
+    return
+  }
+  const moved = moveToward(g, g.clickTarget.x, g.clickTarget.y, 8, dt, false)
+  if (!moved) moveToward(g, g.clickTarget.x, g.clickTarget.y, 8, dt, true)
 }

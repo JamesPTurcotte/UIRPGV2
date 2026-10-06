@@ -19,13 +19,7 @@
   import Tooltip from './ui/Tooltip.svelte'
   import Summary from './ui/Summary.svelte'
 
-  let narrow = $state(false)
-
   onMount(() => {
-    const check = () => {
-      narrow = window.innerWidth < 1080
-    }
-    check()
     const down = (event: KeyboardEvent) => {
       const key = event.key.toLowerCase()
       if (isMoveKey(key)) {
@@ -52,14 +46,12 @@
     }
     const blur = () => held.clear()
     const leave = () => writeSave(game)
-    window.addEventListener('resize', check)
     window.addEventListener('keydown', down)
     window.addEventListener('keyup', up)
     window.addEventListener('blur', blur)
     window.addEventListener('beforeunload', leave)
     return () => {
       writeSave(game)
-      window.removeEventListener('resize', check)
       window.removeEventListener('keydown', down)
       window.removeEventListener('keyup', up)
       window.removeEventListener('blur', blur)
@@ -98,11 +90,5 @@
       {/if}
       <Tooltip />
     </div>
-  </div>
-{/if}
-
-{#if narrow}
-  <div class="gate">
-    <p>UIRPG is built for a wider window. Make this one at least 1080 pixels across.</p>
   </div>
 {/if}

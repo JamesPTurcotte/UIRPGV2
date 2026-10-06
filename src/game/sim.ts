@@ -492,7 +492,13 @@ export function begin(g: GameState) {
 export function toggleAuto(g: GameState) {
   g.auto = !g.auto
   g.clickTarget = null
-  if (!g.auto) g.targetId = null
+  if (!g.auto) {
+    g.targetId = null
+    g.banner = 'You have the controls'
+  } else {
+    g.banner = 'The character is playing'
+  }
+  g.bannerLife = 1.6
   audio.ui()
   writeSave(g)
   if (g.auto && g.phase === 'hideout') enterMap(g, nextAutoMap(g.cleared))

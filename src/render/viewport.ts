@@ -1,11 +1,15 @@
 import { ARENA, HIDEOUT } from '../game/atlas'
 import type { GameState, Monster, Rock } from '../game/types'
 
+const ZOOM = 1.7
 let camX = 0
 let camY = 0
 
-export function screenToWorld(x: number, y: number): { x: number; y: number } {
-  return { x: x + camX, y: y + camY }
+export function screenToWorld(x: number, y: number, width: number, height: number): { x: number; y: number } {
+  return {
+    x: (x - width / 2) / ZOOM + camX,
+    y: (y - height / 2) / ZOOM + camY,
+  }
 }
 
 export function resizeCanvas(canvas: HTMLCanvasElement): { width: number; height: number; dpr: number } {
@@ -18,6 +22,11 @@ export function resizeCanvas(canvas: HTMLCanvasElement): { width: number; height
   return { width, height, dpr }
 }
 
+function clampCenter(value: number, view: number, bound: number): number {
+  if (bound <= view) return bound / 2
+  return Math.min(bound - view / 2, Math.max(view / 2, value))
+}
+
 function floorColors(g: GameState): [string, string] {
   if (g.phase !== 'map') return ['#17130f', '#0c0b09']
   if (g.mapId === 'gild') return ['#1c170f', '#0e0c09']
@@ -27,8 +36,10 @@ function floorColors(g: GameState): [string, string] {
 
 export function draw(ctx: CanvasRenderingContext2D, width: number, height: number, dpr: number, g: GameState) {
   const bounds = g.phase === 'map' ? ARENA : HIDEOUT
-  const focusX = Math.min(Math.max(g.playerX - width / 2, 0), Math.max(0, bounds.w - width))
-  const focusY = Math.min(Math.max(g.playerY - height / 2, 0), Math.max(0, bounds.h - height))
+  const viewW = width / ZOOM
+  const viewH = height / ZOOM
+  const focusX = clampCenter(g.playerX, viewW, bounds.w)
+  const focusY = clampCenter(g.playerY, viewH, bounds.h)
   camX += (focusX - camX) * (g.reducedMotion ? 1 : 0.12)
   camY += (focusY - camY) * (g.reducedMotion ? 1 : 0.12)
 
@@ -46,20 +57,25 @@ export function draw(ctx: CanvasRenderingContext2D, width: number, height: numbe
   ctx.fillRect(0, 0, width, height)
 
   ctx.save()
-  ctx.translate(-camX + sx, -camY + sy)
+  ctx.translate(sx, sy)
+  ctx.translate(width / 2, height / 2)
+  ctx.scale(ZOOM, ZOOM)
+  ctx.translate(-camX, -camY)
 
-  ctx.strokeStyle = 'rgba(232, 196, 140, 0.05)'
+  const left = camX - viewW / 2
+  const top = camY - viewH / 2
+  ctx.strokeStyle = 'rgba(232, 196, 140, 0.06)'
   ctx.lineWidth = 1
-  const startX = Math.floor(camX / 48) * 48
-  const startY = Math.floor(camY / 48) * 48
+  const startX = Math.floor(left / 48) * 48
+  const startY = Math.floor(top / 48) * 48
   ctx.beginPath()
-  for (let x = startX; x < camX + width + 48; x += 48) {
-    ctx.moveTo(x, camY)
-    ctx.lineTo(x, camY + height)
+  for (let x = startX; x < left + viewW + 48; x += 48) {
+    ctx.moveTo(x, top)
+    ctx.lineTo(x, top + viewH)
   }
-  for (let y = startY; y < camY + height + 48; y += 48) {
-    ctx.moveTo(camX, y)
-    ctx.lineTo(camX + width, y)
+  for (let y = startY; y < top + viewH + 48; y += 48) {
+    ctx.moveTo(left, y)
+    ctx.lineTo(left + viewW, y)
   }
   ctx.stroke()
 
@@ -73,10 +89,14 @@ export function draw(ctx: CanvasRenderingContext2D, width: number, height: numbe
     if (target) drawTarget(ctx, g, target.x, target.y)
   }
   if (!g.auto && g.clickTarget) {
-    ctx.strokeStyle = 'rgba(232, 161, 90, 0.7)'
+    ctx.strokeStyle = '#e8a15a'
     ctx.lineWidth = 1.5
     ctx.beginPath()
-    ctx.arc(g.clickTarget.x, g.clickTarget.y, 8, 0, Math.PI * 2)
+    ctx.arc(g.clickTarget.x, g.clickTarget.y, 14, 0, Math.PI * 2)
+    ctx.moveTo(g.clickTarget.x - 20, g.clickTarget.y)
+    ctx.lineTo(g.clickTarget.x + 20, g.clickTarget.y)
+    ctx.moveTo(g.clickTarget.x, g.clickTarget.y - 20)
+    ctx.lineTo(g.clickTarget.x, g.clickTarget.y + 20)
     ctx.stroke()
   }
 

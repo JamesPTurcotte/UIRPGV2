@@ -50,7 +50,7 @@
     }
     if (event.button !== 0) return
     const rect = canvas.getBoundingClientRect()
-    const world = screenToWorld(event.clientX - rect.left, event.clientY - rect.top)
+    const world = screenToWorld(event.clientX - rect.left, event.clientY - rect.top, rect.width, rect.height)
     setClickTarget(game, world.x, world.y)
   }
 </script>

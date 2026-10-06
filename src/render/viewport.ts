@@ -89,15 +89,23 @@ export function draw(ctx: CanvasRenderingContext2D, width: number, height: numbe
     if (target) drawTarget(ctx, g, target.x, target.y)
   }
   if (!g.auto && g.clickTarget) {
+    ctx.save()
     ctx.strokeStyle = '#e8a15a'
-    ctx.lineWidth = 1.5
+    ctx.fillStyle = 'rgba(232, 161, 90, 0.85)'
+    ctx.lineWidth = 1.6
+    ctx.setLineDash([5, 6])
     ctx.beginPath()
-    ctx.arc(g.clickTarget.x, g.clickTarget.y, 14, 0, Math.PI * 2)
-    ctx.moveTo(g.clickTarget.x - 20, g.clickTarget.y)
-    ctx.lineTo(g.clickTarget.x + 20, g.clickTarget.y)
-    ctx.moveTo(g.clickTarget.x, g.clickTarget.y - 20)
-    ctx.lineTo(g.clickTarget.x, g.clickTarget.y + 20)
+    ctx.moveTo(g.playerX, g.playerY)
+    ctx.lineTo(g.clickTarget.x, g.clickTarget.y)
     ctx.stroke()
+    ctx.setLineDash([])
+    ctx.beginPath()
+    ctx.arc(g.clickTarget.x, g.clickTarget.y, 12, 0, Math.PI * 2)
+    ctx.stroke()
+    ctx.beginPath()
+    ctx.arc(g.clickTarget.x, g.clickTarget.y, 3, 0, Math.PI * 2)
+    ctx.fill()
+    ctx.restore()
   }
 
   drawTrail(ctx, g)

@@ -1,7 +1,7 @@
 <script lang="ts">
   import { onMount } from 'svelte'
   import { game } from './game/store.svelte'
-  import { held, isMoveKey } from './input'
+  import { held, isMoveKey, nudgeKey } from './input'
   import { begin, closePanel, dismissSummary, queueNova, toggleAuto, togglePanel } from './game/sim'
   import { writeSave } from './persist'
   import Title from './ui/Title.svelte'
@@ -31,6 +31,7 @@
       if (isMoveKey(key)) {
         event.preventDefault()
         held.add(key)
+        if (!event.repeat) nudgeKey(key)
       }
       if (event.repeat) return
       if (game.phase === 'title') {

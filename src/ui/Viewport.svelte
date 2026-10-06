@@ -1,7 +1,7 @@
 <script lang="ts">
   import { onMount } from 'svelte'
   import { game } from '../game/store.svelte'
-  import { held } from '../input'
+  import { movementHeld } from '../input'
   import { queueNova, setClickTarget, step } from '../game/sim'
   import { writeSave } from '../persist'
   import { draw, resizeCanvas, screenToWorld } from '../render/viewport'
@@ -20,7 +20,7 @@
     const tick = (now: number) => {
       const dt = Math.min(0.05, (now - last) / 1000)
       last = now
-      step(game, dt, held)
+      step(game, dt, movementHeld(dt))
       saveAcc += dt
       if (saveAcc > 2) {
         writeSave(game)

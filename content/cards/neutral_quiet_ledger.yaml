@@ -1,0 +1,20 @@
+id: neutral.quiet_ledger
+set: set.core
+name: The Quiet Ledger
+type: spell
+spell_kind: normal
+attribute: neutral
+lineage: null
+offer: 0
+rarity: rare
+role: draw
+effect_value: 6
+keywords: []
+text: "Draw 2. At Dusk, discard 1."
+effect:
+  trigger: on_activate
+  steps:
+    - action: draw
+      amount: 2
+    - action: dusk_discard
+      amount: 1

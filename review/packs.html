@@ -1,0 +1,198 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="dark" />
+    <title>Razeah — Pack Ritual / Neon Reliquary</title>
+    <meta
+      name="description"
+      content="The Neon Reliquary pack-opening ceremony for Razeah: a sealed folio, an honest rarity tell, a 470 ms pinch-and-turn flip, escalating flares, and a ledger that keeps the cards."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=VT323&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/review.css" />
+    <link rel="stylesheet" href="css/board.css" />
+    <link rel="stylesheet" href="css/themes.css" />
+    <link rel="stylesheet" href="css/pack.css" />
+  </head>
+  <body class="pk-page">
+    <a class="skip" href="#ritual">Skip to the folio</a>
+
+    <header class="masthead pk-masthead">
+      <div class="masthead__inner">
+        <a class="wordmark" href="packs.html">
+          <span class="wordmark__mark">R</span>
+          <span>RAZEAH <em>/ pack ritual</em></span>
+        </a>
+        <nav class="mastnav" aria-label="Pack ritual sections">
+          <a href="#ritual" data-pk-nav="ritual" class="is-active">01 Ritual</a>
+          <a href="#tell" data-pk-nav="tell">02 Tell</a>
+          <a href="#beats" data-pk-nav="beats">03 Beats</a>
+          <a href="#ledger" data-pk-nav="ledger">04 Ledger</a>
+          <a href="#notes" data-pk-nav="notes">05 Notes</a>
+          <a href="index.html#neon" class="mastnav__back">Directions ↗</a>
+        </nav>
+        <div class="masttools">
+          <button class="toolbtn toolbtn--sound" type="button" data-sound-toggle aria-label="Toggle sound"></button>
+          <button class="toolbtn" id="packMotion" type="button">Motion: full</button>
+          <button class="toolbtn" id="packCopyTop" type="button">Copy feedback</button>
+        </div>
+      </div>
+      <div class="scroll-progress" aria-hidden="true"><i id="pkProgress"></i></div>
+    </header>
+
+    <main>
+      <section class="pk-hero wrap">
+        <p class="pk-eyebrow">NEON RELIQUARY <span>/</span> FOLIO PROTOCOL 01</p>
+        <div class="pk-hero__grid">
+          <h1>Crack the <em>sky.</em></h1>
+          <div class="pk-hero__note">
+            <p>
+              A folio is a promise. The wax is the verb. Five cards, one honest tell,
+              and no reroll — the ceremony makes the reveal feel like it cost something.
+            </p>
+            <div class="pk-chips">
+              <span>5 CARDS</span>
+              <span>RARE GUARANTEED</span>
+              <span>NO REROLL</span>
+              <span>SKIP → LEDGER</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="pk-live wrap" id="ritual">
+        <div class="pk-stage-frame" id="pkFrame">
+          <div class="pk-stage-chrome">
+            <div class="pk-live-label">
+              <span class="live-dot"></span> LIVE FOLIO
+              <span class="pk-chrome-hint">CLICK THE SEAL · HOVER FOR THE TELL · S TO SKIP</span>
+              <span class="pk-chrome-scroll">SCROLL ROOM →</span>
+            </div>
+            <div class="pk-stage-tools">
+              <button class="stage__btn pk-theater-open" id="pkTheaterOpen" type="button">
+                <svg class="rz-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 4H4v5M15 4h5v5M9 20H4v-5M20 15v5h-5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                Expand
+              </button>
+              <button class="stage__btn pk-theater-close" id="pkTheaterClose" type="button">
+                <svg class="rz-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m5 5 14 14M19 5 5 19" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+                Close
+              </button>
+            </div>
+          </div>
+          <div class="pk-stage-scroll">
+            <div class="pk-mount" id="packMount"></div>
+          </div>
+          <div class="pk-stage-foot">
+            <span><b>How to play:</b> crack the seal · hover a back to read the tell · click to turn · <b>S</b> skips to the ledger</span>
+            <span>1440 × 900 · the result is committed before the first frame</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="pk-section wrap reveal" id="tell">
+        <div class="pk-section-head">
+          <span class="pk-section-no">02 / THE TELL</span>
+          <h2>Anticipation you can <em>read.</em></h2>
+          <p>
+            The back is not a slot machine. It is a label. The pips, ring, and word are
+            read from the card that is already inside the folio.
+          </p>
+        </div>
+        <div class="pk-tell-grid" id="tellGrid"></div>
+        <p class="pk-tell-note">
+          This rack shows the whole grammar at once. In the folio, hover or focus a back
+          to read it. Legendary adds a double ring and a four-pip diamond. No colour-only
+          signals; no fake near-miss.
+        </p>
+      </section>
+
+      <section class="pk-section wrap reveal" id="beats">
+        <div class="pk-section-head">
+          <span class="pk-section-no">03 / THE TEN BEATS</span>
+          <h2>Short, physical, <em>repeatable.</em></h2>
+          <p>
+            Every beat has a beginning, an impact, and a residue. The whole 5-card ritual
+            lands in roughly four seconds when you flip quickly; reading is player-controlled.
+          </p>
+        </div>
+        <div class="pk-beats" id="beatGrid"></div>
+      </section>
+
+      <section class="pk-section wrap reveal" id="ledger">
+        <div class="pk-section-head">
+          <span class="pk-section-no">04 / THE LEDGER</span>
+          <h2>The reward is the <em>receipt.</em></h2>
+          <p>
+            The summary keeps the fan on screen. It counts what you got, fills the set gauge,
+            and tells you what to do next without hiding the cards.
+          </p>
+        </div>
+        <div class="pk-ledger-layout">
+          <div class="pk-ledger-mock" aria-hidden="true">
+            <span class="pk-ledger-mock__kicker">THE LEDGER // COMMITTED</span>
+            <div class="pk-ledger-mock__chips">
+              <div><b>5</b><span>CARDS</span></div>
+              <div><b>3</b><span>NEW</span></div>
+              <div><b>3</b><span>MODS</span></div>
+              <div><b>12/16</b><span>SET</span></div>
+            </div>
+            <div class="pk-ledger-mock__gauge"><i></i></div>
+            <div class="pk-ledger-mock__actions"><span>OPEN ANOTHER</span><span>SATCHEL</span></div>
+            <p>Cards stay clickable. The ledger is a strip, not a modal.</p>
+          </div>
+          <div class="pk-ethics">
+            <h3>What we <em>refuse</em> to do</h3>
+            <ul id="rejectList"></ul>
+            <p class="pk-ethics-note">
+              The result is committed before the first frame. Skipping shows the ledger;
+              it never leaves the pack unseen. Duplicates are income, not failure.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section class="pk-section wrap reveal" id="notes">
+        <div class="pk-section-head">
+          <span class="pk-section-no">05 / YOUR READ</span>
+          <h2>What should be <em>louder?</em></h2>
+          <p>
+            Rate the five beats, leave a note, and copy the feedback. This is the pass I
+            will tune into the Godot ceremony.
+          </p>
+        </div>
+        <div class="pk-review">
+          <div class="pk-ratings" id="ratingGrid"></div>
+          <div class="pk-notes">
+            <label for="packNotes">NOTES</label>
+            <textarea id="packNotes" data-pack-note placeholder="What lands? Which beat should be louder, slower, shorter, or gone?"></textarea>
+            <div class="pk-notes__foot">
+              <span>SAVED IN THIS BROWSER</span>
+              <span class="pk-saved" id="pkSaved">SAVED ✓</span>
+              <button class="btn btn--signal" id="packCopy" type="button">Copy feedback</button>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer wrap pk-footer">
+      <span>Razeah · pack ritual review · Neon Reliquary</span>
+      <span><a href="index.html#neon">← Back to the direction review</a> · <a href="#ritual">The seal ↑</a></span>
+    </footer>
+
+    <div class="site-toast" id="siteToast" role="status" aria-live="polite"></div>
+
+    <script src="js/data.js"></script>
+    <script src="js/pack-data.js"></script>
+    <script src="js/icons.js"></script>
+    <script src="js/sound.js"></script>
+    <script src="js/board.js"></script>
+    <script src="js/pack.js"></script>
+  </body>
+</html>

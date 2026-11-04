@@ -1,0 +1,1352 @@
+{
+  "content_version": 1,
+  "rules_version": 1,
+  "cards": [
+    {
+      "id": "ember.ash_moth",
+      "set": "set.core",
+      "name": "Ash Moth",
+      "type": "monster",
+      "attribute": "ember",
+      "lineage": "beast",
+      "offer": 0,
+      "atk": 600,
+      "defense": 400,
+      "rarity": "common",
+      "role": "resource",
+      "effect_value": 1,
+      "keywords": [],
+      "text": "ECHO: Deal 100 damage.",
+      "effect": {
+        "trigger": "on_destroy",
+        "steps": [
+          {
+            "action": "damage",
+            "amount": 100,
+            "target": "opponent"
+          }
+        ]
+      },
+      "power": 9,
+      "type_line": "MONSTER · EMBER · BEAST"
+    },
+    {
+      "id": "ember.cinder_hound",
+      "set": "set.core",
+      "name": "Cinder Hound",
+      "type": "monster",
+      "attribute": "ember",
+      "lineage": "beast",
+      "offer": 0,
+      "atk": 1200,
+      "defense": 800,
+      "rarity": "common",
+      "role": "threat",
+      "effect_value": 2,
+      "keywords": [],
+      "text": "KINDLE: Deal 200 damage.",
+      "effect": {
+        "trigger": "on_call",
+        "steps": [
+          {
+            "action": "damage",
+            "amount": 200,
+            "target": "opponent"
+          }
+        ]
+      },
+      "power": 19,
+      "type_line": "MONSTER · EMBER · BEAST"
+    },
+    {
+      "id": "ember.ember_scout",
+      "set": "set.core",
+      "name": "Ember Scout",
+      "type": "monster",
+      "attribute": "ember",
+      "lineage": "beast",
+      "offer": 1,
+      "atk": 1600,
+      "defense": 1000,
+      "rarity": "common",
+      "role": "threat",
+      "effect_value": 1,
+      "keywords": [
+        "fleet"
+      ],
+      "text": "FLEET.",
+      "effect": null,
+      "power": 25,
+      "type_line": "MONSTER · EMBER · BEAST"
+    },
+    {
+      "id": "neutral.ninefold_seal",
+      "set": "set.core",
+      "name": "Ninefold Seal",
+      "type": "trap",
+      "trap_kind": "counter",
+      "attribute": "neutral",
+      "lineage": null,
+      "offer": 0,
+      "rarity": "rare",
+      "role": "answer",
+      "effect_value": 7,
+      "keywords": [],
+      "text": "Negate an attack, then banish the attacker.",
+      "effect": {
+        "trigger": "on_attack",
+        "steps": [
+          {
+            "action": "negate_attack",
+            "then_banish": true
+          }
+        ]
+      },
+      "power": 7,
+      "type_line": "TRAP · NEUTRAL"
+    },
+    {
+      "id": "neutral.paper_warden",
+      "set": "set.core",
+      "name": "Paper Warden",
+      "type": "monster",
+      "attribute": "neutral",
+      "lineage": "construct",
+      "offer": 0,
+      "atk": 800,
+      "defense": 2000,
+      "rarity": "common",
+      "role": "glue",
+      "effect_value": 2,
+      "keywords": [
+        "veil"
+      ],
+      "text": "VEIL.",
+      "effect": null,
+      "power": 23,
+      "type_line": "MONSTER · NEUTRAL · CONSTRUCT"
+    },
+    {
+      "id": "neutral.quiet_ledger",
+      "set": "set.core",
+      "name": "The Quiet Ledger",
+      "type": "spell",
+      "spell_kind": "normal",
+      "attribute": "neutral",
+      "lineage": null,
+      "offer": 0,
+      "rarity": "rare",
+      "role": "draw",
+      "effect_value": 6,
+      "keywords": [],
+      "text": "Draw 2. At Dusk, discard 1.",
+      "effect": {
+        "trigger": "on_activate",
+        "steps": [
+          {
+            "action": "draw",
+            "amount": 2
+          },
+          {
+            "action": "dusk_discard",
+            "amount": 1
+          }
+        ]
+      },
+      "power": 6,
+      "type_line": "SPELL · NEUTRAL"
+    },
+    {
+      "id": "neutral.razeah_unbound",
+      "set": "set.core",
+      "name": "Razeah, the Unbound",
+      "type": "monster",
+      "attribute": "neutral",
+      "lineage": "wanderer",
+      "offer": 2,
+      "atk": 3000,
+      "defense": 2500,
+      "rarity": "legendary",
+      "role": "payoff",
+      "effect_value": 6,
+      "keywords": [],
+      "text": "KINDLE: Return 1 card from your Remains to your hand. Once per duel.",
+      "effect": {
+        "trigger": "on_call",
+        "limit": "once_per_duel",
+        "steps": [
+          {
+            "action": "return_from_remains",
+            "amount": 1,
+            "to": "hand"
+          }
+        ]
+      },
+      "power": 55,
+      "type_line": "MONSTER · NEUTRAL · WANDERER"
+    },
+    {
+      "id": "tide.tidebound_archivist",
+      "set": "set.core",
+      "name": "Tidebound Archivist",
+      "type": "monster",
+      "attribute": "tide",
+      "lineage": "wanderer",
+      "offer": 0,
+      "atk": 1000,
+      "defense": 1600,
+      "rarity": "uncommon",
+      "role": "glue",
+      "effect_value": 3,
+      "keywords": [],
+      "text": "FLIP: Draw 1.",
+      "effect": {
+        "trigger": "on_flip",
+        "steps": [
+          {
+            "action": "draw",
+            "amount": 1
+          }
+        ]
+      },
+      "power": 23,
+      "type_line": "MONSTER · TIDE · WANDERER"
+    },
+    {
+      "id": "tide.tidecall",
+      "set": "set.core",
+      "name": "Tidecall",
+      "type": "spell",
+      "spell_kind": "normal",
+      "attribute": "tide",
+      "lineage": null,
+      "offer": 0,
+      "rarity": "uncommon",
+      "role": "draw",
+      "effect_value": 4,
+      "keywords": [],
+      "text": "Draw 1. If you control a TIDE monster, draw 1 more.",
+      "effect": {
+        "trigger": "on_activate",
+        "steps": [
+          {
+            "action": "draw",
+            "amount": 1
+          },
+          {
+            "action": "draw",
+            "amount": 1,
+            "condition": {
+              "controller_has_attribute": "tide"
+            }
+          }
+        ]
+      },
+      "power": 4,
+      "type_line": "SPELL · TIDE"
+    },
+    {
+      "id": "umbra.grave_whisper",
+      "set": "set.core",
+      "name": "Grave Whisper",
+      "type": "spell",
+      "spell_kind": "normal",
+      "attribute": "umbra",
+      "lineage": null,
+      "offer": 0,
+      "rarity": "common",
+      "role": "resource",
+      "effect_value": 3,
+      "keywords": [],
+      "text": "Return 1 monster from your Remains to your hand.",
+      "effect": {
+        "trigger": "on_activate",
+        "steps": [
+          {
+            "action": "return_from_remains",
+            "amount": 1,
+            "to": "hand"
+          }
+        ]
+      },
+      "power": 3,
+      "type_line": "SPELL · UMBRA"
+    },
+    {
+      "id": "umbra.hollow_lantern",
+      "set": "set.core",
+      "name": "Hollow Lantern",
+      "type": "spell",
+      "spell_kind": "continuous",
+      "attribute": "umbra",
+      "lineage": null,
+      "offer": 0,
+      "rarity": "uncommon",
+      "role": "glue",
+      "effect_value": 4,
+      "keywords": [],
+      "text": "Monsters in this lane gain 200 ATK.",
+      "effect": {
+        "trigger": "continuous",
+        "steps": [
+          {
+            "action": "lane_buff",
+            "amount": 200
+          }
+        ]
+      },
+      "power": 4,
+      "type_line": "SPELL · UMBRA"
+    },
+    {
+      "id": "umbra.shade_ninth",
+      "set": "set.core",
+      "name": "Shade of the Ninth",
+      "type": "monster",
+      "attribute": "umbra",
+      "lineage": "spirit",
+      "offer": 1,
+      "atk": 1800,
+      "defense": 1200,
+      "rarity": "uncommon",
+      "role": "payoff",
+      "effect_value": 3,
+      "keywords": [],
+      "text": "ECHO: Draw 1.",
+      "effect": {
+        "trigger": "on_destroy",
+        "steps": [
+          {
+            "action": "draw",
+            "amount": 1
+          }
+        ]
+      },
+      "power": 30,
+      "type_line": "MONSTER · UMBRA · SPIRIT"
+    },
+    {
+      "id": "verdant.bone_orchard",
+      "set": "set.core",
+      "name": "Bone Orchard",
+      "type": "trap",
+      "trap_kind": "continuous",
+      "attribute": "verdant",
+      "lineage": null,
+      "offer": 0,
+      "rarity": "uncommon",
+      "role": "payoff",
+      "effect_value": 5,
+      "keywords": [],
+      "text": "Once per turn, when a monster is destroyed, summon a 500/500 token in its lane.",
+      "effect": {
+        "trigger": "continuous",
+        "limit": "once_per_turn",
+        "steps": [
+          {
+            "action": "on_destroy_summon",
+            "atk": 500,
+            "defense": 500
+          }
+        ]
+      },
+      "power": 5,
+      "type_line": "TRAP · VERDANT"
+    },
+    {
+      "id": "verdant.bramble_wall",
+      "set": "set.core",
+      "name": "Bramble Wall",
+      "type": "monster",
+      "attribute": "verdant",
+      "lineage": "construct",
+      "offer": 0,
+      "atk": 300,
+      "defense": 2200,
+      "rarity": "common",
+      "role": "glue",
+      "effect_value": 1,
+      "keywords": [],
+      "text": "No effect.",
+      "effect": null,
+      "power": 18,
+      "type_line": "MONSTER · VERDANT · CONSTRUCT"
+    },
+    {
+      "id": "verdant.thorn_sentinel",
+      "set": "set.core",
+      "name": "Thorn Sentinel",
+      "type": "monster",
+      "attribute": "verdant",
+      "lineage": "construct",
+      "offer": 1,
+      "atk": 1000,
+      "defense": 1800,
+      "rarity": "common",
+      "role": "enabler",
+      "effect_value": 2,
+      "keywords": [],
+      "text": "KINDLE: Gain 200 Resolve.",
+      "effect": {
+        "trigger": "on_call",
+        "steps": [
+          {
+            "action": "heal",
+            "amount": 200,
+            "target": "controller"
+          }
+        ]
+      },
+      "power": 25,
+      "type_line": "MONSTER · VERDANT · CONSTRUCT"
+    },
+    {
+      "id": "verdant.verdant_colossus",
+      "set": "set.core",
+      "name": "Verdant Colossus",
+      "type": "monster",
+      "attribute": "verdant",
+      "lineage": "construct",
+      "offer": 2,
+      "atk": 2600,
+      "defense": 2200,
+      "rarity": "rare",
+      "role": "threat",
+      "effect_value": 2,
+      "keywords": [
+        "pierce"
+      ],
+      "text": "PIERCE.",
+      "effect": null,
+      "power": 45,
+      "type_line": "MONSTER · VERDANT · CONSTRUCT"
+    }
+  ],
+  "sets": [
+    {
+      "id": "set.core",
+      "name": "The Artless Set",
+      "released_at": "2026-11-01"
+    }
+  ],
+  "opponents": [
+    {
+      "id": "warden.copper",
+      "name": "The Copper Warden",
+      "floor": 2,
+      "circuit": 1,
+      "doctrine": "press",
+      "ai_profile": "brawler",
+      "skill": 60,
+      "modifier": "opening_gambit",
+      "boss": false,
+      "reward_bias": {
+        "rarity": "uncommon",
+        "reagent": "reagent.deep_ink"
+      },
+      "plan": "Copper pressure: curve out, attack the open lane, burn the last 800.",
+      "tell": "Opening Gambit draws an extra card; it has no answer to a set trap.",
+      "counterplay": "Bait the first attack, then punish the committed lane.",
+      "deck": [
+        {
+          "def": "ember.cinder_hound",
+          "count": 3
+        },
+        {
+          "def": "ember.ash_moth",
+          "count": 3
+        },
+        {
+          "def": "ember.ember_scout",
+          "count": 3
+        },
+        {
+          "def": "tide.tidebound_archivist",
+          "count": 3
+        },
+        {
+          "def": "neutral.paper_warden",
+          "count": 3
+        },
+        {
+          "def": "verdant.bramble_wall",
+          "count": 3
+        },
+        {
+          "def": "umbra.grave_whisper",
+          "count": 3
+        },
+        {
+          "def": "tide.tidecall",
+          "count": 3
+        },
+        {
+          "def": "umbra.hollow_lantern",
+          "count": 3
+        },
+        {
+          "def": "neutral.quiet_ledger",
+          "count": 2
+        },
+        {
+          "def": "neutral.ninefold_seal",
+          "count": 3
+        },
+        {
+          "def": "verdant.bone_orchard",
+          "count": 3
+        },
+        {
+          "def": "umbra.shade_ninth",
+          "count": 2
+        },
+        {
+          "def": "verdant.verdant_colossus",
+          "count": 3
+        }
+      ]
+    },
+    {
+      "id": "warden.damp",
+      "name": "The Damp Warden",
+      "floor": 1,
+      "circuit": 1,
+      "doctrine": "hold",
+      "ai_profile": "warden",
+      "skill": 45,
+      "modifier": null,
+      "boss": false,
+      "reward_bias": {
+        "rarity": "uncommon",
+        "reagent": "reagent.prism_ink"
+      },
+      "plan": "Slow Verdant bodies; trade in defense and wait for a mistake.",
+      "tell": "No backrow removal. Its traps are the only surprise.",
+      "counterplay": "Race the left lane; hold Ninefold Seal for Verdant Colossus.",
+      "deck": [
+        {
+          "def": "ember.cinder_hound",
+          "count": 3
+        },
+        {
+          "def": "ember.ash_moth",
+          "count": 3
+        },
+        {
+          "def": "ember.ember_scout",
+          "count": 3
+        },
+        {
+          "def": "tide.tidebound_archivist",
+          "count": 3
+        },
+        {
+          "def": "neutral.paper_warden",
+          "count": 3
+        },
+        {
+          "def": "verdant.bramble_wall",
+          "count": 3
+        },
+        {
+          "def": "umbra.grave_whisper",
+          "count": 3
+        },
+        {
+          "def": "tide.tidecall",
+          "count": 3
+        },
+        {
+          "def": "umbra.hollow_lantern",
+          "count": 2
+        },
+        {
+          "def": "neutral.quiet_ledger",
+          "count": 2
+        },
+        {
+          "def": "neutral.ninefold_seal",
+          "count": 2
+        },
+        {
+          "def": "verdant.bone_orchard",
+          "count": 3
+        },
+        {
+          "def": "umbra.shade_ninth",
+          "count": 3
+        },
+        {
+          "def": "verdant.verdant_colossus",
+          "count": 2
+        },
+        {
+          "def": "verdant.thorn_sentinel",
+          "count": 2
+        }
+      ]
+    },
+    {
+      "id": "warden.ninth",
+      "name": "The Ninth Warden",
+      "floor": 3,
+      "circuit": 1,
+      "doctrine": "read",
+      "ai_profile": "hollow",
+      "skill": 80,
+      "modifier": "ninth_veil",
+      "boss": true,
+      "reward_bias": {
+        "rarity": "rare",
+        "reagent": "reagent.verdigris"
+      },
+      "plan": "The seal-keeper. Razeah, the Unbound is the signature; drag the duel long enough to Kindle it twice.",
+      "tell": "Begins at 4500 Resolve. Ninefold Seal is always live.",
+      "counterplay": "Force the Seal early, then commit the second threat. Banish beats Echo.",
+      "boss_rule": "The Ninth Warden begins at 4500 Resolve.",
+      "deck": [
+        {
+          "def": "ember.cinder_hound",
+          "count": 3
+        },
+        {
+          "def": "ember.ash_moth",
+          "count": 3
+        },
+        {
+          "def": "ember.ember_scout",
+          "count": 3
+        },
+        {
+          "def": "tide.tidebound_archivist",
+          "count": 3
+        },
+        {
+          "def": "neutral.paper_warden",
+          "count": 3
+        },
+        {
+          "def": "verdant.bramble_wall",
+          "count": 3
+        },
+        {
+          "def": "umbra.grave_whisper",
+          "count": 3
+        },
+        {
+          "def": "tide.tidecall",
+          "count": 3
+        },
+        {
+          "def": "umbra.hollow_lantern",
+          "count": 3
+        },
+        {
+          "def": "neutral.quiet_ledger",
+          "count": 2
+        },
+        {
+          "def": "neutral.ninefold_seal",
+          "count": 3
+        },
+        {
+          "def": "verdant.bone_orchard",
+          "count": 3
+        },
+        {
+          "def": "umbra.shade_ninth",
+          "count": 2
+        },
+        {
+          "def": "verdant.verdant_colossus",
+          "count": 2
+        },
+        {
+          "def": "neutral.razeah_unbound",
+          "count": 1
+        }
+      ]
+    }
+  ],
+  "mods": [
+    {
+      "id": "mod.gilded",
+      "kind": "prefix",
+      "name": "Gilded",
+      "tags": [
+        "offense"
+      ],
+      "tier_min": 1,
+      "tier_max": 5,
+      "values": {
+        "1": 50,
+        "2": 100,
+        "3": 150,
+        "4": 200,
+        "5": 250
+      },
+      "power": {
+        "1": 1,
+        "2": 2,
+        "3": 3,
+        "4": 4,
+        "5": 5
+      },
+      "stat": "atk",
+      "text": "+{value} ATK.",
+      "weight": 120
+    },
+    {
+      "id": "mod.stalwart",
+      "kind": "prefix",
+      "name": "Stalwart",
+      "tags": [
+        "defense"
+      ],
+      "tier_min": 1,
+      "tier_max": 5,
+      "values": {
+        "1": 100,
+        "2": 200,
+        "3": 300,
+        "4": 400,
+        "5": 500
+      },
+      "power": {
+        "1": 1,
+        "2": 1,
+        "3": 2,
+        "4": 2,
+        "5": 3
+      },
+      "stat": "defense",
+      "text": "+{value} DEF.",
+      "weight": 120
+    },
+    {
+      "id": "mod.fleet",
+      "kind": "prefix",
+      "name": "Fleet",
+      "tags": [
+        "offense",
+        "monster"
+      ],
+      "tier_min": 3,
+      "tier_max": 5,
+      "values": {
+        "3": 0,
+        "4": 0,
+        "5": 0
+      },
+      "power": {
+        "3": 2,
+        "4": 2,
+        "5": 2
+      },
+      "grants": [
+        "fleet"
+      ],
+      "text": "FLEET.",
+      "weight": 50
+    },
+    {
+      "id": "mod.hollow",
+      "kind": "prefix",
+      "name": "Hollow",
+      "tags": [
+        "monster"
+      ],
+      "tier_min": 3,
+      "tier_max": 5,
+      "values": {
+        "3": -1,
+        "4": -1,
+        "5": -1
+      },
+      "power": {
+        "3": 2,
+        "4": 2,
+        "5": 2
+      },
+      "stat": "offer",
+      "text": "OFFER -1 (min 0).",
+      "weight": 50
+    },
+    {
+      "id": "mod.kindled",
+      "kind": "prefix",
+      "name": "Kindled",
+      "tags": [
+        "ember",
+        "offense"
+      ],
+      "tier_min": 2,
+      "tier_max": 5,
+      "values": {
+        "2": 100,
+        "3": 150,
+        "4": 200,
+        "5": 300
+      },
+      "power": {
+        "2": 1,
+        "3": 1,
+        "4": 2,
+        "5": 2
+      },
+      "trigger": "on_call",
+      "steps": [
+        {
+          "action": "damage",
+          "amount_from_value": true,
+          "target": "opponent"
+        }
+      ],
+      "text": "KINDLE: Deal {value} damage.",
+      "weight": 60
+    },
+    {
+      "id": "mod.of_embers",
+      "kind": "suffix",
+      "name": "of Embers",
+      "tags": [
+        "ember",
+        "echo"
+      ],
+      "tier_min": 1,
+      "tier_max": 5,
+      "values": {
+        "1": 100,
+        "2": 150,
+        "3": 200,
+        "4": 250,
+        "5": 300
+      },
+      "power": {
+        "1": 1,
+        "2": 1,
+        "3": 2,
+        "4": 2,
+        "5": 3
+      },
+      "trigger": "on_destroy",
+      "steps": [
+        {
+          "action": "damage",
+          "amount_from_value": true,
+          "target": "opponent"
+        }
+      ],
+      "text": "ECHO: Deal {value} damage.",
+      "weight": 100
+    },
+    {
+      "id": "mod.of_the_veil",
+      "kind": "suffix",
+      "name": "of the Veil",
+      "tags": [
+        "defense"
+      ],
+      "tier_min": 4,
+      "tier_max": 5,
+      "values": {
+        "4": 0,
+        "5": 0
+      },
+      "power": {
+        "4": 3,
+        "5": 3
+      },
+      "grants": [
+        "trap_immune"
+      ],
+      "text": "Cannot be targeted by TRAPS.",
+      "weight": 40
+    },
+    {
+      "id": "mod.of_the_quiet",
+      "kind": "suffix",
+      "name": "of the Quiet",
+      "tags": [
+        "defense"
+      ],
+      "tier_min": 1,
+      "tier_max": 5,
+      "values": {
+        "1": 100,
+        "2": 200,
+        "3": 300,
+        "4": 400,
+        "5": 500
+      },
+      "power": {
+        "1": 1,
+        "2": 1,
+        "3": 2,
+        "4": 2,
+        "5": 3
+      },
+      "stat": "defense",
+      "condition": "defense_only",
+      "text": "+{value} DEF in Defense Position.",
+      "weight": 100
+    },
+    {
+      "id": "mod.of_the_last_word",
+      "kind": "suffix",
+      "name": "of the Last Word",
+      "tags": [
+        "defense"
+      ],
+      "tier_min": 5,
+      "tier_max": 5,
+      "values": {
+        "5": 0
+      },
+      "power": {
+        "5": 5
+      },
+      "grants": [
+        "last_word"
+      ],
+      "text": "Once per duel: negate an attack that would destroy this card.",
+      "weight": 20
+    },
+    {
+      "id": "mod.verdigris_hungry",
+      "kind": "verdigris",
+      "name": "Verdigris: Hungry",
+      "tags": [
+        "offense"
+      ],
+      "tier_min": 1,
+      "tier_max": 1,
+      "values": {
+        "1": 400
+      },
+      "power": {
+        "1": 4
+      },
+      "stat": "atk",
+      "grants": [
+        "cannot_equip"
+      ],
+      "text": "+400 ATK. Cannot be equipped.",
+      "weight": 25
+    },
+    {
+      "id": "mod.verdigris_open",
+      "kind": "verdigris",
+      "name": "Verdigris: Open",
+      "tags": [
+        "draw"
+      ],
+      "tier_min": 1,
+      "tier_max": 1,
+      "values": {
+        "1": 0
+      },
+      "power": {
+        "1": 4
+      },
+      "trigger": "on_call",
+      "steps": [
+        {
+          "action": "draw",
+          "amount": 2
+        },
+        {
+          "action": "dusk_discard",
+          "amount": 1
+        }
+      ],
+      "text": "KINDLE: Draw 2. At Dusk, discard 1.",
+      "weight": 25
+    },
+    {
+      "id": "mod.verdigris_still",
+      "kind": "verdigris",
+      "name": "Verdigris: Still",
+      "tags": [
+        "defense"
+      ],
+      "tier_min": 1,
+      "tier_max": 1,
+      "values": {
+        "1": -500
+      },
+      "power": {
+        "1": 3
+      },
+      "stat": "defense",
+      "grants": [
+        "trap_immune"
+      ],
+      "text": "Unaffected by TRAPS. -500 DEF.",
+      "weight": 25
+    },
+    {
+      "id": "mod.verdigris_ninth",
+      "kind": "verdigris",
+      "name": "Verdigris: Ninth",
+      "tags": [
+        "echo",
+        "token"
+      ],
+      "tier_min": 1,
+      "tier_max": 1,
+      "values": {
+        "1": 0
+      },
+      "power": {
+        "1": 5
+      },
+      "trigger": "on_destroy",
+      "steps": [
+        {
+          "action": "summon_token",
+          "atk": 1000,
+          "defense": 1000
+        },
+        {
+          "action": "banish_self_instead"
+        }
+      ],
+      "text": "ECHO: Summon a 1000/1000 token. Banish this card instead.",
+      "weight": 25
+    }
+  ],
+  "reagents": [
+    {
+      "id": "reagent.pale_ink",
+      "name": "Pale Ink",
+      "rarity": "common",
+      "verb": "Inscribe",
+      "tab": "inks",
+      "hotkey": "P",
+      "rule": "Plain -> Inscribed (1 mod). No effect on Inscribed+.",
+      "weight": 120
+    },
+    {
+      "id": "reagent.prism_ink",
+      "name": "Prism Ink",
+      "rarity": "uncommon",
+      "verb": "Reroll",
+      "tab": "inks",
+      "hotkey": "R",
+      "rule": "Reroll all mods. A fractured mod survives.",
+      "weight": 60
+    },
+    {
+      "id": "reagent.deep_ink",
+      "name": "Deep Ink",
+      "rarity": "uncommon",
+      "verb": "Add",
+      "tab": "inks",
+      "hotkey": "D",
+      "rule": "Add 1 mod (up to 4).",
+      "weight": 60
+    },
+    {
+      "id": "reagent.solvent",
+      "name": "Solvent",
+      "rarity": "common",
+      "verb": "Remove",
+      "tab": "solvents",
+      "hotkey": "S",
+      "rule": "Remove 1 random non-fractured mod.",
+      "weight": 90
+    },
+    {
+      "id": "reagent.varnish",
+      "name": "Varnish",
+      "rarity": "common",
+      "verb": "Quality",
+      "tab": "solvents",
+      "hotkey": "V",
+      "rule": "+1-3% quality, up to 20%.",
+      "weight": 100
+    },
+    {
+      "id": "reagent.fracture",
+      "name": "Fracture",
+      "rarity": "uncommon",
+      "verb": "Lock",
+      "tab": "seals",
+      "hotkey": "F",
+      "rule": "Lock 1 mod. Max 1 fractured.",
+      "weight": 55
+    },
+    {
+      "id": "reagent.crucible",
+      "name": "Crucible",
+      "rarity": "rare",
+      "verb": "Reroll all",
+      "tab": "seals",
+      "hotkey": "C",
+      "rule": "Reroll all mods. A fractured mod survives.",
+      "weight": 18
+    },
+    {
+      "id": "reagent.verdigris",
+      "name": "Verdigris",
+      "rarity": "rare",
+      "verb": "Corrupt",
+      "tab": "foul",
+      "hotkey": "X",
+      "rule": "Add 1 Verdigris mod. Locks further crafting.",
+      "weight": 18
+    },
+    {
+      "id": "reagent.echo",
+      "name": "Echo",
+      "rarity": "rare",
+      "verb": "Duplicate",
+      "tab": "rare",
+      "hotkey": "E",
+      "rule": "Exact copy. New instance; keeps lineage.",
+      "weight": 14
+    },
+    {
+      "id": "reagent.gold_leaf",
+      "name": "Gold Leaf",
+      "rarity": "rare",
+      "verb": "Shimmer",
+      "tab": "rare",
+      "hotkey": "G",
+      "rule": "Shimmer finish. Cosmetic; permanent.",
+      "weight": 14
+    }
+  ],
+  "folios": [
+    {
+      "id": "folio.paper",
+      "name": "Paper Folio",
+      "cards": 3,
+      "guarantee": "uncommon",
+      "provenance": 5,
+      "price": 120,
+      "shimmer_chance": 0.02,
+      "reagent_guarantee": null
+    },
+    {
+      "id": "folio.brass",
+      "name": "Brass Folio",
+      "cards": 5,
+      "guarantee": "rare",
+      "provenance": 25,
+      "price": 400,
+      "shimmer_chance": 0.05,
+      "reagent_guarantee": null
+    },
+    {
+      "id": "folio.deep",
+      "name": "Deep Folio",
+      "cards": 5,
+      "guarantee": "rare",
+      "provenance": 50,
+      "price": 750,
+      "shimmer_chance": 0.1,
+      "reagent_guarantee": null
+    },
+    {
+      "id": "folio.set",
+      "name": "Set Folio",
+      "cards": 5,
+      "guarantee": "rare",
+      "provenance": 25,
+      "price": 500,
+      "shimmer_chance": 0.05,
+      "reagent_guarantee": null
+    },
+    {
+      "id": "folio.salvage",
+      "name": "Salvage Cache",
+      "cards": 3,
+      "guarantee": "common_reagent",
+      "provenance": 1,
+      "price": 0,
+      "shimmer_chance": 0.0,
+      "reagent_guarantee": "reagent.pale_ink"
+    }
+  ],
+  "starters": [
+    {
+      "id": "starter.ember",
+      "name": "Ember Press",
+      "doctrine": "press",
+      "attribute": "ember",
+      "description": "Cheap attackers, Kindle pressure, and enough traps to survive the first floors.",
+      "deck": [
+        {
+          "def": "ember.cinder_hound",
+          "count": 3
+        },
+        {
+          "def": "ember.ash_moth",
+          "count": 3
+        },
+        {
+          "def": "ember.ember_scout",
+          "count": 3
+        },
+        {
+          "def": "tide.tidebound_archivist",
+          "count": 3
+        },
+        {
+          "def": "neutral.paper_warden",
+          "count": 3
+        },
+        {
+          "def": "verdant.bramble_wall",
+          "count": 3
+        },
+        {
+          "def": "umbra.grave_whisper",
+          "count": 3
+        },
+        {
+          "def": "tide.tidecall",
+          "count": 3
+        },
+        {
+          "def": "umbra.hollow_lantern",
+          "count": 3
+        },
+        {
+          "def": "neutral.quiet_ledger",
+          "count": 3
+        },
+        {
+          "def": "neutral.ninefold_seal",
+          "count": 3
+        },
+        {
+          "def": "verdant.bone_orchard",
+          "count": 2
+        },
+        {
+          "def": "umbra.shade_ninth",
+          "count": 2
+        },
+        {
+          "def": "verdant.verdant_colossus",
+          "count": 1
+        },
+        {
+          "def": "verdant.thorn_sentinel",
+          "count": 1
+        },
+        {
+          "def": "neutral.razeah_unbound",
+          "count": 1
+        }
+      ],
+      "sideboard": [
+        {
+          "def": "verdant.bone_orchard",
+          "count": 1
+        },
+        {
+          "def": "umbra.shade_ninth",
+          "count": 1
+        },
+        {
+          "def": "verdant.verdant_colossus",
+          "count": 1
+        },
+        {
+          "def": "verdant.thorn_sentinel",
+          "count": 2
+        }
+      ]
+    }
+  ],
+  "inks": [
+    {
+      "id": "ink.iron",
+      "name": "Iron",
+      "color": "#B9AE97",
+      "effect": "Neutral frame tint. The default."
+    },
+    {
+      "id": "ink.verdigris",
+      "name": "Verdigris",
+      "color": "#4E9E86",
+      "effect": "Patina on the frame ink lines."
+    },
+    {
+      "id": "ink.dusk",
+      "name": "Dusk",
+      "color": "#9A6FB0",
+      "effect": "Violet frame ink lines."
+    },
+    {
+      "id": "ink.ember",
+      "name": "Ember",
+      "color": "#D1603D",
+      "effect": "Warm red frame ink lines."
+    },
+    {
+      "id": "ink.frost",
+      "name": "Frost",
+      "color": "#4E9AC0",
+      "effect": "Cool blue frame ink lines."
+    },
+    {
+      "id": "ink.bone",
+      "name": "Bone",
+      "color": "#E7DCC4",
+      "effect": "Pale frame ink lines."
+    }
+  ],
+  "shimmers": [
+    {
+      "id": "shimmer.none",
+      "name": "None",
+      "effect": "No finish."
+    },
+    {
+      "id": "shimmer.gilt",
+      "name": "Gilt",
+      "color": "#D8B45A",
+      "effect": "A slow gold specular band."
+    },
+    {
+      "id": "shimmer.iridescent",
+      "name": "Iridescent",
+      "color": "#A9C6E8",
+      "effect": "A cool multi-hue band."
+    },
+    {
+      "id": "shimmer.verdigris",
+      "name": "Verdigris",
+      "color": "#4E9E86",
+      "effect": "A green patina gloss."
+    },
+    {
+      "id": "shimmer.moon",
+      "name": "Moon",
+      "color": "#D6D0C4",
+      "effect": "A silver-white band."
+    }
+  ],
+  "themes": [
+    {
+      "id": "theme.lacquer",
+      "name": "Lacquer",
+      "default": true
+    },
+    {
+      "id": "theme.paper",
+      "name": "Paper",
+      "default": false
+    },
+    {
+      "id": "theme.mono",
+      "name": "Mono",
+      "default": false
+    }
+  ]
+}

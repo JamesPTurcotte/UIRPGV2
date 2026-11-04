@@ -1,0 +1,19 @@
+id: umbra.grave_whisper
+set: set.core
+name: Grave Whisper
+type: spell
+spell_kind: normal
+attribute: umbra
+lineage: null
+offer: 0
+rarity: common
+role: resource
+effect_value: 3
+keywords: []
+text: "Return 1 monster from your Remains to your hand."
+effect:
+  trigger: on_activate
+  steps:
+    - action: return_from_remains
+      amount: 1
+      to: hand

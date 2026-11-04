@@ -1,0 +1,15 @@
+id: ember.ember_scout
+set: set.core
+name: Ember Scout
+type: monster
+attribute: ember
+lineage: beast
+offer: 1
+atk: 1600
+defense: 1000
+rarity: common
+role: threat
+effect_value: 1
+keywords: [fleet]
+text: "FLEET."
+effect: null

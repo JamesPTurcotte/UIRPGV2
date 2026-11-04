@@ -1,0 +1,18 @@
+id: neutral.ninefold_seal
+set: set.core
+name: Ninefold Seal
+type: trap
+trap_kind: counter
+attribute: neutral
+lineage: null
+offer: 0
+rarity: rare
+role: answer
+effect_value: 7
+keywords: []
+text: "Negate an attack, then banish the attacker."
+effect:
+  trigger: on_attack
+  steps:
+    - action: negate_attack
+      then_banish: true

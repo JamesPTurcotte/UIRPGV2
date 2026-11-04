@@ -1,0 +1,19 @@
+id: umbra.shade_ninth
+set: set.core
+name: Shade of the Ninth
+type: monster
+attribute: umbra
+lineage: spirit
+offer: 1
+atk: 1800
+defense: 1200
+rarity: uncommon
+role: payoff
+effect_value: 3
+keywords: []
+text: "ECHO: Draw 1."
+effect:
+  trigger: on_destroy
+  steps:
+    - action: draw
+      amount: 1

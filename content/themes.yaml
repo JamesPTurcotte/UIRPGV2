@@ -1,0 +1,12 @@
+# UI themes change tokens and materials, never layout or rules.
+- id: theme.lacquer
+  name: Lacquer
+  default: true
+
+- id: theme.paper
+  name: Paper
+  default: false
+
+- id: theme.mono
+  name: Mono
+  default: false

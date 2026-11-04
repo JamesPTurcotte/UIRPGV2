@@ -1,0 +1,15 @@
+id: neutral.paper_warden
+set: set.core
+name: Paper Warden
+type: monster
+attribute: neutral
+lineage: construct
+offer: 0
+atk: 800
+defense: 2000
+rarity: common
+role: glue
+effect_value: 2
+keywords: [veil]
+text: "VEIL."
+effect: null

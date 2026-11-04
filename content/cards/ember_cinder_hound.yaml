@@ -1,0 +1,20 @@
+id: ember.cinder_hound
+set: set.core
+name: Cinder Hound
+type: monster
+attribute: ember
+lineage: beast
+offer: 0
+atk: 1200
+defense: 800
+rarity: common
+role: threat
+effect_value: 2
+keywords: []
+text: "KINDLE: Deal 200 damage."
+effect:
+  trigger: on_call
+  steps:
+    - action: damage
+      amount: 200
+      target: opponent

@@ -1,0 +1,640 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="dark" />
+    <title>Razeah — Overlap Lab</title>
+    <meta
+      name="description"
+      content="Four core overlaps, five Side Spine cuts, and the upgrades that make a 145px tuck readable."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500;600;700&family=Orbitron:wght@500;700;900&family=VT323&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/readability.css" />
+    <link rel="stylesheet" href="css/overlap.css" />
+  </head>
+  <body>
+    <a class="skip" href="#examples">Skip to examples</a>
+
+    <header class="masthead">
+      <div class="masthead__inner">
+        <a class="wordmark" href="#top">
+          <span class="wordmark__mark">R</span>
+          <span>RAZEAH <em>/ overlap lab</em></span>
+        </a>
+        <nav class="mastnav" aria-label="Review sections">
+          <a href="#examples">01 Examples</a>
+          <a href="#spine-variations">02 Side Spine</a>
+          <a href="#spread">03 Spread</a>
+          <a href="#upgrades">04 Upgrades</a>
+          <a href="#decision">05 Decision</a>
+        </nav>
+        <div class="masttools">
+          <a class="toolbtn" href="duel-board.html">← Duel Board</a>
+          <a class="toolbtn" href="bigger.html">Bigger cards</a>
+          <a class="toolbtn" href="mats.html">Twin Mats</a>
+        </div>
+      </div>
+    </header>
+
+    <main id="top">
+      <section class="hero wrap">
+        <div class="hero__copy">
+          <p class="eyebrow"><span>Overlap lab</span><span>·</span><span>One token, four tucks</span></p>
+          <h1>The card behind<br /><em>the card.</em></h1>
+          <p class="lede">
+            Overlap is not one layout. It is a family of ways to hide a <b>145px</b>
+            spell/trap behind a <b>145px</b> monster. The card never changes size.
+            Only the peek changes. Four core examples, five Side Spine cuts, the
+            spread that makes them readable, and the upgrades that remove the guesswork.
+          </p>
+          <ul class="hero__facts">
+            <li><b>09</b><span>overlap examples</span></li>
+            <li><b>145</b><span>one card token</span></li>
+            <li><b>01</b><span>stack, never two sizes</span></li>
+            <li><b>06</b><span>upgrades that matter</span></li>
+          </ul>
+          <p class="hero__note">
+            The current shipping board is the **Index Tab 44** cut in section 02. The other
+            examples are options for the same 900 × 900 square, not a second card size.
+          </p>
+          <p class="hero__note">
+            <a href="duel-board.html" style="color: var(--cyan);">← Back to the Duel Board</a>
+            · <a href="index.html" style="color: var(--cyan);">Review index</a>
+          </p>
+        </div>
+        <div class="hero__visual ov-hero-visual">
+          <div
+            class="ov-lane ov-lane--top"
+            role="img"
+            aria-label="Top peek: a face-up trap card peeks 50 pixels above its monster."
+          >
+            <span class="ov-lane__tag">TOP PEEK · CORE</span>
+            <div class="ov-card ov-card--set">
+              <img src="assets/cards/neutral_ninefold_seal.png" alt="" draggable="false" />
+            </div>
+            <div class="ov-card ov-card--monster">
+              <img src="assets/cards/ember_cinder_hound.png" alt="" draggable="false" />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="wrap" id="examples">
+        <div class="section-head">
+          <span class="section-head__no">01 / FOUR OVERLAPS</span>
+          <h2>Same two cards. <em>Four peeks.</em></h2>
+          <p>
+            Each lane is the same 290px column and the same 145 × 203 card. The
+            difference is where the set card hides, and how much of it survives.
+          </p>
+          <p class="frame-note">
+            Actual-size card renders. The two shipping candidates — Top Peek and
+            Side Spine — are interactive: click the visible band or spine, use View,
+            change the peek, or flip the set card face.
+          </p>
+        </div>
+
+        <div class="ov-labbar">
+          <p><b>Interactive.</b> The 145px token never changes; only the tuck and the face do.</p>
+          <button class="ov-reset" id="ovReset" type="button">Reset examples</button>
+        </div>
+
+        <div class="ov-grid">
+          <article class="ov-ex" data-example="top">
+            <header class="ov-ex__head">
+              <span class="ov-ex__no">01</span>
+              <h3>Top Peek</h3>
+              <em data-spec>50px</em>
+            </header>
+            <div
+              class="ov-lane ov-lane--top"
+              style="--peek: 50px"
+              role="group"
+              aria-label="Top peek example. Click the visible band or use the controls."
+            >
+              <span class="ov-lane__tag">INTERACTIVE</span>
+              <div class="ov-card ov-card--set" data-set>
+                <img src="assets/cards/neutral_ninefold_seal.png" alt="" draggable="false" />
+              </div>
+              <div class="ov-card ov-card--monster">
+                <img src="assets/cards/ember_cinder_hound.png" alt="" draggable="false" />
+              </div>
+              <button class="ov-hotspot ov-hotspot--top" type="button" data-hotspot aria-label="View the set card behind the monster">
+                <span>VIEW</span>
+              </button>
+            </div>
+            <div class="ov-controls">
+              <button class="ov-view" type="button" data-view aria-expanded="false">View card behind</button>
+              <button class="ov-face" type="button" data-face aria-pressed="true">FACE-UP</button>
+              <label class="ov-range">
+                PEEK
+                <input type="range" min="24" max="50" value="50" data-peek />
+                <output>50px</output>
+              </label>
+            </div>
+            <p class="ov-state" data-state aria-live="polite">REST · 50px peek</p>
+            <div class="ov-up">
+              <p><b>What shows:</b> for a face-up card, the top band — name, type gem, and the start of the rules. A face-down set card shows the same band as a back, not its identity.</p>
+              <p><b>Cost:</b> 50px of vertical lane. <b>Best at:</b> the default 145 board; view/spread reveals the face-down card.</p>
+            </div>
+          </article>
+
+          <article class="ov-ex" data-example="side">
+            <header class="ov-ex__head">
+              <span class="ov-ex__no">02</span>
+              <h3>Side Spine</h3>
+              <em data-spec>28px</em>
+            </header>
+            <div
+              class="ov-lane ov-lane--side"
+              style="--spine: 28px"
+              role="group"
+              aria-label="Side spine example. Click the visible spine or use the controls."
+            >
+              <span class="ov-lane__tag">INTERACTIVE</span>
+              <div class="ov-card ov-card--set" data-set>
+                <img src="assets/cards/back.png" alt="" draggable="false" />
+              </div>
+              <div class="ov-card ov-card--monster">
+                <img src="assets/cards/ember_cinder_hound.png" alt="" draggable="false" />
+              </div>
+              <button class="ov-hotspot ov-hotspot--side" type="button" data-hotspot aria-label="View the set card behind the monster">
+                <span>↗</span>
+              </button>
+            </div>
+            <div class="ov-controls">
+              <button class="ov-view" type="button" data-view aria-expanded="false">View card behind</button>
+              <button class="ov-face" type="button" data-face aria-pressed="false">BACK</button>
+              <label class="ov-range">
+                SPINE
+                <input type="range" min="12" max="48" value="28" data-spine />
+                <output>28px</output>
+              </label>
+            </div>
+            <p class="ov-state" data-state aria-live="polite">REST · 28px spine</p>
+            <div class="ov-up">
+              <p><b>What shows:</b> a 28px right spine. The card is a physical object at the edge of the monster.</p>
+              <p><b>Cost:</b> no vertical lane; the name and rules are hidden. <b>Best at:</b> short windows. The type diamond is your own card only; an opponent's spine stays blank.</p>
+            </div>
+          </article>
+
+          <article class="ov-ex" data-example="angle">
+            <header class="ov-ex__head">
+              <span class="ov-ex__no">03</span>
+              <h3>Angle Tuck</h3>
+              <em data-spec>7°</em>
+            </header>
+            <div
+              class="ov-lane ov-lane--corner"
+              role="group"
+              aria-label="Angle tuck example. The set card is rotated behind the monster."
+            >
+              <span class="ov-lane__tag">ANGLED</span>
+              <div class="ov-card ov-card--set" data-set>
+                <img src="assets/cards/neutral_ninefold_seal.png" alt="" draggable="false" />
+              </div>
+              <div class="ov-card ov-card--monster">
+                <img src="assets/cards/ember_cinder_hound.png" alt="" draggable="false" />
+              </div>
+            </div>
+            <div class="ov-controls">
+              <button class="ov-view" type="button" data-view aria-expanded="false">View card behind</button>
+              <button class="ov-face" type="button" data-face aria-pressed="true">FACE-UP</button>
+            </div>
+            <p class="ov-state" data-state aria-live="polite">REST · click to view</p>
+            <div class="ov-up">
+              <p><b>What shows:</b> a rotated top band and corner. The most “card tucked under a card” read.</p>
+              <p><b>Cost:</b> the name band is angled and the right edge leaks; the angle needs tuning per window. <b>Best at:</b> a flourish, not the default.</p>
+            </div>
+          </article>
+
+          <article class="ov-ex" data-example="pocket">
+            <header class="ov-ex__head">
+              <span class="ov-ex__no">04</span>
+              <h3>Pocket Sleeve</h3>
+              <em data-spec>12px</em>
+            </header>
+            <div
+              class="ov-lane ov-lane--pocket"
+              role="group"
+              tabindex="0"
+              aria-label="Pocket sleeve example. Hover, focus, or use View to lift the set card."
+            >
+              <span class="ov-lane__tag">HOVER / VIEW</span>
+              <div class="ov-card ov-card--set" data-set>
+                <img src="assets/cards/back.png" alt="" draggable="false" />
+              </div>
+              <div class="ov-card ov-card--monster">
+                <img src="assets/cards/ember_cinder_hound.png" alt="" draggable="false" />
+              </div>
+            </div>
+            <div class="ov-controls">
+              <button class="ov-view" type="button" data-view aria-expanded="false">View card behind</button>
+              <button class="ov-face" type="button" data-face aria-pressed="false">BACK</button>
+            </div>
+            <p class="ov-state" data-state aria-live="polite">REST · hover or click to view</p>
+            <div class="ov-up">
+              <p><b>What shows:</b> a 12px lit edge and a recessed pocket. Almost nothing; the monster is the hero.</p>
+              <p><b>Cost:</b> identity at rest is near zero. Hover/focus is mandatory. <b>Best at:</b> the cleanest board, or a diagram.</p>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="wrap" id="spine-variations">
+        <div class="section-head">
+          <span class="section-head__no">02 / SIDE SPINE VARIATIONS</span>
+          <h2>Five ways to cut <em>the side.</em></h2>
+          <p>
+            The right spine is one cut, not the whole idea. Move it left, widen it
+            into an index tab, thin it to a sleeve, lift a corner, or slide the
+            whole card out into the empty mat width.
+          </p>
+          <p class="frame-note">
+            All five use the same 145 × 203 card. The slide-out is the only one that
+            shows both cards at once; it spends the space the lane already has.
+          </p>
+        </div>
+
+        <div class="ov-spine-grid">
+          <article class="ov-ex" data-example="spine-left">
+            <header class="ov-ex__head">
+              <span class="ov-ex__no">01</span>
+              <h3>Left Spine</h3>
+              <em>28px</em>
+            </header>
+            <div
+              class="ov-lane ov-lane--left"
+              role="group"
+              aria-label="Left spine example. A 28 pixel left edge of the set card peeks beside the monster."
+            >
+              <span class="ov-lane__tag">MIRROR</span>
+              <div class="ov-card ov-card--set" data-set>
+                <img src="assets/cards/back.png" alt="" draggable="false" />
+              </div>
+              <div class="ov-card ov-card--monster">
+                <img src="assets/cards/ember_cinder_hound.png" alt="" draggable="false" />
+              </div>
+              <button class="ov-hotspot ov-hotspot--spine" type="button" data-hotspot style="top: 48px; left: calc(50% - 115px); width: 28px; height: 203px" aria-label="View the set card behind the monster">
+                <span>↗</span>
+              </button>
+            </div>
+            <div class="ov-controls">
+              <button class="ov-view" type="button" data-view aria-expanded="false">View card behind</button>
+              <button class="ov-face" type="button" data-face aria-pressed="false">BACK</button>
+            </div>
+            <p class="ov-state" data-state aria-live="polite">REST · left 28px</p>
+            <div class="ov-up">
+              <p><b>What shows:</b> the same 28px edge on the left, with the type diamond moved to the left lip.</p>
+              <p><b>Best at:</b> the right-edge lane of the board, or a mirror layout. Same hit target; same hidden rules.</p>
+            </div>
+          </article>
+
+          <article class="ov-ex is-chosen" data-example="spine-index">
+            <header class="ov-ex__head">
+              <span class="ov-ex__no">02</span>
+              <h3>Index Tab</h3>
+              <em>44px</em>
+            </header>
+            <p class="ov-ex__chosen">CHOSEN CUT · LIVE TABLE</p>
+            <div
+              class="ov-lane ov-lane--index"
+              role="group"
+              aria-label="Index tab example. A 44 pixel side tab with a vertical rune column."
+            >
+              <span class="ov-lane__tag">WIDE TAB</span>
+              <div class="ov-card ov-card--set" data-set>
+                <img src="assets/cards/back.png" alt="" draggable="false" />
+              </div>
+              <div class="ov-card ov-card--monster">
+                <img src="assets/cards/ember_cinder_hound.png" alt="" draggable="false" />
+              </div>
+              <button class="ov-hotspot ov-hotspot--spine" type="button" data-hotspot style="top: 48px; left: calc(50% + 50.5px); width: 44px; height: 203px" aria-label="View the set card behind the monster">
+                <span>↗</span>
+              </button>
+            </div>
+            <div class="ov-controls">
+              <button class="ov-view" type="button" data-view aria-expanded="false">View card behind</button>
+              <button class="ov-face" type="button" data-face aria-pressed="false">BACK</button>
+            </div>
+            <p class="ov-state" data-state aria-live="polite">REST · 44px tab</p>
+            <div class="ov-up">
+              <p><b>What shows:</b> a 44px side tab with a vertical rune column. A much easier click target than 28px.</p>
+              <p><b>Cost:</b> it steals 16px more lane width. <b>Best at:</b> touch, accessibility, or a board with generous gutters. <b>Chosen:</b> the live table uses this 44px tab; hover lifts the full card forward.</p>
+            </div>
+          </article>
+
+          <article class="ov-ex" data-example="spine-hairline">
+            <header class="ov-ex__head">
+              <span class="ov-ex__no">03</span>
+              <h3>Hairline Sleeve</h3>
+              <em>6px</em>
+            </header>
+            <div
+              class="ov-lane ov-lane--hairline"
+              role="group"
+              aria-label="Hairline sleeve example. A six pixel lit edge is the only trace of the set card."
+            >
+              <span class="ov-lane__tag">MINIMAL</span>
+              <div class="ov-card ov-card--set" data-set>
+                <img src="assets/cards/back.png" alt="" draggable="false" />
+              </div>
+              <div class="ov-card ov-card--monster">
+                <img src="assets/cards/ember_cinder_hound.png" alt="" draggable="false" />
+              </div>
+              <button class="ov-hotspot ov-hotspot--spine" type="button" data-hotspot style="top: 48px; left: calc(50% + 58px); width: 10px; height: 203px" aria-label="View the set card behind the monster">
+                <span>↗</span>
+              </button>
+            </div>
+            <div class="ov-controls">
+              <button class="ov-view" type="button" data-view aria-expanded="false">View card behind</button>
+              <button class="ov-face" type="button" data-face aria-pressed="false">BACK</button>
+            </div>
+            <p class="ov-state" data-state aria-live="polite">REST · 6px sleeve</p>
+            <div class="ov-up">
+              <p><b>What shows:</b> a 6px cyan edge. Almost nothing; the monster is the hero and the mat stays calm.</p>
+              <p><b>Cost:</b> the hit target is tiny and the set card has no identity. <b>Best at:</b> a view button or a hover lift is mandatory.</p>
+            </div>
+          </article>
+
+          <article class="ov-ex" data-example="spine-corner">
+            <header class="ov-ex__head">
+              <span class="ov-ex__no">04</span>
+              <h3>Corner Tab</h3>
+              <em>28×14</em>
+            </header>
+            <div
+              class="ov-lane ov-lane--cornertab"
+              role="group"
+              aria-label="Corner tab example. The set card peeks from the right edge and the top edge at once."
+            >
+              <span class="ov-lane__tag">CORNER</span>
+              <div class="ov-card ov-card--set" data-set>
+                <img src="assets/cards/back.png" alt="" draggable="false" />
+              </div>
+              <div class="ov-card ov-card--monster">
+                <img src="assets/cards/ember_cinder_hound.png" alt="" draggable="false" />
+              </div>
+              <button class="ov-hotspot ov-hotspot--spine" type="button" data-hotspot style="top: 34px; left: calc(50% + 58px); width: 28px; height: 203px" aria-label="View the set card behind the monster">
+                <span>↗</span>
+              </button>
+            </div>
+            <div class="ov-controls">
+              <button class="ov-view" type="button" data-view aria-expanded="false">View card behind</button>
+              <button class="ov-face" type="button" data-face aria-pressed="false">BACK</button>
+            </div>
+            <p class="ov-state" data-state aria-live="polite">REST · corner tab</p>
+            <div class="ov-up">
+              <p><b>What shows:</b> a 28px right edge plus a 14px top edge. The card reads as a tab tucked under the monster’s shoulder.</p>
+              <p><b>Cost:</b> a little more visual noise than a pure side spine. <b>Best at:</b> a physical flourish with a readable hit target.</p>
+            </div>
+          </article>
+
+          <article class="ov-ex" data-example="spine-drawer" data-mode="drawer">
+            <header class="ov-ex__head">
+              <span class="ov-ex__no">05</span>
+              <h3>Slide-Out Drawer</h3>
+              <em>12→145</em>
+            </header>
+            <div
+              class="ov-lane ov-lane--drawer"
+              role="group"
+              aria-label="Slide-out drawer example. A 12 pixel spine slides out into a full card beside the monster."
+            >
+              <span class="ov-lane__tag">SLIDE-OUT</span>
+              <div class="ov-card ov-card--set" data-set>
+                <img src="assets/cards/back.png" alt="" draggable="false" />
+              </div>
+              <div class="ov-card ov-card--monster">
+                <img src="assets/cards/ember_cinder_hound.png" alt="" draggable="false" />
+              </div>
+              <button class="ov-hotspot ov-hotspot--spine" type="button" data-hotspot style="top: 48px; left: calc(50% + 58px); width: 12px; height: 203px" aria-label="Slide the set card out beside the monster">
+                <span>↗</span>
+              </button>
+            </div>
+            <div class="ov-controls">
+              <button class="ov-view" type="button" data-view aria-expanded="false">Slide card out</button>
+              <button class="ov-face" type="button" data-face aria-pressed="false">BACK</button>
+            </div>
+            <p class="ov-state" data-state aria-live="polite">REST · 12px spine</p>
+            <div class="ov-up">
+              <p><b>What shows:</b> the best readability of the five. The set card slides fully beside the monster; both 145px cards are visible at once.</p>
+              <p><b>Cost:</b> the lane needs its full 290px width. <b>Best at:</b> the Overlap board’s empty mat gutters, where that space already exists.</p>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="wrap" id="spread">
+        <div class="section-head">
+          <span class="section-head__no">03 / THE FIX</span>
+          <h2>Spread the stack <em>only while looking.</em></h2>
+          <p>
+            The best improvement is not a different card size. It is a temporary
+            separation: the monster moves down 30px and the set card keeps its 50px
+            peek. The board breathes for exactly as long as the player is reading.
+          </p>
+        </div>
+
+        <div class="ov-spread">
+          <div class="ov-spread__copy">
+            <p class="eyebrow eyebrow--plain">REST → SPREAD</p>
+            <h3>One gesture, no layout change.</h3>
+            <p>
+              At rest the lane is the shipping Top Peek. Toggle the spread to see the
+              same two 145px cards with the monster dropped 30px. The set card keeps
+              its size, its position, and its ownership; the player gets the name,
+              type, and first rules line back.
+            </p>
+            <p style="margin-top: 10px;">
+              In the game this is the hover/press state, or the selected-hand state.
+              The card never becomes a second size; the lane just opens.
+            </p>
+            <label class="ov-toggle" for="spread-toggle">
+              <input type="checkbox" id="spread-toggle" />
+              Toggle the stack
+            </label>
+          </div>
+          <div
+            class="ov-lane ov-lane--spread"
+            role="img"
+            aria-label="Spread state: the monster moves down 30 pixels to reveal more of the trap card."
+          >
+            <span class="ov-lane__tag">REST / SPREAD · 145px</span>
+            <div class="ov-card ov-card--set">
+              <img src="assets/cards/neutral_ninefold_seal.png" alt="" draggable="false" />
+            </div>
+            <div class="ov-card ov-card--monster">
+              <img src="assets/cards/ember_cinder_hound.png" alt="" draggable="false" />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="wrap" id="upgrades">
+        <div class="section-head">
+          <span class="section-head__no">04 / UPGRADES</span>
+          <h2>Six things that make any overlap <em>playable.</em></h2>
+          <p>
+            These are independent of which peek you choose. Most of them are small
+            presentation changes; none changes the 145px token or the rules.
+          </p>
+        </div>
+
+        <div class="ov-upgrades">
+          <article class="ov-up">
+            <span>01 / DEPTH</span>
+            <h3>Make a pocket, not a stack</h3>
+            <p>
+              A recessed slot, a top shadow, and a 1px lit lip tell the eye the card
+              is <b>inside the mat</b>. Without it, the set card reads as a rendering
+              mistake. This is the single highest-value visual fix.
+            </p>
+          </article>
+          <article class="ov-up">
+            <span>02 / HIT TARGET</span>
+            <h3>Add a side tab</h3>
+            <p>
+              The top band is only 33–50px tall. A 10–12px side tab with a type
+              diamond gives the set card a second click target and a visible edge
+              without changing its size. It also makes the overlap feel intentional.
+            </p>
+          </article>
+          <article class="ov-up">
+            <span>03 / MINIMUM</span>
+            <h3>Never go below a 28px peek</h3>
+            <p>
+              At 10px the nameplate becomes a sliver. Either keep <b>28–32px</b> for
+              the name band, or fall back to the 120px token on short windows. The
+              current stage already falls back at 1280 × 720; make the peek floor
+              explicit.
+            </p>
+          </article>
+          <article class="ov-up">
+            <span>04 / MOTION</span>
+            <h3>Animate the tuck and the break</h3>
+            <p>
+              When a card is set, slide it <b>up behind</b> the monster. When the
+              monster leaves, slide the set card <b>forward</b> into the empty lane.
+              When the set card dies, slide it <b>out</b> from behind. The overlap
+              becomes readable because the player saw it happen.
+            </p>
+          </article>
+          <article class="ov-up">
+            <span>05 / HAND</span>
+            <h3>Fan the hand, don't flatten it</h3>
+            <p>
+              Six 145px cards overlap by about 26px. Keep the token, add a slight
+              fan and a hover lift, and the names stay readable. The hand becomes a
+              hand, not a compressed row.
+            </p>
+          </article>
+          <article class="ov-up">
+            <span>06 / DRAWER</span>
+            <h3>Don't let the drawer eat the board</h3>
+            <p>
+              At 960 × 960 the 336px drawer covers a third of the lanes. A 280px
+              drawer, a bottom sheet, or auto-close on board click keeps the overlap
+              visible while the detail is open.
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <section class="wrap" id="decision">
+        <div class="section-head">
+          <span class="section-head__no">05 / DECISION</span>
+          <h2>Keep Index Tab. <em>Lift the card.</em></h2>
+          <p>
+            The live table now uses the **44px Index Tab**. It preserves the monster's full
+            face, gives the set card a visible edge and a real hit target, and the hover
+            lift shows the whole card without changing its size. The fixes are not a new
+            overlap; they are depth, a side tab, a minimum peek, and a spread on
+            hover/selection.
+          </p>
+        </div>
+
+        <div class="table-wrap">
+          <table class="compare-table overlap-table">
+            <thead>
+              <tr>
+                <th>Example</th>
+                <th>Shows at rest</th>
+                <th>Vertical cost</th>
+                <th>Best at</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><b>Top Peek</b></td>
+                <td>face-up name/type + rules line</td>
+                <td>50px</td>
+                <td>a top-band read</td>
+              </tr>
+              <tr>
+                <td><b>Side Spine</b></td>
+                <td>28px edge + type diamond</td>
+                <td>0px</td>
+                <td>short windows</td>
+              </tr>
+              <tr>
+                <td><b>Index Tab</b></td>
+                <td>44px tab + vertical runes</td>
+                <td>0px</td>
+                <td><b>the live table</b></td>
+              </tr>
+              <tr>
+                <td><b>Angle Tuck</b></td>
+                <td>rotated band + corner</td>
+                <td>7°</td>
+                <td>a physical flourish</td>
+              </tr>
+              <tr>
+                <td><b>Pocket Sleeve</b></td>
+                <td>12px lit edge</td>
+                <td>12px</td>
+                <td>the cleanest board</td>
+              </tr>
+              <tr>
+                <td><b>Spread on hover</b></td>
+                <td>80px peek while reading</td>
+                <td>0px at rest</td>
+                <td>every overlap above</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="ov-pick">
+          <div>
+            <p class="eyebrow eyebrow--plain">CHOSEN CUT</p>
+            <h3>Index Tab 44 + hover lift.</h3>
+            <p>
+              The live table uses the 44px side tab. It keeps the monster's full face,
+              gives the set card a visible edge and a real hit target, and the hover
+              lift shows the full 145px card forward. The pocket and drawer ideas stay
+              as future upgrades, not a second card size.
+            </p>
+          </div>
+          <ul>
+            <li><b>Done:</b> 44px tab + hover lift + tab ghost/legal target.</li>
+            <li><b>Do next:</b> tab-to-drawer slide on selection if you want both cards visible.</li>
+            <li><b>Do with the director:</b> tuck-in, slide-forward on break, slide-out on destroy.</li>
+            <li><b>Do not:</b> shrink the set card, hide the monster's name, or add a second token.</li>
+          </ul>
+        </div>
+      </section>
+    </main>
+
+    <footer class="wrap" style="padding: 30px 0 50px; color: var(--muted); font-family: var(--font-mono); font-size: 9px; letter-spacing: 0.08em;">
+      RAZEAH / Overlap lab · actual CardComposer renders · 145px token · no second card size
+    </footer>
+      <script src="js/overlap.js"></script>
+  </body>
+</html>

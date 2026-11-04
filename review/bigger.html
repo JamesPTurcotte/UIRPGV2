@@ -1,0 +1,608 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="dark" />
+    <title>Razeah — Bigger Lab</title>
+    <meta name="description" content="Actual-size table options for making the Razeah cards readable without losing a lane." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500;600;700&family=Orbitron:wght@500;700;900&family=VT323&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="css/readability.css" />
+    <link rel="stylesheet" href="css/bigger.css" />
+  </head>
+  <body>
+    <a class="skip" href="#options">Skip to tables</a>
+
+    <header class="masthead">
+      <div class="masthead__inner">
+        <a class="wordmark" href="#top"><span class="wordmark__mark">R</span><span>RAZEAH <em>/ bigger lab</em></span></a>
+        <nav class="mastnav" aria-label="Review sections">
+          <a href="#problem">01 Problem</a>
+          <a href="#options">02 Tables</a>
+          <a href="#lens">03 Lens</a>
+          <a href="#compare">04 Compare</a>
+          <a href="#pick">05 Pick</a>
+        </nav>
+        <div class="masttools">
+          <a class="toolbtn" href="overlap.html">← Overlap Lab</a>
+          <a class="toolbtn" href="duel-board.html">Duel Board</a>
+        </div>
+      </div>
+    </header>
+
+    <main id="top">
+      <section class="hero wrap">
+        <div class="hero__copy">
+          <p class="eyebrow"><span>Readability lab</span><span>·</span><span>After Index Tab 44</span></p>
+          <h1>The table fits.<br /><em>The card doesn’t read.</em></h1>
+          <p class="lede">
+            The layout is right; the card is too small. At 145px the name reads, the type line
+            barely, and the rules are decoration. The next sizes are not cosmetic: they change
+            what the table can communicate. Five actual-size tables, one on-demand lens, and
+            the cost of each.
+          </p>
+          <ul class="hero__facts">
+            <li><b>05</b><span>table options</span></li>
+            <li><b>145→220</b><span>card size</span></li>
+            <li><b>03</b><span>lanes always visible</span></li>
+            <li><b>00</b><span>hidden lanes</span></li>
+          </ul>
+          <p class="hero__note">
+            Frames are actual pixels. They will scroll horizontally in a narrow pane; use
+            <b>Fit frames</b> to compare the whole table at once. All options keep one card size
+            per table and the 44px Index Tab.
+          </p>
+          <p class="hero__note">
+            <a href="overlap.html" style="color: var(--cyan);">Overlap lab</a> ·
+            <a href="duel-board.html" style="color: var(--cyan);">Duel Board lab</a> ·
+            <a href="index.html" style="color: var(--cyan);">Review index</a>
+          </p>
+        </div>
+        <div class="hero__visual">
+          <div class="bg-sample" style="text-align:center;">
+            <img class="bg-sample__card" src="assets/cards/neutral_ninefold_seal.png" width="220" alt="" />
+            <span class="bg-sample__size">220px</span>
+            <span class="bg-sample__note">the widest table · option E</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="wrap" id="problem">
+        <div class="section-head">
+          <span class="section-head__no">01 / THE PROBLEM</span>
+          <h2>Same card. <em>Five readings.</em></h2>
+          <p>
+            These are the actual card renders at each size. The only thing changing is the
+            token. At 145 the rules are there, but they are not doing any work. At 200 they
+            start to; at 220 they read.
+          </p>
+          <p class="frame-note">
+            The card is the 600 × 840 render scaled down; the widths below are the real table
+            widths. The Index Tab stays 44px at every size.
+          </p>
+        </div>
+        <div class="bg-scale-row">
+          <div class="bg-sample">
+            <img class="bg-sample__card" src="assets/cards/neutral_ninefold_seal.png" width="145" alt="" />
+            <span class="bg-sample__size">145px</span>
+            <span class="bg-sample__note">rules decorative</span>
+          </div>
+<div class="bg-sample">
+            <img class="bg-sample__card" src="assets/cards/neutral_ninefold_seal.png" width="180" alt="" />
+            <span class="bg-sample__size">180px</span>
+            <span class="bg-sample__note">name + stats</span>
+          </div>
+<div class="bg-sample">
+            <img class="bg-sample__card" src="assets/cards/neutral_ninefold_seal.png" width="190" alt="" />
+            <span class="bg-sample__size">190px</span>
+            <span class="bg-sample__note">first rules line</span>
+          </div>
+<div class="bg-sample">
+            <img class="bg-sample__card" src="assets/cards/neutral_ninefold_seal.png" width="200" alt="" />
+            <span class="bg-sample__size">200px</span>
+            <span class="bg-sample__note">rules readable</span>
+          </div>
+<div class="bg-sample">
+            <img class="bg-sample__card" src="assets/cards/neutral_ninefold_seal.png" width="220" alt="" />
+            <span class="bg-sample__size">220px</span>
+            <span class="bg-sample__note">comfortable</span>
+          </div>
+        </div>
+        <div class="bg-opt-notes" style="margin-top: 16px; border: 1px solid var(--line);">
+          <div><h4>Where the rules start</h4><p><b>200px</b> is the first size where a full rule sentence is readable without a lean. <b>190</b> is the compromise; <b>180</b> is an overview with better names and stats.</p></div>
+          <div><h4>What you spend</h4><p>Either <b>window</b> (height or width), <b>hand placement</b> (overlap or side shelf), or <b>navigation chrome</b> (focus mode). The lanes never get hidden.</p></div>
+        </div>
+      </section>
+
+      <section class="wrap" id="options">
+        <div class="section-head">
+          <span class="section-head__no">02 / FIVE TABLES</span>
+          <h2>Bigger cards. <em>Same table language.</em></h2>
+          <p>
+            Each frame is the whole table at actual size. The cards, the Index Tab, the two
+            mats, the hand, and the dock are all there; the difference is the card budget and
+            where the space comes from.
+          </p>
+        </div>
+
+        <div class="bg-fitbar">
+          <p><b>Actual size.</b> The 960/1012/1060/1160 frames scroll in a narrow pane. Toggle fit for a whole-table comparison.</p>
+          <label class="bg-fit"><input type="checkbox" id="fitFrames" /> Fit frames to pane</label>
+        </div>
+
+        <div class="bg-options">
+          <article class="bg-option" id="opt-a">
+          <header class="bg-opt-head">
+            <div class="bg-opt-no">A</div>
+            <div class="bg-opt-title"><h3>180px · same window</h3><p>The conservative upgrade: keep the whole shell, add 35px to every card, tighten the score/dock by 20px and let the five-card hand overlap by 28%.</p></div>
+            <div class="bg-opt-specs"><span><b>180px</b> cards</span> <span><b>960×960</b> window</span> <span><b>bottom</b> hand</span> <span><b>+24%</b> vs 145</span></div>
+          </header>
+          <div class="bg-frame-wrap">
+            <div class="bg-window" style="--win-w:960px;--win-h:960px;--stage-h:900px;--nav-h:52px;--card:180px;--tab:44px;--score-h:48px;--dock-h:40px;--pad:8px;--gap:6px;--seam:8px;--lane-gap:22px;">
+              <div class="bg-nav">
+              <span class="bg-brand"><b>R</b> RAZEAH</span>
+              <span class="bg-tabs"><i>PLAY</i><i>LIBRARY</i><i>DECKS</i><i>PACKS</i></span>
+              <span class="bg-res">MARKS 1,914 · FOLIOS 2 · ?</span>
+            </div>
+              <div class="bg-table">
+                <div class="bg-score">
+              <div class="bg-side"><span>YOU</span><b>4,000</b><i class="bg-bar"></i></div>
+              <div class="bg-ticks"><i></i><i></i><i class="is-on"></i><i></i><i></i><i></i></div>
+              <div class="bg-side bg-side--hot"><span>THE DAMP WARDEN</span><b>4,000</b><span class="bg-pips"><i></i><i></i><i></i></span><i class="bg-bar"></i></div>
+              <div class="bg-tools"><span>⤢</span><span>≡</span></div>
+            </div>
+                <div class="bg-board">
+              <div class="bg-mat bg-mat--warden"><div class="bg-row">
+                <div class="bg-pair">
+                  <div class="bg-card bg-set"><img src="assets/cards/back.png" alt="" /></div>
+                  <div class="bg-card bg-monster"><img src="assets/cards/ember_cinder_hound.png" alt="" /></div>
+                </div>
+                <div class="bg-pair">
+                  <div class="bg-card bg-ghost"><span>+</span></div>
+                  <div class="bg-card bg-tab-ghost"><span>+</span></div>
+                </div>
+                <div class="bg-pair">
+                  <div class="bg-card bg-ghost"><span>+</span></div>
+                  <div class="bg-card bg-tab-ghost"><span>+</span></div>
+                </div>
+              </div></div>
+              <div class="bg-seam"></div>
+              <div class="bg-mat bg-mat--player"><div class="bg-row">
+                <div class="bg-pair">
+                  <div class="bg-card bg-set"><img src="assets/cards/back.png" alt="" /></div>
+                  <div class="bg-card bg-monster"><img src="assets/cards/verdant_bramble_wall.png" alt="" /></div>
+                </div>
+                <div class="bg-pair">
+                  <div class="bg-card bg-ghost"><span>+</span></div>
+                  <div class="bg-card bg-tab-ghost"><span>+</span></div>
+                </div>
+                <div class="bg-pair">
+                  <div class="bg-card bg-ghost"><span>+</span></div>
+                  <div class="bg-card bg-tab-ghost"><span>+</span></div>
+                </div>
+              </div></div>
+            </div>
+            <div class="bg-hand">
+              <div class="bg-deck"><img src="assets/cards/back.png" alt="" /><span>34</span></div>
+              <div class="bg-hand-card"><img src="assets/cards/ember_ash_moth.png" alt="" /></div>
+              <div class="bg-hand-card"><img src="assets/cards/ember_ember_scout.png" alt="" /></div>
+              <div class="bg-hand-card"><img src="assets/cards/ember_cinder_hound.png" alt="" /></div>
+              <div class="bg-hand-card"><img src="assets/cards/neutral_ninefold_seal.png" alt="" /></div>
+              <div class="bg-hand-card"><img src="assets/cards/verdant_bramble_wall.png" alt="" /></div>
+            </div>
+                <div class="bg-dock"><span>LIVE</span><span class="bg-btn">STRIKE</span><span class="bg-btn">END PHASE</span><span class="bg-btn">RESET</span></div>
+
+              </div>
+            </div>
+          </div>
+          <div class="bg-opt-notes">
+            <div><h4>What you get</h4><p>The 960 window and the four-door nav stay. The hand overlaps, the rules are still small, but the name, type, stats, and first effect line recover. This is the “do not change the window” ceiling with a bottom hand.</p></div>
+            <div><h4>The cost</h4><p>Rules are still only about 8.6px. If you need to read paragraphs at rest, this is not enough.</p></div>
+          </div>
+        </article>
+<article class="bg-option is-chosen" id="opt-b">
+          <header class="bg-opt-head">
+            <div class="bg-opt-no">B</div>
+            <div class="bg-opt-title"><h3>190px · focus window</h3><p>The best corner-window read: spend the 52px nav band on the cards. The table fills the 960 square; the doors move into the drawer.</p><p class="bg-chosen">CHOSEN READABILITY BUDGET</p></div>
+            <div class="bg-opt-specs"><span><b>190px</b> cards</span> <span><b>960×960</b> window</span> <span><b>no top nav</b> focus</span> <span><b>+31%</b> vs 145</span></div>
+          </header>
+          <div class="bg-frame-wrap">
+            <div class="bg-window" style="--win-w:960px;--win-h:960px;--stage-h:960px;--nav-h:0px;--card:190px;--tab:44px;--score-h:54px;--dock-h:40px;--pad:8px;--gap:6px;--seam:8px;--lane-gap:22px;">
+
+              <div class="bg-table">
+                <div class="bg-score">
+              <div class="bg-side"><span>YOU</span><b>4,000</b><i class="bg-bar"></i></div>
+              <div class="bg-ticks"><i></i><i></i><i class="is-on"></i><i></i><i></i><i></i></div>
+              <div class="bg-side bg-side--hot"><span>THE DAMP WARDEN</span><b>4,000</b><span class="bg-pips"><i></i><i></i><i></i></span><i class="bg-bar"></i></div>
+              <div class="bg-tools"><span>⤢</span><span>≡</span></div>
+            </div>
+                <div class="bg-board">
+              <div class="bg-mat bg-mat--warden"><div class="bg-row">
+                <div class="bg-pair">
+                  <div class="bg-card bg-set"><img src="assets/cards/back.png" alt="" /></div>
+                  <div class="bg-card bg-monster"><img src="assets/cards/ember_cinder_hound.png" alt="" /></div>
+                </div>
+                <div class="bg-pair">
+                  <div class="bg-card bg-ghost"><span>+</span></div>
+                  <div class="bg-card bg-tab-ghost"><span>+</span></div>
+                </div>
+                <div class="bg-pair">
+                  <div class="bg-card bg-ghost"><span>+</span></div>
+                  <div class="bg-card bg-tab-ghost"><span>+</span></div>
+                </div>
+              </div></div>
+              <div class="bg-seam"></div>
+              <div class="bg-mat bg-mat--player"><div class="bg-row">
+                <div class="bg-pair">
+                  <div class="bg-card bg-set"><img src="assets/cards/back.png" alt="" /></div>
+                  <div class="bg-card bg-monster"><img src="assets/cards/verdant_bramble_wall.png" alt="" /></div>
+                </div>
+                <div class="bg-pair">
+                  <div class="bg-card bg-ghost"><span>+</span></div>
+                  <div class="bg-card bg-tab-ghost"><span>+</span></div>
+                </div>
+                <div class="bg-pair">
+                  <div class="bg-card bg-ghost"><span>+</span></div>
+                  <div class="bg-card bg-tab-ghost"><span>+</span></div>
+                </div>
+              </div></div>
+            </div>
+            <div class="bg-hand">
+              <div class="bg-deck"><img src="assets/cards/back.png" alt="" /><span>34</span></div>
+              <div class="bg-hand-card"><img src="assets/cards/ember_ash_moth.png" alt="" /></div>
+              <div class="bg-hand-card"><img src="assets/cards/ember_ember_scout.png" alt="" /></div>
+              <div class="bg-hand-card"><img src="assets/cards/ember_cinder_hound.png" alt="" /></div>
+              <div class="bg-hand-card"><img src="assets/cards/neutral_ninefold_seal.png" alt="" /></div>
+              <div class="bg-hand-card"><img src="assets/cards/verdant_bramble_wall.png" alt="" /></div>
+            </div>
+                <div class="bg-dock"><span>LIVE</span><span class="bg-btn">STRIKE</span><span class="bg-btn">END PHASE</span><span class="bg-btn">RESET</span></div>
+
+              </div>
+            </div>
+          </div>
+          <div class="bg-opt-notes">
+            <div><h4>What you get</h4><p>This is the strongest “same window” option. The card grows 31%, the hand still fits along the bottom with overlap, and the board keeps all three lanes. The cost is the top nav; the drawer needs a DOORS entry.</p></div>
+            <div><h4>The cost</h4><p>The score, dock, and drawer stay. If the four doors must be visible at all times, this is not acceptable.</p><p class="frame-note" style="margin-top: 8px;">Next: <a href="accessible.html" style="color: var(--cyan);">grow the chrome to 125/150/200% →</a></p></div>
+          </div>
+        </article>
+<article class="bg-option" id="opt-c">
+          <header class="bg-opt-head">
+            <div class="bg-opt-no">C</div>
+            <div class="bg-opt-title"><h3>190px · taller window</h3><p>Keep the nav, add 52px of window height, and spend it on the 190px card. No focus mode, no side hand.</p></div>
+            <div class="bg-opt-specs"><span><b>190px</b> cards</span> <span><b>960×1012</b> window</span> <span><b>nav stays</b> hand</span> <span><b>+31%</b> vs 145</span></div>
+          </header>
+          <div class="bg-frame-wrap">
+            <div class="bg-window" style="--win-w:960px;--win-h:1012px;--stage-h:960px;--nav-h:52px;--card:190px;--tab:44px;--score-h:54px;--dock-h:40px;--pad:8px;--gap:6px;--seam:8px;--lane-gap:22px;">
+              <div class="bg-nav">
+              <span class="bg-brand"><b>R</b> RAZEAH</span>
+              <span class="bg-tabs"><i>PLAY</i><i>LIBRARY</i><i>DECKS</i><i>PACKS</i></span>
+              <span class="bg-res">MARKS 1,914 · FOLIOS 2 · ?</span>
+            </div>
+              <div class="bg-table">
+                <div class="bg-score">
+              <div class="bg-side"><span>YOU</span><b>4,000</b><i class="bg-bar"></i></div>
+              <div class="bg-ticks"><i></i><i></i><i class="is-on"></i><i></i><i></i><i></i></div>
+              <div class="bg-side bg-side--hot"><span>THE DAMP WARDEN</span><b>4,000</b><span class="bg-pips"><i></i><i></i><i></i></span><i class="bg-bar"></i></div>
+              <div class="bg-tools"><span>⤢</span><span>≡</span></div>
+            </div>
+                <div class="bg-board">
+              <div class="bg-mat bg-mat--warden"><div class="bg-row">
+                <div class="bg-pair">
+                  <div class="bg-card bg-set"><img src="assets/cards/back.png" alt="" /></div>
+                  <div class="bg-card bg-monster"><img src="assets/cards/ember_cinder_hound.png" alt="" /></div>
+                </div>
+                <div class="bg-pair">
+                  <div class="bg-card bg-ghost"><span>+</span></div>
+                  <div class="bg-card bg-tab-ghost"><span>+</span></div>
+                </div>
+                <div class="bg-pair">
+                  <div class="bg-card bg-ghost"><span>+</span></div>
+                  <div class="bg-card bg-tab-ghost"><span>+</span></div>
+                </div>
+              </div></div>
+              <div class="bg-seam"></div>
+              <div class="bg-mat bg-mat--player"><div class="bg-row">
+                <div class="bg-pair">
+                  <div class="bg-card bg-set"><img src="assets/cards/back.png" alt="" /></div>
+                  <div class="bg-card bg-monster"><img src="assets/cards/verdant_bramble_wall.png" alt="" /></div>
+                </div>
+                <div class="bg-pair">
+                  <div class="bg-card bg-ghost"><span>+</span></div>
+                  <div class="bg-card bg-tab-ghost"><span>+</span></div>
+                </div>
+                <div class="bg-pair">
+                  <div class="bg-card bg-ghost"><span>+</span></div>
+                  <div class="bg-card bg-tab-ghost"><span>+</span></div>
+                </div>
+              </div></div>
+            </div>
+            <div class="bg-hand">
+              <div class="bg-deck"><img src="assets/cards/back.png" alt="" /><span>34</span></div>
+              <div class="bg-hand-card"><img src="assets/cards/ember_ash_moth.png" alt="" /></div>
+              <div class="bg-hand-card"><img src="assets/cards/ember_ember_scout.png" alt="" /></div>
+              <div class="bg-hand-card"><img src="assets/cards/ember_cinder_hound.png" alt="" /></div>
+              <div class="bg-hand-card"><img src="assets/cards/neutral_ninefold_seal.png" alt="" /></div>
+              <div class="bg-hand-card"><img src="assets/cards/verdant_bramble_wall.png" alt="" /></div>
+            </div>
+                <div class="bg-dock"><span>LIVE</span><span class="bg-btn">STRIKE</span><span class="bg-btn">END PHASE</span><span class="bg-btn">RESET</span></div>
+
+              </div>
+            </div>
+          </div>
+          <div class="bg-opt-notes">
+            <div><h4>What you get</h4><p>This is option B without the nav trade. The card is still 31% bigger; the window is 52px taller, so a 900px-tall display cannot hold it. The hand and board are identical to the focus version.</p></div>
+            <div><h4>The cost</h4><p>The easiest explanation: “the same table, 52px taller.”</p></div>
+          </div>
+        </article>
+<article class="bg-option" id="opt-d">
+          <header class="bg-opt-head">
+            <div class="bg-opt-no">D</div>
+            <div class="bg-opt-title"><h3>200px · bottom hand</h3><p>The first size where the rules read. Keep the hand on the bottom with overlap, tighten the score and dock, and grow the window to 1060 × 1012.</p></div>
+            <div class="bg-opt-specs"><span><b>200px</b> cards</span><span><b>1060×1012</b> window</span><span><b>bottom</b> hand</span><span><b>+38%</b> vs 145</span></div>
+          </header>
+          <div class="bg-frame-wrap">
+            <div class="bg-window" style="--win-w:1060px;--win-h:1012px;--stage-h:960px;--nav-h:52px;--card:200px;--tab:44px;--score-h:48px;--dock-h:36px;--pad:6px;--gap:4px;--seam:8px;--lane-gap:22px;">
+              <div class="bg-nav">
+              <span class="bg-brand"><b>R</b> RAZEAH</span>
+              <span class="bg-tabs"><i>PLAY</i><i>LIBRARY</i><i>DECKS</i><i>PACKS</i></span>
+              <span class="bg-res">MARKS 1,914 · FOLIOS 2 · ?</span>
+            </div>
+              <div class="bg-table">
+                <div class="bg-score">
+              <div class="bg-side"><span>YOU</span><b>4,000</b><i class="bg-bar"></i></div>
+              <div class="bg-ticks"><i></i><i></i><i class="is-on"></i><i></i><i></i><i></i></div>
+              <div class="bg-side bg-side--hot"><span>THE DAMP WARDEN</span><b>4,000</b><span class="bg-pips"><i></i><i></i><i></i></span><i class="bg-bar"></i></div>
+              <div class="bg-tools"><span>⤢</span><span>≡</span></div>
+            </div>
+                <div class="bg-board">
+              <div class="bg-mat bg-mat--warden"><div class="bg-row">
+                <div class="bg-pair">
+                  <div class="bg-card bg-set"><img src="assets/cards/back.png" alt="" /></div>
+                  <div class="bg-card bg-monster"><img src="assets/cards/ember_cinder_hound.png" alt="" /></div>
+                </div>
+                <div class="bg-pair">
+                  <div class="bg-card bg-ghost"><span>+</span></div>
+                  <div class="bg-card bg-tab-ghost"><span>+</span></div>
+                </div>
+                <div class="bg-pair">
+                  <div class="bg-card bg-ghost"><span>+</span></div>
+                  <div class="bg-card bg-tab-ghost"><span>+</span></div>
+                </div>
+              </div></div>
+              <div class="bg-seam"></div>
+              <div class="bg-mat bg-mat--player"><div class="bg-row">
+                <div class="bg-pair">
+                  <div class="bg-card bg-set"><img src="assets/cards/back.png" alt="" /></div>
+                  <div class="bg-card bg-monster"><img src="assets/cards/verdant_bramble_wall.png" alt="" /></div>
+                </div>
+                <div class="bg-pair">
+                  <div class="bg-card bg-ghost"><span>+</span></div>
+                  <div class="bg-card bg-tab-ghost"><span>+</span></div>
+                </div>
+                <div class="bg-pair">
+                  <div class="bg-card bg-ghost"><span>+</span></div>
+                  <div class="bg-card bg-tab-ghost"><span>+</span></div>
+                </div>
+              </div></div>
+            </div>
+                <div class="bg-hand">
+              <div class="bg-deck"><img src="assets/cards/back.png" alt="" /><span>34</span></div>
+              <div class="bg-hand-card"><img src="assets/cards/ember_ash_moth.png" alt="" /></div>
+              <div class="bg-hand-card"><img src="assets/cards/ember_ember_scout.png" alt="" /></div>
+              <div class="bg-hand-card"><img src="assets/cards/ember_cinder_hound.png" alt="" /></div>
+              <div class="bg-hand-card"><img src="assets/cards/neutral_ninefold_seal.png" alt="" /></div>
+              <div class="bg-hand-card"><img src="assets/cards/verdant_bramble_wall.png" alt="" /></div>
+            </div>
+                <div class="bg-dock"><span>LIVE</span><span class="bg-btn">STRIKE</span><span class="bg-btn">END PHASE</span><span class="bg-btn">RESET</span></div>
+              </div>
+            </div>
+          </div>
+          <div class="bg-opt-notes">
+            <div><h4>What you get</h4><p>All the readability of 200px with the hand still along the bottom. The five cards overlap by 28%; the names and types stay visible. The board is 572px tall with 282px mats; the 280px cards are exact, so the port needs 4px more.</p></div>
+            <div><h4>The cost</h4><p>A wider and slightly taller window; the score and dock tighten by 4px each. This is the first option that is no longer a tiny corner table.</p></div>
+          </div>
+        </article>
+
+        <article class="bg-option" id="opt-e">
+          <header class="bg-opt-head">
+            <div class="bg-opt-no">E</div>
+            <div class="bg-opt-title"><h3>220px · tall table</h3><p>The biggest card that still uses the same anatomy. The hand stays on the bottom; the window grows to 1160 × 1096 so the 308px card and two mats have room.</p></div>
+            <div class="bg-opt-specs"><span><b>220px</b> cards</span><span><b>1160×1096</b> window</span><span><b>bottom</b> hand</span><span><b>+52%</b> vs 145</span></div>
+          </header>
+          <div class="bg-frame-wrap">
+            <div class="bg-window" style="--win-w:1160px;--win-h:1096px;--stage-h:1044px;--nav-h:52px;--card:220px;--tab:44px;--score-h:48px;--dock-h:36px;--pad:6px;--gap:4px;--seam:8px;--lane-gap:22px;">
+              <div class="bg-nav">
+              <span class="bg-brand"><b>R</b> RAZEAH</span>
+              <span class="bg-tabs"><i>PLAY</i><i>LIBRARY</i><i>DECKS</i><i>PACKS</i></span>
+              <span class="bg-res">MARKS 1,914 · FOLIOS 2 · ?</span>
+            </div>
+              <div class="bg-table">
+                <div class="bg-score">
+              <div class="bg-side"><span>YOU</span><b>4,000</b><i class="bg-bar"></i></div>
+              <div class="bg-ticks"><i></i><i></i><i class="is-on"></i><i></i><i></i><i></i></div>
+              <div class="bg-side bg-side--hot"><span>THE DAMP WARDEN</span><b>4,000</b><span class="bg-pips"><i></i><i></i><i></i></span><i class="bg-bar"></i></div>
+              <div class="bg-tools"><span>⤢</span><span>≡</span></div>
+            </div>
+                <div class="bg-board">
+              <div class="bg-mat bg-mat--warden"><div class="bg-row">
+                <div class="bg-pair">
+                  <div class="bg-card bg-set"><img src="assets/cards/back.png" alt="" /></div>
+                  <div class="bg-card bg-monster"><img src="assets/cards/ember_cinder_hound.png" alt="" /></div>
+                </div>
+                <div class="bg-pair">
+                  <div class="bg-card bg-ghost"><span>+</span></div>
+                  <div class="bg-card bg-tab-ghost"><span>+</span></div>
+                </div>
+                <div class="bg-pair">
+                  <div class="bg-card bg-ghost"><span>+</span></div>
+                  <div class="bg-card bg-tab-ghost"><span>+</span></div>
+                </div>
+              </div></div>
+              <div class="bg-seam"></div>
+              <div class="bg-mat bg-mat--player"><div class="bg-row">
+                <div class="bg-pair">
+                  <div class="bg-card bg-set"><img src="assets/cards/back.png" alt="" /></div>
+                  <div class="bg-card bg-monster"><img src="assets/cards/verdant_bramble_wall.png" alt="" /></div>
+                </div>
+                <div class="bg-pair">
+                  <div class="bg-card bg-ghost"><span>+</span></div>
+                  <div class="bg-card bg-tab-ghost"><span>+</span></div>
+                </div>
+                <div class="bg-pair">
+                  <div class="bg-card bg-ghost"><span>+</span></div>
+                  <div class="bg-card bg-tab-ghost"><span>+</span></div>
+                </div>
+              </div></div>
+            </div>
+                <div class="bg-hand">
+              <div class="bg-deck"><img src="assets/cards/back.png" alt="" /><span>34</span></div>
+              <div class="bg-hand-card"><img src="assets/cards/ember_ash_moth.png" alt="" /></div>
+              <div class="bg-hand-card"><img src="assets/cards/ember_ember_scout.png" alt="" /></div>
+              <div class="bg-hand-card"><img src="assets/cards/ember_cinder_hound.png" alt="" /></div>
+              <div class="bg-hand-card"><img src="assets/cards/neutral_ninefold_seal.png" alt="" /></div>
+              <div class="bg-hand-card"><img src="assets/cards/verdant_bramble_wall.png" alt="" /></div>
+            </div>
+                <div class="bg-dock"><span>LIVE</span><span class="bg-btn">STRIKE</span><span class="bg-btn">END PHASE</span><span class="bg-btn">RESET</span></div>
+              </div>
+            </div>
+          </div>
+          <div class="bg-opt-notes">
+            <div><h4>What you get</h4><p>At 220px the rules are about 10.6px and the card finally reads at rest. The hand is five cards plus the deck at 220px, overlapping by 28%; the board is 632px tall with 312px mats; the 308px cards need 2px more.</p></div>
+            <div><h4>The cost</h4><p>This is a full desktop window, not a corner window. It is the maximum before the card starts to dominate the room.</p></div>
+          </div>
+        </article>
+
+        <article class="bg-option" id="opt-f">
+          <header class="bg-opt-head">
+            <div class="bg-opt-no">F</div>
+            <div class="bg-opt-title"><h3>Detail Lens · keep 145</h3><p>If the window cannot move at all, leave the table as it is and show a 300px card on hover or click. The board stays quiet; the reading happens on demand.</p></div>
+            <div class="bg-opt-specs"><span><b>145px</b> board</span><span><b>960×960</b> window</span><span><b>300px</b> lens</span><span><b>0%</b> layout growth</span></div>
+          </header>
+          <div class="bg-frame-wrap">
+            <div class="bg-window" style="--win-w:960px;--win-h:960px;--stage-h:900px;--nav-h:52px;--card:145px;--tab:44px;--score-h:48px;--dock-h:40px;--pad:8px;--gap:6px;--seam:8px;--lane-gap:22px;">
+              <div class="bg-nav">
+              <span class="bg-brand"><b>R</b> RAZEAH</span>
+              <span class="bg-tabs"><i>PLAY</i><i>LIBRARY</i><i>DECKS</i><i>PACKS</i></span>
+              <span class="bg-res">MARKS 1,914 · FOLIOS 2 · ?</span>
+            </div>
+              <div class="bg-table">
+                <div class="bg-score">
+              <div class="bg-side"><span>YOU</span><b>4,000</b><i class="bg-bar"></i></div>
+              <div class="bg-ticks"><i></i><i></i><i class="is-on"></i><i></i><i></i><i></i></div>
+              <div class="bg-side bg-side--hot"><span>THE DAMP WARDEN</span><b>4,000</b><span class="bg-pips"><i></i><i></i><i></i></span><i class="bg-bar"></i></div>
+              <div class="bg-tools"><span>⤢</span><span>≡</span></div>
+            </div>
+                <div class="bg-board">
+              <div class="bg-mat bg-mat--warden"><div class="bg-row">
+                <div class="bg-pair">
+                  <div class="bg-card bg-set"><img src="assets/cards/back.png" alt="" /></div>
+                  <div class="bg-card bg-monster"><img src="assets/cards/ember_cinder_hound.png" alt="" /></div>
+                </div>
+                <div class="bg-pair">
+                  <div class="bg-card bg-ghost"><span>+</span></div>
+                  <div class="bg-card bg-tab-ghost"><span>+</span></div>
+                </div>
+                <div class="bg-pair">
+                  <div class="bg-card bg-ghost"><span>+</span></div>
+                  <div class="bg-card bg-tab-ghost"><span>+</span></div>
+                </div>
+              </div></div>
+              <div class="bg-seam"></div>
+              <div class="bg-mat bg-mat--player"><div class="bg-row">
+                <div class="bg-pair">
+                  <div class="bg-card bg-set"><img src="assets/cards/back.png" alt="" /></div>
+                  <div class="bg-card bg-monster"><img src="assets/cards/verdant_bramble_wall.png" alt="" /></div>
+                </div>
+                <div class="bg-pair">
+                  <div class="bg-card bg-ghost"><span>+</span></div>
+                  <div class="bg-card bg-tab-ghost"><span>+</span></div>
+                </div>
+                <div class="bg-pair">
+                  <div class="bg-card bg-ghost"><span>+</span></div>
+                  <div class="bg-card bg-tab-ghost"><span>+</span></div>
+                </div>
+              </div></div>
+            </div>
+            <div class="bg-hand">
+              <div class="bg-deck"><img src="assets/cards/back.png" alt="" /><span>34</span></div>
+              <div class="bg-hand-card"><img src="assets/cards/ember_ash_moth.png" alt="" /></div>
+              <div class="bg-hand-card"><img src="assets/cards/ember_ember_scout.png" alt="" /></div>
+              <div class="bg-hand-card"><img src="assets/cards/ember_cinder_hound.png" alt="" /></div>
+              <div class="bg-hand-card"><img src="assets/cards/neutral_ninefold_seal.png" alt="" /></div>
+              <div class="bg-hand-card"><img src="assets/cards/verdant_bramble_wall.png" alt="" /></div>
+            </div>
+                <div class="bg-dock"><span>LIVE</span><span class="bg-btn">STRIKE</span><span class="bg-btn">END PHASE</span><span class="bg-btn">RESET</span></div>
+                <div class="bg-lens">
+              <div class="bg-lens__card"><img src="assets/cards/neutral_ninefold_seal.png" alt="" /></div>
+              <span class="bg-lens__label">DETAIL LENS · 300px · BOARD STAYS 145</span>
+            </div>
+              </div>
+            </div>
+          </div>
+          <div class="bg-opt-notes">
+            <div><h4>What you get</h4><p>Every rule at 300px; no lane hidden, no hand clipped, no window change. The board remains a 145px overview and the lens is the reading surface.</p></div>
+            <div><h4>The cost</h4><p>The board cards themselves remain small. This fixes reading, not glanceability. The hover/click must be obvious; the lens is an interaction, not a layout.</p></div>
+          </div>
+        </article>
+      </section>
+
+      <section class="wrap" id="compare">
+        <div class="section-head">
+          <span class="section-head__no">04 / COMPARE</span>
+          <h2>Five budgets. <em>One card.</em></h2>
+        </div>
+        <div class="table-wrap">
+          <table class="compare-table">
+            <thead><tr><th>Option</th><th>Card</th><th>Window</th><th>Hand</th><th>Gain</th><th>Main cost</th></tr></thead>
+            <tbody>
+              <tr><td><b>A · 180 same</b></td><td>180px</td><td>960×960</td><td>bottom overlap</td><td>+24%</td><td>tight chrome; rules still small</td></tr>
+              <tr><td><b>B · 190 focus</b></td><td>190px</td><td>960×960</td><td>bottom overlap</td><td>+31%</td><td>top nav moves to drawer</td></tr>
+              <tr><td><b>C · 190 taller</b></td><td>190px</td><td>960×1012</td><td>bottom overlap</td><td>+31%</td><td>52px taller window</td></tr>
+              <tr><td><b>D · 200 bottom</b></td><td>200px</td><td>1060×1012</td><td>bottom overlap</td><td>+38%</td><td>wider/taller window</td></tr>
+              <tr><td><b>E · 220 tall</b></td><td>220px</td><td>1160×1096</td><td>bottom overlap</td><td>+52%</td><td>full desktop window</td></tr>
+              <tr><td><b>F · lens</b></td><td>145px + 300 lens</td><td>960×960</td><td>bottom overlap</td><td>0%</td><td>reading is on demand</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="wrap" id="pick">
+        <div class="section-head">
+          <span class="section-head__no">05 / PICK</span>
+          <h2>Choose the budget. <em>Not the card.</em></h2>
+          <p>
+            The card size is one decision per table. The rest is what you are willing to spend:
+            the nav, 52px of height, 100px of width, or a side hand.
+          </p>
+        </div>
+        <div class="ov-pick" style="border-color: rgba(255, 204, 85, 0.35); background: rgba(255, 204, 85, 0.035);">
+          <div>
+            <p class="eyebrow eyebrow--plain">MY PICK</p>
+            <h3>B · 190px focus for the corner.<br />D · 200px bottom hand if it can grow.</h3>
+            <p>
+              B is the best same-window upgrade: 31% bigger cards, all three lanes, the
+              Index Tab, and the bottom hand. The only sacrifice is the top nav — move the
+              doors into the drawer. D is the first table where the rules genuinely read at
+              rest; it costs a 1060×1012 window and a tighter score/dock.
+            </p>
+          </div>
+          <ul>
+            <li><b>Same window, keep nav:</b> A · 180.</li>
+            <li><b>Same window, best read:</b> B · 190 focus.</li>
+            <li><b>Window can grow:</b> D · 200 bottom hand.</li>
+            <li><b>Biggest:</b> E · 220 tall.</li>
+            <li><b>Layout frozen:</b> F · detail lens.</li>
+          </ul>
+        </div>
+      </section>
+    </main>
+
+    <footer class="wrap" style="padding: 30px 0 50px; color: var(--muted); font-family: var(--font-mono); font-size: 9px; letter-spacing: 0.08em;">
+      RAZEAH / Bigger lab · actual CardComposer renders · one card size per table · 44px Index Tab
+    </footer>
+
+    <script src="js/bigger.js"></script>
+  </body>
+</html>

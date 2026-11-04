@@ -1,0 +1,20 @@
+id: verdant.bone_orchard
+set: set.core
+name: Bone Orchard
+type: trap
+trap_kind: continuous
+attribute: verdant
+lineage: null
+offer: 0
+rarity: uncommon
+role: payoff
+effect_value: 5
+keywords: []
+text: "Once per turn, when a monster is destroyed, summon a 500/500 token in its lane."
+effect:
+  trigger: continuous
+  limit: once_per_turn
+  steps:
+    - action: on_destroy_summon
+      atk: 500
+      defense: 500

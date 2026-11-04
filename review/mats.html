@@ -1,0 +1,823 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="dark" />
+    <meta http-equiv="Cache-Control" content="no-store" />
+    <title>Razeah — Twin Mats</title>
+    <meta
+      name="description"
+      content="The tabletop pass: two playmats, three lanes always visible, no lane numerals, no OPEN/CALL, no guard sentence."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500;600;700&family=Orbitron:wght@500;700;900&family=VT323&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/readability.css" />
+    <link rel="stylesheet" href="css/surfaces.css" />
+    <link rel="stylesheet" href="css/mats.css?v=realcards-5" />
+  </head>
+  <body>
+    <a class="skip" href="#mats">Skip to mats</a>
+
+    <header class="masthead">
+      <div class="masthead__inner">
+        <a class="wordmark" href="#top">
+          <span class="wordmark__mark">R</span>
+          <span>RAZEAH <em>/ twin mats</em></span>
+        </a>
+        <nav class="mastnav" aria-label="Review sections">
+          <a href="#diagnosis">01 Removed</a>
+          <a href="#mats">02 Mats</a>
+          <a href="#compare">03 Compare</a>
+          <a href="#decision">04 Decision</a>
+        </nav>
+        <div class="masttools">
+          <button class="toolbtn toolbtn--run" id="runAll" type="button">▶ Run the exchange</button>
+          <button class="toolbtn" id="copyPick" type="button">Copy pick</button>
+        </div>
+      </div>
+    </header>
+
+    <main id="top">
+      <section class="hero wrap">
+        <div class="hero__copy">
+          <p class="eyebrow"><span>Third-pass tabletop review</span><span>·</span><span>Two mats, no labels</span></p>
+          <h1>Stop labelling<br /><em>the table.</em></h1>
+          <p class="lede">
+            You were right: <b>I · II · III</b>, <b>OPEN</b>, <b>CALL</b>, and
+            <b>◆ 1 GUARD · FACE SEALED</b> are not information. They are subtitles for
+            things the board can show. This pass keeps <b>all three lanes visible</b>,
+            builds the table as <b>two physical mats</b>, and lets silhouette, pips,
+            brackets, and residue do the talking.
+          </p>
+          <div class="hero__actions">
+            <a class="btn btn--signal" href="#mats">See the mats <span>↓</span></a>
+            <button class="btn btn--ghost" id="runAllHero" type="button">▶ Run the exchange</button>
+          </div>
+          <ul class="hero__facts">
+            <li><b>02</b><span>mats</span></li>
+            <li><b>03</b><span>lanes always visible</span></li>
+            <li><b>00</b><span>state labels</span></li>
+            <li><b>01</b><span>target bracket</span></li>
+          </ul>
+          <p class="hero__note">No tabs. No hidden lanes. No “OPEN” or “CALL”. Empty is a ghost slot; guarded is a card plus a lock pip; intent is a bracket; the lit mat edge is the turn.</p>
+          <p class="hero__note">Card faces are actual <b>CardComposer</b> renders exported at 2×. The square Duel Board option is the old mixed-size reference; the same-size lab is linked there.</p>
+        </div>
+        <div class="hero__visual">
+          <div class="patch-diagram">
+            <div class="patch-mat patch-mat--warden">
+              <i></i><i></i><i></i>
+            </div>
+            <div class="patch-seam"></div>
+            <div class="patch-mat patch-mat--player">
+              <i></i><i></i><i></i>
+            </div>
+          </div>
+          <p class="geometry__caption">
+            <b>The board is the label.</b> Three columns are three lanes. A card is a guard.
+            An empty slot is a ghost. The mat edge carries the score.
+          </p>
+        </div>
+      </section>
+
+      <section class="diagnosis wrap" id="diagnosis">
+        <div class="section-head">
+          <span class="section-head__no">01 / WHAT WAS REMOVED</span>
+          <h2>The labels were <em>the clutter.</em></h2>
+          <p>
+            The table repeated its own state in words. The mat pass removes the subtitle
+            and keeps the signal. Every state below is now read by shape, count, edge or
+            residue.
+          </p>
+        </div>
+
+        <div class="removed-grid">
+          <div class="removed-row"><span class="removed-x">I · II · III</span><span class="removed-arrow">→</span><span class="removed-keep">the three columns; position is the lane</span></div>
+          <div class="removed-row"><span class="removed-x">OPEN</span><span class="removed-arrow">→</span><span class="removed-keep">an empty ghost card with a plus</span></div>
+          <div class="removed-row"><span class="removed-x">CALL</span><span class="removed-arrow">→</span><span class="removed-keep">the plus <i>is</i> the call target</span></div>
+          <div class="removed-row"><span class="removed-x">GUARDED</span><span class="removed-arrow">→</span><span class="removed-keep">the enemy card; a lock pip on the mat</span></div>
+          <div class="removed-row"><span class="removed-x">◆ 1 GUARD · FACE SEALED</span><span class="removed-arrow">→</span><span class="removed-keep">three lock pips; fill = guard count</span></div>
+          <div class="removed-row"><span class="removed-x">NEXT · STRIKE · LANE I</span><span class="removed-arrow">→</span><span class="removed-keep">a pink target bracket on the threatened card</span></div>
+          <div class="removed-row"><span class="removed-x">DAWN · DRAW · CALL · ACT · CLASH · DUSK</span><span class="removed-arrow">→</span><span class="removed-keep">six ticks on the center seam; one is lit</span></div>
+          <div class="removed-row"><span class="removed-x">HAND 5 · DECK 34</span><span class="removed-arrow">→</span><span class="removed-keep">five cards; one stack with a number</span></div>
+        </div>
+
+        <div class="committee-strip">
+          <div>
+            <span>ALL LANES</span>
+            <p>No tabs, no focus lane, no hidden row. The three columns are the game. They stay on the table at every size.</p>
+          </div>
+          <div>
+            <span>TWO MATS</span>
+            <p>Opponent mat and player mat have different materials. The seam is the table; the hand and actions live on the table edge.</p>
+          </div>
+          <div>
+            <span>THE HIT</span>
+            <p>The card is the target. A 64–110px number lands on it; the mat edge and score respond; the scar stays. No log sentence.</p>
+          </div>
+        </div>
+
+        <div class="surface-map" aria-label="Mat options">
+          <a href="#opt-twin"><span>DEFAULT</span><b>Twin Mat</b><em>scores at the table edge</em></a>
+          <a href="#opt-clash"><span>AUTO / FOLLOW</span><b>Clash Rail</b><em>the seam is the event voice</em></a>
+          <a href="#opt-edge"><span>IMMERSIVE</span><b>Table Edge</b><em>scores printed on the mats</em></a>
+          <a href="#opt-corner"><span>PINNED</span><b>Corner Mat</b><em>all three lanes at 640</em></a>
+          <a href="#opt-bench"><span>BIGGEST CARDS</span><b>Side Bench</b><em>hand on a side ledge</em></a>
+          <a href="#opt-long"><span>TRANSPOSED</span><b>Long Table</b><em>two mats side by side</em></a>
+          <a href="#opt-ledger"><span>SCORE COLUMN</span><b>Ledger Rail</b><em>scores beside the table</em></a>
+          <a href="#opt-square"><span>SQUARE</span><b>Duel Board</b><em>900 × 900 table</em></a>
+        </div>
+      </section>
+
+      <section class="options wrap" id="mats">
+        <div class="section-head section-head--options">
+          <span class="section-head__no">02 / EIGHT MATS</span>
+          <h2>One table. <em>Eight tabletop expressions.</em></h2>
+          <p>
+            Each option keeps both mats, all three lanes, the 5:7 card, and the same
+            exchange: Cinder Hound catches Bramble Wall in Attack Position for 900, KINDLE adds 200, and
+            the scar stays.
+          </p>
+          <p class="frame-note">Frames are actual pixels. The 1360-wide mats scroll sideways in a narrow pane; the Corner Mat is the pinned size, Duel Board the square size.</p>
+        </div>
+
+        <nav class="option-index" aria-label="Mat index">
+          <a href="#opt-twin"><span>01</span> Twin Mat</a>
+          <a href="#opt-clash"><span>02</span> Clash Rail</a>
+          <a href="#opt-edge"><span>03</span> Table Edge</a>
+          <a href="#opt-corner"><span>04</span> Corner Mat</a>
+          <a href="#opt-bench"><span>05</span> Side Bench</a>
+          <a href="#opt-long"><span>06</span> Long Table</a>
+          <a href="#opt-ledger"><span>07</span> Ledger Rail</a>
+          <a href="#opt-square"><span>08</span> Duel Board</a>
+        </nav>
+
+        <article class="option" id="opt-twin" data-option="Twin Mat">
+          <header class="opt-head">
+            <div class="opt-no">01</div>
+            <div class="opt-title">
+              <p class="eyebrow eyebrow--plain">DEFAULT / TWO MATS / TABLE-EDGE SCORES</p>
+              <h2>Twin Mat</h2>
+              <p>The classic tabletop: two mats, three lanes, scores on the rail, hand on the table edge.</p>
+            </div>
+            <div class="opt-specs">
+              <span><b>1360 × 900</b>full</span>
+              <span><b>190px</b>cards</span>
+              <span><b>64px</b>damage</span>
+            </div>
+            <button class="pick" type="button" data-pick="Twin Mat">Choose this</button>
+          </header>
+
+          <div class="preview-wrap">
+            <div class="preview-label"><span>ACTUAL SIZE · SCROLL IN A NARROW PANE</span><span>1360 × 900 · 190px CARDS · 14px RULES</span></div>
+            <div class="preview mat-scene scene-twin" id="preview-twin" data-mat aria-hidden="true">
+              <div class="tm-score">
+                <div class="tm-side"><span>YOU</span><b>3,800</b></div>
+                <div class="tm-center"></div>
+                <div class="tm-side tm-side--hot"><span>THE DAMP WARDEN</span><b>4,000</b><span class="lock" aria-label="One guard"><i></i><i class="is-off"></i><i class="is-off"></i></span></div>
+              </div>
+
+              <div class="mat mat--warden">
+                <div class="mat-lanes">
+                  <div class="lane" aria-label="Warden lane one">
+                    <div class="back-peek"><div class="card-back"></div></div>
+                    <div class="card-slot" data-card="cinder" style="--cw: 190px; --name-size: 19px; --type-size: 10px; --stat-size: 32px; --rule-size: 14px"></div>
+                  </div>
+                  <div class="lane" aria-label="Warden lane two"><div class="ghost" style="--ghost-w: 190px"></div></div>
+                  <div class="lane" aria-label="Warden lane three"><div class="ghost" style="--ghost-w: 190px"></div></div>
+                </div>
+              </div>
+
+              <div class="seam">
+                <i></i>
+                <div class="phase-ticks"><i></i><i></i><i></i><i></i><i class="is-on"></i><i></i></div>
+                <i></i>
+              </div>
+
+              <div class="mat mat--player is-active">
+                <div class="mat-lanes">
+                  <div class="lane" aria-label="Player lane one"><div class="ghost" style="--ghost-w: 190px"></div></div>
+                  <div class="lane" aria-label="Player lane two"><div class="ghost" style="--ghost-w: 190px"></div></div>
+                  <div class="lane threat" aria-label="Player lane three, threatened">
+                    <div class="back-peek back-peek--you"><div class="card-back"></div></div>
+                    <div class="card-slot pv-target" data-card="verdant" style="--cw: 190px; --name-size: 19px; --type-size: 10px; --stat-size: 32px; --rule-size: 14px">
+                      <div class="fx fx-dmg">900</div>
+                      <div class="fx fx-name">KINDLE <b>200</b></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="hand-fan">
+                <div class="deck-stack">34</div>
+                <div class="card-slot" data-card="ash" data-simple="true" style="--cw: 110px; --name-size: 9.5px; --stat-size: 17px"></div>
+                <div class="card-slot" data-card="paper" data-simple="true" style="--cw: 110px; --name-size: 9.5px; --stat-size: 17px"></div>
+                <div class="card-slot" data-card="cinder" data-simple="true" style="--cw: 110px; --name-size: 9.5px; --stat-size: 17px"></div>
+                <div class="card-slot" data-card="nine" data-simple="true" style="--cw: 110px; --name-size: 9.5px; --stat-size: 17px"></div>
+                <div class="card-slot" data-card="verdant" data-simple="true" style="--cw: 110px; --name-size: 9.5px; --stat-size: 17px"></div>
+              </div>
+
+              <div class="mat-actions"><span class="table-btn table-btn--ghost">STRIKE</span><span class="table-btn">END TURN</span></div>
+            </div>
+            <button class="test" type="button" data-test="preview-twin">Test the exchange <span>▶</span></button>
+          </div>
+
+          <div class="opt-notes">
+            <div><h3>What changes</h3><ul><li>Two mats, all three lanes, no tabs or focus lane.</li><li>Empty monster zones are ghost cards with a plus; no OPEN/CALL text.</li><li>Guard is a lock with three pips on the Warden side; no guard sentence.</li></ul></div>
+            <div><h3>Effect language</h3><p>64px damage on the card, a pink target bracket before the hit, and the score at the table edge. The card stays the event.</p></div>
+            <div><h3>Tradeoff</h3><p>The table-edge score rail is one more surface. At 1360 it costs 56px; the mats still carry 190px cards.</p></div>
+          </div>
+        </article>
+
+        <article class="option" id="opt-clash" data-option="Clash Rail">
+          <header class="opt-head">
+            <div class="opt-no">02</div>
+            <div class="opt-title">
+              <p class="eyebrow eyebrow--plain">AUTO / THE SEAM IS THE EVENT VOICE</p>
+              <h2>Clash Rail</h2>
+              <p>Both scores and the last consequence live on a bright rail between the two mats.</p>
+            </div>
+            <div class="opt-specs">
+              <span><b>1360 × 900</b>full</span>
+              <span><b>180px</b>cards</span>
+              <span><b>26px</b>event line</span>
+            </div>
+            <button class="pick" type="button" data-pick="Clash Rail">Choose this</button>
+          </header>
+
+          <div class="preview-wrap">
+            <div class="preview-label"><span>ACTUAL SIZE · SCROLL IN A NARROW PANE</span><span>1360 × 900 · 180px CARDS · CENTER RAIL</span></div>
+            <div class="preview mat-scene scene-clash" id="preview-clash" data-mat aria-hidden="true">
+              <div class="mat mat--warden">
+                <div class="mat-lanes">
+                  <div class="lane" aria-label="Warden lane one">
+                    <div class="back-peek"><div class="card-back"></div></div>
+                    <div class="card-slot" data-card="cinder" style="--cw: 180px; --name-size: 18px; --type-size: 10px; --stat-size: 30px; --rule-size: 14px"></div>
+                  </div>
+                  <div class="lane" aria-label="Warden lane two"><div class="ghost" style="--ghost-w: 180px"></div></div>
+                  <div class="lane" aria-label="Warden lane three"><div class="ghost" style="--ghost-w: 180px"></div></div>
+                </div>
+              </div>
+
+              <div class="clash-rail">
+                <div class="clash-total"><span>YOU</span><b>3,800</b></div>
+                <div class="clash-now"><span>STRIKE</span><b>900</b><em>KINDLE <i>200</i></em><div class="phase-ticks"><i></i><i></i><i></i><i></i><i class="is-on"></i><i></i></div></div>
+                <div class="clash-total clash-total--hot"><span>THE DAMP WARDEN</span><b>4,000</b><span class="lock"><i></i><i class="is-off"></i><i class="is-off"></i></span></div>
+              </div>
+
+              <div class="mat mat--player is-active">
+                <div class="mat-lanes">
+                  <div class="lane" aria-label="Player lane one"><div class="ghost" style="--ghost-w: 180px"></div></div>
+                  <div class="lane" aria-label="Player lane two"><div class="ghost" style="--ghost-w: 180px"></div></div>
+                  <div class="lane threat" aria-label="Player lane three, threatened">
+                    <div class="back-peek back-peek--you"><div class="card-back"></div></div>
+                    <div class="card-slot pv-target" data-card="verdant" style="--cw: 180px; --name-size: 18px; --type-size: 10px; --stat-size: 30px; --rule-size: 14px">
+                      <div class="fx fx-dmg">900</div>
+                      <div class="fx fx-name">KINDLE <b>200</b></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="hand-fan">
+                <div class="deck-stack">34</div>
+                <div class="card-slot" data-card="ash" data-simple="true" style="--cw: 110px; --name-size: 9.5px; --stat-size: 17px"></div>
+                <div class="card-slot" data-card="paper" data-simple="true" style="--cw: 110px; --name-size: 9.5px; --stat-size: 17px"></div>
+                <div class="card-slot" data-card="cinder" data-simple="true" style="--cw: 110px; --name-size: 9.5px; --stat-size: 17px"></div>
+                <div class="card-slot" data-card="nine" data-simple="true" style="--cw: 110px; --name-size: 9.5px; --stat-size: 17px"></div>
+                <div class="card-slot" data-card="verdant" data-simple="true" style="--cw: 110px; --name-size: 9.5px; --stat-size: 17px"></div>
+              </div>
+
+              <div class="mat-actions"><span class="table-btn table-btn--ghost">STRIKE</span><span class="table-btn">END TURN</span></div>
+            </div>
+            <button class="test" type="button" data-test="preview-clash">Test the exchange <span>▶</span></button>
+          </div>
+
+          <div class="opt-notes">
+            <div><h3>What changes</h3><ul><li>No top score rail; the seam carries both totals.</li><li>The last consequence is always visible at 26px: STRIKE 900 / KINDLE 200.</li><li>All three lanes still visible on both mats.</li></ul></div>
+            <div><h3>Effect language</h3><p>The rail flashes, the card takes the number, the seams hold the event. This is the Auto-follow answer.</p></div>
+            <div><h3>Tradeoff</h3><p>The rail is 90px of vertical space, so the cards drop from 190 to 180. It is the most “broadcast” of the mat options.</p></div>
+          </div>
+        </article>
+
+        <article class="option" id="opt-edge" data-option="Table Edge">
+          <header class="opt-head">
+            <div class="opt-no">03</div>
+            <div class="opt-title">
+              <p class="eyebrow eyebrow--plain">IMMERSIVE / NO CHROME / SCORES ON THE MAT</p>
+              <h2>Table Edge</h2>
+              <p>No score bar. No rail. The mats are the interface; the scores and actions are printed on their borders.</p>
+            </div>
+            <div class="opt-specs">
+              <span><b>1360 × 900</b>full</span>
+              <span><b>180px</b>cards</span>
+              <span><b>0</b>separate HUD</span>
+            </div>
+            <button class="pick" type="button" data-pick="Table Edge">Choose this</button>
+          </header>
+
+          <div class="preview-wrap">
+            <div class="preview-label"><span>ACTUAL SIZE · SCROLL IN A NARROW PANE</span><span>1360 × 900 · SCORES IN THE MAT BORDERS</span></div>
+            <div class="preview mat-scene scene-edge" id="preview-edge" data-mat aria-hidden="true">
+              <div class="mat mat--warden mat--edge">
+                <div class="edge-bar edge-bar--top">
+                  <span class="edge-brand">THE DAMP WARDEN</span>
+                  <b>4,000</b>
+                  <span class="lock"><i></i><i class="is-off"></i><i class="is-off"></i></span>
+                </div>
+                <div class="mat-lanes">
+                  <div class="lane" aria-label="Warden lane one">
+                    <div class="back-peek"><div class="card-back"></div></div>
+                    <div class="card-slot" data-card="cinder" style="--cw: 180px; --name-size: 18px; --type-size: 10px; --stat-size: 30px; --rule-size: 14px"></div>
+                  </div>
+                  <div class="lane" aria-label="Warden lane two"><div class="ghost" style="--ghost-w: 180px"></div></div>
+                  <div class="lane" aria-label="Warden lane three"><div class="ghost" style="--ghost-w: 180px"></div></div>
+                </div>
+              </div>
+
+              <div class="seam seam--thin"><i></i><div class="phase-ticks"><i></i><i></i><i></i><i></i><i class="is-on"></i><i></i></div><i></i></div>
+
+              <div class="mat mat--player mat--edge is-active">
+                <div class="mat-lanes">
+                  <div class="lane" aria-label="Player lane one"><div class="ghost" style="--ghost-w: 180px"></div></div>
+                  <div class="lane" aria-label="Player lane two"><div class="ghost" style="--ghost-w: 180px"></div></div>
+                  <div class="lane threat" aria-label="Player lane three, threatened">
+                    <div class="back-peek back-peek--you"><div class="card-back"></div></div>
+                    <div class="card-slot pv-target" data-card="verdant" style="--cw: 180px; --name-size: 18px; --type-size: 10px; --stat-size: 30px; --rule-size: 14px">
+                      <div class="fx fx-dmg">900</div>
+                      <div class="fx fx-name">KINDLE <b>200</b></div>
+                    </div>
+                  </div>
+                </div>
+                <div class="edge-bar edge-bar--bottom">
+                  <span class="edge-brand">YOU</span>
+                  <b>3,800</b>
+
+                </div>
+              </div>
+
+              <div class="hand-fan">
+                <div class="deck-stack">34</div>
+                <div class="card-slot" data-card="ash" data-simple="true" style="--cw: 110px; --name-size: 9.5px; --stat-size: 17px"></div>
+                <div class="card-slot" data-card="paper" data-simple="true" style="--cw: 110px; --name-size: 9.5px; --stat-size: 17px"></div>
+                <div class="card-slot" data-card="cinder" data-simple="true" style="--cw: 110px; --name-size: 9.5px; --stat-size: 17px"></div>
+                <div class="card-slot" data-card="nine" data-simple="true" style="--cw: 110px; --name-size: 9.5px; --stat-size: 17px"></div>
+                <div class="card-slot" data-card="verdant" data-simple="true" style="--cw: 110px; --name-size: 9.5px; --stat-size: 17px"></div>
+              </div>
+
+              <div class="mat-actions"><span class="table-btn table-btn--ghost">STRIKE</span><span class="table-btn">END TURN</span></div>
+            </div>
+            <button class="test" type="button" data-test="preview-edge">Test the exchange <span>▶</span></button>
+          </div>
+
+          <div class="opt-notes">
+            <div><h3>What changes</h3><ul><li>No top bar, no central score rail. The mat borders carry the scores.</li><li>The player’s mat edge glows cyan on your turn; the Warden’s violet on theirs.</li><li>Guard lock pips sit in the Warden border; no sentence.</li></ul></div>
+            <div><h3>Effect language</h3><p>Damage lands on the card and the mat border score rolls. The border flashes once; the scar remains. The most physical option.</p></div>
+            <div><h3>Tradeoff</h3><p>There is no place to hide a long log. If you want the event sentence, choose Clash Rail. This is the pure table.</p></div>
+          </div>
+        </article>
+
+        <article class="option" id="opt-corner" data-option="Corner Mat">
+          <header class="opt-head">
+            <div class="opt-no">04</div>
+            <div class="opt-title">
+              <p class="eyebrow eyebrow--plain">PINNED / ALL LANES / 640 × 800</p>
+              <h2>Corner Mat</h2>
+              <p>The same two mats and all three lanes at 640px. The always-on-top table, not a scorebug.</p>
+            </div>
+            <div class="opt-specs">
+              <span><b>640 × 800</b>pinned</span>
+              <span><b>150px</b>cards</span>
+              <span><b>3</b>lanes visible</span>
+            </div>
+            <button class="pick" type="button" data-pick="Corner Mat">Choose this</button>
+          </header>
+
+          <div class="preview-wrap">
+            <div class="preview-label"><span>ACTUAL SIZE</span><span>640 × 800 · ALL THREE LANES · 150px CARDS</span></div>
+            <div class="preview mat-scene scene-corner" id="preview-corner" data-mat aria-hidden="true">
+              <div class="mat mat--warden mat--corner">
+                <div class="corner-bar"><span>THE DAMP WARDEN</span><b>4,000</b><span class="lock"><i></i><i class="is-off"></i><i class="is-off"></i></span></div>
+                <div class="mat-lanes">
+                  <div class="lane" aria-label="Warden lane one">
+                    <div class="back-peek"><div class="card-back"></div></div>
+                    <div class="card-slot" data-card="cinder" data-simple="true" style="--cw: 150px; --name-size: 13px; --stat-size: 24px"></div>
+                  </div>
+                  <div class="lane" aria-label="Warden lane two"><div class="ghost" style="--ghost-w: 150px"></div></div>
+                  <div class="lane" aria-label="Warden lane three"><div class="ghost" style="--ghost-w: 150px"></div></div>
+                </div>
+              </div>
+
+              <div class="seam seam--thin"><i></i><div class="phase-ticks"><i></i><i></i><i></i><i></i><i class="is-on"></i><i></i></div><i></i></div>
+
+              <div class="mat mat--player mat--corner is-active">
+                <div class="mat-lanes">
+                  <div class="lane" aria-label="Player lane one"><div class="ghost" style="--ghost-w: 150px"></div></div>
+                  <div class="lane" aria-label="Player lane two"><div class="ghost" style="--ghost-w: 150px"></div></div>
+                  <div class="lane threat" aria-label="Player lane three, threatened">
+                    <div class="back-peek back-peek--you"><div class="card-back"></div></div>
+                    <div class="card-slot pv-target" data-card="verdant" data-simple="true" style="--cw: 150px; --name-size: 13px; --stat-size: 24px">
+                      <div class="fx fx-dmg">900</div>
+                      <div class="fx fx-name">KINDLE <b>200</b></div>
+                    </div>
+                  </div>
+                </div>
+                <div class="corner-bar corner-bar--bottom"><span>YOU</span><b>3,800</b></div>
+              </div>
+
+              <div class="hand-fan hand-fan--corner">
+                <div class="deck-stack">34</div>
+                <div class="card-slot" data-card="ash" data-simple="true" style="--cw: 100px; --name-size: 9px; --stat-size: 15px"></div>
+                <div class="card-slot" data-card="paper" data-simple="true" style="--cw: 100px; --name-size: 9px; --stat-size: 15px"></div>
+                <div class="card-slot" data-card="cinder" data-simple="true" style="--cw: 100px; --name-size: 9px; --stat-size: 15px"></div>
+                <div class="card-slot" data-card="nine" data-simple="true" style="--cw: 100px; --name-size: 9px; --stat-size: 15px"></div>
+                <div class="card-slot" data-card="verdant" data-simple="true" style="--cw: 100px; --name-size: 9px; --stat-size: 15px"></div>
+              </div>
+
+              <div class="mat-actions"><span class="table-btn table-btn--ghost">STRIKE</span><span class="table-btn">END TURN</span></div>
+            </div>
+            <button class="test" type="button" data-test="preview-corner">Test the exchange <span>▶</span></button>
+          </div>
+
+          <div class="opt-notes">
+            <div><h3>What changes</h3><ul><li>All three lanes remain visible at 640px; no lane tabs.</li><li>Scores live in the mat borders; guard is a lock with pips.</li><li>Cards are simple at this size: name, ATK/DEF, no rules paragraph.</li></ul></div>
+            <div><h3>Effect language</h3><p>A 56px number on the card, a target bracket, a score change in the mat border. No log; the table stays the table.</p></div>
+            <div><h3>Tradeoff</h3><p>Rules live on hover/tap in the pinned size. 640×800 is a side panel, not a 340px scorebug.</p></div>
+          </div>
+        </article>
+      </section>
+
+        <article class="option" id="opt-bench" data-option="Side Bench">
+          <header class="opt-head">
+            <div class="opt-no">05</div>
+            <div class="opt-title">
+              <p class="eyebrow eyebrow--plain">BIGGEST CARDS / SIDE HAND LEDGE</p>
+              <h2>Side Bench</h2>
+              <p>The hand and actions move to a side ledge. The mats keep the full height; the cards grow to 220px.</p>
+            </div>
+            <div class="opt-specs">
+              <span><b>1360 × 900</b>full</span>
+              <span><b>220px</b>cards</span>
+              <span><b>16px</b>rules</span>
+            </div>
+            <button class="pick" type="button" data-pick="Side Bench">Choose this</button>
+          </header>
+
+          <div class="preview-wrap">
+            <div class="preview-label"><span>ACTUAL SIZE · SCROLL IN A NARROW PANE</span><span>1360 × 900 · 220px CARDS · SIDE HAND</span></div>
+            <div class="preview mat-scene scene-bench" id="preview-bench" data-mat aria-hidden="true">
+              <div class="bench-table">
+                <div class="mat mat--warden mat--edge">
+                  <div class="edge-bar edge-bar--top"><span class="edge-brand">THE DAMP WARDEN</span><b>4,000</b><span class="lock"><i></i><i class="is-off"></i><i class="is-off"></i></span></div>
+                  <div class="mat-lanes">
+                    <div class="lane" aria-label="Warden lane one">
+                      <div class="back-peek"><div class="card-back"></div></div>
+                      <div class="card-slot" data-card="cinder" style="--cw: 220px; --name-size: 22px; --type-size: 11px; --stat-size: 36px; --rule-size: 16px"></div>
+                    </div>
+                    <div class="lane" aria-label="Warden lane two"><div class="ghost" style="--ghost-w: 220px"></div></div>
+                    <div class="lane" aria-label="Warden lane three"><div class="ghost" style="--ghost-w: 220px"></div></div>
+                  </div>
+                </div>
+
+                <div class="seam seam--thin"><i></i><div class="phase-ticks"><i></i><i></i><i></i><i></i><i class="is-on"></i><i></i></div><i></i></div>
+
+                <div class="mat mat--player mat--edge is-active">
+                  <div class="mat-lanes">
+                    <div class="lane" aria-label="Player lane one"><div class="ghost" style="--ghost-w: 220px"></div></div>
+                    <div class="lane" aria-label="Player lane two"><div class="ghost" style="--ghost-w: 220px"></div></div>
+                    <div class="lane threat" aria-label="Player lane three, threatened">
+                      <div class="back-peek back-peek--you"><div class="card-back"></div></div>
+                      <div class="card-slot pv-target" data-card="verdant" style="--cw: 220px; --name-size: 22px; --type-size: 11px; --stat-size: 36px; --rule-size: 16px">
+                        <div class="fx fx-dmg">900</div>
+                        <div class="fx fx-name">KINDLE <b>200</b></div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="edge-bar edge-bar--bottom"><span class="edge-brand">YOU</span><b>3,800</b></div>
+                </div>
+              </div>
+
+              <aside class="bench-rail">
+                <div class="bench-deck"><div class="deck-stack">34</div></div>
+                <div class="bench-hand">
+                  <div class="card-slot" data-card="ash" data-simple="true" style="--cw: 110px; --name-size: 9.5px; --stat-size: 17px"></div>
+                  <div class="card-slot" data-card="paper" data-simple="true" style="--cw: 110px; --name-size: 9.5px; --stat-size: 17px"></div>
+                  <div class="card-slot" data-card="cinder" data-simple="true" style="--cw: 110px; --name-size: 9.5px; --stat-size: 17px"></div>
+                  <div class="card-slot" data-card="nine" data-simple="true" style="--cw: 110px; --name-size: 9.5px; --stat-size: 17px"></div>
+                  <div class="card-slot" data-card="verdant" data-simple="true" style="--cw: 110px; --name-size: 9.5px; --stat-size: 17px"></div>
+                </div>
+                <div class="bench-actions"><span class="table-btn table-btn--ghost">STRIKE</span><span class="table-btn">END TURN</span></div>
+              </aside>
+            </div>
+            <button class="test" type="button" data-test="preview-bench">Test the exchange <span>▶</span></button>
+          </div>
+
+          <div class="opt-notes">
+            <div><h3>What changes</h3><ul><li>The hand leaves the bottom edge and becomes a side ledge.</li><li>Mats keep the full height, so cards grow from 190 to 220px.</li><li>Scores stay in the mat borders; no hand label.</li></ul></div>
+            <div><h3>Effect language</h3><p>A 72px number on the card and a target bracket. The side hand stays fully visible while the exchange resolves.</p></div>
+            <div><h3>Tradeoff</h3><p>The hand is farther from the action. Best for a wide window where the player's eye can live on the mats.</p></div>
+          </div>
+        </article>
+
+        <article class="option" id="opt-long" data-option="Long Table">
+          <header class="opt-head">
+            <div class="opt-no">06</div>
+            <div class="opt-title">
+              <p class="eyebrow eyebrow--plain">SIDE-BY-SIDE MATS / LANES AS ROWS</p>
+              <h2>Long Table</h2>
+              <p>Two mats laid side by side; the three lanes become horizontal rows that meet at the center seam.</p>
+            </div>
+            <div class="opt-specs">
+              <span><b>1360 × 900</b>full</span>
+              <span><b>140px</b>cards</span>
+              <span><b>3</b>rows visible</span>
+            </div>
+            <button class="pick" type="button" data-pick="Long Table">Choose this</button>
+          </header>
+
+          <div class="preview-wrap">
+            <div class="preview-label"><span>ACTUAL SIZE · SCROLL IN A NARROW PANE</span><span>1360 × 900 · TWO MATS SIDE BY SIDE · THREE ROWS</span></div>
+            <div class="preview mat-scene scene-long" id="preview-long" data-mat aria-hidden="true">
+              <div class="tm-score">
+                <div class="tm-side"><span>YOU</span><b>3,800</b></div>
+                <div class="tm-center"><div class="phase-ticks"><i></i><i></i><i></i><i></i><i class="is-on"></i><i></i></div></div>
+                <div class="tm-side tm-side--hot"><span>THE DAMP WARDEN</span><b>4,000</b><span class="lock"><i></i><i class="is-off"></i><i class="is-off"></i></span></div>
+              </div>
+
+              <div class="long-board">
+                <div class="mat mat--warden mat--long">
+                  <div class="long-lanes">
+                    <div class="long-lane" aria-label="Warden lane one">
+                      <div class="back-peek"><div class="card-back"></div></div>
+                      <div class="card-slot" data-card="cinder" style="--cw: 140px; --name-size: 15px; --type-size: 9px; --stat-size: 24px; --rule-size: 11.5px"></div>
+                    </div>
+                    <div class="long-lane" aria-label="Warden lane two"><div class="ghost" style="--ghost-w: 140px"></div></div>
+                    <div class="long-lane" aria-label="Warden lane three"><div class="ghost" style="--ghost-w: 140px"></div></div>
+                  </div>
+                </div>
+
+                <div class="long-seam"><i></i><span></span><i></i></div>
+
+                <div class="mat mat--player mat--long is-active">
+                  <div class="long-lanes">
+                    <div class="long-lane" aria-label="Player lane one"><div class="ghost" style="--ghost-w: 140px"></div></div>
+                    <div class="long-lane" aria-label="Player lane two"><div class="ghost" style="--ghost-w: 140px"></div></div>
+                    <div class="long-lane threat" aria-label="Player lane three, threatened">
+                      <div class="back-peek back-peek--you"><div class="card-back"></div></div>
+                      <div class="card-slot pv-target" data-card="verdant" style="--cw: 140px; --name-size: 15px; --type-size: 9px; --stat-size: 24px; --rule-size: 11.5px">
+                        <div class="fx fx-dmg">900</div>
+                        <div class="fx fx-name">KINDLE <b>200</b></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="hand-fan">
+                <div class="deck-stack">34</div>
+                <div class="card-slot" data-card="ash" data-simple="true" style="--cw: 100px; --name-size: 9.5px; --stat-size: 16px"></div>
+                <div class="card-slot" data-card="paper" data-simple="true" style="--cw: 100px; --name-size: 9.5px; --stat-size: 16px"></div>
+                <div class="card-slot" data-card="cinder" data-simple="true" style="--cw: 100px; --name-size: 9.5px; --stat-size: 16px"></div>
+                <div class="card-slot" data-card="nine" data-simple="true" style="--cw: 100px; --name-size: 9.5px; --stat-size: 16px"></div>
+                <div class="card-slot" data-card="verdant" data-simple="true" style="--cw: 100px; --name-size: 9.5px; --stat-size: 16px"></div>
+              </div>
+
+              <div class="mat-actions"><span class="table-btn table-btn--ghost">STRIKE</span><span class="table-btn">END TURN</span></div>
+            </div>
+            <button class="test" type="button" data-test="preview-long">Test the exchange <span>▶</span></button>
+          </div>
+
+          <div class="opt-notes">
+            <div><h3>What changes</h3><ul><li>Two mats sit left and right; the lanes are horizontal rows.</li><li>All three rows remain visible; the central seam lines them up.</li><li>No lane numbers: the shared row is the lane.</li></ul></div>
+            <div><h3>Effect language</h3><p>Damage lands on the right-hand row card; the target bracket crosses the seam. The score rail at the top carries the totals.</p></div>
+            <div><h3>Tradeoff</h3><p>A transposed table takes one turn to learn. It is the most different spatial read of the eight.</p></div>
+          </div>
+        </article>
+
+        <article class="option" id="opt-ledger" data-option="Ledger Rail">
+          <header class="opt-head">
+            <div class="opt-no">07</div>
+            <div class="opt-title">
+              <p class="eyebrow eyebrow--plain">SIDE SCORE COLUMN / TABLE SCOREKEEPER</p>
+              <h2>Ledger Rail</h2>
+              <p>A scorekeeper's column on the left: both totals, the phase ticks, and the last consequence, while the mats use the full width.</p>
+            </div>
+            <div class="opt-specs">
+              <span><b>1360 × 900</b>full</span>
+              <span><b>190px</b>cards</span>
+              <span><b>0</b>top bars</span>
+            </div>
+            <button class="pick" type="button" data-pick="Ledger Rail">Choose this</button>
+          </header>
+
+          <div class="preview-wrap">
+            <div class="preview-label"><span>ACTUAL SIZE · SCROLL IN A NARROW PANE</span><span>1360 × 900 · 190px CARDS · SIDE SCORE COLUMN</span></div>
+            <div class="preview mat-scene scene-ledger" id="preview-ledger" data-mat aria-hidden="true">
+              <aside class="ledger-rail">
+                <div class="ledger-total ledger-total--hot"><span>THE DAMP WARDEN</span><b>4,000</b><span class="lock"><i></i><i class="is-off"></i><i class="is-off"></i></span></div>
+                <div class="ledger-total"><span>YOU</span><b>3,800</b></div>
+                <div class="phase-ticks"><i></i><i></i><i></i><i></i><i class="is-on"></i><i></i></div>
+                <div class="ledger-event"><span>STRIKE</span><b>900</b><em>KINDLE <i>200</i></em></div>
+                <div class="ledger-spacer"></div>
+              </aside>
+
+              <div class="ledger-table">
+                <div class="mat mat--warden">
+                  <div class="mat-lanes">
+                    <div class="lane" aria-label="Warden lane one">
+                      <div class="back-peek"><div class="card-back"></div></div>
+                      <div class="card-slot" data-card="cinder" style="--cw: 190px; --name-size: 19px; --type-size: 10px; --stat-size: 32px; --rule-size: 14px"></div>
+                    </div>
+                    <div class="lane" aria-label="Warden lane two"><div class="ghost" style="--ghost-w: 190px"></div></div>
+                    <div class="lane" aria-label="Warden lane three"><div class="ghost" style="--ghost-w: 190px"></div></div>
+                  </div>
+                </div>
+
+                <div class="seam"><i></i><i></i></div>
+
+                <div class="mat mat--player is-active">
+                  <div class="mat-lanes">
+                    <div class="lane" aria-label="Player lane one"><div class="ghost" style="--ghost-w: 190px"></div></div>
+                    <div class="lane" aria-label="Player lane two"><div class="ghost" style="--ghost-w: 190px"></div></div>
+                    <div class="lane threat" aria-label="Player lane three, threatened">
+                      <div class="back-peek back-peek--you"><div class="card-back"></div></div>
+                      <div class="card-slot pv-target" data-card="verdant" style="--cw: 190px; --name-size: 19px; --type-size: 10px; --stat-size: 32px; --rule-size: 14px">
+                        <div class="fx fx-dmg">900</div>
+                        <div class="fx fx-name">KINDLE <b>200</b></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="hand-fan">
+                  <div class="deck-stack">34</div>
+                  <div class="card-slot" data-card="ash" data-simple="true" style="--cw: 100px; --name-size: 9.5px; --stat-size: 16px"></div>
+                  <div class="card-slot" data-card="paper" data-simple="true" style="--cw: 100px; --name-size: 9.5px; --stat-size: 16px"></div>
+                  <div class="card-slot" data-card="cinder" data-simple="true" style="--cw: 100px; --name-size: 9.5px; --stat-size: 16px"></div>
+                  <div class="card-slot" data-card="nine" data-simple="true" style="--cw: 100px; --name-size: 9.5px; --stat-size: 16px"></div>
+                  <div class="card-slot" data-card="verdant" data-simple="true" style="--cw: 100px; --name-size: 9.5px; --stat-size: 16px"></div>
+                </div>
+                <div class="mat-actions"><span class="table-btn table-btn--ghost">STRIKE</span><span class="table-btn">END TURN</span></div>
+              </div>
+            </div>
+            <button class="test" type="button" data-test="preview-ledger">Test the exchange <span>▶</span></button>
+          </div>
+
+          <div class="opt-notes">
+            <div><h3>What changes</h3><ul><li>The scores and event line live in a left score column; the mats have no top bar or border scores.</li><li>The mats get the full width and height; cards stay at 190px.</li><li>The phase ticks appear twice: column and seam; the seam can be removed if that reads as repetition.</li></ul></div>
+            <div><h3>Effect language</h3><p>The rail shows the consequence at 32px; the card takes the 72px hit; the mat edge flashes.</p></div>
+            <div><h3>Tradeoff</h3><p>The left column is a second reading surface. It is the strongest for players who want one place to look for score and last event.</p></div>
+          </div>
+        </article>
+
+        <article class="option" id="opt-square" data-option="Duel Board">
+          <header class="opt-head">
+            <div class="opt-no">08</div>
+            <div class="opt-title">
+              <p class="eyebrow eyebrow--plain">SQUARE TABLETOP / SCORES IN THE MAT BORDERS</p>
+              <h2>Duel Board</h2>
+              <p>A 900 × 900 square table for a square window or tablet. Two mats, all three lanes, no state labels.</p>
+            </div>
+            <div class="opt-specs">
+              <span><b>900 × 900</b>square</span>
+              <span><b>165px</b>cards</span>
+              <span><b>13px</b>rules</span>
+            </div>
+            <button class="pick" type="button" data-pick="Duel Board">Choose this</button>
+          </header>
+
+          <p class="frame-note" style="margin: 0 0 10px; max-width: 900px;">This preview mixes a 165px board card with a 96px hand and 64px set peeks. <a href="duel-board.html" style="color: var(--cyan);">Open the four same-size Duel Board variants →</a> · <a href="overlap.html" style="color: var(--cyan);">See four overlap examples →</a></p>
+
+          <div class="preview-wrap">
+            <div class="preview-label"><span>ACTUAL SIZE</span><span>900 × 900 · SQUARE TABLE · 165px CARDS</span></div>
+            <div class="preview mat-scene scene-square" id="preview-square" data-mat aria-hidden="true">
+              <div class="mat mat--warden mat--edge">
+                <div class="edge-bar edge-bar--top"><span class="edge-brand">THE DAMP WARDEN</span><b>4,000</b><span class="lock"><i></i><i class="is-off"></i><i class="is-off"></i></span></div>
+                <div class="mat-lanes">
+                  <div class="lane" aria-label="Warden lane one">
+                    <div class="back-peek"><div class="card-back"></div></div>
+                    <div class="card-slot" data-card="cinder" style="--cw: 165px; --name-size: 17px; --type-size: 9px; --stat-size: 28px; --rule-size: 13px"></div>
+                  </div>
+                  <div class="lane" aria-label="Warden lane two"><div class="ghost" style="--ghost-w: 165px"></div></div>
+                  <div class="lane" aria-label="Warden lane three"><div class="ghost" style="--ghost-w: 165px"></div></div>
+                </div>
+              </div>
+
+              <div class="seam seam--thin"><i></i><div class="phase-ticks"><i></i><i></i><i></i><i></i><i class="is-on"></i><i></i></div><i></i></div>
+
+              <div class="mat mat--player mat--edge is-active">
+                <div class="mat-lanes">
+                  <div class="lane" aria-label="Player lane one"><div class="ghost" style="--ghost-w: 165px"></div></div>
+                  <div class="lane" aria-label="Player lane two"><div class="ghost" style="--ghost-w: 165px"></div></div>
+                  <div class="lane threat" aria-label="Player lane three, threatened">
+                    <div class="back-peek back-peek--you"><div class="card-back"></div></div>
+                    <div class="card-slot pv-target" data-card="verdant" style="--cw: 165px; --name-size: 17px; --type-size: 9px; --stat-size: 28px; --rule-size: 13px">
+                      <div class="fx fx-dmg">900</div>
+                      <div class="fx fx-name">KINDLE <b>200</b></div>
+                    </div>
+                  </div>
+                </div>
+                <div class="edge-bar edge-bar--bottom"><span class="edge-brand">YOU</span><b>3,800</b></div>
+              </div>
+
+              <div class="hand-fan hand-fan--square">
+                <div class="deck-stack">34</div>
+                <div class="card-slot" data-card="ash" data-simple="true" style="--cw: 96px; --name-size: 9px; --stat-size: 15px"></div>
+                <div class="card-slot" data-card="paper" data-simple="true" style="--cw: 96px; --name-size: 9px; --stat-size: 15px"></div>
+                <div class="card-slot" data-card="cinder" data-simple="true" style="--cw: 96px; --name-size: 9px; --stat-size: 15px"></div>
+                <div class="card-slot" data-card="nine" data-simple="true" style="--cw: 96px; --name-size: 9px; --stat-size: 15px"></div>
+                <div class="card-slot" data-card="verdant" data-simple="true" style="--cw: 96px; --name-size: 9px; --stat-size: 15px"></div>
+              </div>
+              <div class="mat-actions"><span class="table-btn table-btn--ghost">STRIKE</span><span class="table-btn">END TURN</span></div>
+            </div>
+            <button class="test" type="button" data-test="preview-square">Test the exchange <span>▶</span></button>
+          </div>
+
+          <div class="opt-notes">
+            <div><h3>What changes</h3><ul><li>The table is square; all three lanes stay visible in both mats.</li><li>Scores live in the mat borders; no top bar or rail.</li><li>Cards are 165px with 13px rules — smaller than Twin Mat, larger than Corner Mat.</li></ul></div>
+            <div><h3>Effect language</h3><p>64px damage on the card, a target bracket, and the mat border score. No log.</p></div>
+            <div><h3>Tradeoff</h3><p>A square window is a different product shape; it is not a full 16:9 table. Best for a tablet or a square pinned window.</p></div>
+          </div>
+        </article>
+
+      <section class="compare wrap" id="compare">
+        <div class="section-head">
+          <span class="section-head__no">03 / COMPARE</span>
+          <h2>No tabs. <em>No subtitles.</em></h2>
+          <p>
+            All four keep both mats, all three lanes, and the 5:7 card. The difference is
+            where the score and the event live.
+          </p>
+        </div>
+        <div class="table-wrap">
+          <table class="compare-table">
+            <thead>
+              <tr><th>Option</th><th>Window</th><th>Cards</th><th>Scores</th><th>Event voice</th><th>Chrome</th><th>Best for</th></tr>
+            </thead>
+            <tbody>
+              <tr><td><b>Twin Mat</b></td><td>1360 × 900</td><td>190px</td><td>top rail</td><td>64px on card</td><td>one score rail, hand, actions</td><td>default full-screen</td></tr>
+              <tr><td><b>Clash Rail</b></td><td>1360 × 900</td><td>180px</td><td>center rail</td><td>rail + 56px on card</td><td>center rail, hand, actions</td><td>Auto / follow</td></tr>
+              <tr><td><b>Table Edge</b></td><td>1360 × 900</td><td>180px</td><td>mat borders</td><td>72px on card</td><td>hand, actions only</td><td>immersion</td></tr>
+              <tr><td><b>Corner Mat</b></td><td>640 × 800</td><td>150px</td><td>mat borders</td><td>56px on card</td><td>hand, actions only</td><td>always-on-top</td></tr>
+              <tr><td><b>Side Bench</b></td><td>1360 × 900</td><td>220px</td><td>mat borders</td><td>72px on card</td><td>side hand ledge</td><td>biggest cards</td></tr>
+              <tr><td><b>Long Table</b></td><td>1360 × 900</td><td>140px</td><td>top rail</td><td>64px on card</td><td>hand, actions</td><td>transposed read</td></tr>
+              <tr><td><b>Ledger Rail</b></td><td>1360 × 900</td><td>190px</td><td>left column</td><td>72px on card</td><td>left score column, hand</td><td>one score place</td></tr>
+              <tr><td><b>Duel Board</b></td><td>900 × 900</td><td>165px</td><td>mat borders</td><td>64px on card</td><td>hand, actions only</td><td>square window</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="shortlist">
+          <article class="shortlist__card">
+            <span>THE DEFAULT</span>
+            <h3>Twin Mat</h3>
+            <p>Two mats, three lanes, scores at the table edge. The clearest full-screen tabletop answer.</p>
+          </article>
+          <article class="shortlist__card">
+            <span>THE PINNED TABLE</span>
+            <h3>Corner Mat</h3>
+            <p>All three lanes at 640px. The always-on-top version of the same table, not a scorebug.</p>
+          </article>
+          <article class="shortlist__card shortlist__card--accent">
+            <span>MY PICK</span>
+            <h3>Twin Mat + Corner Mat</h3>
+            <p>One tabletop language at two sizes. Use the Clash Rail seam if Auto becomes the main mode.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="decision wrap" id="decision">
+        <div class="decision__copy">
+          <p class="eyebrow"><span>04 / DECISION</span></p>
+          <h2>Pick a mat. <em>Or the family.</em></h2>
+          <p>
+            The tabletop language is now shared: two mats, three lanes, no state labels.
+            Pick the full-screen expression, the pinned size, or both. The labels are not
+            coming back.
+          </p>
+        </div>
+        <div class="decision__panel">
+          <span class="decision__label">CURRENT PICK</span>
+          <b id="pickName">Nothing picked yet</b>
+          <p id="pickNote">Pick a mat or the family. You can also name a hybrid in your reply.</p>
+          <div class="decision__actions">
+            <button class="btn btn--signal" data-pick="Twin Mat + Corner Mat" type="button">Pick the family</button>
+            <button class="btn btn--ghost" id="copyPickBottom" type="button">Copy pick</button>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <div class="pickbar" id="pickbar" hidden>
+      <span>PICKED</span>
+      <b id="pickbarName">—</b>
+      <button class="pickbar__copy" id="copyPickBar" type="button">Copy</button>
+      <button class="pickbar__close" id="closePickbar" type="button" aria-label="Clear pick">×</button>
+    </div>
+
+    <script src="js/mats.js?v=realcards-5"></script>
+  </body>
+</html>

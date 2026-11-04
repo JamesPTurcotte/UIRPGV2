@@ -1,0 +1,30 @@
+id: warden.copper
+name: The Copper Warden
+floor: 2
+circuit: 1
+doctrine: press
+ai_profile: brawler
+skill: 60
+modifier: opening_gambit
+boss: false
+reward_bias:
+  rarity: uncommon
+  reagent: reagent.deep_ink
+plan: "Copper pressure: curve out, attack the open lane, burn the last 800."
+tell: "Opening Gambit draws an extra card; it has no answer to a set trap."
+counterplay: "Bait the first attack, then punish the committed lane."
+deck:
+  - {def: ember.cinder_hound, count: 3}
+  - {def: ember.ash_moth, count: 3}
+  - {def: ember.ember_scout, count: 3}
+  - {def: tide.tidebound_archivist, count: 3}
+  - {def: neutral.paper_warden, count: 3}
+  - {def: verdant.bramble_wall, count: 3}
+  - {def: umbra.grave_whisper, count: 3}
+  - {def: tide.tidecall, count: 3}
+  - {def: umbra.hollow_lantern, count: 3}
+  - {def: neutral.quiet_ledger, count: 2}
+  - {def: neutral.ninefold_seal, count: 3}
+  - {def: verdant.bone_orchard, count: 3}
+  - {def: umbra.shade_ninth, count: 2}
+  - {def: verdant.verdant_colossus, count: 3}

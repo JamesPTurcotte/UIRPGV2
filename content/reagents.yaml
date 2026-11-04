@@ -1,0 +1,89 @@
+- id: reagent.pale_ink
+  name: Pale Ink
+  rarity: common
+  verb: Inscribe
+  tab: inks
+  hotkey: P
+  rule: "Plain -> Inscribed (1 mod). No effect on Inscribed+."
+  weight: 120
+
+- id: reagent.prism_ink
+  name: Prism Ink
+  rarity: uncommon
+  verb: Reroll
+  tab: inks
+  hotkey: R
+  rule: "Reroll all mods. A fractured mod survives."
+  weight: 60
+
+- id: reagent.deep_ink
+  name: Deep Ink
+  rarity: uncommon
+  verb: Add
+  tab: inks
+  hotkey: D
+  rule: "Add 1 mod (up to 4)."
+  weight: 60
+
+- id: reagent.solvent
+  name: Solvent
+  rarity: common
+  verb: Remove
+  tab: solvents
+  hotkey: S
+  rule: "Remove 1 random non-fractured mod."
+  weight: 90
+
+- id: reagent.varnish
+  name: Varnish
+  rarity: common
+  verb: Quality
+  tab: solvents
+  hotkey: V
+  rule: "+1-3% quality, up to 20%."
+  weight: 100
+
+- id: reagent.fracture
+  name: Fracture
+  rarity: uncommon
+  verb: Lock
+  tab: seals
+  hotkey: F
+  rule: "Lock 1 mod. Max 1 fractured."
+  weight: 55
+
+- id: reagent.crucible
+  name: Crucible
+  rarity: rare
+  verb: Reroll all
+  tab: seals
+  hotkey: C
+  rule: "Reroll all mods. A fractured mod survives."
+  weight: 18
+
+- id: reagent.verdigris
+  name: Verdigris
+  rarity: rare
+  verb: Corrupt
+  tab: foul
+  hotkey: X
+  rule: "Add 1 Verdigris mod. Locks further crafting."
+  weight: 18
+
+- id: reagent.echo
+  name: Echo
+  rarity: rare
+  verb: Duplicate
+  tab: rare
+  hotkey: E
+  rule: "Exact copy. New instance; keeps lineage."
+  weight: 14
+
+- id: reagent.gold_leaf
+  name: Gold Leaf
+  rarity: rare
+  verb: Shimmer
+  tab: rare
+  hotkey: G
+  rule: "Shimmer finish. Cosmetic; permanent."
+  weight: 14

@@ -1,0 +1,32 @@
+id: warden.ninth
+name: The Ninth Warden
+floor: 3
+circuit: 1
+doctrine: read
+ai_profile: hollow
+skill: 80
+modifier: ninth_veil
+boss: true
+reward_bias:
+  rarity: rare
+  reagent: reagent.verdigris
+plan: "The seal-keeper. Razeah, the Unbound is the signature; drag the duel long enough to Kindle it twice."
+tell: "Begins at 4500 Resolve. Ninefold Seal is always live."
+counterplay: "Force the Seal early, then commit the second threat. Banish beats Echo."
+boss_rule: "The Ninth Warden begins at 4500 Resolve."
+deck:
+  - {def: ember.cinder_hound, count: 3}
+  - {def: ember.ash_moth, count: 3}
+  - {def: ember.ember_scout, count: 3}
+  - {def: tide.tidebound_archivist, count: 3}
+  - {def: neutral.paper_warden, count: 3}
+  - {def: verdant.bramble_wall, count: 3}
+  - {def: umbra.grave_whisper, count: 3}
+  - {def: tide.tidecall, count: 3}
+  - {def: umbra.hollow_lantern, count: 3}
+  - {def: neutral.quiet_ledger, count: 2}
+  - {def: neutral.ninefold_seal, count: 3}
+  - {def: verdant.bone_orchard, count: 3}
+  - {def: umbra.shade_ninth, count: 2}
+  - {def: verdant.verdant_colossus, count: 2}
+  - {def: neutral.razeah_unbound, count: 1}

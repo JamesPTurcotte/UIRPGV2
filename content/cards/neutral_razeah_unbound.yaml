@@ -1,0 +1,21 @@
+id: neutral.razeah_unbound
+set: set.core
+name: Razeah, the Unbound
+type: monster
+attribute: neutral
+lineage: wanderer
+offer: 2
+atk: 3000
+defense: 2500
+rarity: legendary
+role: payoff
+effect_value: 6
+keywords: []
+text: "KINDLE: Return 1 card from your Remains to your hand. Once per duel."
+effect:
+  trigger: on_call
+  limit: once_per_duel
+  steps:
+    - action: return_from_remains
+      amount: 1
+      to: hand

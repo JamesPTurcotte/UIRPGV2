@@ -1,0 +1,483 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="dark" />
+    <meta http-equiv="Cache-Control" content="no-store" />
+    <title>Razeah — Duel Board Variations</title>
+    <meta
+      name="description"
+      content="Four Duel Board variations with one card size everywhere: hand, monsters, spell/trap row, and deck."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500;600;700&family=Orbitron:wght@500;700;900&family=VT323&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/readability.css" />
+    <link rel="stylesheet" href="css/surfaces.css" />
+    <link rel="stylesheet" href="css/mats.css?v=overlap-1" />
+    <link rel="stylesheet" href="css/duel-board.css?v=overlap-1" />
+  </head>
+  <body>
+    <a class="skip" href="#variants">Skip to variants</a>
+
+    <header class="masthead">
+      <div class="masthead__inner">
+        <a class="wordmark" href="#top">
+          <span class="wordmark__mark">R</span>
+          <span>RAZEAH <em>/ duel board lab</em></span>
+        </a>
+        <nav class="mastnav" aria-label="Review sections">
+          <a href="#rule">01 Rule</a>
+          <a href="#variants">02 Variants</a>
+          <a href="#compare">03 Compare</a>
+          <a href="#decision">04 Decision</a>
+        </nav>
+        <div class="masttools">
+          <button class="toolbtn toolbtn--run" id="runAll" type="button">▶ Run the exchange</button>
+          <button class="toolbtn" id="copyPick" type="button">Copy pick</button>
+        </div>
+      </div>
+    </header>
+
+    <main id="top">
+      <section class="hero wrap">
+        <div class="hero__copy">
+          <p class="eyebrow"><span>Duel Board variation lab</span><span>·</span><span>One card size</span></p>
+          <h1>One card size.<br /><em>Everywhere.</em></h1>
+          <p class="lede">
+            You love the Duel Board. This lab fixes the one broken rule: the hand, the monster
+            row, the spell/trap row, and the deck all use <b>the same 5:7 card token</b>. No
+            shrunken hand, no 64px set-card peeks. Four ways to keep all three lanes visible
+            inside 900 × 900.
+          </p>
+          <div class="hero__actions">
+            <a class="btn btn--signal" href="#variants">See the four boards <span>↓</span></a>
+            <button class="btn btn--ghost" id="runAllHero" type="button">▶ Run the exchange</button>
+          </div>
+          <ul class="hero__facts">
+            <li><b>04</b><span>Duel Board variants</span></li>
+            <li><b>01</b><span>card size per variant</span></li>
+            <li><b>03</b><span>lanes always visible</span></li>
+            <li><b>00</b><span>tiny card peeks</span></li>
+          </ul>
+          <p class="hero__note">The card size changes between variants. Inside a variant, every card — hand, monster, spell/trap, deck — is identical.</p>
+          <p class="hero__note">Card faces are actual <b>CardComposer</b> renders exported at 2×, so the review uses the same anatomy, seal, stats, rules, and back as the game.</p>
+          <p class="hero__note">The old CSS card imitation survives in <a href="readability.html" style="color: var(--cyan);">the rejected readability pass</a> for comparison.</p>
+        </div>
+        <div class="hero__visual">
+          <div class="db-rule-cards">
+            <div class="db-rule-card"><span>HAND</span><i></i><i></i><i></i></div>
+            <div class="db-rule-card"><span>MONSTER</span><i></i><i></i><i></i></div>
+            <div class="db-rule-card"><span>SPELL / TRAP</span><i></i><i></i><i></i></div>
+            <div class="db-rule-card"><span>DECK</span><i></i><i></i><i></i></div>
+          </div>
+          <p class="geometry__caption">
+            <b>One token, four places.</b> The board can vary the arrangement; it cannot vary the card.
+          </p>
+        </div>
+      </section>
+
+      <section class="diagnosis wrap" id="rule">
+        <div class="section-head">
+          <span class="section-head__no">01 / THE RULE</span>
+          <h2>The table was <em>cheating the card.</em></h2>
+          <p>
+            The old Duel Board used 165px board cards, 96px hand cards, and 64px set-card
+            peeks. That is three card sizes in one duel. The variants below use one size
+            per board — all 5:7, all with the same name/type/rules/stats anatomy.
+          </p>
+        </div>
+        <div class="committee-strip">
+          <div><span>HAND = BOARD</span><p>The card in your hand is the same object as the card on the mat. It can be played without changing size.</p></div>
+          <div><span>SPELL / TRAP = MONSTER</span><p>The backrow is a real row of full cards. A set card is a face-down card, not a stamp.</p></div>
+          <div><span>ALL LANES VISIBLE</span><p>No tabs, no focus lane, no hidden row. The square window shows the entire board.</p></div>
+        </div>
+      </section>
+
+      <section class="options wrap" id="variants">
+        <div class="section-head section-head--options">
+          <span class="section-head__no">02 / FOUR BOARDS</span>
+          <h2>Same square. <em>Four card budgets.</em></h2>
+          <p>
+            The size difference is the trade: every board shows all six zones per side and all
+            five hand cards, but the card size changes with how much overlap the layout uses.
+          </p>
+          <p class="frame-note">All frames are 900 × 900 actual pixels. The card size stated on each frame is the size of every card in that board.</p>
+        </div>
+
+        <nav class="option-index" aria-label="Duel Board variants">
+          <a href="#opt-db-grid"><span>01</span> Grid · 105</a>
+          <a href="#opt-db-overlap"><span>02</span> Overlap · 145</a>
+          <a href="#opt-db-shelf"><span>03</span> Shelf · 120</a>
+          <a href="#opt-db-mirror"><span>04</span> Mirror · 120</a>
+        </nav>
+
+        <article class="option" id="opt-db-grid" data-option="Duel Board — Grid">
+          <header class="opt-head">
+            <div class="opt-no">01</div>
+            <div class="opt-title">
+              <p class="eyebrow eyebrow--plain">EVERY CARD FULLY VISIBLE / 105px</p>
+              <h2>Grid</h2>
+              <p>Two mats, two full rows each: spell/trap row and monster row. Every card is 105px and nothing is hidden.</p>
+            </div>
+            <div class="opt-specs">
+              <span><b>900 × 900</b>square</span>
+              <span><b>105px</b>every card</span>
+              <span><b>12</b>board cards visible</span>
+            </div>
+            <button class="pick" type="button" data-pick="Duel Board — Grid">Choose this</button>
+          </header>
+
+          <div class="preview-wrap">
+            <div class="preview-label"><span>ACTUAL SIZE</span><span>900 × 900 · ALL CARDS 105px · ALL ZONES VISIBLE</span></div>
+            <div class="preview db-scene db-grid" id="preview-db-grid" data-db aria-hidden="true">
+              <div class="db-score">
+                <div class="db-side"><span>YOU</span><b>3,800</b></div>
+                <div class="phase-ticks"><i></i><i></i><i></i><i></i><i class="is-on"></i><i></i></div>
+                <div class="db-side db-side--hot"><span>THE DAMP WARDEN</span><b>4,000</b><span class="lock"><i></i><i class="is-off"></i><i class="is-off"></i></span></div>
+              </div>
+
+              <div class="db-grid-board">
+                <div class="db-grid-mat mat mat--warden">
+                  <div class="db-row db-row--back">
+                    <div class="db-slot"><div class="ghost"></div></div>
+                    <div class="db-slot"><div class="ghost"></div></div>
+                    <div class="db-slot"><div class="card-back"></div></div>
+                  </div>
+                  <div class="db-row db-row--front">
+                    <div class="db-slot"><div class="ghost"></div></div>
+                    <div class="db-slot"><div class="ghost"></div></div>
+                    <div class="db-slot"><div class="card-slot" data-card="cinder"></div></div>
+                  </div>
+                </div>
+
+                <div class="db-seam"></div>
+
+                <div class="db-grid-mat mat mat--player is-active">
+                  <div class="db-row db-row--front">
+                    <div class="db-slot"><div class="ghost"></div></div>
+                    <div class="db-slot"><div class="ghost"></div></div>
+                    <div class="db-slot threat"><div class="card-slot pv-target" data-card="verdant"><div class="fx fx-dmg">900</div><div class="fx fx-name">KINDLE <b>200</b></div></div></div>
+                  </div>
+                  <div class="db-row db-row--back">
+                    <div class="db-slot"><div class="ghost"></div></div>
+                    <div class="db-slot"><div class="ghost"></div></div>
+                    <div class="db-slot"><div class="card-back"></div></div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="db-hand">
+                <div class="db-deck"><div class="card-back"></div><span>34</span></div>
+                <div class="card-slot" data-card="ash" data-simple="true"></div>
+                <div class="card-slot" data-card="paper" data-simple="true"></div>
+                <div class="card-slot" data-card="cinder" data-simple="true"></div>
+                <div class="card-slot" data-card="nine" data-simple="true"></div>
+                <div class="card-slot" data-card="verdant" data-simple="true"></div>
+              </div>
+              <div class="db-actions"><span class="table-btn table-btn--ghost">STRIKE</span><span class="table-btn">END TURN</span></div>
+            </div>
+            <button class="test" type="button" data-test="preview-db-grid">Test the exchange <span>▶</span></button>
+          </div>
+
+          <div class="opt-notes">
+            <div><h3>What changes</h3><ul><li>Every spell/trap slot is a full card back at the same size as the monster.</li><li>Every hand card is the same size as the board card.</li><li>Four complete rows survive inside 900px by using a 105px card.</li></ul></div>
+            <div><h3>Effect language</h3><p>Damage on the card, target bracket, score rail. No peeks, no shrunken hand.</p></div>
+            <div><h3>Tradeoff</h3><p>105px is the smallest card in the set, but it is the only size where all 12 board cards and five hand cards are fully visible.</p></div>
+          </div>
+        </article>
+
+        <article class="option" id="opt-db-overlap" data-option="Duel Board — Overlap">
+          <header class="opt-head">
+            <div class="opt-no">02</div>
+            <div class="opt-title">
+              <p class="eyebrow eyebrow--plain">BIGGEST CARDS / SPELL-TRAP TUCKED BEHIND</p>
+              <h2>Overlap</h2>
+              <p>The spell/trap row slides behind the monster row at the same 145px size. Big cards, physical overlap.</p>
+            </div>
+            <div class="opt-specs">
+              <span><b>900 × 900</b>square</span>
+              <span><b>145px</b>every card</span>
+              <span><b>6</b>cards per side</span>
+            </div>
+            <button class="pick" type="button" data-pick="Duel Board — Overlap">Choose this</button>
+          </header>
+
+          <div class="preview-wrap">
+            <div class="preview-label"><span>ACTUAL SIZE</span><span>900 × 900 · ALL CARDS 145px · SPELL/TRAP ROW TUCKED</span></div>
+            <div class="preview db-scene db-overlap" id="preview-db-overlap" data-db aria-hidden="true">
+              <div class="db-score">
+                <div class="db-side"><span>YOU</span><b>3,800</b></div>
+                <div class="phase-ticks"><i></i><i></i><i></i><i></i><i class="is-on"></i><i></i></div>
+                <div class="db-side db-side--hot"><span>THE DAMP WARDEN</span><b>4,000</b><span class="lock"><i></i><i class="is-off"></i><i class="is-off"></i></span></div>
+              </div>
+
+              <div class="db-overlap-board">
+                <div class="db-overlap-mat mat mat--warden">
+                  <div class="db-overlap-row">
+                    <div class="db-slot"><div class="card-back"></div><div class="card-slot" data-card="cinder"></div></div>
+                    <div class="db-slot"><div class="ghost"></div></div>
+                    <div class="db-slot"><div class="ghost"></div></div>
+                  </div>
+                </div>
+
+                <div class="db-seam"></div>
+
+                <div class="db-overlap-mat mat mat--player is-active">
+                  <div class="db-overlap-row">
+                    <div class="db-slot"><div class="ghost"></div></div>
+                    <div class="db-slot"><div class="ghost"></div></div>
+                    <div class="db-slot threat"><div class="card-back"></div><div class="card-slot pv-target" data-card="verdant"><div class="fx fx-dmg">900</div><div class="fx fx-name">KINDLE <b>200</b></div></div></div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="db-hand">
+                <div class="db-deck"><div class="card-back"></div><span>34</span></div>
+                <div class="card-slot" data-card="ash" data-simple="true"></div>
+                <div class="card-slot" data-card="paper" data-simple="true"></div>
+                <div class="card-slot" data-card="cinder" data-simple="true"></div>
+                <div class="card-slot" data-card="nine" data-simple="true"></div>
+                <div class="card-slot" data-card="verdant" data-simple="true"></div>
+              </div>
+              <div class="db-actions"><span class="table-btn table-btn--ghost">STRIKE</span><span class="table-btn">END TURN</span></div>
+            </div>
+            <button class="test" type="button" data-test="preview-db-overlap">Test the exchange <span>▶</span></button>
+          </div>
+
+          <div class="opt-notes">
+            <div><h3>What changes</h3><ul><li>The spell/trap card is a full 145px card, tucked behind the 145px monster.</li><li>That overlap buys the biggest card size in the set.</li><li>Hand and deck backs are 145px too.</li></ul></div>
+            <div><h3>Effect language</h3><p>72px damage on the card; the target bracket stays outside the overlap. The tucked card remains a physical object, not a stamp.</p></div>
+            <div><h3>Tradeoff</h3><p>The spell/trap card is not fully visible at rest. Tap it to lift it forward; that is the physical cost of 145px cards.</p></div>
+          </div>
+        </article>
+
+        <article class="option" id="opt-db-shelf" data-option="Duel Board — Shelf">
+          <header class="opt-head">
+            <div class="opt-no">03</div>
+            <div class="opt-title">
+              <p class="eyebrow eyebrow--plain">FULL ROWS / SIDE HAND / 120px</p>
+              <h2>Shelf</h2>
+              <p>Two full rows per mat and a side hand shelf. Every spell/trap card is fully visible at 120px.</p>
+            </div>
+            <div class="opt-specs">
+              <span><b>900 × 900</b>square</span>
+              <span><b>120px</b>every card</span>
+              <span><b>12</b>board cards visible</span>
+            </div>
+            <button class="pick" type="button" data-pick="Duel Board — Shelf">Choose this</button>
+          </header>
+
+          <div class="preview-wrap">
+            <div class="preview-label"><span>ACTUAL SIZE</span><span>900 × 900 · ALL CARDS 120px · SIDE HAND</span></div>
+            <div class="preview db-scene db-shelf" id="preview-db-shelf" data-db aria-hidden="true">
+              <div class="db-score">
+                <div class="db-side"><span>YOU</span><b>3,800</b></div>
+                <div class="phase-ticks"><i></i><i></i><i></i><i></i><i class="is-on"></i><i></i></div>
+                <div class="db-side db-side--hot"><span>THE DAMP WARDEN</span><b>4,000</b><span class="lock"><i></i><i class="is-off"></i><i class="is-off"></i></span></div>
+              </div>
+
+              <div class="db-shelf-board">
+                <div class="db-shelf-mats">
+                  <div class="db-shelf-mat mat mat--warden">
+                    <div class="db-row db-row--back">
+                      <div class="db-slot"><div class="ghost"></div></div>
+                      <div class="db-slot"><div class="ghost"></div></div>
+                      <div class="db-slot"><div class="card-back"></div></div>
+                    </div>
+                    <div class="db-row db-row--front">
+                      <div class="db-slot"><div class="ghost"></div></div>
+                      <div class="db-slot"><div class="ghost"></div></div>
+                      <div class="db-slot"><div class="card-slot" data-card="cinder"></div></div>
+                    </div>
+                  </div>
+                  <div class="db-seam"></div>
+                  <div class="db-shelf-mat mat mat--player is-active">
+                    <div class="db-row db-row--front">
+                      <div class="db-slot"><div class="ghost"></div></div>
+                      <div class="db-slot"><div class="ghost"></div></div>
+                      <div class="db-slot threat"><div class="card-slot pv-target" data-card="verdant"><div class="fx fx-dmg">900</div><div class="fx fx-name">KINDLE <b>200</b></div></div></div>
+                    </div>
+                    <div class="db-row db-row--back">
+                      <div class="db-slot"><div class="ghost"></div></div>
+                      <div class="db-slot"><div class="ghost"></div></div>
+                      <div class="db-slot"><div class="card-back"></div></div>
+                    </div>
+                  </div>
+                </div>
+
+                <aside class="db-shelf-rail">
+                  <div class="db-shelf-hand">
+                    <div class="card-slot" data-card="ash" data-simple="true"></div>
+                    <div class="card-slot" data-card="paper" data-simple="true"></div>
+                    <div class="card-slot" data-card="cinder" data-simple="true"></div>
+                    <div class="card-slot" data-card="nine" data-simple="true"></div>
+                    <div class="card-slot" data-card="verdant" data-simple="true"></div>
+                  </div>
+                  <div class="db-shelf-deck"><div class="card-back"></div><span>34</span></div>
+                  <div class="db-actions"><span class="table-btn table-btn--ghost">STRIKE</span><span class="table-btn">END TURN</span></div>
+                </aside>
+              </div>
+            </div>
+            <button class="test" type="button" data-test="preview-db-shelf">Test the exchange <span>▶</span></button>
+          </div>
+
+          <div class="opt-notes">
+            <div><h3>What changes</h3><ul><li>The hand moves to a side shelf; every hand card remains 120px.</li><li>Both spell/trap rows stay fully visible at 120px.</li><li>The deck back is a 120px card, not a separate pile graphic.</li></ul></div>
+            <div><h3>Effect language</h3><p>64px card damage and a target bracket; the side hand never shrinks or changes size.</p></div>
+            <div><h3>Tradeoff</h3><p>The mats are narrower because the hand is beside them. The side hand is read as a stack, not a fan.</p></div>
+          </div>
+        </article>
+
+        <article class="option" id="opt-db-mirror" data-option="Duel Board — Mirror">
+          <header class="opt-head">
+            <div class="opt-no">04</div>
+            <div class="opt-title">
+              <p class="eyebrow eyebrow--plain">ALL BOARD CARDS VISIBLE / SIDE-BY-SIDE MATS / 120px</p>
+              <h2>Mirror</h2>
+              <p>Two mats face each other left and right. Each lane row has a monster column and a spell/trap column, all at 120px.</p>
+            </div>
+            <div class="opt-specs">
+              <span><b>900 × 900</b>square</span>
+              <span><b>120px</b>every card</span>
+              <span><b>12</b>board cards visible</span>
+            </div>
+            <button class="pick" type="button" data-pick="Duel Board — Mirror">Choose this</button>
+          </header>
+
+          <div class="preview-wrap">
+            <div class="preview-label"><span>ACTUAL SIZE</span><span>900 × 900 · ALL CARDS 120px · THREE ROWS × TWO COLUMNS</span></div>
+            <div class="preview db-scene db-mirror" id="preview-db-mirror" data-db aria-hidden="true">
+              <div class="db-score">
+                <div class="db-side"><span>YOU</span><b>3,800</b></div>
+                <div class="phase-ticks"><i></i><i></i><i></i><i></i><i class="is-on"></i><i></i></div>
+                <div class="db-side db-side--hot"><span>THE DAMP WARDEN</span><b>4,000</b><span class="lock"><i></i><i class="is-off"></i><i class="is-off"></i></span></div>
+              </div>
+
+              <div class="db-mirror-board">
+                <div class="db-mirror-mat mat mat--warden">
+                  <div class="db-mirror-row">
+                    <div class="db-slot"><div class="ghost"></div></div>
+                    <div class="db-slot"><div class="ghost"></div></div>
+                  </div>
+                  <div class="db-mirror-row">
+                    <div class="db-slot"><div class="ghost"></div></div>
+                    <div class="db-slot"><div class="ghost"></div></div>
+                  </div>
+                  <div class="db-mirror-row">
+                    <div class="db-slot"><div class="card-slot" data-card="cinder"></div></div>
+                    <div class="db-slot"><div class="card-back"></div></div>
+                  </div>
+                </div>
+
+                <div class="db-mirror-seam"></div>
+
+                <div class="db-mirror-mat mat mat--player is-active">
+                  <div class="db-mirror-row">
+                    <div class="db-slot"><div class="ghost"></div></div>
+                    <div class="db-slot"><div class="ghost"></div></div>
+                  </div>
+                  <div class="db-mirror-row">
+                    <div class="db-slot"><div class="ghost"></div></div>
+                    <div class="db-slot"><div class="ghost"></div></div>
+                  </div>
+                  <div class="db-mirror-row">
+                    <div class="db-slot threat"><div class="card-slot pv-target" data-card="verdant"><div class="fx fx-dmg">900</div><div class="fx fx-name">KINDLE <b>200</b></div></div></div>
+                    <div class="db-slot"><div class="card-back"></div></div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="db-hand">
+                <div class="db-deck"><div class="card-back"></div><span>34</span></div>
+                <div class="card-slot" data-card="ash" data-simple="true"></div>
+                <div class="card-slot" data-card="paper" data-simple="true"></div>
+                <div class="card-slot" data-card="cinder" data-simple="true"></div>
+                <div class="card-slot" data-card="nine" data-simple="true"></div>
+                <div class="card-slot" data-card="verdant" data-simple="true"></div>
+              </div>
+              <div class="db-actions"><span class="table-btn table-btn--ghost">STRIKE</span><span class="table-btn">END TURN</span></div>
+            </div>
+            <button class="test" type="button" data-test="preview-db-mirror">Test the exchange <span>▶</span></button>
+          </div>
+
+          <div class="opt-notes">
+            <div><h3>What changes</h3><ul><li>The two mats sit left and right; lanes become rows.</li><li>Each lane row has a monster column and a spell/trap column; all 12 board cards visible.</li><li>Hand and deck are the same 120px card.</li></ul></div>
+            <div><h3>Effect language</h3><p>64px card damage and a target bracket in the player's row. The score rail stays above.</p></div>
+            <div><h3>Tradeoff</h3><p>The mirror read takes one turn to learn; it is the most spatially different 120px layout.</p></div>
+          </div>
+        </article>
+      </section>
+
+      <section class="compare wrap" id="compare">
+        <div class="section-head">
+          <span class="section-head__no">03 / COMPARE</span>
+          <h2>Same rule. <em>Four budgets.</em></h2>
+          <p>Every card in a variant is the same size. The variant only changes how much is visible and how the rows are arranged.</p>
+        </div>
+        <div class="table-wrap">
+          <table class="compare-table">
+            <thead><tr><th>Variant</th><th>Card</th><th>Board</th><th>Spell/trap</th><th>Hand</th><th>Tradeoff</th></tr></thead>
+            <tbody>
+              <tr><td><b>Grid</b></td><td>105px</td><td>2 full rows per mat</td><td>fully visible</td><td>bottom, same size</td><td>smallest card</td></tr>
+              <tr><td><b>Overlap</b></td><td>145px</td><td>1 monster row + tucked row</td><td>same size, tucked</td><td>bottom, same size</td><td>set cards not fully visible</td></tr>
+              <tr><td><b>Shelf</b></td><td>120px</td><td>2 full rows per mat</td><td>fully visible</td><td>side shelf, same size</td><td>narrower mats</td></tr>
+              <tr><td><b>Mirror</b></td><td>120px</td><td>3 rows × 2 columns</td><td>fully visible</td><td>bottom, same size</td><td>transposed read</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="shortlist">
+          <article class="shortlist__card"><span>EVERYTHING VISIBLE</span><h3>Grid</h3><p>Every board card and hand card at 105px. The purest version of the rule.</p></article>
+          <article class="shortlist__card"><span>BIGGEST CARDS</span><h3>Overlap</h3><p>145px cards; the spell/trap row is the same card, tucked behind the monster.</p></article>
+          <article class="shortlist__card shortlist__card--accent"><span>CHOSEN</span><h3>Overlap</h3><p>145px cards; the spell/trap row is the same card, tucked behind the monster. The biggest card budget that still fits the full hand and all three lanes.</p></article>
+        </div>
+      </section>
+
+      <section class="decision wrap" id="decision">
+        <div class="decision__copy">
+          <p class="eyebrow"><span>04 / DECISION</span></p>
+          <h2>Pick a card budget. <em>Keep the card.</em></h2>
+          <p>
+            All four obey the same rule. Choose the trade you want: every card fully visible
+            (Grid), the biggest card (Overlap), full rows with a side hand (Shelf), or all
+            12 board cards in a mirror arrangement (Mirror).
+          </p>
+          <p>
+            <b>Overlap is the pick.</b> 900 × 900, every card 145px, and the spell/trap card
+            tucked 50px behind its monster. It is the largest card budget that still fits a
+            full hand and all three lanes.
+          </p>
+          <p class="frame-note">
+            Ported to the real Table: the drawer has COMPACT 960 for the corner window and
+            PIN for always-on-top. The board uses the same 145px token everywhere; the shipping set-card cut is the 44px Index Tab.
+          </p>
+          <p class="frame-note">
+            Want more ways to tuck the set card? <a href="overlap.html" style="color: var(--cyan);">Open the Overlap lab →</a>
+          </p>
+        </div>
+        <div class="decision__panel">
+          <span class="decision__label">CHOSEN BUDGET</span>
+          <b id="pickName">Duel Board — Overlap</b>
+          <p id="pickNote">900 × 900. Every card 145px; spell/trap cards tucked behind monsters; biggest cards.</p>
+          <div class="decision__actions">
+            <button class="btn btn--signal" data-pick="Duel Board — Overlap" type="button">Pick Overlap</button>
+            <button class="btn btn--ghost" id="copyPickBottom" type="button">Copy pick</button>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <div class="pickbar" id="pickbar" hidden>
+      <span>PICKED</span>
+      <b id="pickbarName">—</b>
+      <button class="pickbar__copy" id="copyPickBar" type="button">Copy</button>
+      <button class="pickbar__close" id="closePickbar" type="button" aria-label="Clear pick">×</button>
+    </div>
+
+    <script src="js/duel-board.js?v=overlap-1"></script>
+  </body>
+</html>

@@ -1,0 +1,771 @@
+/* Overlap lab — a small family of ways to tuck the set card behind its monster.
+   One 145px token per card. The lane and the tuck change; the card never does. */
+
+.ov-hero-visual {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 320px;
+}
+
+.ov-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 16px;
+  margin-top: 24px;
+}
+
+.ov-ex.is-chosen {
+  border-color: rgba(255, 204, 85, 0.55);
+  box-shadow: inset 0 0 0 1px rgba(255, 204, 85, 0.10);
+}
+
+.ov-ex__chosen {
+  margin: 8px 12px 0;
+  color: var(--amber);
+  font-family: var(--font-mono);
+  font-size: 7px;
+  letter-spacing: 0.10em;
+}
+
+.ov-ex {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  border: 1px solid var(--line);
+  background: rgba(6, 3, 13, 0.62);
+}
+
+.ov-ex__head {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: baseline;
+  gap: 8px;
+  padding: 10px 12px;
+  border-bottom: 1px solid var(--line);
+}
+
+.ov-ex__no {
+  color: var(--pink);
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.08em;
+}
+
+.ov-ex__head h3 {
+  margin: 0;
+  color: var(--ink);
+  font-family: var(--font-display);
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1;
+}
+
+.ov-ex__head em {
+  color: var(--cyan);
+  font-family: var(--font-mono);
+  font-size: 9px;
+  font-style: normal;
+  letter-spacing: 0.06em;
+  white-space: nowrap;
+}
+
+.ov-lane {
+  --ov-w: 145px;
+  --peek: 50px;
+  --spine: 28px;
+  position: relative;
+  width: 290px;
+  max-width: 100%;
+  height: 280px;
+  margin: 14px auto;
+  overflow: hidden;
+  border: 1px solid rgba(70, 240, 255, 0.20);
+  background:
+    linear-gradient(90deg, rgba(70, 240, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(rgba(70, 240, 255, 0.03) 1px, transparent 1px),
+    radial-gradient(circle at 50% 52%, rgba(176, 107, 255, 0.12), transparent 55%),
+    linear-gradient(160deg, rgba(18, 10, 38, 0.92), rgba(7, 4, 16, 0.98));
+  background-size: 28px 28px, 28px 28px, 100% 100%, 100% 100%;
+}
+
+.ov-lane::after {
+  content: "";
+  position: absolute;
+  inset: 7px;
+  border: 1px dashed rgba(70, 240, 255, 0.10);
+  pointer-events: none;
+}
+
+.ov-lane__tag {
+  position: absolute;
+  top: 6px;
+  left: 8px;
+  z-index: 5;
+  color: var(--muted);
+  font-family: var(--font-mono);
+  font-size: 7px;
+  letter-spacing: 0.10em;
+  text-transform: uppercase;
+}
+
+.ov-card {
+  position: absolute;
+  width: var(--ov-w);
+  height: calc(var(--ov-w) * 1.4);
+}
+
+.ov-card img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: fill;
+  border-radius: 2px;
+  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.42);
+  user-select: none;
+}
+
+.ov-ex .ov-card--set {
+  cursor: pointer;
+}
+
+.ov-card--set {
+  z-index: 1;
+  transition: top 220ms cubic-bezier(0.18, 0.9, 0.24, 1), left 220ms cubic-bezier(0.18, 0.9, 0.24, 1), transform 220ms cubic-bezier(0.18, 0.9, 0.24, 1);
+}
+
+.ov-card--monster {
+  z-index: 2;
+}
+
+/* 01 — top peek: the current shipping overlap. */
+.ov-lane--top .ov-card--set {
+  top: calc(58px - var(--peek));
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.ov-lane--top .ov-card--monster {
+  top: 58px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+/* 02 — side spine: shift the set card just enough to expose a 28px side. */
+.ov-lane--side .ov-card--set {
+  top: 48px;
+  left: calc(50% - 87px + var(--spine));
+}
+
+.ov-lane--side .ov-card--monster {
+  top: 48px;
+  left: calc(50% - 87px);
+}
+
+.ov-lane--side .ov-card--set::after {
+  content: "◇";
+  position: absolute;
+  top: 6px;
+  right: 5px;
+  z-index: 3;
+  color: var(--amber);
+  font-family: var(--font-mono);
+  font-size: 10px;
+  text-shadow: 0 0 8px rgba(255, 204, 85, 0.65);
+}
+
+/* 03 — corner tuck: rotate the hidden card; a corner and a top edge show. */
+.ov-lane--corner .ov-card--set {
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%) rotate(-7deg);
+  transform-origin: 18% 18%;
+}
+
+.ov-lane--corner .ov-card--monster {
+  top: 60px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+/* 04 — pocket sleeve: 12px edge at rest; the whole card lifts on hover/focus. */
+.ov-lane--pocket .ov-card--set {
+  top: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+  transition: top 220ms cubic-bezier(0.18, 0.9, 0.24, 1);
+}
+
+.ov-lane--pocket .ov-card--monster {
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.ov-lane--pocket:hover .ov-card--set,
+.ov-lane--pocket:focus-within .ov-card--set,
+.ov-lane--pocket:focus .ov-card--set {
+  top: 58px;
+  z-index: 3;
+}
+
+.ov-lane--pocket::before {
+  content: "";
+  position: absolute;
+  top: 4px;
+  left: 50%;
+  width: calc(var(--ov-w) + 10px);
+  height: 226px;
+  transform: translateX(-50%);
+  border: 1px solid rgba(70, 240, 255, 0.18);
+  box-shadow:
+    inset 0 4px 12px rgba(0, 0, 0, 0.72),
+    0 1px 0 rgba(70, 240, 255, 0.18);
+  pointer-events: none;
+}
+
+/* 05 — spread: the same two cards, separated only while the player looks. */
+.ov-spread {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 290px;
+  gap: 28px;
+  align-items: center;
+  margin-top: 24px;
+  padding: 22px;
+  border: 1px solid var(--line);
+  background: rgba(6, 3, 13, 0.58);
+}
+
+.ov-spread__copy h3 {
+  margin: 0 0 8px;
+  font-family: var(--font-display);
+  font-size: 24px;
+  font-weight: 500;
+}
+
+.ov-spread__copy p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+.ov-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 16px;
+  padding: 8px 12px;
+  border: 1px solid var(--cyan);
+  color: var(--cyan);
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  cursor: pointer;
+  user-select: none;
+}
+
+.ov-toggle input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.ov-toggle::before {
+  content: "REST";
+  color: var(--muted);
+}
+
+.ov-toggle:has(input:checked)::before {
+  content: "SPREAD";
+  color: var(--green);
+}
+
+.ov-lane--spread {
+  height: 310px;
+  margin: 0;
+}
+
+.ov-lane--spread .ov-card--set {
+  top: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.ov-lane--spread .ov-card--monster {
+  top: 58px;
+  left: 50%;
+  transform: translateX(-50%);
+  transition: top 280ms cubic-bezier(0.18, 0.9, 0.24, 1);
+}
+
+.ov-spread:has(input:checked) .ov-lane--spread .ov-card--monster {
+  top: 88px;
+}
+
+/* Side Spine variations. All five are the same 145px token. */
+.ov-spine-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+  margin-top: 24px;
+}
+
+.ov-lane--left .ov-card--monster {
+  top: 48px;
+  left: calc(50% - 87px);
+}
+
+.ov-lane--left .ov-card--set {
+  top: 48px;
+  left: calc(50% - 115px);
+}
+
+.ov-lane--left .ov-card--set::before {
+  content: "";
+  position: absolute;
+  top: 4px;
+  bottom: 4px;
+  left: 2px;
+  z-index: 3;
+  width: 1px;
+  background: linear-gradient(transparent, rgba(255, 204, 85, 0.55), transparent);
+}
+
+.ov-lane--left .ov-card--set::after {
+  content: "◇";
+  position: absolute;
+  top: 6px;
+  left: 5px;
+  z-index: 3;
+  color: var(--amber);
+  font-family: var(--font-mono);
+  font-size: 10px;
+  text-shadow: 0 0 8px rgba(255, 204, 85, 0.65);
+}
+
+.ov-lane--index .ov-card--monster {
+  top: 48px;
+  left: calc(50% - 94.5px);
+}
+
+.ov-lane--index .ov-card--set {
+  top: 48px;
+  left: calc(50% - 50.5px);
+}
+
+.ov-lane--index .ov-card--set::before {
+  content: "";
+  position: absolute;
+  top: 4px;
+  right: 2px;
+  bottom: 4px;
+  z-index: 3;
+  width: 1px;
+  background: linear-gradient(transparent, rgba(255, 204, 85, 0.55), transparent);
+}
+
+.ov-lane--index .ov-card--set::after {
+  content: "◆\A◇\A◆";
+  position: absolute;
+  top: 6px;
+  right: 14px;
+  z-index: 3;
+  color: var(--amber);
+  font-family: var(--font-mono);
+  font-size: 7px;
+  line-height: 1.5;
+  white-space: pre;
+  text-align: center;
+}
+
+.ov-lane--hairline .ov-card--monster {
+  top: 48px;
+  left: calc(50% - 87px);
+}
+
+.ov-lane--hairline .ov-card--set {
+  top: 48px;
+  left: calc(50% - 81px);
+}
+
+.ov-lane--hairline .ov-card--set::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 1px;
+  height: 100%;
+  background: var(--cyan);
+  box-shadow: 0 0 9px var(--cyan);
+}
+
+.ov-lane--cornertab .ov-card--monster {
+  top: 48px;
+  left: calc(50% - 87px);
+}
+
+.ov-lane--cornertab .ov-card--set {
+  top: 34px;
+  left: calc(50% - 59px);
+}
+
+.ov-lane--cornertab .ov-card--set::after {
+  content: "◈";
+  position: absolute;
+  top: 4px;
+  right: 5px;
+  z-index: 3;
+  color: var(--amber);
+  font-family: var(--font-mono);
+  font-size: 10px;
+  text-shadow: 0 0 8px rgba(255, 204, 85, 0.65);
+}
+
+.ov-lane--drawer .ov-card--monster {
+  top: 48px;
+  left: calc(50% - 87px);
+  transition: left 260ms cubic-bezier(0.18, 0.9, 0.24, 1);
+}
+
+.ov-lane--drawer .ov-card--set {
+  top: 48px;
+  left: calc(50% - 75px);
+  transition: left 260ms cubic-bezier(0.18, 0.9, 0.24, 1);
+}
+
+.ov-lane--drawer .ov-card--set::after {
+  content: "»";
+  position: absolute;
+  top: 4px;
+  right: 2px;
+  z-index: 3;
+  color: var(--amber);
+  font-family: var(--font-mono);
+  font-size: 9px;
+}
+
+.ov-lane--drawer.is-open .ov-card--monster {
+  left: 0;
+}
+
+.ov-lane--drawer.is-open .ov-card--set {
+  left: var(--ov-w);
+  z-index: 3;
+}
+
+.ov-hotspot--spine span {
+  top: 4px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.ov-lane.is-open .ov-hotspot {
+  opacity: 0;
+  pointer-events: none;
+}
+
+@media (max-width: 1120px) {
+  .ov-spine-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 760px) {
+  .ov-spine-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Interactive controls: the visible band/spine is a real button. */
+.ov-labbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 18px;
+  padding: 10px 12px;
+  border: 1px solid var(--line);
+  background: rgba(6, 3, 13, 0.52);
+}
+
+.ov-labbar p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 11px;
+}
+
+.ov-labbar b {
+  color: var(--cyan);
+}
+
+.ov-reset {
+  flex: none;
+  padding: 6px 10px;
+  border: 1px solid var(--pink);
+  background: transparent;
+  color: var(--pink);
+  font-family: var(--font-mono);
+  font-size: 8px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.ov-reset:hover,
+.ov-reset:focus-visible {
+  background: rgba(255, 63, 164, 0.08);
+  outline: none;
+}
+
+.ov-hotspot {
+  position: absolute;
+  z-index: 4;
+  padding: 0;
+  border: 1px dashed transparent;
+  background: transparent;
+  cursor: pointer;
+}
+
+.ov-hotspot--top {
+  top: calc(58px - var(--peek));
+  left: 50%;
+  width: var(--ov-w);
+  height: var(--peek);
+  transform: translateX(-50%);
+}
+
+.ov-hotspot--side {
+  top: 48px;
+  left: calc(50% + 58px);
+  width: var(--spine);
+  height: calc(var(--ov-w) * 1.4);
+}
+
+.ov-hotspot span {
+  position: absolute;
+  padding: 1px 3px;
+  background: rgba(6, 3, 13, 0.88);
+  color: var(--amber);
+  font-family: var(--font-mono);
+  font-size: 6px;
+  letter-spacing: 0.06em;
+}
+
+.ov-hotspot--top span {
+  right: 4px;
+  bottom: 3px;
+}
+
+.ov-hotspot--side span {
+  top: 4px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.ov-hotspot:hover,
+.ov-hotspot:focus-visible {
+  border-color: var(--amber);
+  background: rgba(255, 204, 85, 0.05);
+  outline: none;
+}
+
+.ov-lane.is-lifted .ov-hotspot {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.ov-lane.is-lifted .ov-card--set {
+  top: 58px;
+  left: 50%;
+  z-index: 3;
+  transform: translateX(-50%) rotate(0deg);
+}
+
+.ov-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  align-items: center;
+  padding: 0 12px 4px;
+}
+
+.ov-view,
+.ov-face {
+  padding: 5px 7px;
+  border: 1px solid var(--line);
+  background: transparent;
+  color: var(--ink-2);
+  font-family: var(--font-mono);
+  font-size: 7px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.ov-view:hover,
+.ov-view:focus-visible,
+.ov-face:hover,
+.ov-face:focus-visible {
+  border-color: var(--cyan);
+  color: var(--ink);
+  outline: none;
+}
+
+.ov-view[aria-expanded="true"] {
+  border-color: var(--amber);
+  color: var(--amber);
+}
+
+.ov-face[aria-pressed="true"] {
+  border-color: var(--green);
+  color: var(--green);
+}
+
+.ov-range {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  gap: 6px;
+  margin-top: 2px;
+  color: var(--muted);
+  font-family: var(--font-mono);
+  font-size: 7px;
+  letter-spacing: 0.06em;
+}
+
+.ov-range input[type="range"] {
+  width: 100%;
+  min-width: 70px;
+  flex: 1;
+  accent-color: var(--cyan);
+  cursor: pointer;
+}
+
+.ov-range output {
+  min-width: 34px;
+  color: var(--cyan);
+  text-align: right;
+}
+
+.ov-state {
+  margin: 0;
+  padding: 4px 12px 10px;
+  color: var(--muted);
+  font-family: var(--font-mono);
+  font-size: 7px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+/* Upgrade cards. */
+.ov-upgrades {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  margin-top: 24px;
+}
+
+.ov-up {
+  padding: 14px;
+  border: 1px solid var(--line);
+  background: rgba(6, 3, 13, 0.52);
+}
+
+.ov-up span {
+  color: var(--pink);
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.08em;
+}
+
+.ov-up h3 {
+  margin: 4px 0 6px;
+  font-family: var(--font-display);
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.ov-up p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.55;
+}
+
+.ov-up p b {
+  color: var(--ink);
+  font-weight: 600;
+}
+
+.ov-pick {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+  gap: 24px;
+  margin-top: 24px;
+  padding: 22px;
+  border: 1px solid rgba(255, 204, 85, 0.35);
+  background: rgba(255, 204, 85, 0.035);
+}
+
+.ov-pick h3 {
+  margin: 0 0 8px;
+  font-family: var(--font-display);
+  font-size: 24px;
+  font-weight: 500;
+}
+
+.ov-pick p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.65;
+}
+
+.ov-pick ul {
+  margin: 0;
+  padding-left: 16px;
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.7;
+}
+
+.ov-pick li b {
+  color: var(--ink);
+}
+
+@media (max-width: 1120px) {
+  .ov-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 760px) {
+  .ov-grid,
+  .ov-upgrades,
+  .ov-spread,
+  .ov-pick {
+    grid-template-columns: 1fr;
+  }
+
+  .ov-spread {
+    gap: 18px;
+  }
+
+  .ov-lane {
+    margin-inline: 0;
+  }
+}
+
+@media (max-width: 900px) {
+  .overlap-table {
+    min-width: 0;
+  }
+
+  .overlap-table th,
+  .overlap-table td {
+    padding: 8px 9px;
+    white-space: normal;
+  }
+}

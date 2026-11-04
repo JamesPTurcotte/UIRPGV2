@@ -1,0 +1,20 @@
+id: verdant.thorn_sentinel
+set: set.core
+name: Thorn Sentinel
+type: monster
+attribute: verdant
+lineage: construct
+offer: 1
+atk: 1000
+defense: 1800
+rarity: common
+role: enabler
+effect_value: 2
+keywords: []
+text: "KINDLE: Gain 200 Resolve."
+effect:
+  trigger: on_call
+  steps:
+    - action: heal
+      amount: 200
+      target: controller

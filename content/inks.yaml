@@ -1,0 +1,29 @@
+- id: ink.iron
+  name: Iron
+  color: "#B9AE97"
+  effect: "Neutral frame tint. The default."
+
+- id: ink.verdigris
+  name: Verdigris
+  color: "#4E9E86"
+  effect: "Patina on the frame ink lines."
+
+- id: ink.dusk
+  name: Dusk
+  color: "#9A6FB0"
+  effect: "Violet frame ink lines."
+
+- id: ink.ember
+  name: Ember
+  color: "#D1603D"
+  effect: "Warm red frame ink lines."
+
+- id: ink.frost
+  name: Frost
+  color: "#4E9AC0"
+  effect: "Cool blue frame ink lines."
+
+- id: ink.bone
+  name: Bone
+  color: "#E7DCC4"
+  effect: "Pale frame ink lines."

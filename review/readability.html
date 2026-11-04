@@ -1,0 +1,607 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="dark" />
+    <title>Razeah — Readability &amp; Corner Review</title>
+    <meta
+      name="description"
+      content="Five distinct ways to make Razeah readable at full screen and in an always-on-top corner window."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500;600;700&family=Orbitron:wght@500;700;900&family=VT323&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/readability.css" />
+  </head>
+  <body>
+    <a class="skip" href="#options">Skip to options</a>
+    <a href="mats.html" style="position:fixed;top:70px;right:18px;z-index:500;padding:7px 10px;border:1px solid #ffcc55;background:rgba(13,7,30,.94);color:#ffcc55;font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:.06em;text-decoration:none;text-transform:uppercase;">First two passes rejected · open the twin mats →</a>
+
+    <header class="masthead">
+      <div class="masthead__inner">
+        <a class="wordmark" href="#top">
+          <span class="wordmark__mark">R</span>
+          <span>RAZEAH <em>/ readability review</em></span>
+        </a>
+        <nav class="mastnav" aria-label="Review sections">
+          <a href="#diagnosis">01 Diagnosis</a>
+          <a href="#options">02 Options</a>
+          <a href="#compare">03 Compare</a>
+          <a href="#decision">04 Decision</a>
+        </nav>
+        <div class="masttools">
+          <button class="toolbtn toolbtn--run" id="runAll" type="button">▶ Run the exchange</button>
+          <button class="toolbtn" id="copyPick" type="button">Copy pick</button>
+        </div>
+      </div>
+    </header>
+
+    <main id="top">
+      <section class="hero wrap">
+        <div class="hero__copy">
+          <p class="eyebrow"><span>Scale &amp; signal review</span><span>·</span><span>November 2026</span></p>
+          <h1>It should read<br /><em>from the corner.</em></h1>
+          <p class="lede">
+            The Neon Reliquary is the right room. The problem is the distance. At 1440 the rules text
+            is 6–9px, the rails eat a third of the width, and a strike is a small plate in a dark
+            field. These are five different answers to the same question:
+            <b>how small can the game get before it stops speaking?</b>
+          </p>
+          <div class="hero__actions">
+            <a class="btn btn--signal" href="#options">Compare the five <span>↓</span></a>
+            <button class="btn btn--ghost" id="runAllHero" type="button">▶ Run the exchange</button>
+          </div>
+          <ul class="hero__facts">
+            <li><b>05</b><span>distinct layouts</span></li>
+            <li><b>480</b><span>smallest window, px</span></li>
+            <li><b>01</b><span>lane in the corner</span></li>
+            <li><b>02</b><span>effect layers: damage + name</span></li>
+          </ul>
+          <p class="hero__note">All five keep the 5:7 card, the Neon Reliquary palette, and the four doors. Only the distance and the event voice change.</p>
+        </div>
+        <div class="hero__visual">
+          <div class="current-window" aria-label="The current table at a 480 pixel window width">
+            <div class="current-window__bar"><span>current build · 1440 → 480</span><span>×</span></div>
+            <img src="assets/current-table.png" alt="The current Razeah table at 1440 pixels, shown at 480 pixels wide." />
+            <div class="current-window__pin">this is the whole table at 480px wide</div>
+          </div>
+          <p class="hero__caption">
+            <b>The current build at 480px.</b> The 6px rules text becomes roughly 2px. The guard chip
+            becomes a mark you recognise, not a sentence you read.
+          </p>
+        </div>
+      </section>
+
+      <section class="diagnosis wrap" id="diagnosis">
+        <div class="section-head">
+          <span class="section-head__no">01 / DIAGNOSIS</span>
+          <h2>The palette is not the problem. <em>The distance is.</em></h2>
+          <p>
+            The screen is built like a desk at 1440 and then squeezed. It needs a small-window
+            contract, a type floor, and an event voice that lands before the player has to look for it.
+          </p>
+        </div>
+
+        <div class="diag-grid">
+          <article class="diag-card">
+            <b>6px</b>
+            <span>RULES TEXT</span>
+            <h3>The card face whispers</h3>
+            <p>Rules sit at 6–9px in the hand and board. At 480px they are below the readable threshold.</p>
+          </article>
+          <article class="diag-card">
+            <b>8px</b>
+            <span>GUARD + PHASE</span>
+            <h3>The state is a rumour</h3>
+            <p>“1 GUARD · FACE SEALED”, the phase track, and the log all live at 8–10px.</p>
+          </article>
+          <article class="diag-card">
+            <b>⅓</b>
+            <span>OF THE WIDTH</span>
+            <h3>Rails before cards</h3>
+            <p>The player and intent rails take roughly a third of a 1440 table before a card gets a pixel.</p>
+          </article>
+          <article class="diag-card">
+            <b>164px</b>
+            <span>DAMAGE PLATE</span>
+            <h3>The hit is a receipt</h3>
+            <p>A 36px number in a 164px plate is readable up close. At 480px it is 12px and easy to miss.</p>
+          </article>
+        </div>
+
+        <div class="size-ladder" aria-label="Current and proposed type sizes">
+          <div class="size-ladder__row">
+            <span class="size-label">6 px <em>current rules</em></span>
+            <span class="size-sample" style="font-size: 6px">KINDLE · Deal 200 damage.</span>
+          </div>
+          <div class="size-ladder__row">
+            <span class="size-label">8 px <em>current chips</em></span>
+            <span class="size-sample" style="font-size: 8px">◆ 1 GUARD · FACE SEALED · PHASE · CLASH</span>
+          </div>
+          <div class="size-ladder__row">
+            <span class="size-label">12 px <em>proposed floor</em></span>
+            <span class="size-sample" style="font-size: 12px">◆ 1 GUARD · FACE SEALED · PHASE · CLASH</span>
+          </div>
+          <div class="size-ladder__row">
+            <span class="size-label">16 px <em>proposed body</em></span>
+            <span class="size-sample" style="font-size: 16px">Cinder Hound strikes for 2,600.</span>
+          </div>
+          <div class="size-ladder__row size-ladder__row--big">
+            <span class="size-label">48 px <em>proposed event</em></span>
+            <span class="size-sample" style="font-size: 48px">2,600</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="options wrap" id="options">
+        <div class="section-head section-head--options">
+          <span class="section-head__no">02 / FIVE ANSWERS</span>
+          <h2>Not five font sizes. <em>Five different rooms.</em></h2>
+          <p>
+            Each option chooses a different trade: less board for more card, less chrome for more
+            number, or less table for more life. The same exchange runs in every frame: Cinder Hound
+            strikes for 2,600, then KINDLE adds 400.
+          </p>
+          <p class="frame-note">Frames render at actual CSS pixels. On a narrow pane, the 960 and 1100 frames scroll sideways rather than shrink.</p>
+        </div>
+
+        <nav class="option-index" aria-label="Option index">
+          <a href="#opt-pocket"><span>01</span> Pocket Cabinet</a>
+          <a href="#opt-broadcast"><span>02</span> Broadcast Strip</a>
+          <a href="#opt-cardled"><span>03</span> Card-Led</a>
+          <a href="#opt-desk"><span>04</span> Duelist's Desk</a>
+          <a href="#opt-corner"><span>05</span> Corner HUD</a>
+        </nav>
+
+        <article class="option" id="opt-pocket" data-option="Pocket Cabinet">
+          <header class="opt-head">
+            <div class="opt-no">01</div>
+            <div class="opt-title">
+              <p class="eyebrow eyebrow--plain">COMPANION / VERTICAL / ONE LANE</p>
+              <h2>Pocket Cabinet</h2>
+              <p>One lane face-off, cards reduced to name + stats, rules on tap. Built for a corner.</p>
+            </div>
+            <div class="opt-specs">
+              <span><b>480 × 720</b>window</span>
+              <span><b>10px</b>reading floor</span>
+              <span><b>1</b>lane expanded</span>
+            </div>
+            <button class="pick" type="button" data-pick="Pocket Cabinet">Choose this</button>
+          </header>
+          <div class="preview-wrap">
+            <div class="preview-label"><span>ACTUAL SIZE</span><span>480 × 720 · 10px READING FLOOR</span></div>
+            <div class="preview pv-pocket" id="preview-pocket" aria-hidden="true">
+              <div class="pk-top">
+                <span class="tag">DEPTH 03 · CIRCUIT 1</span>
+                <span class="pk-turn">TURN 4 · YOU</span>
+                <span class="pk-marks">984 ◆</span>
+              </div>
+              <div class="pk-warden">
+                <span class="seal-dot"></span>
+                <div class="pk-id"><small>WARDEN</small><b>The Damp Warden</b></div>
+                <div class="pk-res"><small>RESOLVE</small><b>3,800</b></div>
+                <span class="chip chip--hot">◆ 1 GUARD · SEALED</span>
+              </div>
+              <div class="pk-lanes">
+                <span class="pk-lane is-active"><span>I</span><b>2,600</b></span>
+                <span class="pk-lane"><span>II</span><b>1,800</b></span>
+                <span class="pk-lane"><span>III</span><b>OPEN</b></span>
+              </div>
+              <div class="pk-arena">
+                <span class="side-tag">WARDEN</span>
+                <div class="card-slot" data-card="cinder" data-simple="true" style="--cw: 142px; --name-size: 13px; --type-size: 9px; --stat-size: 22px"></div>
+                <div class="pk-vs"><i></i><span>VS</span></div>
+                <div class="card-slot pv-target" data-card="verdant" data-simple="true" style="--cw: 142px; --name-size: 13px; --type-size: 9px; --stat-size: 22px">
+                  <div class="fx fx-dmg">2,600</div>
+                  <div class="fx fx-name">KINDLE <b>+400</b></div>
+                </div>
+                <span class="side-tag side-tag--you">YOU</span>
+              </div>
+              <div class="pk-hand">
+                <span class="tag">HAND 3</span>
+                <div class="mini-hand"><i></i><i></i><i></i></div>
+                <span class="pk-hint">TAP FOR RULES</span>
+              </div>
+              <div class="pk-actions"><span class="fake-btn fake-btn--hot">CALL</span><span class="fake-btn">END TURN</span></div>
+              <div class="pk-log"><span>LAST</span> Cinder Hound strikes for 2,600.</div>
+            </div>
+            <button class="test" type="button" data-test="preview-pocket">Test the exchange <span>▶</span></button>
+          </div>
+          <div class="opt-notes">
+            <div>
+              <h3>What changes</h3>
+              <ul>
+                <li>One expanded lane; the other two are score tabs.</li>
+                <li>Cards show name, type, ATK/DEF. Rules open on tap.</li>
+                <li>Rails become a 64px scoreboard and a 34px last-event line.</li>
+              </ul>
+            </div>
+            <div>
+              <h3>Effect language</h3>
+              <p>A 54px number on the card, then a 16px effect name. One event at a time, no log hunt.</p>
+            </div>
+            <div>
+              <h3>Tradeoff</h3>
+              <p>You lose board context. This is the best “keep it pinned while I work” shape, not the best full-screen table.</p>
+            </div>
+          </div>
+        </article>
+
+        <article class="option" id="opt-broadcast" data-option="Broadcast Strip">
+          <header class="opt-head">
+            <div class="opt-no">02</div>
+            <div class="opt-title">
+              <p class="eyebrow eyebrow--plain">WIDE OVERLAY / AUTO-FIRST / TICKER</p>
+              <h2>Broadcast Strip</h2>
+              <p>A 960 × 540 sports overlay: scoreboard on top, event band in the middle, ticker below.</p>
+            </div>
+            <div class="opt-specs">
+              <span><b>960 × 540</b>window</span>
+              <span><b>10px</b>reading floor</span>
+              <span><b>0</b>side rails</span>
+            </div>
+            <button class="pick" type="button" data-pick="Broadcast Strip">Choose this</button>
+          </header>
+          <div class="preview-wrap">
+            <div class="preview-label"><span>ACTUAL SIZE</span><span>960 × 540 · 11px READING FLOOR</span></div>
+            <div class="preview pv-broadcast" id="preview-broadcast" aria-hidden="true">
+              <div class="bc-score">
+                <div class="bc-run"><span>DEPTH 03</span><b>TURN 4 · YOU</b></div>
+                <div class="bc-phases"><span>DAWN</span><span>DRAW</span><span>CALL</span><span>ACT</span><span class="is-on">CLASH</span><span>DUSK</span></div>
+                <div class="bc-res"><span>YOU</span><b>3,800</b></div>
+                <div class="bc-res bc-res--hot"><span>WARDEN</span><b>4,000</b></div>
+              </div>
+              <div class="bc-warden">
+                <span class="seal-dot seal-dot--sm"></span>
+                <b>The Damp Warden</b>
+                <span class="chip chip--hot">◆ 1 GUARD · FACE SEALED</span>
+                <span class="bc-intent">NEXT · STRIKE · LANE I</span>
+              </div>
+              <div class="bc-arena">
+                <div class="bc-lane">
+                  <span class="bc-lane-head">LANE I · GUARDED</span>
+                  <div class="card-slot" data-card="cinder" data-simple="true" style="--cw: 104px; --name-size: 11px; --type-size: 7px; --stat-size: 18px"></div>
+                  <div class="bc-seam">◆</div>
+                  <div class="card-slot" data-card="verdant" data-simple="true" style="--cw: 104px; --name-size: 11px; --type-size: 7px; --stat-size: 18px"></div>
+                </div>
+                <div class="bc-lane bc-lane--empty">
+                  <span class="bc-lane-head">LANE II · OPEN</span>
+                  <div class="bc-open-card">OPEN</div>
+                  <div class="bc-seam">◆</div>
+                  <div class="bc-open-card">CALL</div>
+                </div>
+                <div class="bc-lane bc-lane--empty">
+                  <span class="bc-lane-head">LANE III · OPEN</span>
+                  <div class="bc-open-card">OPEN</div>
+                  <div class="bc-seam">◆</div>
+                  <div class="bc-open-card">CALL</div>
+                </div>
+                <div class="fx-band">
+                  <b>-2,600</b>
+                  <span>KINDLE <em>+400</em></span>
+                </div>
+              </div>
+              <div class="bc-ticker">
+                <div class="bc-now"><span>NOW</span> Cinder Hound strikes Bramble Wall for 2,600.</div>
+                <div class="bc-actions"><span class="fake-btn fake-btn--hot">AUTO</span><span class="fake-btn">END PHASE</span></div>
+              </div>
+            </div>
+            <button class="test" type="button" data-test="preview-broadcast">Test the exchange <span>▶</span></button>
+          </div>
+          <div class="opt-notes">
+            <div>
+              <h3>What changes</h3>
+              <ul>
+                <li>Both side rails deleted; the top bar becomes the scoreboard.</li>
+                <li>Three lanes stay visible at a glance; card faces are name + stats.</li>
+                <li>One event ticker replaces the log and the actions rail.</li>
+              </ul>
+            </div>
+            <div>
+              <h3>Effect language</h3>
+              <p>A full-width band: 38px damage, 20px effect name. The hit is the width of the table.</p>
+            </div>
+            <div>
+              <h3>Tradeoff</h3>
+              <p>Still a wide window. It is the best “Auto while I watch” shape, not a 420px corner widget.</p>
+            </div>
+          </div>
+        </article>
+
+        <article class="option" id="opt-cardled" data-option="Card-Led">
+          <header class="opt-head">
+            <div class="opt-no">03</div>
+            <div class="opt-title">
+              <p class="eyebrow eyebrow--plain">TABLE-FIRST / NO RAILS / EFFECTS ON THE CARD</p>
+              <h2>Card-Led</h2>
+              <p>The table stays a table, but combat text moves onto the card that caused it.</p>
+            </div>
+            <div class="opt-specs">
+              <span><b>760 × 860</b>window</span>
+              <span><b>10px</b>reading floor</span>
+              <span><b>0</b>side rails</span>
+            </div>
+            <button class="pick" type="button" data-pick="Card-Led">Choose this</button>
+          </header>
+          <div class="preview-wrap">
+            <div class="preview-label"><span>ACTUAL SIZE</span><span>760 × 860 · 10px READING FLOOR</span></div>
+            <div class="preview pv-cardled" id="preview-cardled" aria-hidden="true">
+              <div class="cl-top"><span>DEPTH 03 · TURN 4</span><span>YOU 3,800</span><span>WARDEN 4,000</span></div>
+              <div class="cl-warden">
+                <span class="seal-dot seal-dot--sm"></span>
+                <b>The Damp Warden</b>
+                <span class="chip chip--hot">◆ 1 GUARD · FACE SEALED</span>
+                <span class="cl-intent">NEXT · STRIKE · LANE I</span>
+              </div>
+              <div class="cl-board">
+                <div class="cl-lane">
+                  <span class="cl-state">GUARDED</span>
+                  <div class="card-slot" data-card="cinder" style="--cw: 146px; --name-size: 13px; --type-size: 9px; --stat-size: 22px; --rule-size: 10px"></div>
+                  <div class="cl-seam">I</div>
+                  <div class="card-slot pv-target" data-card="verdant" style="--cw: 146px; --name-size: 13px; --type-size: 9px; --stat-size: 22px; --rule-size: 10px">
+                    <div class="fx fx-dmg">2,600</div>
+                    <div class="fx fx-name">KINDLE <b>+400</b></div>
+                  </div>
+                </div>
+                <div class="cl-lane cl-lane--empty">
+                  <span class="cl-state">OPEN</span>
+                  <div class="cl-open">OPEN</div>
+                  <div class="cl-seam">II</div>
+                  <div class="cl-open cl-open--call">CALL</div>
+                </div>
+                <div class="cl-lane cl-lane--empty">
+                  <span class="cl-state">OPEN</span>
+                  <div class="cl-open">OPEN</div>
+                  <div class="cl-seam">III</div>
+                  <div class="cl-open cl-open--call">CALL</div>
+                </div>
+              </div>
+              <div class="cl-hand">
+                <span class="tag">HAND 3</span>
+                <div class="card-slot" data-card="ash" data-simple="true" style="--cw: 96px; --name-size: 10px; --type-size: 7px; --stat-size: 16px"></div>
+                <div class="card-slot" data-card="paper" data-simple="true" style="--cw: 96px; --name-size: 10px; --type-size: 7px; --stat-size: 16px"></div>
+                <div class="card-slot" data-card="cinder" data-simple="true" style="--cw: 96px; --name-size: 10px; --type-size: 7px; --stat-size: 16px"></div>
+              </div>
+              <div class="cl-dock"><span class="fake-btn fake-btn--hot">STRIKE</span><span class="fake-btn">END TURN</span><span class="cl-last"><b>LAST</b> Cinder Hound → 2,600 · KINDLE +400</span></div>
+            </div>
+            <button class="test" type="button" data-test="preview-cardled">Test the exchange <span>▶</span></button>
+          </div>
+          <div class="opt-notes">
+            <div>
+              <h3>What changes</h3>
+              <ul>
+                <li>No side rails, no tabbed rail, no separate log panel.</li>
+                <li>Cards grow to 146px; rules sit at 10px, names at 13px.</li>
+                <li>One event line at the dock keeps the last consequence.</li>
+              </ul>
+            </div>
+            <div>
+              <h3>Effect language</h3>
+              <p>Damage lands on the target card at 56px; the effect name sits over the same card at 16px. No eye travel.</p>
+            </div>
+            <div>
+              <h3>Tradeoff</h3>
+              <p>The effect covers part of the card for a beat. You get the cause and the number without reading a log.</p>
+            </div>
+          </div>
+        </article>
+
+        <article class="option" id="opt-desk" data-option="Duelist's Desk">
+          <header class="opt-head">
+            <div class="opt-no">04</div>
+            <div class="opt-title">
+              <p class="eyebrow eyebrow--plain">FULL-SCREEN / MAXIMUM TYPE / NO CHROME</p>
+              <h2>Duelist's Desk</h2>
+              <p>The full 3-lane table, rebuilt around 148px cards, 14px names, and a 72px event number.</p>
+            </div>
+            <div class="opt-specs">
+              <span><b>1100 × 820</b>window</span>
+              <span><b>11px</b>reading floor</span>
+              <span><b>0</b>rails, tabs, log panel</span>
+            </div>
+            <button class="pick" type="button" data-pick="Duelist's Desk">Choose this</button>
+          </header>
+          <div class="preview-wrap">
+            <div class="preview-label"><span>ACTUAL SIZE</span><span>1100 × 820 · 11px READING FLOOR</span></div>
+            <div class="preview pv-desk" id="preview-desk" aria-hidden="true">
+              <div class="dk-top">
+                <div class="dk-run"><span>DEPTH 03 · CIRCUIT 1</span><b>TURN 4 · YOU</b></div>
+                <div class="bc-phases"><span>DAWN</span><span>DRAW</span><span>CALL</span><span>ACT</span><span class="is-on">CLASH</span><span>DUSK</span></div>
+                <div class="dk-res"><span>YOU</span><b>3,800</b></div>
+                <div class="dk-res dk-res--hot"><span>WARDEN</span><b>4,000</b></div>
+              </div>
+              <div class="dk-warden">
+                <span class="seal-dot seal-dot--sm"></span>
+                <b>The Damp Warden</b>
+                <span class="chip chip--hot">◆ 1 GUARD · FACE SEALED</span>
+                <span class="dk-intent">NEXT · STRIKE · LANE I</span>
+              </div>
+              <div class="dk-board">
+                <div class="dk-lane">
+                  <span class="dk-state">GUARDED</span>
+                  <div class="card-slot" data-card="cinder" style="--cw: 148px; --name-size: 14px; --type-size: 9px; --stat-size: 24px; --rule-size: 11px"></div>
+                  <div class="dk-seam">I</div>
+                  <div class="card-slot pv-target" data-card="verdant" style="--cw: 148px; --name-size: 14px; --type-size: 9px; --stat-size: 24px; --rule-size: 11px">
+                    <div class="fx fx-dmg">2,600</div>
+                    <div class="fx fx-name">KINDLE <b>+400</b></div>
+                  </div>
+                </div>
+                <div class="dk-lane dk-lane--empty">
+                  <span class="dk-state">OPEN</span>
+                  <div class="dk-open">OPEN</div>
+                  <div class="dk-seam">II</div>
+                  <div class="dk-open dk-open--call">CALL</div>
+                </div>
+                <div class="dk-lane dk-lane--empty">
+                  <span class="dk-state">OPEN</span>
+                  <div class="dk-open">OPEN</div>
+                  <div class="dk-seam">III</div>
+                  <div class="dk-open dk-open--call">CALL</div>
+                </div>
+              </div>
+              <div class="dk-hand">
+                <span class="tag">HAND 4</span>
+                <div class="card-slot" data-card="ash" data-simple="true" style="--cw: 112px; --name-size: 11px; --type-size: 7px; --stat-size: 18px"></div>
+                <div class="card-slot" data-card="paper" data-simple="true" style="--cw: 112px; --name-size: 11px; --type-size: 7px; --stat-size: 18px"></div>
+                <div class="card-slot" data-card="cinder" data-simple="true" style="--cw: 112px; --name-size: 11px; --type-size: 7px; --stat-size: 18px"></div>
+                <div class="card-slot" data-card="nine" data-simple="true" style="--cw: 112px; --name-size: 11px; --type-size: 7px; --stat-size: 18px"></div>
+              </div>
+              <div class="dk-dock"><span class="fake-btn fake-btn--hot">STRIKE</span><span class="fake-btn">END TURN</span><span class="fake-btn">RESET</span><span class="dk-last"><b>LAST</b> Cinder Hound → 2,600 · KINDLE +400</span></div>
+            </div>
+            <button class="test" type="button" data-test="preview-desk">Test the exchange <span>▶</span></button>
+          </div>
+          <div class="opt-notes">
+            <div>
+              <h3>What changes</h3>
+              <ul>
+                <li>The current table, stripped of both rails and the log panel.</li>
+                <li>Cards at 148px; names at 14px and rules at 11px; one score line.</li>
+                <li>One event ticker at the dock replaces the reading column.</li>
+              </ul>
+            </div>
+            <div>
+              <h3>Effect language</h3>
+              <p>A 72px number and a 22px effect name in the centre lane. The event is the loudest object on screen.</p>
+            </div>
+            <div>
+              <h3>Tradeoff</h3>
+              <p>This is the least “corner” option. It wants 1100px and rewards a full screen.</p>
+            </div>
+          </div>
+        </article>
+
+        <article class="option" id="opt-corner" data-option="Corner HUD">
+          <header class="opt-head">
+            <div class="opt-no">05</div>
+            <div class="opt-title">
+              <p class="eyebrow eyebrow--plain">WIDGET / 420 × 480 / ACTIVE LANE ONLY</p>
+              <h2>Corner HUD</h2>
+              <p>The duel as a companion widget: two resolves, the active lane, one last event, three actions.</p>
+            </div>
+            <div class="opt-specs">
+              <span><b>420 × 480</b>window</span>
+              <span><b>10px</b>reading floor</span>
+              <span><b>1</b>lane, no board</span>
+            </div>
+            <button class="pick" type="button" data-pick="Corner HUD">Choose this</button>
+          </header>
+          <div class="preview-wrap preview-wrap--inline">
+            <div class="preview-label"><span>ACTUAL SIZE</span><span>420 × 480 · 10px READING FLOOR</span></div>
+            <div class="preview pv-corner" id="preview-corner" aria-hidden="true">
+              <div class="ch-top"><span class="pin">◉ ALWAYS ON TOP</span><span class="ch-turn">TURN 4</span></div>
+              <div class="ch-res"><div><span>YOU</span><b>3,800</b></div><div><span>WARDEN</span><b>4,000</b></div></div>
+              <div class="ch-lane"><span>LANE I · GUARDED</span><span>1 GUARD</span></div>
+              <div class="ch-arena">
+                <div class="card-slot" data-card="cinder" data-simple="true" style="--cw: 96px; --name-size: 10px; --type-size: 6px; --stat-size: 16px"></div>
+                <div class="ch-vs">VS</div>
+                <div class="card-slot pv-target" data-card="verdant" data-simple="true" style="--cw: 96px; --name-size: 10px; --type-size: 6px; --stat-size: 16px">
+                  <div class="fx fx-dmg">2,600</div>
+                  <div class="fx fx-name">KINDLE <b>+400</b></div>
+                </div>
+              </div>
+              <div class="ch-hand"><i></i><i></i><i></i><span>+1</span></div>
+              <div class="ch-log"><span>LAST</span> Cinder Hound strikes for 2,600.</div>
+              <div class="ch-actions"><span class="fake-btn fake-btn--hot">CALL</span><span class="fake-btn">END</span><span class="fake-btn fake-btn--icon">⤢</span></div>
+            </div>
+            <button class="test" type="button" data-test="preview-corner">Test the exchange <span>▶</span></button>
+          </div>
+          <div class="opt-notes">
+            <div>
+              <h3>What changes</h3>
+              <ul>
+                <li>No full board, no hand fan, no log. Only the active lane.</li>
+                <li>Two resolve numbers at 26px; the last event at 13px.</li>
+                <li>The expand button opens the full table when you need to decide.</li>
+              </ul>
+            </div>
+            <div>
+              <h3>Effect language</h3>
+              <p>A 52px number on the card and a 14px effect line. The smallest possible complete hit.</p>
+            </div>
+            <div>
+              <h3>Tradeoff</h3>
+              <p>It is a watcher, not a full-play surface. The corner companion, not the table.</p>
+            </div>
+          </div>
+        </article>
+      </section>
+
+      <section class="compare wrap" id="compare">
+        <div class="section-head">
+          <span class="section-head__no">03 / COMPARE</span>
+          <h2>The same game, <em>five distances.</em></h2>
+          <p>
+            Numbers are the contract, not the vibe. The reading floor counts names, rules, numbers, and
+            buttons; decorative micro-tags sit one step below. The card width is the hero; the window
+            is where the option stops working.
+          </p>
+        </div>
+        <div class="table-wrap">
+          <table class="compare-table">
+            <thead>
+              <tr><th>Option</th><th>Window</th><th>Type floor</th><th>Card</th><th>Chrome removed</th><th>Effect voice</th><th>Best for</th></tr>
+            </thead>
+            <tbody>
+              <tr><td><b>Pocket Cabinet</b></td><td>480 × 720</td><td>10px</td><td>142px</td><td>Rails → lane tabs + 2-line score</td><td>54px on card</td><td>always-on-top</td></tr>
+              <tr><td><b>Broadcast Strip</b></td><td>960 × 540</td><td>11px</td><td>104px</td><td>Both rails + log</td><td>38px full-width band</td><td>Auto / watch</td></tr>
+              <tr><td><b>Card-Led</b></td><td>760 × 860</td><td>10px</td><td>146px</td><td>Both rails + tabs + log</td><td>56px on card</td><td>table feel</td></tr>
+              <tr><td><b>Duelist's Desk</b></td><td>1100 × 820</td><td>11px</td><td>148px</td><td>Both rails + log + tabs</td><td>72px centre</td><td>full screen</td></tr>
+              <tr><td><b>Corner HUD</b></td><td>420 × 480</td><td>10px</td><td>96px</td><td>Everything but active lane</td><td>52px on card</td><td>pinned companion</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="shortlist">
+          <article class="shortlist__card">
+            <span>IF YOU WANT ONE</span>
+            <h3>Pocket Cabinet</h3>
+            <p>The strongest corner-first compromise. It keeps the duel's shape without asking you to read a 6px card at 480px.</p>
+          </article>
+          <article class="shortlist__card">
+            <span>IF YOU PLAY FULL-SCREEN</span>
+            <h3>Duelist's Desk</h3>
+            <p>The maximal legibility pass. No rails, no log, one huge event number, and cards large enough to read without leaning in.</p>
+          </article>
+          <article class="shortlist__card shortlist__card--accent">
+            <span>BEST HYBRID</span>
+            <h3>Pocket + Card-Led language</h3>
+            <p>Use the Pocket layout in the corner, and borrow Card-Led's on-card damage/effect voice for the full table.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="decision wrap" id="decision">
+        <div class="decision__copy">
+          <p class="eyebrow"><span>04 / DECISION</span></p>
+          <h2>Pick a distance. <em>Then I’ll build it.</em></h2>
+          <p>
+            Choose one baseline, or name a hybrid. The next step is not another skin pass: it is a
+            concrete small-window contract, a type floor, and an event language that can be tested in
+            Godot.
+          </p>
+        </div>
+        <div class="decision__panel">
+          <span class="decision__label">CURRENT PICK</span>
+          <b id="pickName">Nothing picked yet</b>
+          <p id="pickNote">Pick an option above to hold it here. You can also name a hybrid in your reply.</p>
+          <div class="decision__actions">
+            <button class="btn btn--signal" id="copyPickBottom" type="button">Copy pick</button>
+            <a class="btn btn--ghost" href="#options">Back to options</a>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <div class="pickbar" id="pickbar" hidden>
+      <span>PICKED</span>
+      <b id="pickbarName">—</b>
+      <button class="pickbar__copy" id="copyPickBar" type="button">Copy</button>
+      <button class="pickbar__close" id="closePickbar" type="button" aria-label="Clear pick">×</button>
+    </div>
+
+    <script src="js/readability.js"></script>
+  </body>
+</html>

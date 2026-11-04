@@ -1,0 +1,44 @@
+- id: folio.paper
+  name: Paper Folio
+  cards: 3
+  guarantee: uncommon
+  provenance: 5
+  price: 120
+  shimmer_chance: 0.02
+  reagent_guarantee: null
+
+- id: folio.brass
+  name: Brass Folio
+  cards: 5
+  guarantee: rare
+  provenance: 25
+  price: 400
+  shimmer_chance: 0.05
+  reagent_guarantee: null
+
+- id: folio.deep
+  name: Deep Folio
+  cards: 5
+  guarantee: rare
+  provenance: 50
+  price: 750
+  shimmer_chance: 0.10
+  reagent_guarantee: null
+
+- id: folio.set
+  name: Set Folio
+  cards: 5
+  guarantee: rare
+  provenance: 25
+  price: 500
+  shimmer_chance: 0.05
+  reagent_guarantee: null
+
+- id: folio.salvage
+  name: Salvage Cache
+  cards: 3
+  guarantee: common_reagent
+  provenance: 1
+  price: 0
+  shimmer_chance: 0.0
+  reagent_guarantee: reagent.pale_ink

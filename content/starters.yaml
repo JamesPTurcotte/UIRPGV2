@@ -1,0 +1,30 @@
+# Starter decks carry def IDs with copy counts. The save expands them into
+# deck-bound instances on first launch, so every copy has provenance and identity.
+
+- id: starter.ember
+  name: Ember Press
+  doctrine: press
+  attribute: ember
+  description: "Cheap attackers, Kindle pressure, and enough traps to survive the first floors."
+  deck:
+    - {def: ember.cinder_hound, count: 3}
+    - {def: ember.ash_moth, count: 3}
+    - {def: ember.ember_scout, count: 3}
+    - {def: tide.tidebound_archivist, count: 3}
+    - {def: neutral.paper_warden, count: 3}
+    - {def: verdant.bramble_wall, count: 3}
+    - {def: umbra.grave_whisper, count: 3}
+    - {def: tide.tidecall, count: 3}
+    - {def: umbra.hollow_lantern, count: 3}
+    - {def: neutral.quiet_ledger, count: 3}
+    - {def: neutral.ninefold_seal, count: 3}
+    - {def: verdant.bone_orchard, count: 2}
+    - {def: umbra.shade_ninth, count: 2}
+    - {def: verdant.verdant_colossus, count: 1}
+    - {def: verdant.thorn_sentinel, count: 1}
+    - {def: neutral.razeah_unbound, count: 1}
+  sideboard:
+    - {def: verdant.bone_orchard, count: 1}
+    - {def: umbra.shade_ninth, count: 1}
+    - {def: verdant.verdant_colossus, count: 1}
+    - {def: verdant.thorn_sentinel, count: 2}

@@ -1,0 +1,19 @@
+id: tide.tidebound_archivist
+set: set.core
+name: Tidebound Archivist
+type: monster
+attribute: tide
+lineage: wanderer
+offer: 0
+atk: 1000
+defense: 1600
+rarity: uncommon
+role: glue
+effect_value: 3
+keywords: []
+text: "FLIP: Draw 1."
+effect:
+  trigger: on_flip
+  steps:
+    - action: draw
+      amount: 1

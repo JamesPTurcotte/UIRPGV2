@@ -1,0 +1,1339 @@
+/* Third pass: two mats, all three lanes, no state labels.
+   Loaded after readability.css + surfaces.css. The shell, cards, and effect
+   runner are shared; these are the physical mat compositions. */
+
+/* ------------------------------------------------------------------ */
+/* hero patch diagram                                                  */
+/* ------------------------------------------------------------------ */
+
+.patch-diagram {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 18px;
+  border: 1px solid rgba(70, 240, 255, 0.18);
+  background:
+    linear-gradient(rgba(70, 240, 255, 0.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(70, 240, 255, 0.02) 1px, transparent 1px),
+    rgba(6, 3, 13, 0.5);
+  background-size: 44px 44px;
+}
+
+.patch-mat {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  min-height: 138px;
+  padding: 20px;
+  border: 1px solid rgba(176, 107, 255, 0.45);
+  border-radius: 7px;
+  background: linear-gradient(160deg, rgba(28, 12, 48, 0.72), rgba(7, 4, 16, 0.9));
+  box-shadow: inset 0 0 30px rgba(176, 107, 255, 0.06);
+}
+
+.patch-mat--player {
+  border-color: rgba(70, 240, 255, 0.45);
+  background: linear-gradient(160deg, rgba(7, 32, 38, 0.62), rgba(7, 4, 16, 0.9));
+  box-shadow: inset 0 0 30px rgba(70, 240, 255, 0.06);
+}
+
+.patch-mat i {
+  position: relative;
+  display: block;
+  border: 1px dashed rgba(244, 236, 255, 0.16);
+  border-radius: 2px;
+}
+
+.patch-mat i:nth-child(1)::after {
+  content: "";
+  position: absolute;
+  inset: 18% 24%;
+  border: 1px solid rgba(255, 63, 164, 0.6);
+  border-radius: 2px;
+  background: linear-gradient(160deg, rgba(18, 10, 38, 0.9), rgba(7, 4, 16, 0.9));
+}
+
+.patch-seam {
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--cyan), transparent);
+  opacity: 0.45;
+}
+
+/* ------------------------------------------------------------------ */
+/* removed labels                                                      */
+/* ------------------------------------------------------------------ */
+
+.removed-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1px;
+  border: 1px solid var(--line);
+  background: var(--line);
+}
+
+.removed-row {
+  display: grid;
+  grid-template-columns: minmax(160px, auto) 20px minmax(0, 1fr);
+  align-items: center;
+  gap: 10px;
+  min-height: 52px;
+  padding: 9px 13px;
+  background: rgba(6, 3, 13, 0.72);
+  font-family: var(--font-mono);
+  font-size: 10px;
+}
+
+.removed-x {
+  color: var(--pink);
+  text-decoration: line-through;
+  text-decoration-thickness: 1px;
+  opacity: 0.8;
+}
+
+.removed-arrow {
+  color: var(--faint);
+  text-align: center;
+}
+
+.removed-keep {
+  color: var(--ink-2);
+  line-height: 1.35;
+}
+
+.removed-keep i {
+  color: var(--cyan);
+  font-style: normal;
+}
+
+/* ------------------------------------------------------------------ */
+/* mat scene shared                                                    */
+/* ------------------------------------------------------------------ */
+
+.preview-wrap {
+  max-width: 100%;
+  overflow-x: auto;
+}
+
+.mat-scene {
+  display: flex;
+  flex-direction: column;
+  padding: 12px 14px;
+  gap: 8px;
+  width: 1360px;
+  height: 900px;
+  background:
+    radial-gradient(55% 45% at 50% 45%, rgba(70, 240, 255, 0.025), transparent 70%),
+    var(--void);
+}
+
+.mat {
+  position: relative;
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  padding: 8px 12px;
+  border: 1px solid rgba(176, 107, 255, 0.38);
+  border-radius: 9px;
+  background:
+    radial-gradient(60% 80% at 50% 50%, rgba(176, 107, 255, 0.05), transparent 70%),
+    linear-gradient(160deg, rgba(24, 11, 42, 0.84), rgba(7, 4, 16, 0.94));
+  box-shadow:
+    inset 0 0 0 4px rgba(6, 3, 13, 0.55),
+    inset 0 0 0 5px rgba(176, 107, 255, 0.10),
+    inset 0 0 50px rgba(176, 107, 255, 0.035);
+  overflow: visible;
+}
+
+.mat::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: 0;
+  width: 280px;
+  height: 280px;
+  border: 1px solid rgba(176, 107, 255, 0.055);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  box-shadow:
+    0 0 0 24px rgba(176, 107, 255, 0.012),
+    0 0 0 48px rgba(176, 107, 255, 0.008);
+  pointer-events: none;
+}
+
+.mat--player {
+  border-color: rgba(70, 240, 255, 0.36);
+  background:
+    radial-gradient(60% 80% at 50% 50%, rgba(70, 240, 255, 0.045), transparent 70%),
+    linear-gradient(160deg, rgba(5, 28, 34, 0.74), rgba(7, 4, 16, 0.94));
+  box-shadow:
+    inset 0 0 0 4px rgba(6, 3, 13, 0.55),
+    inset 0 0 0 5px rgba(70, 240, 255, 0.10),
+    inset 0 0 50px rgba(70, 240, 255, 0.03);
+}
+
+.mat.is-active::before {
+  content: "";
+  position: absolute;
+  top: -1px;
+  left: 18%;
+  right: 18%;
+  z-index: 4;
+  height: 2px;
+  background: var(--cyan);
+  box-shadow: 0 0 12px rgba(70, 240, 255, 0.75);
+}
+
+.mat--player.is-active::before {
+  top: -1px;
+}
+
+.mat--player::after {
+  border-color: rgba(70, 240, 255, 0.055);
+  box-shadow:
+    0 0 0 24px rgba(70, 240, 255, 0.012),
+    0 0 0 48px rgba(70, 240, 255, 0.008);
+}
+
+.mat-lanes {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 6px;
+  flex: 1;
+  min-height: 0;
+}
+
+.mat-scene .card-slot {
+  position: relative;
+  z-index: 1;
+}
+
+.lane {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 0;
+}
+
+.lane + .lane::before {
+  content: "";
+  position: absolute;
+  top: 8%;
+  bottom: 8%;
+  left: -3px;
+  width: 1px;
+  background: linear-gradient(transparent, rgba(70, 240, 255, 0.10), transparent);
+}
+
+.ghost {
+  display: grid;
+  place-items: center;
+  width: var(--ghost-w, 180px);
+  aspect-ratio: 5 / 7;
+  border: 1px dashed rgba(70, 240, 255, 0.20);
+  border-radius: 3px;
+  background: rgba(6, 3, 13, 0.18);
+}
+
+.ghost::before {
+  content: "+";
+  color: rgba(70, 240, 255, 0.38);
+  font-family: var(--font-data);
+  font-size: 42px;
+  line-height: 1;
+}
+
+.back-peek {
+  position: absolute;
+  top: 2px;
+  left: 4px;
+  z-index: 0;
+  width: max-content;
+  opacity: 0.86;
+}
+
+.back-peek--you {
+  top: auto;
+  right: 4px;
+  bottom: 2px;
+  left: auto;
+}
+
+/* Set cards stay inside the lane and peek out at the edge, even when the mat
+   border carries the score. */
+.mat--edge .back-peek,
+.mat--corner .back-peek {
+  top: 2px;
+}
+
+.mat--edge .back-peek--you,
+.mat--corner .back-peek--you {
+  top: auto;
+  bottom: 2px;
+}
+
+/* The review pages use PNGs rendered by the shipping CardComposer. These
+   rules make the real card face fill the existing 5:7 slot; the CSS card
+   renderer below stays only for legacy previews that have no image. */
+.card-image {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 5 / 7;
+  object-fit: contain;
+  border-radius: 2px;
+  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.34);
+  user-select: none;
+}
+
+.card-back {
+  position: relative;
+  width: 64px;
+  aspect-ratio: 5 / 7;
+  border: 1px solid rgba(70, 240, 255, 0.34);
+  border-radius: 2px;
+  background:
+    linear-gradient(rgba(70, 240, 255, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(70, 240, 255, 0.05) 1px, transparent 1px),
+    linear-gradient(160deg, #0d0820, #070410);
+  background-size: 12px 12px, 12px 12px, 100% 100%;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.45);
+}
+
+.card-back::before {
+  content: "◆";
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  color: var(--pink);
+  font-family: var(--font-data);
+  font-size: 22px;
+  text-shadow: 0 0 10px rgba(255, 63, 164, 0.5);
+}
+
+.card-back::after {
+  content: "";
+  position: absolute;
+  inset: 18%;
+  border: 1px solid rgba(70, 240, 255, 0.28);
+  border-radius: 50%;
+}
+
+.mat--corner .card-back {
+  width: 56px;
+}
+
+/* Real card back from CardComposer. Hide the CSS diamond/ring fallback so the
+   two backs never stack. */
+.card-back.is-render {
+  overflow: hidden;
+  border: 0;
+  border-radius: 2px;
+  background: none;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.45);
+}
+
+.card-back.is-render::before,
+.card-back.is-render::after {
+  content: none;
+}
+
+.card-back-image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: fill;
+  user-select: none;
+}
+
+.threat .card-slot::before {
+  content: "";
+  position: absolute;
+  inset: -7px;
+  z-index: 3;
+  border: 1px solid rgba(255, 63, 164, 0.72);
+  border-radius: 4px;
+  pointer-events: none;
+}
+
+.threat .card-slot::after {
+  content: "";
+  position: absolute;
+  top: -11px;
+  right: -11px;
+  z-index: 4;
+  width: 10px;
+  height: 10px;
+  background: var(--pink);
+  transform: rotate(45deg);
+  box-shadow: 0 0 12px rgba(255, 63, 164, 0.8);
+}
+
+.lock {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+}
+
+.lock::before {
+  content: "";
+  width: 13px;
+  height: 11px;
+  background: var(--pink);
+  clip-path: polygon(50% 0, 100% 24%, 86% 80%, 50% 100%, 14% 80%, 0 24%);
+  opacity: 0.72;
+}
+
+.lock i {
+  width: 6px;
+  height: 6px;
+  border: 1px solid var(--pink);
+  background: var(--pink);
+  transform: rotate(45deg);
+}
+
+.lock i.is-off {
+  background: transparent;
+  opacity: 0.24;
+}
+
+.phase-ticks {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+}
+
+.phase-ticks i {
+  display: block;
+  width: 15px;
+  height: 2px;
+  background: var(--line-2);
+}
+
+.phase-ticks i.is-on {
+  background: var(--cyan);
+  box-shadow: 0 0 8px rgba(70, 240, 255, 0.6);
+}
+
+.turn-dot {
+  display: block;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--cyan);
+  box-shadow: 0 0 12px rgba(70, 240, 255, 0.9);
+}
+
+.seam {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  min-height: 24px;
+}
+
+.seam > i {
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(70, 240, 255, 0.16), transparent);
+}
+
+.seam--thin {
+  min-height: 16px;
+}
+
+.mat-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 8px;
+  min-height: 40px;
+}
+
+.table-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 120px;
+  min-height: 36px;
+  padding: 5px 14px;
+  border: 1px solid var(--cyan);
+  background: rgba(70, 240, 255, 0.09);
+  color: var(--cyan);
+  font-family: var(--font-display);
+  font-size: 11px;
+  letter-spacing: 0.04em;
+}
+
+.table-btn--ghost {
+  border-color: rgba(244, 236, 255, 0.18);
+  background: transparent;
+  color: var(--ink-2);
+}
+
+.hand-fan {
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 2px;
+  min-height: 156px;
+  padding: 6px 10px 0;
+}
+
+.hand-fan .card-slot {
+  transform-origin: 50% 100%;
+  transition: transform 0.16s ease, filter 0.16s ease;
+}
+
+.hand-fan .card-slot:nth-child(2) {
+  transform: rotate(-4deg) translateY(3px);
+}
+
+.hand-fan .card-slot:nth-child(3) {
+  transform: rotate(-2deg) translateY(1px);
+}
+
+.hand-fan .card-slot:nth-child(4) {
+  transform: rotate(0deg);
+  z-index: 3;
+}
+
+.hand-fan .card-slot:nth-child(5) {
+  transform: rotate(2deg) translateY(1px);
+}
+
+.hand-fan .card-slot:nth-child(6) {
+  transform: rotate(4deg) translateY(3px);
+}
+
+.hand-fan .card-slot:hover {
+  transform: translateY(-10px) rotate(0deg) scale(1.03);
+  z-index: 12;
+  filter: brightness(1.08);
+}
+
+.deck-stack {
+  position: absolute;
+  left: 12px;
+  bottom: 6px;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  width: 54px;
+  height: 76px;
+  border: 1px solid rgba(70, 240, 255, 0.32);
+  background:
+    linear-gradient(145deg, rgba(18, 10, 38, 0.95), rgba(7, 4, 16, 0.95)),
+    var(--void);
+  color: var(--cyan);
+  font-family: var(--font-data);
+  font-size: 17px;
+  box-shadow: 0 0 0 3px rgba(6, 3, 13, 0.65);
+}
+
+.deck-stack::before {
+  content: "";
+  position: absolute;
+  inset: -7px 7px 7px -7px;
+  z-index: -1;
+  border: 1px solid rgba(70, 240, 255, 0.18);
+  background: var(--void);
+}
+
+/* ------------------------------------------------------------------ */
+/* 01 twin mat                                                         */
+/* ------------------------------------------------------------------ */
+
+.scene-twin {
+  gap: 8px;
+}
+
+.tm-score {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: 18px;
+  min-height: 56px;
+}
+
+.tm-side {
+  display: grid;
+  gap: 0;
+}
+
+.tm-side--hot {
+  text-align: right;
+  justify-items: end;
+}
+
+.tm-side span {
+  color: var(--muted);
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.10em;
+}
+
+.tm-side b {
+  color: var(--cyan);
+  font-family: var(--font-data);
+  font-size: 52px;
+  font-weight: 400;
+  line-height: 0.78;
+}
+
+.tm-side--hot b {
+  color: var(--pink);
+}
+
+.tm-side em {
+  color: var(--pink);
+  font-family: var(--font-data);
+  font-size: 14px;
+  font-style: normal;
+}
+
+.tm-side:first-child em {
+  color: var(--danger);
+}
+
+.tm-center {
+  display: grid;
+  justify-items: center;
+  gap: 5px;
+  min-width: 180px;
+}
+
+.scene-twin .mat {
+  flex: 1;
+}
+
+.scene-twin .seam {
+  min-height: 24px;
+}
+
+/* ------------------------------------------------------------------ */
+/* 02 clash rail                                                       */
+/* ------------------------------------------------------------------ */
+
+.scene-clash {
+  gap: 8px;
+}
+
+.clash-rail {
+  display: grid;
+  grid-template-columns: 1fr minmax(360px, auto) 1fr;
+  align-items: center;
+  gap: 18px;
+  min-height: 96px;
+  padding: 8px 18px;
+  border-top: 1px solid rgba(70, 240, 255, 0.22);
+  border-bottom: 1px solid rgba(70, 240, 255, 0.22);
+  background:
+    linear-gradient(90deg, transparent, rgba(70, 240, 255, 0.035) 34%, rgba(255, 63, 164, 0.035) 66%, transparent),
+    rgba(6, 3, 13, 0.55);
+}
+
+.clash-total {
+  display: grid;
+  gap: 0;
+}
+
+.clash-total--hot {
+  justify-items: end;
+  text-align: right;
+}
+
+.clash-total span {
+  color: var(--muted);
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.10em;
+}
+
+.clash-total b {
+  color: var(--cyan);
+  font-family: var(--font-data);
+  font-size: 44px;
+  font-weight: 400;
+  line-height: 0.8;
+}
+
+.clash-total--hot b {
+  color: var(--pink);
+}
+
+.clash-total em {
+  color: var(--danger);
+  font-family: var(--font-data);
+  font-size: 13px;
+  font-style: normal;
+}
+
+.clash-total .lock {
+  margin-top: 3px;
+}
+
+.clash-now {
+  display: grid;
+  justify-items: center;
+  gap: 1px;
+}
+
+.clash-now > span {
+  color: var(--amber);
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.14em;
+}
+
+.clash-now b {
+  color: var(--ink);
+  font-family: var(--font-data);
+  font-size: 28px;
+  font-weight: 400;
+  line-height: 0.8;
+  text-shadow: 0 0 16px rgba(255, 63, 164, 0.3);
+}
+
+.clash-now em {
+  color: var(--pink);
+  font-family: var(--font-display);
+  font-size: 15px;
+  font-style: normal;
+}
+
+.clash-now em i {
+  color: var(--green);
+  font-family: var(--font-data);
+  font-size: 1.25em;
+  font-style: normal;
+}
+
+.clash-now .phase-ticks {
+  margin-top: 4px;
+}
+
+.scene-clash .mat {
+  flex: 1;
+}
+
+/* ------------------------------------------------------------------ */
+/* 03 table edge                                                       */
+/* ------------------------------------------------------------------ */
+
+.scene-edge {
+  gap: 6px;
+}
+
+.mat--edge {
+  padding: 0;
+  overflow: hidden;
+}
+
+.edge-bar {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 38px;
+  padding: 4px 14px;
+  background: rgba(6, 3, 13, 0.55);
+}
+
+.edge-bar--top {
+  border-bottom: 1px solid rgba(176, 107, 255, 0.20);
+}
+
+.edge-bar--bottom {
+  border-top: 1px solid rgba(70, 240, 255, 0.20);
+  justify-content: flex-end;
+}
+
+.edge-brand {
+  color: var(--muted);
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.10em;
+}
+
+.edge-bar b {
+  color: var(--pink);
+  font-family: var(--font-data);
+  font-size: 40px;
+  font-weight: 400;
+  line-height: 0.8;
+}
+
+.edge-bar--top b {
+  margin-left: auto;
+}
+
+.edge-bar--bottom b {
+  color: var(--cyan);
+  margin-left: auto;
+}
+
+.edge-bar em {
+  color: var(--danger);
+  font-family: var(--font-data);
+  font-size: 14px;
+  font-style: normal;
+}
+
+.edge-bar .lock {
+  margin-left: 2px;
+}
+
+.mat--edge .mat-lanes {
+  padding: 8px 12px;
+}
+
+.scene-edge .seam {
+  min-height: 16px;
+}
+
+/* ------------------------------------------------------------------ */
+/* 04 corner mat                                                       */
+/* ------------------------------------------------------------------ */
+
+.scene-corner {
+  width: 640px;
+  height: 800px;
+  padding: 10px;
+  gap: 6px;
+}
+
+.mat--corner {
+  padding: 0;
+  border-radius: 7px;
+}
+
+.corner-bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 34px;
+  padding: 3px 10px;
+  border-bottom: 1px solid rgba(176, 107, 255, 0.20);
+  background: rgba(6, 3, 13, 0.55);
+}
+
+.corner-bar--bottom {
+  justify-content: flex-end;
+  border-top: 1px solid rgba(70, 240, 255, 0.20);
+  border-bottom: 0;
+}
+
+.corner-bar span:first-child {
+  color: var(--muted);
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.08em;
+}
+
+.corner-bar b {
+  margin-left: auto;
+  color: var(--pink);
+  font-family: var(--font-data);
+  font-size: 28px;
+  font-weight: 400;
+  line-height: 0.8;
+}
+
+.corner-bar--bottom b {
+  color: var(--cyan);
+}
+
+.corner-bar em {
+  color: var(--danger);
+  font-family: var(--font-data);
+  font-size: 12px;
+  font-style: normal;
+}
+
+.mat--corner .mat-lanes {
+  padding: 8px;
+}
+
+.scene-corner .seam {
+  min-height: 16px;
+}
+
+.hand-fan--corner {
+  min-height: 144px;
+  padding-top: 8px;
+}
+
+.hand-fan--corner .deck-stack {
+  width: 44px;
+  height: 62px;
+  font-size: 14px;
+}
+
+.scene-corner .mat-actions {
+  min-height: 36px;
+}
+
+.scene-corner .table-btn {
+  min-width: 98px;
+  min-height: 32px;
+  font-size: 10px;
+}
+
+/* ------------------------------------------------------------------ */
+/* effects / feedback                                                  */
+/* ------------------------------------------------------------------ */
+
+.mat-scene .fx-dmg {
+  font-size: 64px;
+}
+
+.mat-scene .fx-name {
+  font-size: 18px;
+}
+
+.scene-edge .fx-dmg,
+.scene-clash .fx-dmg {
+  font-size: 72px;
+}
+
+.scene-corner .fx-dmg {
+  font-size: 56px;
+}
+
+.scene-corner .fx-name {
+  font-size: 13px;
+}
+
+.mat-scene.is-firing .mat--player {
+  animation: mat-hit 0.8s 0.16s both;
+}
+
+.mat-scene.is-firing .clash-now b {
+  animation: rail-hit 0.8s 0.16s both;
+}
+
+.mat-scene.is-firing .edge-bar--bottom b {
+  animation: edge-hit 0.8s 0.16s both;
+}
+
+@keyframes mat-hit {
+  0%,
+  100% {
+    box-shadow:
+      inset 0 0 0 4px rgba(6, 3, 13, 0.55),
+      inset 0 0 0 5px rgba(70, 240, 255, 0.10),
+      inset 0 0 50px rgba(70, 240, 255, 0.03);
+  }
+  24% {
+    box-shadow:
+      inset 0 0 0 4px rgba(6, 3, 13, 0.55),
+      inset 0 0 0 5px rgba(255, 63, 164, 0.55),
+      inset 0 0 90px rgba(255, 63, 164, 0.12);
+  }
+}
+
+@keyframes rail-hit {
+  0%,
+  100% {
+    color: var(--ink);
+    transform: scale(1);
+  }
+  20% {
+    color: var(--pink);
+    transform: scale(1.12);
+  }
+}
+
+@keyframes edge-hit {
+  0%,
+  100% {
+    color: var(--cyan);
+    transform: scale(1);
+  }
+  20% {
+    color: var(--pink);
+    transform: scale(1.12);
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/* responsive                                                          */
+/* ------------------------------------------------------------------ */
+
+@media (max-width: 900px) {
+  .removed-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .removed-row {
+    grid-template-columns: minmax(140px, auto) 18px minmax(0, 1fr);
+  }
+}
+
+@media (max-width: 700px) {
+  .mat-scene {
+    width: 1360px;
+  }
+
+  .scene-corner {
+    width: 640px;
+  }
+
+  .tm-score {
+    grid-template-columns: 1fr auto 1fr;
+    gap: 8px;
+  }
+
+  .tm-side b {
+    font-size: 42px;
+  }
+
+  .tm-side span {
+    font-size: 8px;
+  }
+
+  .clash-rail {
+    grid-template-columns: 1fr;
+    gap: 6px;
+  }
+
+  .clash-total--hot {
+    justify-items: start;
+    text-align: left;
+  }
+}
+
+/* Small hand cards: two-line names instead of a seven-pixel ellipsis. */
+.card.is-simple .card__name {
+  display: -webkit-box;
+  overflow: visible;
+  white-space: normal;
+  text-overflow: clip;
+  line-height: 1.04;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+
+/* ------------------------------------------------------------------ */
+/* 05 side bench                                                       */
+/* ------------------------------------------------------------------ */
+
+.scene-bench {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 260px;
+  gap: 8px;
+  padding: 12px 14px;
+}
+
+.bench-table {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-height: 0;
+}
+
+.bench-table .mat {
+  flex: 1;
+}
+
+.bench-rail {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-height: 0;
+  padding: 8px;
+  border: 1px solid var(--line);
+  background: rgba(6, 3, 13, 0.5);
+}
+
+.bench-deck {
+  display: flex;
+  justify-content: center;
+  min-height: 80px;
+}
+
+.bench-deck .deck-stack {
+  position: static;
+}
+
+.bench-hand {
+  flex: 1;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-content: center;
+  justify-items: center;
+  gap: 4px;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.bench-hand .card-slot:nth-child(5) {
+  grid-column: 1 / -1;
+}
+
+.bench-actions {
+  display: grid;
+  gap: 5px;
+}
+
+.bench-actions .table-btn {
+  min-height: 34px;
+}
+
+.scene-bench .fx-dmg {
+  font-size: 72px;
+}
+
+/* ------------------------------------------------------------------ */
+/* 06 long table                                                       */
+/* ------------------------------------------------------------------ */
+
+.scene-long {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 12px 14px;
+}
+
+.long-board {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 18px minmax(0, 1fr);
+  gap: 6px;
+  flex: 1;
+  min-height: 0;
+}
+
+.mat--long {
+  padding: 6px;
+}
+
+.long-lanes {
+  display: grid;
+  grid-template-rows: repeat(3, minmax(0, 1fr));
+  gap: 6px;
+  height: 100%;
+}
+
+.long-lane {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 0;
+}
+
+.long-lane + .long-lane::before {
+  content: "";
+  position: absolute;
+  top: -3px;
+  left: 7%;
+  right: 7%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(70, 240, 255, 0.12), transparent);
+}
+
+.long-seam {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.long-seam::before {
+  content: "";
+  position: absolute;
+  top: 4%;
+  bottom: 4%;
+  width: 1px;
+  background: linear-gradient(transparent, rgba(70, 240, 255, 0.22), transparent);
+}
+
+.long-seam i {
+  width: 6px;
+  height: 6px;
+  background: var(--line-2);
+  transform: rotate(45deg);
+}
+
+.long-seam span {
+  width: 9px;
+  height: 9px;
+  background: var(--cyan);
+  transform: rotate(45deg);
+  box-shadow: 0 0 12px rgba(70, 240, 255, 0.7);
+}
+
+.scene-long .fx-dmg {
+  font-size: 64px;
+}
+
+.scene-long .tm-score {
+  min-height: 56px;
+}
+
+.scene-long .hand-fan {
+  min-height: 150px;
+}
+
+.scene-long .mat-actions {
+  min-height: 36px;
+}
+
+/* ------------------------------------------------------------------ */
+/* 07 ledger rail                                                      */
+/* ------------------------------------------------------------------ */
+
+.scene-ledger {
+  display: grid;
+  grid-template-columns: 220px minmax(0, 1fr);
+  gap: 8px;
+  padding: 12px 14px;
+}
+
+.ledger-rail {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  min-height: 0;
+  padding: 12px;
+  border: 1px solid rgba(70, 240, 255, 0.2);
+  background: rgba(6, 3, 13, 0.52);
+}
+
+.ledger-total {
+  display: grid;
+  gap: 0;
+}
+
+.ledger-total--hot {
+  justify-items: start;
+}
+
+.ledger-total span:first-child {
+  color: var(--muted);
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.08em;
+}
+
+.ledger-total b {
+  color: var(--cyan);
+  font-family: var(--font-data);
+  font-size: 46px;
+  font-weight: 400;
+  line-height: 0.8;
+}
+
+.ledger-total--hot b {
+  color: var(--pink);
+}
+
+.ledger-total .lock {
+  margin-top: 3px;
+}
+
+.ledger-event {
+  display: grid;
+  gap: 1px;
+  margin-top: auto;
+  padding-top: 10px;
+  border-top: 1px solid var(--line);
+}
+
+.ledger-event span {
+  color: var(--amber);
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.14em;
+}
+
+.ledger-event b {
+  color: var(--ink);
+  font-family: var(--font-data);
+  font-size: 34px;
+  font-weight: 400;
+  line-height: 0.8;
+}
+
+.ledger-event em {
+  color: var(--pink);
+  font-family: var(--font-display);
+  font-size: 14px;
+  font-style: normal;
+}
+
+.ledger-event em i {
+  color: var(--green);
+  font-family: var(--font-data);
+  font-size: 1.2em;
+  font-style: normal;
+}
+
+.ledger-spacer {
+  flex: 1;
+}
+
+.ledger-table {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-height: 0;
+}
+
+.ledger-table .mat {
+  flex: 1;
+}
+
+.scene-ledger .fx-dmg {
+  font-size: 72px;
+}
+
+/* ------------------------------------------------------------------ */
+/* 08 duel board (square)                                              */
+/* ------------------------------------------------------------------ */
+
+.scene-square {
+  width: 900px;
+  height: 900px;
+  padding: 10px;
+  gap: 6px;
+}
+
+.scene-square .mat {
+  flex: 1;
+}
+
+.scene-square .fx-dmg {
+  font-size: 64px;
+}
+
+.hand-fan--square {
+  min-height: 140px;
+}
+
+.scene-square .mat-actions {
+  min-height: 38px;
+}
+
+.scene-square .table-btn {
+  min-height: 32px;
+  font-size: 10px;
+}
+
+/* The reviewed exchange is a lane-three face-off. The guard card must sit in
+   the same lane as the threatened player card, whatever its DOM order. */
+.mat .lane:has(.card-slot[data-card="cinder"]),
+.mat .long-lane:has(.card-slot[data-card="cinder"]) {
+  order: 3;
+}

@@ -1,0 +1,22 @@
+id: tide.tidecall
+set: set.core
+name: Tidecall
+type: spell
+spell_kind: normal
+attribute: tide
+lineage: null
+offer: 0
+rarity: uncommon
+role: draw
+effect_value: 4
+keywords: []
+text: "Draw 1. If you control a TIDE monster, draw 1 more."
+effect:
+  trigger: on_activate
+  steps:
+    - action: draw
+      amount: 1
+    - action: draw
+      amount: 1
+      condition:
+        controller_has_attribute: tide

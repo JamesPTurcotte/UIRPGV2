@@ -1,0 +1,552 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="dark" />
+    <title>Razeah — Four Surfaces</title>
+    <meta
+      name="description"
+      content="The second-pass readability review: four genuinely different surfaces for watching, playing, full-screen, and combat language."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500;600;700&family=Orbitron:wght@500;700;900&family=VT323&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/readability.css" />
+    <link rel="stylesheet" href="css/surfaces.css" />
+  </head>
+  <body>
+    <a class="skip" href="#surfaces">Skip to surfaces</a>
+    <a href="mats.html" style="position:fixed;top:70px;right:18px;z-index:500;padding:7px 10px;border:1px solid #ffcc55;background:rgba(13,7,30,.94);color:#ffcc55;font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:.06em;text-decoration:none;text-transform:uppercase;">Second pass rejected · open the twin mats →</a>
+
+    <header class="masthead">
+      <div class="masthead__inner">
+        <a class="wordmark" href="#top">
+          <span class="wordmark__mark">R</span>
+          <span>RAZEAH <em>/ four surfaces</em></span>
+        </a>
+        <nav class="mastnav" aria-label="Review sections">
+          <a href="#diagnosis">01 Diagnosis</a>
+          <a href="#surfaces">02 Surfaces</a>
+          <a href="#compare">03 Compare</a>
+          <a href="#decision">04 Decision</a>
+        </nav>
+        <div class="masttools">
+          <button class="toolbtn toolbtn--run" id="runAll" type="button">▶ Run the exchange</button>
+          <button class="toolbtn" id="copyPick" type="button">Copy pick</button>
+        </div>
+      </div>
+    </header>
+
+    <main id="top">
+      <section class="hero wrap">
+        <div class="hero__copy">
+          <p class="eyebrow"><span>Second-pass scale review</span><span>·</span><span>Committee findings</span></p>
+          <h1>The corner is not<br /><em>a small table.</em></h1>
+          <p class="lede">
+            The first pass gave you five sizes of the same room. The committee found the real split:
+            <b>watch, play, full-screen, and the combat language that makes a hit land.</b> Four
+            surfaces. One duel. The card stays 5:7; the type earns the space.
+          </p>
+          <div class="hero__actions">
+            <a class="btn btn--signal" href="#surfaces">See the four surfaces <span>↓</span></a>
+            <button class="btn btn--ghost" id="runAllHero" type="button">▶ Run the exchange</button>
+          </div>
+          <ul class="hero__facts">
+            <li><b>04</b><span>surfaces, not zooms</span></li>
+            <li><b>250</b><span>honest card width, px</span></li>
+            <li><b>0</b><span>focus steals in companion</span></li>
+            <li><b>110</b><span>damage number, px</span></li>
+          </ul>
+          <p class="hero__note">All four keep the Neon Reliquary, the 5:7 card, and the four doors. They change what each window is for.</p>
+        </div>
+        <div class="hero__visual">
+          <div class="geometry">
+            <div class="geometry__card geometry__card--current">
+              <span>120px</span>
+              <i></i><i></i><i></i>
+              <em>6px rules</em>
+            </div>
+            <div class="geometry__card geometry__card--honest">
+              <span>250px</span>
+              <i></i><i></i><i></i><i></i><i></i>
+              <em>16px rules</em>
+            </div>
+          </div>
+          <p class="geometry__caption">
+            <b>The card is not too small because the window is small.</b> It is too small because
+            the same window is trying to be a table, a dashboard, and a corner widget at once.
+          </p>
+        </div>
+      </section>
+
+      <section class="diagnosis wrap" id="diagnosis">
+        <div class="section-head">
+          <span class="section-head__no">01 / WHAT THE COMMITTEE FOUND</span>
+          <h2>The floor was fiction. <em>The hit was invisible.</em></h2>
+          <p>
+            The first five options declared 10–11px floors while their card type sat at 6–9px. They
+            also left the actual event model untouched. These are the four findings that changed the
+            brief.
+          </p>
+        </div>
+
+        <div class="diag-grid">
+          <article class="diag-card">
+            <b>8px</b>
+            <span>THE RULE CEILING</span>
+            <h3>The card cannot speak</h3>
+            <p>The largest table token is 150px with 8px rules. There is no code path to a 16px rule line at 1440.</p>
+          </article>
+          <article class="diag-card">
+            <b>0.04s</b>
+            <span>THE 4× HIT</span>
+            <h3>Speed deletes the event</h3>
+            <p>A 0.95s damage plate becomes 40ms at 4×. Speed must compress travel, never the hold or the residue.</p>
+          </article>
+          <article class="diag-card">
+            <b>⅓</b>
+            <span>THE WIDTH TAX</span>
+            <h3>Furniture before cards</h3>
+            <p>Rails and gutters take ~34% of 1440. The card gets 39% of its lane and 6px rules.</p>
+          </article>
+          <article class="diag-card">
+            <b>5×</b>
+            <span>THE SAME FACT</span>
+            <h3>The guard is everywhere</h3>
+            <p>One guard state appears in five places at three sizes. The screen is busy, not informative.</p>
+          </article>
+        </div>
+
+        <div class="committee-strip">
+          <div>
+            <span>THE GEOMETRY</span>
+            <p>A 5:7 card with 16px rules needs ~230px. Two cards + a reading shelf + a hand strip is a 560–680px play surface. Below that, the cards must leave the surface.</p>
+          </div>
+          <div>
+            <span>THE VERB</span>
+            <p>Always-on-top means unfocused, off-axis, and glanced at. It is a different job from playing a duel. The first pass never chose a verb.</p>
+          </div>
+          <div>
+            <span>THE HIT</span>
+            <p>Damage needs a body, a destination, and residue. A bigger floating plate is still a receipt. The committee refused another receipt.</p>
+          </div>
+        </div>
+
+        <div class="surface-map" aria-label="Surface map">
+          <a href="#opt-altar"><span>PLAY</span><b>Altar</b><em>one lane · 680×800</em></a>
+          <a href="#opt-vigil"><span>WATCH</span><b>Vigil</b><em>pinned · 340×220</em></a>
+          <a href="#opt-sealbreak"><span>HIT</span><b>Sealbreak</b><em>the Warden is the body</em></a>
+          <a href="#opt-broadside"><span>FULL</span><b>Broadside</b><em>three lanes · 1360×880</em></a>
+        </div>
+      </section>
+
+      <section class="options wrap" id="surfaces">
+        <div class="section-head section-head--options">
+          <span class="section-head__no">02 / FOUR SURFACES</span>
+          <h2>Different jobs. <em>Different shapes.</em></h2>
+          <p>
+            The same exchange runs in every surface: Cinder Hound hits for 2,600, the guard breaks,
+            and the residue stays. Watch what each surface does with the number and the sentence.
+          </p>
+        </div>
+
+        <nav class="option-index" aria-label="Surface index">
+          <a href="#opt-altar"><span>01</span> Altar · play</a>
+          <a href="#opt-vigil"><span>02</span> Vigil · watch</a>
+          <a href="#opt-sealbreak"><span>03</span> Sealbreak · hit</a>
+          <a href="#opt-broadside"><span>04</span> Broadside · full</a>
+        </nav>
+
+        <article class="option" id="opt-altar" data-option="Altar">
+          <header class="opt-head">
+            <div class="opt-no">01</div>
+            <div class="opt-title">
+              <p class="eyebrow eyebrow--plain">PLAY / ONE LANE / TWO LARGE CARDS</p>
+              <h2>The Altar</h2>
+              <p>One lane face-off, 250px cards, 16px rules, and a reading shelf for the long sentence.</p>
+            </div>
+            <div class="opt-specs">
+              <span><b>680 × 800</b>standard</span>
+              <span><b>16px</b>rules</span>
+              <span><b>250px</b>card width</span>
+            </div>
+            <button class="pick" type="button" data-pick="Altar">Choose this</button>
+          </header>
+
+          <div class="preview-wrap">
+            <div class="preview-label"><span>ACTUAL SIZE</span><span>680 × 800 · 16px RULE TEXT</span></div>
+            <div class="preview surface sv-altar" id="preview-altar" data-surface aria-hidden="true">
+              <div class="sv-top">
+                <div class="sv-total"><span>YOU</span><b>3,800</b><em>−200</em></div>
+                <div class="sv-turn"><span>DEPTH 03 · TURN 4</span><b>YOUR CALL</b></div>
+                <div class="sv-total sv-total--hot"><span>WARDEN</span><b>4,000</b><em>1 GUARD</em></div>
+              </div>
+
+              <div class="sv-lanes">
+                <span class="sv-lane is-active"><b>I</b><span>GUARDED</span><em>2,600</em></span>
+                <span class="sv-lane"><b>II</b><span>OPEN</span><em>1,800</em></span>
+                <span class="sv-lane"><b>III</b><span>OPEN</span><em>—</em></span>
+              </div>
+
+              <div class="sv-pair">
+                <div class="card-slot" data-card="cinder" style="--cw: 250px; --name-size: 21px; --type-size: 12px; --stat-size: 36px; --rule-size: 16px"></div>
+                <div class="sv-vs"><span>LANE I</span><i></i><b>VS</b><i></i></div>
+                <div class="card-slot pv-target" data-card="verdant" style="--cw: 250px; --name-size: 21px; --type-size: 12px; --stat-size: 36px; --rule-size: 16px">
+                  <div class="fx fx-dmg">2,600</div>
+                  <div class="fx fx-name">GUARD BREAK</div>
+                </div>
+              </div>
+
+              <div class="sv-shelf">
+                <span>RESIDUE</span>
+                <b>CINDER HOUND → BRAMBLE WALL</b>
+                <em>2,600 · DESTROYED</em>
+              </div>
+
+              <div class="sv-hand">
+                <span class="tag">HAND 5</span>
+                <div class="card-slot" data-card="ash" data-simple="true" style="--cw: 96px; --name-size: 11px; --stat-size: 18px"></div>
+                <div class="card-slot" data-card="paper" data-simple="true" style="--cw: 96px; --name-size: 11px; --stat-size: 18px"></div>
+                <div class="card-slot" data-card="cinder" data-simple="true" style="--cw: 96px; --name-size: 11px; --stat-size: 18px"></div>
+                <div class="card-slot" data-card="nine" data-simple="true" style="--cw: 96px; --name-size: 11px; --stat-size: 18px"></div>
+                <div class="card-slot" data-card="verdant" data-simple="true" style="--cw: 96px; --name-size: 11px; --stat-size: 18px"></div>
+              </div>
+
+              <div class="sv-dock">
+                <span class="fake-btn fake-btn--hot">STRIKE</span>
+                <span class="fake-btn">CALL</span>
+                <span class="fake-btn">END TURN</span>
+                <span class="sv-hint">TAP A CARD FOR THE SHELF</span>
+              </div>
+            </div>
+            <button class="test" type="button" data-test="preview-altar">Test the exchange <span>▶</span></button>
+          </div>
+
+          <div class="opt-notes">
+            <div>
+              <h3>What changes</h3>
+              <ul>
+                <li>Both resolves sit at the top at the same size and baseline.</li>
+                <li>One lane, two 250px cards. The other lanes are state tabs.</li>
+                <li>No rails, no log panel, no phase ribbon, no tabbed intent.</li>
+              </ul>
+            </div>
+            <div>
+              <h3>Effect language</h3>
+              <p>64px damage lands on the card. The shelf keeps the full consequence at 18px: who, what, how much, what broke.</p>
+            </div>
+            <div>
+              <h3>Tradeoff</h3>
+              <p>One lane at a time. 560×680 is the compact floor; below that the card must leave the surface.</p>
+            </div>
+          </div>
+        </article>
+
+        <article class="option" id="opt-vigil" data-option="Vigil">
+          <header class="opt-head">
+            <div class="opt-no">02</div>
+            <div class="opt-title">
+              <p class="eyebrow eyebrow--plain">WATCH / PINNED / ONE DECISION</p>
+              <h2>The Vigil</h2>
+              <p>A companion window that shows only the score, the lane strip, and the one decision that matters.</p>
+            </div>
+            <div class="opt-specs">
+              <span><b>340 × 220</b>collapsed</span>
+              <span><b>340 × 556</b>raised</span>
+              <span><b>0</b>cards at rest</span>
+            </div>
+            <button class="pick" type="button" data-pick="Vigil">Choose this</button>
+          </header>
+
+          <div class="preview-wrap">
+            <div class="preview-label"><span>ACTUAL SIZE</span><span>COLLAPSED 340 × 220 · RAISED 340 × 556</span></div>
+            <div class="sv-vigil-row">
+              <div class="preview surface sv-vigil sv-vigil--collapsed" id="preview-vigil" data-surface aria-hidden="true">
+                <div class="vg-top"><span>DEPTH 03 · TURN 4</span><span>◉ PINNED</span></div>
+                <div class="vg-totals">
+                  <div><span>YOU</span><b>3,800</b><em>−200</em></div>
+                  <div class="vg-lanes"><i class="is-active">I</i><i>II</i><i>III</i><b>2,600</b></div>
+                  <div><span>WARDEN</span><b>4,000</b><em>1 GUARD</em></div>
+                </div>
+                <div class="vg-status"><b>AUTO</b><span>WARDEN CLASH · LANE I</span><em>SEALED</em></div>
+                <div class="vg-action"><span>TAKE</span><b>STRIKE I · 2,600</b><i>›</i></div>
+              </div>
+
+              <div class="preview surface sv-vigil sv-vigil--raised" id="preview-vigil-raised" data-surface aria-hidden="true">
+                <div class="vg-top"><span>DEPTH 03 · TURN 4 · RAISED</span><span>◉ PINNED</span></div>
+                <div class="vg-totals">
+                  <div><span>YOU</span><b>3,800</b><em>−200</em></div>
+                  <div class="vg-lanes"><i class="is-active">I</i><i>II</i><i>III</i><b>2,600</b></div>
+                  <div><span>WARDEN</span><b>4,000</b><em>1 GUARD</em></div>
+                </div>
+                <div class="vg-pair">
+                  <div class="card-slot" data-card="cinder" data-simple="true" style="--cw: 140px; --name-size: 12px; --stat-size: 22px"></div>
+                  <div class="vg-arrow">→</div>
+                  <div class="card-slot pv-target" data-card="verdant" data-simple="true" style="--cw: 140px; --name-size: 12px; --stat-size: 22px">
+                    <div class="fx fx-dmg">2,600</div>
+                    <div class="fx fx-name">GUARD BREAK</div>
+                  </div>
+                </div>
+                <div class="vg-events">
+                  <p><span>NOW</span> Cinder Hound → Bramble Wall · 2,600</p>
+                  <p><span>THEN</span> Guard broken · Lane I open</p>
+                </div>
+                <div class="vg-proposals">
+                  <span class="is-first">1 · STRIKE I · 2,600</span>
+                  <span>2 · CALL ASH MOTH · II</span>
+                  <span>3 · END TURN</span>
+                </div>
+                <div class="vg-action"><span>ENTER</span><b>TAKE PROPOSAL 1</b><i>›</i></div>
+              </div>
+            </div>
+            <button class="test" type="button" data-test="preview-vigil">Test the exchange <span>▶</span></button>
+          </div>
+
+          <div class="opt-notes">
+            <div>
+              <h3>What changes</h3>
+              <ul>
+                <li>Collapsed: two totals, lane strip, status, one action. No cards, no log, no buttons.</li>
+                <li>Raised: the active lane as two 140px cards, the last two events, and three ranked proposals.</li>
+                <li>Full sheet at 560×820 for reading and deciding; the watch surface stays small.</li>
+              </ul>
+            </div>
+            <div>
+              <h3>Effect language</h3>
+              <p>The total rolls and leaves a signed delta. One 18px line holds for 3s. On lethal or your-turn, the window pulses once; it never steals focus.</p>
+            </div>
+            <div>
+              <h3>Tradeoff</h3>
+              <p>It is a companion, not a table. You trust a ranked proposal or open the sheet. That is the price of zero focus steals.</p>
+            </div>
+          </div>
+        </article>
+
+        <article class="option" id="opt-sealbreak" data-option="Sealbreak">
+          <header class="opt-head">
+            <div class="opt-no">03</div>
+            <div class="opt-title">
+              <p class="eyebrow eyebrow--plain">COMBAT LANGUAGE / THE WARDEN IS THE BODY</p>
+              <h2>Sealbreak</h2>
+              <p>Damage hits a physical seal, cracks it, and leaves a scar. The cards are the weapons; the Warden is the target.</p>
+            </div>
+            <div class="opt-specs">
+              <span><b>460 × 700</b>surface</span>
+              <span><b>92px</b>resolve</span>
+              <span><b>110px</b>damage</span>
+            </div>
+            <button class="pick" type="button" data-pick="Sealbreak">Choose this</button>
+          </header>
+
+          <div class="preview-wrap">
+            <div class="preview-label"><span>ACTUAL SIZE</span><span>460 × 700 · 110px HIT</span></div>
+            <div class="preview surface sv-sealbreak" id="preview-sealbreak" data-surface aria-hidden="true">
+              <div class="sb-top"><span>DEPTH 03 · TURN 4</span><b>WARDEN CLASH</b><span>1 GUARD</span></div>
+              <div class="sb-seal-wrap">
+                <div class="sb-ring">
+                  <i class="sb-bolt is-on"></i>
+                  <i class="sb-bolt is-on"></i>
+                  <i class="sb-bolt is-off"></i>
+                  <div class="sb-crack"></div>
+                </div>
+                <div class="sb-resolve"><span>WARDEN RESOLVE</span><b>3,800</b><em>−200</em></div>
+                <div class="fx fx-dmg">2,600</div>
+                <div class="fx fx-name">SEAL CRACKED</div>
+              </div>
+              <div class="sb-pair">
+                <div class="card-slot" data-card="cinder" data-simple="true" style="--cw: 120px; --name-size: 10px; --stat-size: 19px"></div>
+                <span class="sb-arrow">→</span>
+                <div class="card-slot" data-card="verdant" data-simple="true" style="--cw: 120px; --name-size: 10px; --stat-size: 19px"></div>
+              </div>
+              <div class="sb-shelf"><span>RESIDUE</span><b>CINDER HOUND → SEAL</b><em>2,600 · CRACK</em></div>
+              <div class="sb-hand">
+                <span class="tag">HAND 3</span>
+                <div class="card-slot" data-card="ash" data-simple="true" style="--cw: 92px; --name-size: 10px; --stat-size: 17px"></div>
+                <div class="card-slot" data-card="paper" data-simple="true" style="--cw: 92px; --name-size: 10px; --stat-size: 17px"></div>
+                <div class="card-slot" data-card="nine" data-simple="true" style="--cw: 92px; --name-size: 10px; --stat-size: 17px"></div>
+              </div>
+              <div class="sb-dock"><span class="fake-btn fake-btn--hot">STRIKE</span><span class="fake-btn">END TURN</span><span class="sb-hint">THE BODY KEEPS THE HISTORY</span></div>
+            </div>
+            <button class="test" type="button" data-test="preview-sealbreak">Test the exchange <span>▶</span></button>
+          </div>
+
+          <div class="opt-notes">
+            <div>
+              <h3>What changes</h3>
+              <ul>
+                <li>The Warden is a seal with guard bolts, not a strip of labels.</li>
+                <li>Guard break shatters a bolt; damage cracks the ring; scars persist.</li>
+                <li>Cards flank the body as weapons; no second board.</li>
+              </ul>
+            </div>
+            <div>
+              <h3>Effect language</h3>
+              <p>A 110px damage number hits the seal, the resolve rolls, a crack stays, and a 28px shelf line remains. The body is the score.</p>
+            </div>
+            <div>
+              <h3>Tradeoff</h3>
+              <p>The cards are 120px; this is not the reading surface. Use it as the Warden and event language inside the Altar or Broadside.</p>
+            </div>
+          </div>
+        </article>
+
+        <article class="option" id="opt-broadside" data-option="Broadside">
+          <header class="opt-head">
+            <div class="opt-no">04</div>
+            <div class="opt-title">
+              <p class="eyebrow eyebrow--plain">FULL-SCREEN / THREE LANES / READING BAND</p>
+              <h2>The Broadside</h2>
+              <p>The full table with 205px cards, 14px rules, no rails, and a reading band that speaks in full sentences.</p>
+            </div>
+            <div class="opt-specs">
+              <span><b>1360 × 900</b>full class</span>
+              <span><b>14px</b>rules</span>
+              <span><b>205px</b>cards</span>
+            </div>
+            <button class="pick" type="button" data-pick="Broadside">Choose this</button>
+          </header>
+
+          <div class="preview-wrap preview-wrap--wide">
+            <div class="preview-label"><span>ACTUAL SIZE · SCROLL IN A NARROW PANE</span><span>1360 × 900 · 205px CARDS · 14px RULES</span></div>
+            <div class="preview surface sv-broadside" id="preview-broadside" data-surface aria-hidden="true">
+              <div class="bs-top">
+                <div class="bs-total"><span>YOU</span><b>3,800</b><em>−200</em></div>
+                <div class="bs-run"><span>DEPTH 03 · CIRCUIT 1</span><b>TURN 4 · YOUR CALL</b><i>I · II · III</i></div>
+                <div class="bs-total bs-total--hot"><span>WARDEN</span><b>4,000</b><em>1 GUARD</em></div>
+              </div>
+              <div class="bs-warden"><span class="seal-dot seal-dot--sm"></span><b>The Damp Warden</b><span class="chip chip--hot">◆ 1 GUARD · FACE SEALED</span><span class="bs-intent">NEXT · STRIKE · LANE I</span></div>
+              <div class="bs-board">
+                <div class="bs-lane">
+                  <span class="bs-state">GUARDED</span>
+                  <div class="card-slot" data-card="cinder" style="--cw: 205px; --name-size: 19px; --type-size: 10px; --stat-size: 32px; --rule-size: 14px"></div>
+                  <div class="bs-seam">I</div>
+                  <div class="card-slot pv-target" data-card="verdant" style="--cw: 205px; --name-size: 19px; --type-size: 10px; --stat-size: 32px; --rule-size: 14px">
+                    <div class="fx fx-dmg">2,600</div>
+                    <div class="fx fx-name">GUARD BREAK</div>
+                  </div>
+                </div>
+                <div class="bs-lane bs-lane--empty">
+                  <span class="bs-state">OPEN</span>
+                  <div class="bs-open">OPEN</div>
+                  <div class="bs-seam">II</div>
+                  <div class="bs-open bs-open--call">CALL</div>
+                </div>
+                <div class="bs-lane bs-lane--empty">
+                  <span class="bs-state">OPEN</span>
+                  <div class="bs-open">OPEN</div>
+                  <div class="bs-seam">III</div>
+                  <div class="bs-open bs-open--call">CALL</div>
+                </div>
+              </div>
+              <div class="bs-band"><span>NOW</span><b>CINDER HOUND → BRAMBLE WALL</b><em>2,600 · GUARD BROKEN</em><i>VEIL: the first spell each turn costs 1 less.</i></div>
+              <div class="bs-hand">
+                <span class="tag">HAND 5</span>
+                <div class="card-slot" data-card="ash" data-simple="true" style="--cw: 100px; --name-size: 11px; --stat-size: 18px"></div>
+                <div class="card-slot" data-card="paper" data-simple="true" style="--cw: 100px; --name-size: 11px; --stat-size: 18px"></div>
+                <div class="card-slot" data-card="cinder" data-simple="true" style="--cw: 100px; --name-size: 11px; --stat-size: 18px"></div>
+                <div class="card-slot" data-card="nine" data-simple="true" style="--cw: 100px; --name-size: 11px; --stat-size: 18px"></div>
+                <div class="card-slot" data-card="verdant" data-simple="true" style="--cw: 100px; --name-size: 11px; --stat-size: 18px"></div>
+              </div>
+              <div class="bs-dock"><span class="fake-btn fake-btn--hot">STRIKE</span><span class="fake-btn">END TURN</span><span class="bs-hint">ONE BOARD · ONE BAND · NO RAILS</span></div>
+            </div>
+            <button class="test" type="button" data-test="preview-broadside">Test the exchange <span>▶</span></button>
+          </div>
+
+          <div class="opt-notes">
+            <div>
+              <h3>What changes</h3>
+              <ul>
+                <li>Three lanes stay visible; cards are 180px, not 120px.</li>
+                <li>Both rails, the tabbed intent, the separate log, and the phase ribbon are removed.</li>
+                <li>The reading band holds the full consequence and the selected card's rule.</li>
+              </ul>
+            </div>
+            <div>
+              <h3>Effect language</h3>
+              <p>A 72px number on the target, a 64px resolve roll, and a 20px band line. The hit is the loudest object; the band keeps the sentence.</p>
+            </div>
+            <div>
+              <h3>Tradeoff</h3>
+              <p>It needs 1360px. It is the full-screen answer, not the corner answer.</p>
+            </div>
+          </div>
+        </article>
+      </section>
+
+      <section class="compare wrap" id="compare">
+        <div class="section-head">
+          <span class="section-head__no">03 / COMPARE</span>
+          <h2>One duel, <em>four distances.</em></h2>
+          <p>
+            These are not four window sizes. They are four jobs. The reading floor is the type the
+            player must actually read, not the smallest decorative tag.
+          </p>
+        </div>
+        <div class="table-wrap">
+          <table class="compare-table">
+            <thead>
+              <tr><th>Surface</th><th>Job</th><th>Window</th><th>Card</th><th>Reading floor</th><th>Event model</th><th>Removes</th><th>Risk</th></tr>
+            </thead>
+            <tbody>
+              <tr><td><b>Altar</b></td><td>play small</td><td>680 × 800</td><td>250px</td><td>16px rules</td><td>64px on card + shelf</td><td>rails, log, phase rail</td><td>one lane at a time</td></tr>
+              <tr><td><b>Vigil</b></td><td>watch pinned</td><td>340 × 220 / 556</td><td>140px raised</td><td>10–13px labels</td><td>totals roll + delta + one line</td><td>board, hand, log, focus</td><td>companion, not play</td></tr>
+              <tr><td><b>Sealbreak</b></td><td>combat language</td><td>460 × 700</td><td>120px</td><td>92px resolve / 110px hit</td><td>seal body + crack + shelf</td><td>Warden strip + intent rail</td><td>small cards; not reading surface</td></tr>
+              <tr><td><b>Broadside</b></td><td>full screen</td><td>1360 × 900</td><td>205px</td><td>14px rules</td><td>72px on card + band</td><td>rails, log, phase rail</td><td>needs 1360px</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="shortlist">
+          <article class="shortlist__card">
+            <span>IF YOU WANT ONE SURFACE</span>
+            <h3>Altar</h3>
+            <p>The only one that is both playable and readable at a small-window size. It is the safest single answer.</p>
+          </article>
+          <article class="shortlist__card">
+            <span>IF ALWAYS-ON-TOP IS THE POINT</span>
+            <h3>Vigil</h3>
+            <p>The only one designed for the corner: two totals, one lane strip, one decision, zero focus steals.</p>
+          </article>
+          <article class="shortlist__card shortlist__card--accent">
+            <span>THE COMMITTEE'S STACK</span>
+            <h3>Vigil + Altar + Broadside</h3>
+            <p>Watch in the corner, play in the Altar, go full-screen in the Broadside. Sealbreak is the shared combat language.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="decision wrap" id="decision">
+        <div class="decision__copy">
+          <p class="eyebrow"><span>04 / DECISION</span></p>
+          <h2>Pick a surface. <em>Or pick the stack.</em></h2>
+          <p>
+            The committee's recommendation is not one layout. It is a family: **Vigil** for the
+            corner, **Altar** for the playable small window, **Broadside** for full screen, with
+            **Sealbreak** as the Warden and the hit language. If you want one, Altar is the answer.
+          </p>
+        </div>
+        <div class="decision__panel">
+          <span class="decision__label">CURRENT PICK</span>
+          <b id="pickName">Nothing picked yet</b>
+          <p id="pickNote">Pick a surface or the stack. You can also name a hybrid in your reply.</p>
+          <div class="decision__actions">
+            <button class="btn btn--signal" data-pick="The stack" type="button">Pick the stack</button>
+            <button class="btn btn--ghost" id="copyPickBottom" type="button">Copy pick</button>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <div class="pickbar" id="pickbar" hidden>
+      <span>PICKED</span>
+      <b id="pickbarName">—</b>
+      <button class="pickbar__copy" id="copyPickBar" type="button">Copy</button>
+      <button class="pickbar__close" id="closePickbar" type="button" aria-label="Clear pick">×</button>
+    </div>
+
+    <script src="js/surfaces.js"></script>
+  </body>
+</html>

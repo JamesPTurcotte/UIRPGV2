@@ -1,0 +1,15 @@
+id: verdant.verdant_colossus
+set: set.core
+name: Verdant Colossus
+type: monster
+attribute: verdant
+lineage: construct
+offer: 2
+atk: 2600
+defense: 2200
+rarity: rare
+role: threat
+effect_value: 2
+keywords: [pierce]
+text: "PIERCE."
+effect: null

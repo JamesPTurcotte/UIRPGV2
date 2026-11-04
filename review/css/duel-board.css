@@ -1,0 +1,450 @@
+/* Duel Board variation lab. One card token per board: hand, monster,
+   spell/trap, deck back. Loaded after the shared shell/card/mat styles. */
+
+.db-rule-cards {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  padding: 18px;
+  border: 1px solid rgba(70, 240, 255, 0.18);
+  background: rgba(6, 3, 13, 0.5);
+}
+
+.db-rule-card {
+  position: relative;
+  min-height: 150px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  gap: 6px;
+  padding: 12px;
+  border: 1px solid rgba(255, 63, 164, 0.45);
+  background: linear-gradient(160deg, rgba(18, 10, 38, 0.95), rgba(7, 4, 16, 0.98));
+}
+
+.db-rule-card:nth-child(2),
+.db-rule-card:nth-child(3) {
+  border-color: rgba(125, 255, 178, 0.4);
+}
+
+.db-rule-card span {
+  color: var(--muted);
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.1em;
+}
+
+.db-rule-card i {
+  display: block;
+  height: 2px;
+  background: rgba(244, 236, 255, 0.12);
+}
+
+/* ------------------------------------------------------------------ */
+/* shared scene                                                        */
+/* ------------------------------------------------------------------ */
+
+.db-scene {
+  width: 900px;
+  height: 900px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 10px;
+}
+
+.db-grid {
+  --dbw: 105px;
+  --db-name: 9.5px;
+  --db-type: 6px;
+  --db-stat: 17px;
+  --db-rule: 9px;
+}
+
+.db-overlap {
+  --dbw: 145px;
+  --db-name: 15px;
+  --db-type: 8px;
+  --db-stat: 24px;
+  --db-rule: 11.5px;
+}
+
+.db-shelf,
+.db-mirror {
+  --dbw: 120px;
+  --db-name: 11px;
+  --db-type: 7px;
+  --db-stat: 19px;
+  --db-rule: 10px;
+}
+
+.db-scene .card-slot {
+  --cw: var(--dbw);
+  --name-size: var(--db-name);
+  --type-size: var(--db-type);
+  --stat-size: var(--db-stat);
+  --rule-size: var(--db-rule);
+}
+
+.db-scene .card-back,
+.db-scene .ghost {
+  width: var(--dbw);
+}
+
+.db-scene .card-back::before {
+  font-size: calc(var(--dbw) * 0.15);
+}
+
+.db-scene .ghost::before {
+  font-size: calc(var(--dbw) * 0.34);
+}
+
+.db-scene .card-slot {
+  flex: none;
+}
+
+.db-score {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: 12px;
+  min-height: 44px;
+}
+
+.db-side {
+  display: grid;
+  gap: 0;
+}
+
+.db-side--hot {
+  justify-items: end;
+  text-align: right;
+}
+
+.db-side span {
+  color: var(--muted);
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.09em;
+}
+
+.db-side b {
+  color: var(--cyan);
+  font-family: var(--font-data);
+  font-size: 36px;
+  font-weight: 400;
+  line-height: 0.8;
+}
+
+.db-side--hot b {
+  color: var(--pink);
+}
+
+.db-phase,
+.db-score .phase-ticks {
+  justify-self: center;
+}
+
+.db-seam {
+  flex: none;
+  height: 8px;
+  background: linear-gradient(90deg, transparent, rgba(70, 240, 255, 0.18), transparent);
+}
+
+.db-hand {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 3px;
+  min-height: calc(var(--dbw) * 1.4 + 7px);
+  padding: 0 4px;
+}
+
+.db-hand .card-slot {
+  transform: none;
+}
+
+.db-deck {
+  position: relative;
+  width: var(--dbw);
+  height: calc(var(--dbw) * 1.4);
+  flex: none;
+  margin-right: 4px;
+}
+
+.db-deck .card-back {
+  position: absolute;
+  inset: 0;
+}
+
+.db-deck span {
+  position: absolute;
+  right: 4px;
+  bottom: 3px;
+  z-index: 2;
+  color: var(--cyan);
+  font-family: var(--font-data);
+  font-size: 14px;
+}
+
+.db-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 6px;
+  min-height: 34px;
+  padding-top: 2px;
+}
+
+.db-actions .table-btn {
+  min-width: 108px;
+  min-height: 32px;
+  font-size: 10px;
+}
+
+/* ------------------------------------------------------------------ */
+/* 01 grid                                                             */
+/* ------------------------------------------------------------------ */
+
+.db-grid-board {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  flex: 1;
+  min-height: 0;
+}
+
+.db-grid-mat {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 4px;
+  padding: 4px;
+  min-height: 0;
+}
+
+.db-row {
+  display: grid;
+  grid-template-columns: repeat(3, var(--dbw));
+  justify-content: center;
+  align-items: center;
+  gap: 4px;
+}
+
+.db-slot {
+  position: relative;
+  width: var(--dbw);
+}
+
+.db-slot .card-slot,
+.db-slot .card-back,
+.db-slot .ghost {
+  width: var(--dbw);
+}
+
+.db-grid .threat .card-slot::before,
+.db-overlap .threat .card-slot::before,
+.db-shelf .threat .card-slot::before,
+.db-mirror .threat .card-slot::before {
+  inset: -5px;
+}
+
+.db-grid .fx-dmg,
+.db-shelf .fx-dmg,
+.db-mirror .fx-dmg {
+  font-size: 64px;
+}
+
+.db-overlap .fx-dmg {
+  font-size: 72px;
+}
+
+/* 145px is the tightest hand budget: deck + five cards only fit inside 900px
+   with a 1px gap and no extra deck margin. */
+.db-overlap .db-hand {
+  gap: 1px;
+}
+
+.db-overlap .db-deck {
+  margin-right: 0;
+}
+
+/* ------------------------------------------------------------------ */
+/* 02 overlap                                                          */
+/* ------------------------------------------------------------------ */
+
+.db-overlap-board {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  flex: 1;
+  min-height: 0;
+}
+
+.db-overlap-mat {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px;
+  min-height: 0;
+}
+
+.db-overlap-row {
+  display: grid;
+  grid-template-columns: repeat(3, var(--dbw));
+  gap: 8px;
+}
+
+.db-overlap .db-slot {
+  height: calc(var(--dbw) * 1.4 + 50px);
+}
+
+.db-overlap .db-slot > .card-back {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 0;
+}
+
+.db-overlap .db-slot > .card-slot,
+.db-overlap .db-slot > .ghost {
+  position: absolute;
+  top: 50px;
+  left: 0;
+  z-index: 1;
+}
+
+.db-overlap .threat .card-slot::before {
+  z-index: 3;
+}
+
+/* ------------------------------------------------------------------ */
+/* 03 shelf                                                            */
+/* ------------------------------------------------------------------ */
+
+.db-shelf-board {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 260px;
+  gap: 8px;
+  flex: 1;
+  min-height: 0;
+}
+
+.db-shelf-mats {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-height: 0;
+}
+
+.db-shelf-mat {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 4px;
+  padding: 4px;
+  min-height: 0;
+}
+
+.db-shelf-rail {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-height: 0;
+  padding: 6px;
+  border: 1px solid var(--line);
+  background: rgba(6, 3, 13, 0.5);
+}
+
+.db-shelf-hand {
+  flex: 1;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-content: center;
+  justify-items: center;
+  gap: 4px;
+  min-height: 0;
+}
+
+.db-shelf-hand .card-slot:nth-child(5) {
+  grid-column: 1 / -1;
+}
+
+.db-shelf-deck {
+  position: relative;
+  width: var(--dbw);
+  height: calc(var(--dbw) * 1.4);
+  align-self: center;
+  flex: none;
+}
+
+.db-shelf-deck .card-back {
+  position: absolute;
+  inset: 0;
+}
+
+.db-shelf-deck span {
+  position: absolute;
+  right: 4px;
+  bottom: 3px;
+  z-index: 2;
+  color: var(--cyan);
+  font-family: var(--font-data);
+  font-size: 14px;
+}
+
+.db-shelf .db-actions {
+  flex-direction: column;
+}
+
+/* ------------------------------------------------------------------ */
+/* 04 mirror                                                           */
+/* ------------------------------------------------------------------ */
+
+.db-mirror-board {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 8px minmax(0, 1fr);
+  gap: 6px;
+  flex: 1;
+  min-height: 0;
+}
+
+.db-mirror-mat {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 4px;
+  padding: 5px;
+  min-height: 0;
+}
+
+.db-mirror-row {
+  display: grid;
+  grid-template-columns: repeat(2, var(--dbw));
+  justify-content: center;
+  gap: 5px;
+}
+
+.db-mirror-seam {
+  background: linear-gradient(transparent, rgba(70, 240, 255, 0.2), transparent);
+}
+
+/* ------------------------------------------------------------------ */
+/* responsive                                                          */
+/* ------------------------------------------------------------------ */
+
+@media (max-width: 700px) {
+  .db-rule-cards {
+    grid-template-columns: 1fr;
+  }
+
+  .db-scene {
+    flex: none;
+  }
+
+  .db-shelf-board {
+    grid-template-columns: minmax(0, 1fr) 260px;
+  }
+}

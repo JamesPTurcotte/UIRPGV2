@@ -1,0 +1,18 @@
+id: umbra.hollow_lantern
+set: set.core
+name: Hollow Lantern
+type: spell
+spell_kind: continuous
+attribute: umbra
+lineage: null
+offer: 0
+rarity: uncommon
+role: glue
+effect_value: 4
+keywords: []
+text: "Monsters in this lane gain 200 ATK."
+effect:
+  trigger: continuous
+  steps:
+    - action: lane_buff
+      amount: 200

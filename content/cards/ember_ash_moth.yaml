@@ -1,0 +1,20 @@
+id: ember.ash_moth
+set: set.core
+name: Ash Moth
+type: monster
+attribute: ember
+lineage: beast
+offer: 0
+atk: 600
+defense: 400
+rarity: common
+role: resource
+effect_value: 1
+keywords: []
+text: "ECHO: Deal 100 damage."
+effect:
+  trigger: on_destroy
+  steps:
+    - action: damage
+      amount: 100
+      target: opponent

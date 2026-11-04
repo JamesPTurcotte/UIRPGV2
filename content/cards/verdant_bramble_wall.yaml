@@ -1,0 +1,15 @@
+id: verdant.bramble_wall
+set: set.core
+name: Bramble Wall
+type: monster
+attribute: verdant
+lineage: construct
+offer: 0
+atk: 300
+defense: 2200
+rarity: common
+role: glue
+effect_value: 1
+keywords: []
+text: "No effect."
+effect: null

@@ -1,0 +1,23 @@
+- id: shimmer.none
+  name: None
+  effect: "No finish."
+
+- id: shimmer.gilt
+  name: Gilt
+  color: "#D8B45A"
+  effect: "A slow gold specular band."
+
+- id: shimmer.iridescent
+  name: Iridescent
+  color: "#A9C6E8"
+  effect: "A cool multi-hue band."
+
+- id: shimmer.verdigris
+  name: Verdigris
+  color: "#4E9E86"
+  effect: "A green patina gloss."
+
+- id: shimmer.moon
+  name: Moon
+  color: "#D6D0C4"
+  effect: "A silver-white band."

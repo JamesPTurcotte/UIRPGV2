@@ -1,0 +1,444 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="dark" />
+    <title>Razeah — Front-End Direction Review</title>
+    <meta
+      name="description"
+      content="Seven playable art directions for Razeah: one board skeleton, seven skins, Balatro-level feedback, and a full autoplay spectacle."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&family=Cormorant+Garamond:wght@500;600;700&family=IM+Fell+English:ital@0;1&family=Courier+Prime:wght@400;700&family=Orbitron:wght@500;700;900&family=VT323&family=Nunito:wght@400;600;800&family=Bodoni+Moda:opsz,wght@6..96,500;6..96,700&family=Cinzel:wght@500;700&family=Alegreya:ital,wght@0,500;0,700;1,500&family=Alegreya+Sans+SC:wght@500;700&family=Archivo+Black&family=Space+Grotesk:wght@400;500;700&family=Space+Mono:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/review.css" />
+    <link rel="stylesheet" href="css/board.css" />
+    <link rel="stylesheet" href="css/themes.css" />
+  </head>
+  <body>
+    <a class="skip" href="#directions">Skip to directions</a>
+
+    <header class="masthead">
+      <div class="masthead__inner">
+        <a class="wordmark" href="#top">
+          <span class="wordmark__mark">R</span>
+          <span>RAZEAH <em>/ front-end review</em></span>
+        </a>
+        <nav class="mastnav" aria-label="Review sections">
+          <a href="#directions" data-nav="directions">01 Directions</a>
+          <a href="#bones" data-nav="bones">02 Bones</a>
+          <a href="#feel" data-nav="feel">03 Feel</a>
+          <a href="#decision" data-nav="decision">04 Decision</a>
+          <a href="packs.html" class="mastnav__pack">Pack ritual ↗</a>
+          <a href="mats.html" class="mastnav__read">Twin Mats ↗</a>
+          <a href="duel-board.html" class="mastnav__read">Duel Board · Overlap ↗</a>
+          <a href="overlap.html" class="mastnav__read">Overlap Lab ↗</a>
+          <a href="bigger.html" class="mastnav__read">Bigger Lab ↗</a>
+          <a href="accessible.html" class="mastnav__read">Accessibility Lab ↗</a>
+        </nav>
+        <div class="masttools">
+          <button
+            class="toolbtn toolbtn--sound"
+            id="siteSound"
+            type="button"
+            data-sound-toggle
+            aria-label="Toggle sound"
+          ></button>
+          <button class="toolbtn" id="motionToggle" type="button">Motion: full</button>
+          <button class="toolbtn" id="copyTop" type="button">Copy notes</button>
+        </div>
+      </div>
+      <div class="scroll-progress" aria-hidden="true"><i id="scrollProgress"></i></div>
+    </header>
+
+    <main id="top">
+      <section class="hero wrap">
+        <div class="hero__copy">
+          <p class="eyebrow"><span>Art-direction review</span><span>·</span><span>November 2026</span></p>
+          <h1>Seven ways to make<br />the table <em>breathe.</em></h1>
+          <p class="lede">
+            Same rules. Same board. Seven different souls. Every table below is live: call the glowing
+            Cinder Hound, break a lane, or hit <b>AUTO</b> and watch a whole turn play itself like a
+            broadcast. Pick the one that gives you goosebumps.
+          </p>
+          <div class="hero__actions">
+            <a class="btn btn--signal" href="#directions">Start the tour <span>↓</span></a>
+            <button class="btn btn--ghost" id="watchAutoplay" type="button">▶ Watch autoplay</button>
+          </div>
+          <ul class="hero__facts">
+            <li><b>07</b><span>directions</span></li>
+            <li><b>01</b><span>board skeleton</span></li>
+            <li><b>00</b><span>illustrations</span></li>
+            <li><b>04</b><span>doors: Play / Library / Decks / Packs</span></li>
+          </ul>
+        </div>
+        <div class="hero__visual">
+          <div class="hero__fan" id="heroFan" aria-hidden="true"></div>
+          <p class="hero__fan-caption"><b>Same card.</b> Seven skins. Every asset procedural.</p>
+        </div>
+      </section>
+
+      <section class="chosen-note wrap reveal">
+        <div class="chosen-note__inner">
+          <div class="chosen-note__copy">
+            <span class="chosen-note__kicker">CHOSEN DIRECTION / 03</span>
+            <strong>Neon Reliquary</strong>
+            <p>The table direction is locked. The next ritual is the pack.</p>
+          </div>
+          <a class="btn btn--signal" href="packs.html">Open the folio ritual <span>→</span></a>
+        </div>
+      </section>
+
+      <section class="brief wrap reveal">
+        <div class="section-head">
+          <span class="section-head__no">00 / DIAGNOSIS</span>
+          <h2>The table is <em>silent.</em></h2>
+          <p>
+            The bones are good. The cards are good. The room is holding its breath. This review is
+            about the breath — and the noise it makes when something lands.
+          </p>
+        </div>
+        <div class="brief__grid">
+          <article class="brief__item">
+            <span class="n">WHAT'S DEAD</span>
+            <h3>No signal. No story.</h3>
+            <p>
+              Two huge empty mats, a wall of legal-action text, and every state change updating in
+              silence. It reads like a debug view that learned typography. Playing it feels like
+              reading a changelog.
+            </p>
+          </article>
+          <article class="brief__item">
+            <span class="n">WHAT STAYS</span>
+            <h3>Cards, lanes, teeth.</h3>
+            <p>
+              The 5:7 card, the procedural seal, the 3-lane duel, the no-art rule, the brass-and-jade
+              bones. We are not replacing the game. We are giving it a pulse, a voice, and a reason
+              to lean forward.
+            </p>
+          </article>
+          <article class="brief__item brief__item--accent">
+            <span class="n">WHAT WE'RE TESTING</span>
+            <h3>Character you can feel.</h3>
+            <p>
+              Materials, typography, idle life, hit-stop, staged numbers, lane spotlights, a
+              four-tab nav, and an autoplay that behaves like a show. Seven complete skins, one
+              reusable skeleton underneath.
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <nav class="direction-index" id="directionIndex" aria-label="Directions"></nav>
+
+      <div class="wrap">
+        <div class="directions" id="directions"></div>
+      </div>
+
+      <section class="bones wrap reveal" id="bones">
+        <div class="section-head">
+          <span class="section-head__no">02 / BONES</span>
+          <h2>One skeleton. <em>Seven skins.</em></h2>
+          <p>
+            Layout is deliberately identical in every direction, so you are judging skin, motion,
+            and voice — never a moving target. Theme is a data attribute, not a fork.
+          </p>
+        </div>
+        <p class="bones__intro">
+          The refactor is not seven codebases. It is <b>one board renderer</b> with token sets. The
+          four doors never move. The Warden, the lanes, the intent rail, and the hand fan keep the
+          same hit areas. What changes is material, type, easing, particles, and timbre.
+        </p>
+
+        <div class="bones__grid">
+          <div class="wire">
+            <div class="wire__top"><span>THE SHARED BOARD</span><span>1440 × 900 → any scale</span></div>
+            <div class="wire__board" aria-label="Wireframe of the shared board skeleton">
+              <div class="wire__row wire__row--nav">
+                <span>GLOBAL NAV</span><span><b>PLAY</b> · LIBRARY · DECKS · PACKS</span>
+              </div>
+              <div class="wire__row"><span>RUN STRIP</span><span>DEPTH · PHASES · TURN · MARKS · AUTO</span></div>
+              <div class="wire__row"><span>WARDEN</span><span>SEAL · RESOLVE · GUARDS · HAND</span></div>
+              <div class="wire__mid">
+                <div class="wire__rail">
+                  <div>YOUR RESOLVE</div>
+                  <div>PILES</div>
+                </div>
+                <div class="wire__lanes">
+                  <div>LANE I</div>
+                  <div>LANE II</div>
+                  <div>LANE III</div>
+                </div>
+                <div class="wire__rail">
+                  <div>INTENT</div>
+                  <div>LOG</div>
+                </div>
+              </div>
+              <div class="wire__row"><span>HAND FAN</span><span>STRIKE · END TURN · RESET</span></div>
+            </div>
+          </div>
+          <div class="bones__side">
+            <article class="bones-card">
+              <h3>Navigation becomes four nouns.</h3>
+              <p>
+                One bar. No submenus. No hunting. Play is the table, Library is the shelves, Decks is
+                the workshop, Packs is the satchel. Everything else lives inside those doors.
+              </p>
+              <div class="nav-contract" id="navContract"></div>
+              <span class="nav-note">One active door · four equal hit areas · no fifth noun</span>
+            </article>
+            <article class="bones-card">
+              <h3>Card geometry is law.</h3>
+              <p>
+                Five-by-seven at every size. Nameplate, seal window, type line, rules, stat plate,
+                footer. Themes change the material and the lettering, never the anatomy. The same
+                Cinder Hound can be parchment, neon glass, bone paper, or a riso print.
+              </p>
+            </article>
+          </div>
+        </div>
+
+        <div class="skin-rack-head">
+          <h3>Same Cinder Hound, seven materials.</h3>
+          <p>5:7 · fixed anatomy · zero illustrations</p>
+        </div>
+        <div class="skin-rack" id="skinRack"></div>
+
+        <table class="token-table">
+          <thead>
+            <tr>
+              <th>Layer</th>
+              <th>Shared forever</th>
+              <th>Themeable</th>
+              <th>Godot home</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Navigation</td>
+              <td>Four doors, order, hit areas, active state.</td>
+              <td>Material, type, motion, active marker.</td>
+              <td><b>App</b> · ThemeBuilder</td>
+            </tr>
+            <tr>
+              <td>Board</td>
+              <td>Warden strip, 3 lanes, rails, hand, dock, intent.</td>
+              <td>Backgrounds, borders, lane texture, ornament.</td>
+              <td><b>BattleStage</b> · TableScreen</td>
+            </tr>
+            <tr>
+              <td>Cards</td>
+              <td>5:7 geometry, six bands, readable stat plate.</td>
+              <td>Paper, frame, seal, type, ink, shadows.</td>
+              <td><b>CardComposer</b> · Tokens</td>
+            </tr>
+            <tr>
+              <td>Type</td>
+              <td>Hierarchy: display → label → rules → data.</td>
+              <td>Families, tracking, caps, weights.</td>
+              <td><b>Tokens</b> · ThemeBuilder</td>
+            </tr>
+            <tr>
+              <td>Motion</td>
+              <td>Anticipation → impact → residue, every action.</td>
+              <td>Easing, overshoot, shake amount, idle life.</td>
+              <td><b>BattleDirector</b> · Tokens.MOTION</td>
+            </tr>
+            <tr>
+              <td>FX</td>
+              <td>Source arrow, number, bar movement, persistent mark.</td>
+              <td>Particle shape, palette, flash, score plate.</td>
+              <td><b>FxLayer</b> · Seals</td>
+            </tr>
+            <tr>
+              <td>Audio</td>
+              <td>Impact / tail / cue names mapped to events.</td>
+              <td>Timbre, reverb, pitch, theme instrument.</td>
+              <td><b>AudioDirector</b> (new)</td>
+            </tr>
+            <tr>
+              <td>Content</td>
+              <td>Rules, cards, Warden, economy, save shape.</td>
+              <td>Voice lines, names, flavour only.</td>
+              <td><b>content/</b> · Session</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section class="feel wrap reveal" id="feel">
+        <div class="section-head">
+          <span class="section-head__no">03 / FEEL</span>
+          <h2>Make every hit <em>cost something.</em></h2>
+          <p>
+            Balatro does not win because of its palette. It wins because every action is a tiny
+            event with anticipation, a snap, and a receipt. This is the contract we port to Godot.
+          </p>
+        </div>
+        <p class="feel__intro">
+          Feedback is not decoration on top of the rules. It is how the rules become legible. The
+          target: <b>every action produces a number, a movement, a mark, or a sound</b> — and every
+          three to five actions gets a punctuation beat. Autoplay is held to the same bar, with the
+          volume turned up.
+        </p>
+
+        <div class="timeline">
+          <div class="beat" style="--c: #8d8578">
+            <i class="beat__bar"></i>
+            <span class="beat__time">0 – 220 ms · the inhale</span>
+            <h3>Anticipation</h3>
+            <p>
+              The card lifts. The lane dims. The attacker leans two degrees. A line begins to draw
+              from source to target. The eye is told where to look before anything lands.
+            </p>
+          </div>
+          <div class="beat" style="--c: #ff5a36">
+            <i class="beat__bar"></i>
+            <span class="beat__time">220 – 290 ms · the freeze</span>
+            <h3>Impact</h3>
+            <p>
+              Hit-stop for 45–70 ms. Flash, burst, recoil, shake. One frame of silence, then the
+              number arrives oversized and wrong, then snaps to its final weight.
+            </p>
+          </div>
+          <div class="beat" style="--c: #c9a227">
+            <i class="beat__bar"></i>
+            <span class="beat__time">290 – 900 ms · the receipt</span>
+            <h3>Residue</h3>
+            <p>
+              The bar drains. The lane stays open. The card leaves a crack, ash, a scorch, a missing
+              guard. The board is visibly different because you did something.
+            </p>
+          </div>
+        </div>
+
+        <div class="juice-grid" id="juiceGrid"></div>
+
+        <div class="auto-section">
+          <div class="auto-copy">
+            <p class="eyebrow">AUTO / THE BROADCAST</p>
+            <h3>The machine plays. <em>Make it a show.</em></h3>
+            <p>
+              Auto is where a card game proves it respects the player's time. It should feel like
+              watching someone open a pack who knows exactly what they are doing: a held breath, a
+              snap, a cascade, then the quiet click of the next beat. Letterbox. Spotlight. Cue
+              captions. One action at a time — never a spreadsheet ticking.
+            </p>
+            <button class="btn btn--signal" id="watchAutoplay2" type="button">▶ Watch autoplay</button>
+          </div>
+          <div class="cues">
+            <div class="cues__head"><span>The six-beat loop</span><span>~12 seconds</span></div>
+            <div id="cueList"></div>
+          </div>
+        </div>
+
+        <div class="pack-callout">
+          <div>
+            <h3>Borrowed from <em>opening packs.</em></h3>
+            <p>
+              The packs are the purest dopamine machine in the genre. We do not copy the slot
+              machine — we copy the craft: escalation, a held frame, a physical reveal, and a stamp
+              that makes the result feel authored. The same grammar applies to a strike, a kill, a
+              floor clear, and a pack crack.
+            </p>
+          </div>
+          <div class="pack-rules">
+            <div class="pack-rule">
+              <b>Escalate</b>
+              <span>One reveal at a time. Each beat is bigger than the last, then one clean stop.</span>
+            </div>
+            <div class="pack-rule">
+              <b>Hold the frame</b>
+              <span>40–80 ms of nothing before the snap. The pause is the special effect.</span>
+            </div>
+            <div class="pack-rule">
+              <b>Make it physical</b>
+              <span>Cards slide, flip, stamp, tear, and leave residue. Nothing materialises.</span>
+            </div>
+            <div class="pack-rule">
+              <b>One hero</b>
+              <span>The card, the number, or the Warden gets the frame. Everything else recedes.</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="decision wrap reveal" id="decision">
+        <div class="section-head">
+          <span class="section-head__no">04 / DECISION</span>
+          <h2>Pick the table you want to <em>live in.</em></h2>
+          <p>
+            Star as many as you want, leave notes, then copy the summary back to me. Once a
+            direction is chosen, the board becomes the refactor.
+          </p>
+        </div>
+        <div class="decision__panel">
+          <div>
+            <p class="eyebrow eyebrow--plain">Your shortlist</p>
+            <h2>Star what <em>moves you.</em></h2>
+            <p class="decision__lede">
+              Nothing here is binding. The goal is to find the direction whose <em>voice</em> you
+              want to hear for the next hundred duels — then we tune the layout inside it.
+            </p>
+            <div class="shortlist" id="shortlist"></div>
+            <div class="decision__actions">
+              <button class="btn btn--signal" id="copySummary" type="button">Copy review summary</button>
+              <button class="btn btn--ghost" id="resetPicks" type="button">Reset shortlist</button>
+            </div>
+          </div>
+          <div class="decision__side">
+            <h3>What happens next</h3>
+            <div class="next-steps">
+              <div class="next-step">
+                <b>01</b>
+                <div>
+                  <strong>You pick a direction.</strong>
+                  <span>Or a hybrid: one direction's material, another's motion. We can mix at the token level.</span>
+                </div>
+              </div>
+              <div class="next-step">
+                <b>02</b>
+                <div>
+                  <strong>I refactor the Godot table.</strong>
+                  <span>Four-door nav, stable card actors, staged FX, theme tokens, one renderer, no forked screens.</span>
+                </div>
+              </div>
+              <div class="next-step">
+                <b>03</b>
+                <div>
+                  <strong>We tune it in-game.</strong>
+                  <span>Autoplay first, then manual play. Screenshots at 1280 / 1440 / 1920, hit-stop on a timer, sound on.</span>
+                </div>
+              </div>
+              <div class="next-step">
+                <b>04</b>
+                <div>
+                  <strong>We ship the character.</strong>
+                  <span>One look, one voice, one set of tokens. Then content can be added without touching the feel.</span>
+                </div>
+              </div>
+            </div>
+            <p class="decision__quote">“The rules stay. The table becomes a place.”</p>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer wrap">
+      <span>Razeah · front-end direction review · built as a one-page lab</span>
+      <span>No illustrations · every ornament procedural · <a href="#top">Back to top ↑</a></span>
+    </footer>
+
+    <div class="site-toast" id="siteToast" role="status" aria-live="polite"></div>
+
+    <script src="js/data.js"></script>
+    <script src="js/icons.js"></script>
+    <script src="js/sound.js"></script>
+    <script src="js/board.js"></script>
+    <script src="js/review.js"></script>
+  </body>
+</html>

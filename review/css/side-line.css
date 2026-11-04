@@ -1,0 +1,276 @@
+/* Fluid side, one line — the hand is a single column or a single bottom row.
+   Reuses the flex lab shells; this file only changes the hand geometry. */
+
+.sl-window .sl-main {
+  flex: 1;
+  min-height: 0;
+  min-width: 0;
+  display: flex;
+  gap: var(--gap);
+}
+
+.sl-window .sl-main--one {
+  flex-direction: row;
+  align-items: stretch;
+  justify-content: center;
+}
+
+.sl-window .sl-main--bottom {
+  flex-direction: column;
+}
+
+.sl-window .sl-main--one > .bg-board {
+  flex: 0 0 auto;
+  width: calc(3 * (var(--card) + var(--tab)) + 2 * var(--lane-gap) + 26px);
+  max-width: 100%;
+}
+
+.sl-window .sl-main--bottom > .bg-board {
+  flex: 1;
+  min-height: 0;
+}
+
+.sl-hand {
+  flex: none;
+  width: var(--card);
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.sl-col {
+  display: flex;
+  flex-direction: column;
+  flex: none;
+  width: var(--card);
+  align-items: flex-start;
+}
+
+.sl-hand .bg-deck,
+.sl-hand .bg-hand-card {
+  width: var(--card);
+  height: calc(var(--card) * 1.4);
+  flex: none;
+  margin: 0;
+}
+
+.sl-hand .bg-hand-card + .bg-hand-card {
+  margin-left: 0;
+}
+
+/* One vertical line, all six cards visible as 20% strips. */
+.sl-hand--fan {
+  overflow: visible;
+}
+
+.sl-hand--fan .sl-col {
+  height: calc(2.8 * var(--card));
+  overflow: visible;
+}
+
+.sl-hand--fan .sl-col > * + * {
+  margin-top: calc(var(--card) * -1.12);
+}
+
+/* Hover/focus lifts a strip to the full card; click or tap pins it. */
+.sl-hand--fan .bg-hand-card {
+  position: relative;
+  transition: transform 160ms ease;
+  outline: none;
+}
+
+.sl-hand--fan .sl-col > .bg-hand-card:nth-child(2) {
+  --lift: -0.28;
+}
+
+.sl-hand--fan .sl-col > .bg-hand-card:nth-child(3) {
+  --lift: -0.56;
+}
+
+.sl-hand--fan .sl-col > .bg-hand-card:nth-child(4) {
+  --lift: -0.84;
+}
+
+.sl-hand--fan .sl-col > .bg-hand-card:nth-child(5) {
+  --lift: -1.12;
+}
+
+.sl-hand--fan .sl-col > .bg-hand-card:nth-child(6) {
+  --lift: -1.40;
+}
+
+.sl-hand--fan .bg-hand-card:hover,
+.sl-hand--fan .bg-hand-card:focus-visible,
+.sl-hand--fan .bg-hand-card.is-open {
+  z-index: 40;
+  transform: translateY(calc(var(--card) * var(--lift, 0)));
+  box-shadow: 0 16px 34px rgba(0, 0, 0, 0.55);
+}
+
+.sl-hand--fan .bg-hand-card:focus-visible {
+  outline: 2px solid var(--cyan);
+  outline-offset: 3px;
+}
+
+/* One vertical line, three cards visible; the rest scroll. */
+.sl-hand--scroll {
+  align-items: flex-start;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: var(--cyan) transparent;
+}
+
+.sl-hand--scroll .sl-col {
+  height: max-content;
+}
+
+.sl-hand--scroll .sl-col > * + * {
+  margin-top: calc(var(--card) * -0.70);
+}
+
+.sl-hand .bg-deck {
+  position: relative;
+}
+
+.sl-hand .bg-deck img {
+  filter: brightness(0.45) saturate(0.55);
+}
+
+.sl-hand .bg-deck::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(6, 3, 13, 0.18), rgba(6, 3, 13, 0.58));
+  pointer-events: none;
+}
+
+.sl-hand .bg-deck > span {
+  z-index: 4;
+  top: 7px;
+  left: 7px;
+  right: auto;
+  bottom: auto;
+  padding: 2px 5px;
+  background: rgba(6, 3, 13, 0.92);
+  font-size: 12px;
+}
+
+.sl-hand .bg-deck > span::before {
+  content: "DECK ";
+  color: var(--muted);
+}
+
+/* The scroll hand gets a small "scroll" rail on the right edge. */
+.sl-hand--scroll::after {
+  content: "";
+  position: absolute;
+  top: 10%;
+  right: 2px;
+  bottom: 10%;
+  width: 2px;
+  background: linear-gradient(180deg, transparent, rgba(70, 240, 255, 0.38), transparent);
+  pointer-events: none;
+}
+
+.sl-hand--scroll {
+  position: relative;
+}
+
+/* The bottom variant is a normal bottom row; the shared flex.css gives it the
+   33% overlap and the deck back. */
+.sl-main--bottom .bg-hand {
+  flex: none;
+}
+
+.sl-note-line {
+  margin: 12px 0 0;
+  color: var(--muted);
+  font-family: var(--font-mono);
+  font-size: 9px;
+  line-height: 1.55;
+  letter-spacing: 0.03em;
+}
+
+.sl-note-line code {
+  color: var(--cyan);
+  font-family: var(--font-mono);
+}
+
+.sl-formula {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.sl-formula span {
+  padding: 6px 8px;
+  border: 1px solid var(--line);
+  color: var(--muted);
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.03em;
+}
+
+.sl-formula b {
+  color: var(--ink);
+}
+
+.sl-best {
+  color: var(--cyan);
+}
+
+.sl-best::after {
+  content: " ↑";
+  color: var(--muted);
+}
+
+.sl-pick {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+  gap: 24px;
+  margin-top: 24px;
+  padding: 22px;
+  border: 1px solid rgba(255, 204, 85, 0.35);
+  background: rgba(255, 204, 85, 0.035);
+}
+
+.sl-pick h3 {
+  margin: 0 0 8px;
+  font-family: var(--font-display);
+  font-size: 24px;
+  font-weight: 500;
+}
+
+.sl-pick p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.65;
+}
+
+.sl-pick ul {
+  margin: 0;
+  padding-left: 16px;
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.7;
+}
+
+.sl-pick li b {
+  color: var(--ink);
+}
+
+.sl-pick code {
+  color: var(--cyan);
+  font-family: var(--font-mono);
+  font-size: 11px;
+}
+
+@media (max-width: 980px) {
+  .sl-pick {
+    grid-template-columns: 1fr;
+  }
+}

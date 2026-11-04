@@ -1,0 +1,626 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="dark" />
+    <title>Razeah — Flex Lab</title>
+    <meta name="description" content="Window-filling table options for Razeah: fluid bottom, side hand, and docked cockpit layouts at 720p to ultrawide." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500;600;700&family=Orbitron:wght@500;700;900&family=VT323&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="css/readability.css" />
+    <link rel="stylesheet" href="css/bigger.css" />
+    <link rel="stylesheet" href="css/accessible.css" />
+    <link rel="stylesheet" href="css/flex.css" />
+  </head>
+  <body>
+    <a class="skip" href="#options">Skip to options</a>
+
+    <header class="masthead">
+      <div class="masthead__inner">
+        <a class="wordmark" href="#top"><span class="wordmark__mark">R</span><span>RAZEAH <em>/ flex lab</em></span></a>
+        <nav class="mastnav" aria-label="Review sections">
+          <a href="#problem">01 Problem</a>
+          <a href="#budget">02 Budget</a>
+          <a href="#window">03 Window</a>
+          <a href="#options">04 Options</a>
+          <a href="#pick">05 Pick</a>
+        </nav>
+        <div class="masttools">
+          <a class="toolbtn" href="accessible.html">← Accessibility Lab</a>
+          <a class="toolbtn" href="index.html">Review Index</a>
+        </div>
+      </div>
+    </header>
+
+    <main id="top">
+      <section class="hero wrap">
+        <div class="hero__copy">
+          <p class="eyebrow"><span>Flex lab</span><span>·</span><span>after 190 focus / 150%</span></p>
+          <h1>The card is chosen.<br /><em>The window is wasted.</em></h1>
+          <p class="lede">
+            The 150% table is readable, but it still forces a 1000×1000 window and caps
+            the board at 900. On a 2560×1440 screen the card stays 190 while the height
+            budget can carry 443. This lab compares four ways to let the table fill the
+            window it is in — without hiding a lane or changing the card token inside a
+            table.
+          </p>
+          <ul class="hero__facts">
+            <li><b>04</b><span>layout options</span></li>
+            <li><b>123→443</b><span>card sizes</span></li>
+            <li><b>00</b><span>hidden lanes</span></li>
+            <li><b>960→3440</b><span>window width</span></li>
+          </ul>
+          <p class="hero__note">
+            Actual-size frames. The window selector sets the screen; <b>Fit frames</b>
+            scales the previews. Every option keeps the 150% chrome: 82px score,
+            64px dock, 48px targets, 52px Index Tab.
+          </p>
+          <p class="hero__note">
+            <a href="accessible.html" style="color: var(--cyan);">← Accessibility lab</a> ·
+            <a href="bigger.html" style="color: var(--cyan);">Readability lab</a> ·
+            <a href="index.html" style="color: var(--cyan);">Review index</a>
+          </p>
+        </div>
+        <div class="hero__visual">
+          <div class="bg-sample" style="text-align:center;">
+            <img class="bg-sample__card" src="assets/cards/neutral_ninefold_seal.png" width="220" alt="" />
+            <span class="bg-sample__size">190 → 443px</span>
+            <span class="bg-sample__note">same 5:7 card · one size per table</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="wrap" id="problem">
+        <div class="section-head">
+          <span class="section-head__no">01 / THE DEAD SPACE</span>
+          <h2>190 in a 2560 window. <em>The card is not the problem.</em></h2>
+          <p>
+            The 150 focus table is a 1000×1000 window with a 900px board. On a
+            2560×1440 screen it uses 39% of the width and 69% of the height. The board
+            caps at 900, the card caps at 190, and the rest of the screen is margin.
+            At 1440×900 the 1000 square cannot fit at all; the current 960 fallback
+            still needs 960.
+          </p>
+        </div>
+        <div class="fx-deadspace">
+          <div class="fx-deadspace__screen">
+            <div class="fx-deadspace__window">
+              <div class="fx-deadspace__board"></div>
+            </div>
+            <span class="fx-deadspace__label fx-deadspace__label--window">1000 × 1000 focus window</span>
+            <span class="fx-deadspace__label fx-deadspace__label--board">900px board · 190px card</span>
+            <span class="fx-deadspace__label fx-deadspace__label--side">1,660px unused at 2560</span>
+          </div>
+          <div class="fx-deadspace__legend">
+            <span>2560 × 1440 screen</span>
+            <span>window uses 39% width · 69% height</span>
+            <span>board uses 35% screen width</span>
+          </div>
+        </div>
+        <div class="fx-summary">
+          <article><span>THE HARD CAP</span><h3>900px</h3><p>The board has a fixed maximum width. A wider window does not widen the mats.</p></article>
+          <article><span>THE FIXED WINDOW</span><h3>1000 square</h3><p>The table forces a square window instead of filling the screen it was given.</p></article>
+          <article><span>THE COST</span><h3>35% width</h3><p>At 2560px, 1,660px is untouched. At 720px high, the 1000 window overflows by 280px.</p></article>
+        </div>
+      </section>
+
+      <section class="wrap" id="budget">
+        <div class="section-head">
+          <span class="section-head__no">02 / THE BUDGET</span>
+          <h2>One card. <em>Two vertical budgets.</em></h2>
+          <p>
+            The card is 5:7. The only question is how many card heights the window can
+            carry. The bottom hand costs three card heights: two mats plus the hand. The
+            side hand costs two: the hand moves into a two-column fan on the right.
+          </p>
+        </div>
+        <div class="fx-summary">
+          <article><span>BOTTOM HAND</span><h3>3 card heights</h3><p><code>card_h = (H − 202) / 3</code>. Simple, readable hand; the wide sides stay empty.</p></article>
+          <article><span>SIDE HAND</span><h3>2 card heights</h3><p><code>card_h = (H − 198) / 2</code> plus a 2×3 hand fan. The width budget also constrains it.</p></article>
+          <article><span>CHROME</span><h3>Fixed 150%</h3><p>Score 82, dock 64, targets 48, tab 52. The card size is the only thing that flexes.</p></article>
+        </div>
+        <p class="frame-note" style="margin-top: 14px;">
+          At 2560×1440 the bottom budget gives <b>294px</b>; the side budget gives
+          <b>443px</b>. At 1000×1000 the side hand loses to width: <b>152px</b> versus
+          <b>190px</b> for the bottom hand. That is why the recommendation changes with
+          the window shape, not a single breakpoint.
+        </p>
+      </section>
+
+      <section class="wrap" id="window">
+        <div class="section-head">
+          <span class="section-head__no">03 / THE WINDOW</span>
+          <h2>Pick the screen. <em>The table follows.</em></h2>
+          <p>
+            All four options are rendered at the selected window. The sizes are full game
+            windows, not the desktop. The fixed A frame is the current 1000 reference and
+            does not change.
+          </p>
+        </div>
+        <div class="bg-fitbar">
+          <p><b>Actual-size frames.</b> The 2560/3440 frames scroll in a narrow pane. Use <b>Fit frames</b> for a whole-table comparison.</p>
+          <label class="bg-fit"><input type="checkbox" id="fitFrames" checked /> Fit frames to pane</label>
+        </div>
+        <div class="fx-window-strip">
+          <span>WINDOW</span>
+          <button class="fx-size" data-w="1280" data-h="720">1280×720</button>
+          <button class="fx-size" data-w="1440" data-h="900">1440×900</button>
+          <button class="fx-size is-active" data-w="1920" data-h="1080" aria-pressed="true">1920×1080</button>
+          <button class="fx-size" data-w="2560" data-h="1440">2560×1440</button>
+          <button class="fx-size" data-w="3440" data-h="1440">3440×1440</button>
+          <button class="fx-size" data-w="1000" data-h="1000">1000×1000</button>
+          <button class="fx-size" data-w="960" data-h="960">960×960</button>
+          <span class="fx-selected">SELECTED <b id="fxSelected">1920 × 1080</b></span>
+        </div>
+        <p class="fx-frame-note">
+          The flex options assume the table owns the window: no top nav, no side bars.
+          The current drawer becomes an overlay in B, a left overlay in C, and a docked
+          rail in D. All options keep the four doors reachable.
+        </p>
+      </section>
+
+      <section class="wrap" id="options">
+        <div class="section-head">
+          <span class="section-head__no">04 / FOUR OPTIONS</span>
+          <h2>Use the window. <em>Choose the cost.</em></h2>
+          <p>
+            A is the current fixed table. B and C are the same fit engine with the hand in
+            a different place. D keeps the readable bottom hand and spends the extra width
+            on a persistent cockpit rail.
+          </p>
+        </div>
+
+        <div class="fx-options">
+          <article class="fx-option" id="opt-a">
+            <header class="bg-opt-head">
+              <div class="bg-opt-no">A</div>
+              <div class="bg-opt-title">
+                <h3>Fixed 190 · the current focus</h3>
+                <p>The shipping 150% table: 1000×1000, a 900px board, and a 190px card. It is exact at 1000 and unchanged everywhere else — which is the problem.</p>
+                <span class="fx-fixed-tag">BASELINE · 1000 × 1000</span>
+              </div>
+              <div class="bg-opt-specs"><span><b>190</b> card</span> <span><b>900</b> board</span> <span><b>1000²</b> window</span> <span><b>0</b> flex</span></div>
+            </header>
+            <div class="fx-frame-readout">
+              <span><b>FIXED 1000×1000</b></span>
+              <span>CARD <b>190</b></span>
+              <span>BOARD <b>900</b></span>
+              <span>57% board height</span>
+              <span>BOTTOM HAND</span>
+            </div>
+            <div class="bg-frame-wrap">
+            <div class="bg-window acc fx-window fx-fixed" data-option="a" style="--win-w:1000px;--win-h:1000px;--stage-h:1000px;--card:190px;--tab:52px;--score-h:82px;--dock-h:64px;--pad:4px;--gap:4px;--seam:10px;--lane-gap:26px;--ui:1.5;--btn-h:48px;--btn-font:13px;--rail-w:0px;">
+              <div class="bg-table">
+                <div class="bg-score">
+              <div class="bg-side"><span>YOU</span><b>4,000</b><i class="bg-bar"></i></div>
+              <div class="bg-ticks"><i></i><i></i><i class="is-on"></i><i></i><i></i><i></i></div>
+              <div class="bg-side bg-side--hot"><span>THE DAMP WARDEN</span><b>4,000</b><span class="bg-pips"><i></i><i></i><i></i></span><i class="bg-bar"></i></div>
+              <div class="bg-tools"><span>≡</span></div>
+            </div>
+                <div class="fx-main">
+                  <div class="fx-play">
+                    <div class="fx-body">
+                      <div class="bg-board">
+              <div class="bg-mat bg-mat--warden"><div class="bg-row">
+                <div class="bg-pair">
+                  <div class="bg-card bg-set"><img src="assets/cards/back.png" alt="" /></div>
+                  <div class="bg-card bg-monster"><img src="assets/cards/ember_cinder_hound.png" alt="" /></div>
+                </div>
+                <div class="bg-pair">
+                  <div class="bg-card bg-ghost"><span>+</span></div>
+                  <div class="bg-card bg-tab-ghost"><span>+</span></div>
+                </div>
+                <div class="bg-pair">
+                  <div class="bg-card bg-ghost"><span>+</span></div>
+                  <div class="bg-card bg-tab-ghost"><span>+</span></div>
+                </div>
+              </div></div>
+              <div class="bg-seam"></div>
+              <div class="bg-mat bg-mat--player"><div class="bg-row">
+                <div class="bg-pair">
+                  <div class="bg-card bg-set"><img src="assets/cards/back.png" alt="" /></div>
+                  <div class="bg-card bg-monster"><img src="assets/cards/verdant_bramble_wall.png" alt="" /></div>
+                </div>
+                <div class="bg-pair">
+                  <div class="bg-card bg-ghost"><span>+</span></div>
+                  <div class="bg-card bg-tab-ghost"><span>+</span></div>
+                </div>
+                <div class="bg-pair">
+                  <div class="bg-card bg-ghost"><span>+</span></div>
+                  <div class="bg-card bg-tab-ghost"><span>+</span></div>
+                </div>
+              </div></div>
+            </div>
+                      <div class="bg-hand fx-hand">
+              <div class="fx-col">
+                <div class="bg-deck"><img src="assets/cards/back.png" alt="" /><span>34</span></div>
+                <div class="bg-hand-card"><img src="assets/cards/ember_ash_moth.png" alt="" /></div>
+                <div class="bg-hand-card"><img src="assets/cards/ember_ember_scout.png" alt="" /></div>
+              </div>
+              <div class="fx-col">
+                <div class="bg-hand-card"><img src="assets/cards/neutral_ninefold_seal.png" alt="" /></div>
+                <div class="bg-hand-card"><img src="assets/cards/ember_cinder_hound.png" alt="" /></div>
+                <div class="bg-hand-card"><img src="assets/cards/verdant_bramble_wall.png" alt="" /></div>
+              </div>
+            </div>
+                    </div>
+                  </div>
+                  
+                </div>
+                <div class="bg-dock"><span>LIVE</span><span class="bg-btn">STRIKE</span><span class="bg-btn">END PHASE</span><span class="bg-btn">RESET</span></div>
+              </div>
+            </div>
+          </div>
+            <div class="bg-opt-notes">
+              <div><h4>What you get</h4><p>The exact current table, with the accessible chrome. It is the measured baseline and the screenshots in the port are real.</p></div>
+              <div><h4>The cost</h4><p>On 2560×1440 it uses 35% of the screen width. On 1440×900 and 1280×720 the 1000 square does not fit. The window must stop being forced.</p></div>
+            </div>
+          </article>
+
+          <article class="fx-option" id="opt-b">
+            <header class="bg-opt-head">
+              <div class="bg-opt-no">B</div>
+              <div class="bg-opt-title">
+                <h3>Fluid bottom · keep the hand on the table</h3>
+                <p>The simplest flex: fill the current window, keep the hand in a bottom row, solve for the largest 5:7 card that fits the height. The wide sides stay empty, but every card grows.</p>
+              </div>
+              <div class="bg-opt-specs"><span><b>123–294</b> card</span> <span><b>bottom</b> hand</span> <span><b>150%</b> chrome</span> <span><b>fits</b> window</span></div>
+            </header>
+            <div class="fx-frame-readout">
+              <span>WINDOW <b data-win>1920×1080</b></span>
+              <span>CARD <b data-card>209</b></span>
+              <span>BOARD <b data-board>835</b></span>
+              <span data-use>51% width</span>
+              <span data-height-use>58% board</span>
+              <span>HAND <b data-hand>bottom</b></span>
+              <span>RAIL <b data-rail>—</b></span>
+            </div>
+            <div class="bg-frame-wrap">
+            <div class="bg-window acc fx-window" data-option="b" style="--win-w:1920px;--win-h:1080px;--stage-h:1080px;--card:209px;--tab:52px;--score-h:82px;--dock-h:64px;--pad:4px;--gap:4px;--seam:10px;--lane-gap:26px;--ui:1.5;--btn-h:48px;--btn-font:13px;--rail-w:0px;">
+              <div class="bg-table">
+                <div class="bg-score">
+              <div class="bg-side"><span>YOU</span><b>4,000</b><i class="bg-bar"></i></div>
+              <div class="bg-ticks"><i></i><i></i><i class="is-on"></i><i></i><i></i><i></i></div>
+              <div class="bg-side bg-side--hot"><span>THE DAMP WARDEN</span><b>4,000</b><span class="bg-pips"><i></i><i></i><i></i></span><i class="bg-bar"></i></div>
+              <div class="bg-tools"><span>≡</span></div>
+            </div>
+                <div class="fx-main">
+                  <div class="fx-play">
+                    <div class="fx-body">
+                      <div class="bg-board">
+              <div class="bg-mat bg-mat--warden"><div class="bg-row">
+                <div class="bg-pair">
+                  <div class="bg-card bg-set"><img src="assets/cards/back.png" alt="" /></div>
+                  <div class="bg-card bg-monster"><img src="assets/cards/ember_cinder_hound.png" alt="" /></div>
+                </div>
+                <div class="bg-pair">
+                  <div class="bg-card bg-ghost"><span>+</span></div>
+                  <div class="bg-card bg-tab-ghost"><span>+</span></div>
+                </div>
+                <div class="bg-pair">
+                  <div class="bg-card bg-ghost"><span>+</span></div>
+                  <div class="bg-card bg-tab-ghost"><span>+</span></div>
+                </div>
+              </div></div>
+              <div class="bg-seam"></div>
+              <div class="bg-mat bg-mat--player"><div class="bg-row">
+                <div class="bg-pair">
+                  <div class="bg-card bg-set"><img src="assets/cards/back.png" alt="" /></div>
+                  <div class="bg-card bg-monster"><img src="assets/cards/verdant_bramble_wall.png" alt="" /></div>
+                </div>
+                <div class="bg-pair">
+                  <div class="bg-card bg-ghost"><span>+</span></div>
+                  <div class="bg-card bg-tab-ghost"><span>+</span></div>
+                </div>
+                <div class="bg-pair">
+                  <div class="bg-card bg-ghost"><span>+</span></div>
+                  <div class="bg-card bg-tab-ghost"><span>+</span></div>
+                </div>
+              </div></div>
+            </div>
+                      <div class="bg-hand fx-hand">
+              <div class="fx-col">
+                <div class="bg-deck"><img src="assets/cards/back.png" alt="" /><span>34</span></div>
+                <div class="bg-hand-card"><img src="assets/cards/ember_ash_moth.png" alt="" /></div>
+                <div class="bg-hand-card"><img src="assets/cards/ember_ember_scout.png" alt="" /></div>
+              </div>
+              <div class="fx-col">
+                <div class="bg-hand-card"><img src="assets/cards/neutral_ninefold_seal.png" alt="" /></div>
+                <div class="bg-hand-card"><img src="assets/cards/ember_cinder_hound.png" alt="" /></div>
+                <div class="bg-hand-card"><img src="assets/cards/verdant_bramble_wall.png" alt="" /></div>
+              </div>
+            </div>
+                    </div>
+                  </div>
+                  
+                </div>
+                <div class="bg-dock"><span>LIVE</span><span class="bg-btn">STRIKE</span><span class="bg-btn">END PHASE</span><span class="bg-btn">RESET</span></div>
+              </div>
+            </div>
+          </div>
+            <div class="bg-opt-notes">
+              <div><h4>What you get</h4><p>The hand stays readable; the table fits 720p through ultrawide; the card grows from 123 to 294 without changing the 5:7 anatomy.</p></div>
+              <div><h4>The cost</h4><p>At 2560×1440 it uses <b>51%</b> of the width. The board is height-limited at <b>209px</b>; C gets 443 from the same height. The extra width is margin.</p></div>
+            </div>
+          </article>
+
+          <article class="fx-option is-recommended" id="opt-c">
+            <header class="bg-opt-head">
+              <div class="bg-opt-no">C</div>
+              <div class="bg-opt-title">
+                <h3>Fluid side · the max fill</h3>
+                <p>Move the hand into a two-column fan on the right. The board gets two card heights instead of three, and the width is used for a 443px card at 2560.</p>
+                <p class="bg-chosen">RECOMMENDED FOR LANDSCAPE</p>
+              </div>
+              <div class="bg-opt-specs"><span><b>144–443</b> card</span> <span><b>2-col</b> side hand</span> <span><b>94–95%</b> @ 16:9</span> <span><b>drawer left</b></span></div>
+            </header>
+            <div class="fx-frame-readout">
+              <span>WINDOW <b data-win>1920×1080</b></span>
+              <span>CARD <b data-card>315</b></span>
+              <span>BOARD <b data-board>1153</b></span>
+              <span data-use>94% width</span>
+              <span data-height-use>85% board</span>
+              <span>HAND <b data-hand>side 2-col</b></span>
+              <span>RAIL <b data-rail>—</b></span>
+            </div>
+            <div class="bg-frame-wrap">
+            <div class="bg-window acc fx-window fx-side" data-option="c" style="--win-w:1920px;--win-h:1080px;--stage-h:1080px;--card:315px;--tab:52px;--score-h:82px;--dock-h:64px;--pad:4px;--gap:4px;--seam:10px;--lane-gap:26px;--ui:1.5;--btn-h:48px;--btn-font:13px;--rail-w:0px;">
+              <div class="bg-table">
+                <div class="bg-score">
+              <div class="bg-side"><span>YOU</span><b>4,000</b><i class="bg-bar"></i></div>
+              <div class="bg-ticks"><i></i><i></i><i class="is-on"></i><i></i><i></i><i></i></div>
+              <div class="bg-side bg-side--hot"><span>THE DAMP WARDEN</span><b>4,000</b><span class="bg-pips"><i></i><i></i><i></i></span><i class="bg-bar"></i></div>
+              <div class="bg-tools"><span>≡</span></div>
+            </div>
+                <div class="fx-main">
+                  <div class="fx-play">
+                    <div class="fx-body">
+                      <div class="bg-board">
+              <div class="bg-mat bg-mat--warden"><div class="bg-row">
+                <div class="bg-pair">
+                  <div class="bg-card bg-set"><img src="assets/cards/back.png" alt="" /></div>
+                  <div class="bg-card bg-monster"><img src="assets/cards/ember_cinder_hound.png" alt="" /></div>
+                </div>
+                <div class="bg-pair">
+                  <div class="bg-card bg-ghost"><span>+</span></div>
+                  <div class="bg-card bg-tab-ghost"><span>+</span></div>
+                </div>
+                <div class="bg-pair">
+                  <div class="bg-card bg-ghost"><span>+</span></div>
+                  <div class="bg-card bg-tab-ghost"><span>+</span></div>
+                </div>
+              </div></div>
+              <div class="bg-seam"></div>
+              <div class="bg-mat bg-mat--player"><div class="bg-row">
+                <div class="bg-pair">
+                  <div class="bg-card bg-set"><img src="assets/cards/back.png" alt="" /></div>
+                  <div class="bg-card bg-monster"><img src="assets/cards/verdant_bramble_wall.png" alt="" /></div>
+                </div>
+                <div class="bg-pair">
+                  <div class="bg-card bg-ghost"><span>+</span></div>
+                  <div class="bg-card bg-tab-ghost"><span>+</span></div>
+                </div>
+                <div class="bg-pair">
+                  <div class="bg-card bg-ghost"><span>+</span></div>
+                  <div class="bg-card bg-tab-ghost"><span>+</span></div>
+                </div>
+              </div></div>
+            </div>
+                      <div class="bg-hand fx-hand fx-hand--side">
+              <div class="fx-col">
+                <div class="bg-deck"><img src="assets/cards/back.png" alt="" /><span>34</span></div>
+                <div class="bg-hand-card"><img src="assets/cards/ember_ash_moth.png" alt="" /></div>
+                <div class="bg-hand-card"><img src="assets/cards/ember_ember_scout.png" alt="" /></div>
+              </div>
+              <div class="fx-col">
+                <div class="bg-hand-card"><img src="assets/cards/neutral_ninefold_seal.png" alt="" /></div>
+                <div class="bg-hand-card"><img src="assets/cards/ember_cinder_hound.png" alt="" /></div>
+                <div class="bg-hand-card"><img src="assets/cards/verdant_bramble_wall.png" alt="" /></div>
+              </div>
+            </div>
+                    </div>
+                  </div>
+                  
+                </div>
+                <div class="bg-dock"><span>LIVE</span><span class="bg-btn">STRIKE</span><span class="bg-btn">END PHASE</span><span class="bg-btn">RESET</span></div>
+              </div>
+            </div>
+          </div>
+            <div class="bg-opt-notes">
+              <div><h4>What you get</h4><p>315px at 1920×1080 and <b>443px</b> at 2560×1440. At those 16:9 sizes the board fills 85–89% of the window height and the table uses 94–95% of the width.</p></div>
+              <div><h4>The cost</h4><p>The hand becomes a 2×3 fan; a 6th hand card needs a scroll row or a third column. The drawer must open from the left. At 1000×1000 and 960×960, B wins because the side width is too tight.</p><p class="frame-note" style="margin-top: 8px;">Need one line? <a href="side-line.html" style="color: var(--cyan);">Fan / scroll / bottom row →</a></p></div>
+            </div>
+          </article>
+
+          <article class="fx-option" id="opt-d">
+            <header class="bg-opt-head">
+              <div class="bg-opt-no">D</div>
+              <div class="bg-opt-title">
+                <h3>Docked cockpit · the log stays open</h3>
+                <p>Keep the readable bottom hand and spend the right gutter on a persistent cockpit rail. The cards stay B-sized; the log, intent, and actions stop covering the board.</p>
+              </div>
+              <div class="bg-opt-specs"><span><b>123–294</b> card</span> <span><b>bottom</b> hand</span> <span><b>260–440</b> rail</span> <span><b>no overlay</b></span></div>
+            </header>
+            <div class="fx-frame-readout">
+              <span>WINDOW <b data-win>1920×1080</b></span>
+              <span>CARD <b data-card>209</b></span>
+              <span>BOARD <b data-board>835</b></span>
+              <span data-use>62% width</span>
+              <span data-height-use>58% board</span>
+              <span>HAND <b data-hand>bottom</b></span>
+              <span>RAIL <b data-rail>346</b></span>
+            </div>
+            <div class="bg-frame-wrap">
+            <div class="bg-window acc fx-window fx-cockpit" data-option="d" style="--win-w:1920px;--win-h:1080px;--stage-h:1080px;--card:209px;--tab:52px;--score-h:82px;--dock-h:64px;--pad:4px;--gap:4px;--seam:10px;--lane-gap:26px;--ui:1.5;--btn-h:48px;--btn-font:13px;--rail-w:346px;">
+              <div class="bg-table">
+                <div class="bg-score">
+              <div class="bg-side"><span>YOU</span><b>4,000</b><i class="bg-bar"></i></div>
+              <div class="bg-ticks"><i></i><i></i><i class="is-on"></i><i></i><i></i><i></i></div>
+              <div class="bg-side bg-side--hot"><span>THE DAMP WARDEN</span><b>4,000</b><span class="bg-pips"><i></i><i></i><i></i></span><i class="bg-bar"></i></div>
+              <div class="bg-tools"><span>≡</span></div>
+            </div>
+                <div class="fx-main">
+                  <div class="fx-play">
+                    <div class="fx-body">
+                      <div class="bg-board">
+              <div class="bg-mat bg-mat--warden"><div class="bg-row">
+                <div class="bg-pair">
+                  <div class="bg-card bg-set"><img src="assets/cards/back.png" alt="" /></div>
+                  <div class="bg-card bg-monster"><img src="assets/cards/ember_cinder_hound.png" alt="" /></div>
+                </div>
+                <div class="bg-pair">
+                  <div class="bg-card bg-ghost"><span>+</span></div>
+                  <div class="bg-card bg-tab-ghost"><span>+</span></div>
+                </div>
+                <div class="bg-pair">
+                  <div class="bg-card bg-ghost"><span>+</span></div>
+                  <div class="bg-card bg-tab-ghost"><span>+</span></div>
+                </div>
+              </div></div>
+              <div class="bg-seam"></div>
+              <div class="bg-mat bg-mat--player"><div class="bg-row">
+                <div class="bg-pair">
+                  <div class="bg-card bg-set"><img src="assets/cards/back.png" alt="" /></div>
+                  <div class="bg-card bg-monster"><img src="assets/cards/verdant_bramble_wall.png" alt="" /></div>
+                </div>
+                <div class="bg-pair">
+                  <div class="bg-card bg-ghost"><span>+</span></div>
+                  <div class="bg-card bg-tab-ghost"><span>+</span></div>
+                </div>
+                <div class="bg-pair">
+                  <div class="bg-card bg-ghost"><span>+</span></div>
+                  <div class="bg-card bg-tab-ghost"><span>+</span></div>
+                </div>
+              </div></div>
+            </div>
+                      <div class="bg-hand fx-hand">
+              <div class="fx-col">
+                <div class="bg-deck"><img src="assets/cards/back.png" alt="" /><span>34</span></div>
+                <div class="bg-hand-card"><img src="assets/cards/ember_ash_moth.png" alt="" /></div>
+                <div class="bg-hand-card"><img src="assets/cards/ember_ember_scout.png" alt="" /></div>
+              </div>
+              <div class="fx-col">
+                <div class="bg-hand-card"><img src="assets/cards/neutral_ninefold_seal.png" alt="" /></div>
+                <div class="bg-hand-card"><img src="assets/cards/ember_cinder_hound.png" alt="" /></div>
+                <div class="bg-hand-card"><img src="assets/cards/verdant_bramble_wall.png" alt="" /></div>
+              </div>
+            </div>
+                    </div>
+                  </div>
+                  <aside class="fx-rail" aria-hidden="true">
+              <div class="fx-rail__cap">COCKPIT · DOCKED</div>
+              <div class="fx-rail__box"><b>THE DAMP WARDEN</b><span>HAND 2 · DECK 31 · 2 GUARDS</span></div>
+              <div class="fx-rail__tabs"><i>LOG</i><i>ACTIONS</i></div>
+              <div class="fx-rail__log">
+                <p><b>YOU</b> plays Tidecall.</p>
+                <p>The Warden sets a card in Backrow 1.</p>
+                <p>You call Cinder Hound in Lane 2.</p>
+                <p><b>2,600 ATK</b> · guard removed.</p>
+                <p>The Warden draws a card.</p>
+                <p>Phase: Dusk.</p>
+                <p>You draw Ember Scout.</p>
+                <p>The Warden draws a card.</p>
+                <p>You draw Verdant Colossus.</p>
+                <p>The Warden sets a card in Backrow 2.</p>
+              </div>
+              <div class="fx-rail__action">END PHASE [E]</div>
+            </aside>
+                </div>
+                <div class="bg-dock"><span>LIVE</span><span class="bg-btn">STRIKE</span><span class="bg-btn">END PHASE</span><span class="bg-btn">RESET</span></div>
+              </div>
+            </div>
+          </div>
+            <div class="bg-opt-notes">
+              <div><h4>What you get</h4><p>A bottom hand that stays readable, plus a persistent right rail for the Warden, log, and actions. No drawer covers the cards; the rail collapses below 1200px.</p></div>
+              <div><h4>The cost</h4><p>The cards stay at B's size. At 2560×1440 the rail is 440px and the table still uses only about 60% of the width. C is the max-card option; D is the cockpit option.</p></div>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="wrap" id="matrix">
+        <div class="section-head">
+          <span class="section-head__no">05 / EVERY WINDOW</span>
+          <h2>One winner per shape. <em>Not one size everywhere.</em></h2>
+          <p>
+            The hybrid column is the recommendation: use C in landscape, B in square.
+            The card sizes are computed from the 150% chrome budget and rounded down to
+            whole pixels.
+          </p>
+        </div>
+        <div class="table-wrap">
+          <table class="acc-table fx-matrix">
+            <thead><tr><th>Window</th><th>A fixed</th><th>B bottom</th><th>C side</th><th>D cockpit</th><th>Hybrid</th></tr></thead>
+            <tbody>
+<tr><td><b>1280×720</b></td><td>190 <small>fixed 1000</small></td><td>123</td><td><span class="fx-best">186</span></td><td>123 <small>rail 260</small></td><td><span class="fx-best">C · 186</span></td></tr>
+<tr><td><b>1440×900</b></td><td>190 <small>fixed 1000</small></td><td>166</td><td><span class="fx-best">240</span></td><td>166 <small>rail 260</small></td><td><span class="fx-best">C · 240</span></td></tr>
+<tr><td><b>1920×1080</b></td><td>190 <small>fixed 1000</small></td><td>209</td><td><span class="fx-best">315</span></td><td>209 <small>rail 346</small></td><td><span class="fx-best">C · 315</span></td></tr>
+<tr><td><b>2560×1440</b></td><td>190 <small>fixed 1000</small></td><td>294</td><td><span class="fx-best">443</span></td><td>294 <small>rail 440</small></td><td><span class="fx-best">C · 443</span></td></tr>
+<tr><td><b>3440×1440</b></td><td>190 <small>fixed 1000</small></td><td>294</td><td><span class="fx-best">443</span></td><td>294 <small>rail 440</small></td><td><span class="fx-best">C · 443</span></td></tr>
+<tr><td><b>1000×1000</b></td><td>190 <small>fixed 1000</small></td><td><span class="fx-best">190</span></td><td>152</td><td>190 <small>rail —</small></td><td><span class="fx-best">B · 190</span></td></tr>
+<tr><td><b>960×960</b></td><td>190 <small>fixed 1000</small></td><td><span class="fx-best">180</span></td><td>144</td><td>180 <small>rail —</small></td><td><span class="fx-best">B · 180</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="fx-table-note">
+          A is the fixed 1000×1000 / 150% table; the 960×960 / 125% fallback still uses
+          190px cards. Hybrid uses the side hand when <b>width ÷ height ≥ 1.5</b>, and
+          the bottom hand otherwise. At 3440×1440 the side hand leaves about 999px of
+          width; that space can hold a docked rail or the drawer without shrinking the
+          cards.
+        </p>
+      </section>
+
+      <section class="wrap" id="pick">
+        <div class="section-head">
+          <span class="section-head__no">06 / PICK</span>
+          <h2>One adaptive table. <em>Two hand positions.</em></h2>
+          <p>
+            The table should not force a square or move the window. It should fill the
+            window it has. The best card budget is the side hand in landscape and the
+            bottom hand in square.
+          </p>
+        </div>
+        <div class="fx-pick">
+          <div>
+            <p class="eyebrow eyebrow--plain">RECOMMENDATION</p>
+            <h3>Hybrid: C in landscape.<br />B in square.</h3>
+            <p>
+              Keep the 150% chrome. Compute one 5:7 card size from the window. Use the
+              2-column side hand when <code>width ÷ height ≥ 1.5</code>; use the bottom
+              hand when the window is square or portrait. The card is 186 at 1280×720,
+              240 at 1440×900, 315 at 1920×1080, and 443 at 2560×1440. At 1000×1000 the
+              bottom hand returns 190 / 180.
+            </p>
+          </div>
+          <ul>
+            <li><b>Fixed A:</b> baseline only; 190 at 1000×1000; 35% width at 2560.</li>
+            <li><b>Fluid B:</b> bottom hand; 123–294; the safe fallback.</li>
+            <li><b>Fluid C:</b> 2-column side hand; 144–443; max fill in landscape.</li>
+            <li><b>Docked D:</b> bottom hand + rail; 123–294; logs always visible.</li>
+            <li><b>Never:</b> hide a lane, shrink a card inside a table, or force a 1000 square on a 900-high screen.</li>
+            <li><b>Drawer:</b> left overlay in C; right overlay in B; docked right in D.</li>
+          </ul>
+        </div>
+        <div class="fx-summary" style="margin-top: 16px;">
+          <article><span>PORT STEP 1</span><h3>Fill the window</h3><p>Stop setting a fixed 1000/960 size. The table root uses the current window; the stage is the window minus no chrome.</p></article>
+          <article><span>PORT STEP 2</span><h3>Solve the token</h3><p>Compute the card from the height and width budget. One token per table; all zones share it. Chrome stays at 150%.</p></article>
+          <article><span>PORT STEP 3</span><h3>Switch the hand</h3><p>Landscape: 2-column side hand, drawer left. Square: bottom hand, drawer right. 6th card scrolls or fans.</p></article>
+        </div>
+        <p class="frame-note" style="margin-top: 16px;">
+          This is a review page. The live table is still the fixed 190 / 1000 focus; the
+          window-position jump was removed separately. The next port is the hybrid fit
+          engine above. Every option keeps all three lanes and one card token per table.
+        </p>
+      </section>
+    </main>
+
+    <footer class="wrap" style="padding: 30px 0 50px; color: var(--muted); font-family: var(--font-mono); font-size: 9px; letter-spacing: 0.08em;">
+      RAZEAH / flex lab · 190 → 443 card · 150% chrome · actual CardComposer renders
+    </footer>
+
+    <script src="js/flex.js"></script>
+  </body>
+</html>

@@ -84,9 +84,8 @@ func build() -> void:
 	var target := 1000 if access_scale >= 150 else 960
 	get_window().min_size = Vector2i(target, target)
 	DisplayServer.window_set_size(Vector2i(target, target))
-	# The focus window sits in the top-right corner and stays above the work
-	# behind it; PIN in the drawer gives the user the release.
-	DisplayServer.window_set_position(_focus_window_position(target))
+	# Keep the window where the shell left it. The table is pinned above other
+	# windows, but entering it must not teleport the window to a corner.
 	get_window().set_flag(Window.FLAG_ALWAYS_ON_TOP, true)
 	var margin := MarginContainer.new()
 	margin.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
@@ -147,14 +146,6 @@ func _thicken_table_chrome(node: Node) -> void:
 			panel.add_theme_stylebox_override("panel", copy)
 	for child in node.get_children():
 		_thicken_table_chrome(child)
-
-func _focus_window_position(target: int) -> Vector2i:
-	var usable := DisplayServer.screen_get_usable_rect(DisplayServer.window_get_current_screen())
-	var x := usable.position.x + usable.size.x - target - 24
-	var y := usable.position.y + 24
-	x = clampi(x, usable.position.x, usable.position.x + maxi(0, usable.size.x - target))
-	y = clampi(y, usable.position.y, usable.position.y + maxi(0, usable.size.y - target))
-	return Vector2i(x, y)
 
 func _build_compact_run_strip() -> Control:
 	var caps_size := 12 if access_scale >= 150 else 10

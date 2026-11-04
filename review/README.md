@@ -6,7 +6,11 @@ ritual is [`packs.html`](packs.html), with its own handoff in
 [`mats.html`](mats.html); the Duel Board same-size variation lab is [`duel-board.html`](duel-board.html), and
 [`bigger.html`](bigger.html) compares 180–220px readability budgets;
 [`accessible.html`](accessible.html) scales the chrome around the chosen 190px
-focus table. The durable build contract lives in
+focus table, [`flex.html`](flex.html) compares window-filling layouts for 720p
+through ultrawide, [`side-line.html`](side-line.html) compares one-line versions
+of the Fluid Side hand, [`s3-larger.html`](s3-larger.html) is the six-persona
+follow-up that makes the S3 board bigger, and [`x2-backrow.html`](x2-backrow.html)
+settles the face-up spell/trap visibility question. The durable build contract lives in
 [`../docs/STYLE_NEON_RELIQUARY.md`](../docs/STYLE_NEON_RELIQUARY.md); the phased
 plan is [`../docs/PLAN.md`](../docs/PLAN.md).
 
@@ -126,11 +130,88 @@ The chosen scale is **150% at 1000×1000**. The card is never shrunk to make the
 chrome fit.
 
 Ported to Godot on 2026-11-03: the Table opens at 1000×1000 with 190px cards,
-52px Index Tabs, 48px targets, and 12–14px labels. The top nav hides and the
-drawer carries Play / Library / Decks / Packs. When the display cannot hold the
-1000 square, the table falls back to 125% at 960×960 with 44px targets. Evidence:
+52px Index Tabs, 48px targets, and 12–14px labels. The window keeps its current
+position; it no longer teleports to a corner. The top nav hides and the drawer
+carries Play / Library / Decks / Packs. When the display cannot hold the 1000
+square, the table falls back to 125% at 960×960 with 44px targets. Evidence:
 `screenshots/table_focus.png`, `table_focus_960.png`, `table_focus_drawer.png`,
 and `table_focus_drawer_960.png`.
+
+## Flex lab
+
+[`flex.html`](flex.html) starts from the 150% table and asks what happens when the
+window is not 1000×1000. The current board caps at 900 and the card at 190; at
+2560×1440 that is 35% of the screen width. The page compares four layouts with a
+live window selector from 1280×720 to 3440×1440:
+
+- **A — fixed 190:** the current 1000×1000 table. Baseline; 35% width at 2560.
+- **B — fluid bottom:** bottom hand, 123–294 card. Fits any window; leaves wide
+  side gutters at 16:9.
+- **C — fluid side:** two-column hand on the right, 144–443 card. Fills 94–95%
+  of the width and 85–89% of the board height at 1920/2560; drawer moves left.
+- **D — docked cockpit:** B-sized cards plus a persistent 260–440px log/actions
+  rail. Keeps the bottom hand and removes the overlay; uses about 60% of 2560.
+
+The recommendation is **Hybrid: C in landscape, B in square**. The matrix shows
+the card budget at every size; the page's Fit frames toggle makes the 1920/2560
+tables comparable in a narrow pane. This is a review page; the live table is
+still the fixed 190 / 1000 focus.
+
+## Side hand, one line
+
+[`side-line.html`](side-line.html) is the follow-up to Fluid Side: the hand is one
+line, not two columns. It keeps the same two-card-height board budget in the side
+variants and compares:
+
+- **S1 — side fan:** one vertical line, older cards at 20%, newest full, no scroll;
+  315 at 1920, 250 at 1440, 191 at square.
+- **S2 — side scroll:** one vertical line, three cards readable at 50% overlap,
+  scroll for the rest; same card sizes as S1.
+- **S3 — bottom row:** one horizontal line, all six cards readable, no cover;
+  board returns to the bottom-hand size (209 at 1920, 166 at 1440, 190 at square).
+
+The one-column hand uses `4c + 226` instead of the two-column `5c + 226`. At
+1920/2560 the card size matches the two-column layout; at 1440 it gains 10px and
+at square it gains 39px. The page recommends **S2** for max card with a readable
+scroll, or **S3** when the full hand must be visible. This is still a review page;
+the live table remains the fixed 190 / 1000 focus.
+
+## S3 larger
+
+[`s3-larger.html`](s3-larger.html) turns "S3 is too small" into a six-person
+design review. The team — tabletop UX, accessibility, stage design, information
+architecture, responsive systems, and player psychology — keeps S3's one-line
+bottom hand and compares:
+
+- **X1 Wall Chrome:** 240px score/action wall; full hand; **245** at 1920.
+- **X2 Spring Shelf:** 30% hand shelf; hover/focus/click lifts the full card;
+  **283** at 1920; the team pick.
+- **X3 Open Table:** mats side by side; full hand; **247 / 354 / 450** at
+  1920 / 2560 / 3440; wide only.
+- **X4 Hand Index + Lens:** 60px name/stat tabs plus a full-card lens; **292** at
+  1920; one face at a time.
+
+S3 remains the reference at 209. The page has a size matrix from 960² to
+3440×1440 and a team vote. The live table is still the fixed 190 / 1000 focus.
+
+## X2 backrow
+
+[`x2-backrow.html`](x2-backrow.html) is the team's answer to the hidden
+spell/trap. The rule is: a face-down set card stays secret; a face-up spell or
+trap is a public rule and must be visible without a hover. It compares:
+
+- **B0 current:** face-up card behind the monster; 52px tab; effect hidden.
+- **B1 Front Row:** face-up card full next to its monster; 283 at 1920; set
+  card keeps the 52px tab; **team pick at 1920+**.
+- **B2 Effect Tabs:** face-up card behind a 141px tab carrying the effect text;
+  full face on click; narrow-board option.
+- **B3 Effect Ribbon:** 40px text ribbon above the board; 270 at 1920; 244 at
+  1000; **square answer**.
+- **B4 Backrow Rail:** X2 board plus a 292px side gallery; two full faces and
+  a scroll; **1440 compact**.
+
+The new spell/trap review renders are Bone Orchard, Hollow Lantern, Tidecall,
+Quiet Ledger, and Ninefold Seal. Every option keeps the X2 hand shelf.
 
 ## Pack ritual
 
@@ -211,6 +292,10 @@ review/
     overlap.css       overlap examples, pocket, spread, upgrades
     bigger.css        readability tables, hand shelves, fit frames
     accessible.css    large-type chrome, 44–56px targets, score/dock scale
+    flex.css          fluid table budgets, side hand, docked cockpit, window picker
+    side-line.css     one-column side hand, fan/scroll, bottom-row variant
+    s3-larger.css     team cards, wall rail, spring shelf, arena, lens rail
+    backrow.css       front-row lanes, tucked tabs, effect tabs, ribbon, rail
   js/
     data.js           content, direction copy, autoplay cue sheet
     icons.js          procedural SVG glyphs
@@ -225,6 +310,9 @@ review/
     duel-board.js     Duel Board card renders, exchange, pick memory
     overlap.js        overlap view/face/peek controls
     bigger.js         fit-to-pane for the actual-size tables
+    flex.js           window selector, card-budget solver, fit-to-pane
+    side-line.js      one-line side-hand selector and card budget
+    s3-larger.js      fit frames, shelf reveal/pin, lens tab switcher
 ```
 
 No build step. No bitmap art in the game. The review labs use PNG renders of

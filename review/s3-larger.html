@@ -1,0 +1,529 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="dark" />
+    <title>Razeah — S3 Larger</title>
+    <meta name="description" content="A six-person design team's options for keeping the S3 one-line hand while making the Razeah board cards bigger." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500;600;700&family=Orbitron:wght@500;700;900&family=VT323&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="css/readability.css" />
+    <link rel="stylesheet" href="css/bigger.css" />
+    <link rel="stylesheet" href="css/accessible.css" />
+    <link rel="stylesheet" href="css/flex.css" />
+    <link rel="stylesheet" href="css/s3-larger.css" />
+  </head>
+  <body>
+    <a class="skip" href="#options">Skip to options</a>
+
+    <header class="masthead">
+      <div class="masthead__inner">
+        <a class="wordmark" href="#top"><span class="wordmark__mark">R</span><span>RAZEAH <em>/ s3 larger</em></span></a>
+        <nav class="mastnav" aria-label="Review sections">
+          <a href="#brief">01 Brief</a>
+          <a href="#team">02 Team</a>
+          <a href="#options">03 Options</a>
+          <a href="#matrix">04 Matrix</a>
+          <a href="#pick">05 Pick</a>
+        </nav>
+        <div class="masttools">
+          <a class="toolbtn" href="side-line.html">← One-line lab</a>
+          <a class="toolbtn" href="index.html">Review Index</a>
+        </div>
+      </div>
+    </header>
+
+    <main id="top">
+      <section class="hero wrap">
+        <div class="hero__copy">
+          <p class="eyebrow"><span>S3 larger</span><span>·</span><span>a six-person design team</span></p>
+          <h1>S3 is the floor.<br /><em>Here is the ceiling.</em></h1>
+          <p class="lede">
+            S3 keeps the hand fully readable in one horizontal row, but that row costs a
+            third card height: the board card is 209px at 1920×1080. A six-person team —
+            tabletop UX, accessibility, stage design, information architecture, systems,
+            and player psychology — sketched four ways to keep S3's one-line hand and give
+            the board its missing height.
+          </p>
+          <ul class="hero__facts">
+            <li><b>06</b><span>personas</span></li>
+            <li><b>04</b><span>options + S3</span></li>
+            <li><b>209→292</b><span>card at 1920</span></li>
+            <li><b>00</b><span>hidden lanes</span></li>
+          </ul>
+          <p class="hero__note">
+            Frames are actual 1920×1080 references; use <b>Fit frames</b> to compare.
+            The matrix carries the other windows, 960² through 3440×1440. Every option
+            keeps one 5:7 board token and all three lanes.
+          </p>
+          <p class="hero__note">
+            <a href="side-line.html" style="color: var(--cyan);">← One-line hand lab</a> ·
+            <a href="flex.html" style="color: var(--cyan);">Flex lab</a> ·
+            <a href="index.html" style="color: var(--cyan);">Review index</a>
+          </p>
+        </div>
+        <div class="hero__visual">
+          <div class="bg-sample" style="text-align:center;">
+            <img class="bg-sample__card" src="assets/cards/ember_cinder_hound.png" width="220" alt="" />
+            <span class="bg-sample__size">S3 · 209 → 292</span>
+            <span class="bg-sample__note">same hand line · four new budgets</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="wrap" id="brief">
+        <div class="section-head">
+          <span class="section-head__no">01 / THE BRIEF</span>
+          <h2>The hand is the habit. <em>The height is the problem.</em></h2>
+          <p>
+            S3 spends three card heights: two mats and a fully visible hand. The side hand
+            spends two, but puts the hand in two columns. The team was told to keep the
+            bottom hand as one line, keep every lane, keep one board token, and find the
+            missing 100px without making the hand a hover-only puzzle.
+          </p>
+        </div>
+        <div class="s3x-formula">
+          <span><b>S3 vertical budget</b> 3 × card height + 202 chrome</span>
+          <span><b>Side budget</b> 2 × card height + 198 chrome</span>
+          <span><b>Target</b> keep one bottom hand line</span>
+          <span><b>Never</b> hide a lane or shrink a card inside the hand</span>
+        </div>
+      </section>
+
+      <section class="wrap" id="team">
+        <div class="section-head">
+          <span class="section-head__no">02 / THE TEAM</span>
+          <h2>Six fields. <em>One table.</em></h2>
+          <p>
+            Each persona looked at the same S3 problem from a different discipline. Their
+            sketches became the four options below; the vote is in the pick.
+          </p>
+        </div>
+        <div class="team-grid">
+          <article class="team-card"><div class="team-card__initials">MV</div><span>Tabletop UX · card ergonomics</span><h3>Mara Voss</h3><p><b>“Move the chrome, not the hand.”</b> A full hand is a habit; put the score and actions on the wall instead of taxing the table height.</p></article>
+          <article class="team-card"><div class="team-card__initials">IC</div><span>Accessibility · inclusive interaction</span><h3>Ivo Chen</h3><p><b>“A full hand at rest; pin, don't hover-only.”</b> The peek shelf is allowed only if focus and click do the same job as hover.</p></article>
+          <article class="team-card"><div class="team-card__initials">SA</div><span>Stage & industrial design</span><h3>Sana Adeyemi</h3><p><b>“Let the shelf peek, then lift.”</b> Treat the hand as a physical tray: a 30% lip at rest, a 160ms lift to the full card, a latched pin.</p></article>
+          <article class="team-card"><div class="team-card__initials">RC</div><span>Information architecture · typography</span><h3>Rook Calder</h3><p><b>“Names at rest, full face in a lens.”</b> A 60px index of names and stats can buy the board a whole card height; the lens carries the face.</p></article>
+          <article class="team-card"><div class="team-card__initials">NP</div><span>Real-time systems · responsive budgets</span><h3>Nadia Petrov</h3><p><b>“Wide windows want a wider table.”</b> On 16:9 and ultrawide, split the mats; the hand stays one row and the width does the work.</p></article>
+          <article class="team-card"><div class="team-card__initials">EP</div><span>Game systems · player psychology</span><h3>Elias Park</h3><p><b>“S3 is the map. Keep the map.”</b> The winner should feel like S3 at a glance: same lane order, same hand row, same place for the eye to land.</p></article>
+        </div>
+        <div class="team-vote">
+          <span><b>VOTE</b> Spring Shelf · 3</span>
+          <span>Wall Chrome · 2</span>
+          <span>Hand Index + Lens · 1</span>
+          <span>Open Table · wide-screen wildcard</span>
+          <span><b>SHIP</b> Spring Shelf, with Wall Chrome as the no-hover fallback</span>
+        </div>
+      </section>
+
+      <section class="wrap" id="options">
+        <div class="section-head">
+          <span class="section-head__no">03 / FOUR ANSWERS + S3</span>
+          <h2>The same hand. <em>Four new heights.</em></h2>
+          <p>
+            S3 is included as the reference. Each frame is actual size at 1920×1080; the
+            matrix below carries the other windows.
+          </p>
+        </div>
+        <div class="bg-fitbar">
+          <p><b>Actual-size 1920×1080 frames.</b> Use <b>Fit frames</b> to see the whole table; the card-size matrix covers the rest.</p>
+          <label class="bg-fit"><input type="checkbox" id="fitFrames" checked /> Fit frames to pane</label>
+        </div>
+
+        <div class="fx-options">
+          <article class="fx-option" id="opt-s3">
+            <header class="bg-opt-head"><div class="bg-opt-no">S3</div><div class="bg-opt-title"><h3>Bottom row · the reference</h3><p>The hand the player already likes: one horizontal row, all six cards fully readable. The board pays for it with 209px cards at 1920×1080.</p></div><div class="bg-opt-specs"><span><b>209</b> card</span> <span><b>835</b> board</span> <span><b>51%</b> width</span> <span><b>baseline</b></span></div></header>
+            <div class="fx-frame-readout"><span>WINDOW <b>1920×1080</b></span><span>CARD <b>209</b></span><span>BOARD <b>835</b></span><span>HAND <b>bottom · all six</b></span><span>HEIGHT <b>3 cards</b></span></div>
+            <div class="bg-frame-wrap">
+            <div class="bg-window acc fx-window s3x-window" data-kind="s3" style="--win-w:1920px;--win-h:1080px;--stage-h:1080px;--card:209px;--tab:52px;--score-h:82px;--dock-h:64px;--pad:4px;--gap:4px;--seam:10px;--lane-gap:26px;--ui:1.5;--btn-h:48px;--btn-font:13px;">
+              <div class="bg-table">
+                <div class="bg-score">
+              <div class="bg-side"><span>YOU</span><b>4,000</b><i class="bg-bar"></i></div>
+              <div class="bg-ticks"><i></i><i></i><i class="is-on"></i><i></i><i></i><i></i></div>
+              <div class="bg-side bg-side--hot"><span>THE DAMP WARDEN</span><b>4,000</b><span class="bg-pips"><i></i><i></i><i></i></span><i class="bg-bar"></i></div>
+              <div class="bg-tools"><span>≡</span></div>
+            </div>
+                <div class="s3x-main--bottom"><div class="bg-board">
+              <div class="bg-mat bg-mat--warden"><div class="bg-row">
+                <div class="bg-pair">
+                  <div class="bg-card bg-set"><img src="assets/cards/back.png" alt="" /></div>
+                  <div class="bg-card bg-monster"><img src="assets/cards/ember_cinder_hound.png" alt="" /></div>
+                </div>
+                <div class="bg-pair">
+                  <div class="bg-card bg-ghost"><span>+</span></div>
+                  <div class="bg-card bg-tab-ghost"><span>+</span></div>
+                </div>
+                <div class="bg-pair">
+                  <div class="bg-card bg-ghost"><span>+</span></div>
+                  <div class="bg-card bg-tab-ghost"><span>+</span></div>
+                </div>
+              </div></div>
+              <div class="bg-seam"></div>
+              <div class="bg-mat bg-mat--player"><div class="bg-row">
+                <div class="bg-pair">
+                  <div class="bg-card bg-set"><img src="assets/cards/back.png" alt="" /></div>
+                  <div class="bg-card bg-monster"><img src="assets/cards/verdant_bramble_wall.png" alt="" /></div>
+                </div>
+                <div class="bg-pair">
+                  <div class="bg-card bg-ghost"><span>+</span></div>
+                  <div class="bg-card bg-tab-ghost"><span>+</span></div>
+                </div>
+                <div class="bg-pair">
+                  <div class="bg-card bg-ghost"><span>+</span></div>
+                  <div class="bg-card bg-tab-ghost"><span>+</span></div>
+                </div>
+              </div></div>
+            </div><div class="bg-hand">
+              <div class="bg-deck"><img src="assets/cards/back.png" alt="" /><span>34</span></div>
+              <div class="bg-hand-card"><img src="assets/cards/ember_ash_moth.png" alt="" /></div>
+              <div class="bg-hand-card"><img src="assets/cards/ember_ember_scout.png" alt="" /></div>
+              <div class="bg-hand-card"><img src="assets/cards/neutral_ninefold_seal.png" alt="" /></div>
+              <div class="bg-hand-card"><img src="assets/cards/ember_cinder_hound.png" alt="" /></div>
+              <div class="bg-hand-card"><img src="assets/cards/verdant_bramble_wall.png" alt="" /></div>
+            </div></div>
+                <div class="bg-dock"><span>LIVE</span><span class="bg-btn">STRIKE</span><span class="bg-btn">END PHASE</span><span class="bg-btn">RESET</span></div>
+              </div>
+            </div>
+          </div>
+            <div class="bg-opt-notes"><div><h4>What you get</h4><p>Every hand card fully readable at rest, the familiar bottom row, no new interaction.</p></div><div><h4>The cost</h4><p>The board card is 209 at 1920; 166 at 1440. The hand row spends a full card height.</p></div></div>
+          </article>
+
+          <article class="fx-option" id="opt-x1">
+            <header class="bg-opt-head"><div class="bg-opt-no">X1</div><div class="bg-opt-title"><h3>Wall Chrome · the no-hover answer</h3><p>Move the score and action dock into a 240px left wall. The stacked mats and the full one-line hand stay exactly where S3 put them.</p><p class="bg-chosen">MARA + NADIA · NO NEW HAND INTERACTION</p></div><div class="bg-opt-specs"><span><b>245</b> card</span> <span><b>240</b> rail</span> <span><b>full</b> hand</span> <span><b>+17%</b> board</span></div></header>
+            <div class="fx-frame-readout"><span>WINDOW <b>1920×1080</b></span><span>CARD <b>245</b></span><span>BOARD <b>943</b></span><span>RAIL <b>240</b></span><span>HAND <b>bottom · all six</b></span></div>
+            <div class="bg-frame-wrap">
+            <div class="bg-window acc fx-window s3x-window s3x-x1" data-kind="x1" style="--win-w:1920px;--win-h:1080px;--stage-h:1080px;--card:245px;--tab:52px;--score-h:82px;--dock-h:64px;--pad:4px;--gap:4px;--seam:10px;--lane-gap:26px;--ui:1.5;--btn-h:48px;--btn-font:13px;">
+              <div class="s3x-shell">
+                <aside class="s3x-rail" aria-hidden="true">
+              <div class="s3x-rail__cap">YOUR RESOLVE</div>
+              <div class="s3x-rail__score">4,000</div>
+              <div class="s3x-rail__name">THE DAMP WARDEN</div>
+              <div class="s3x-rail__score s3x-rail__score--hot">4,000</div>
+              <div class="s3x-rail__ticks"><i></i><i></i><i class="is-on"></i><i></i><i></i><i></i></div>
+              <div class="s3x-rail__cap">PILES</div>
+              <div class="s3x-rail__piles"><span>DECK 34</span><span>REMAINS 0</span><span>VOID 0</span></div>
+              <div class="s3x-rail__cap">TABLE LOG</div>
+              <div class="s3x-rail__log">
+                <p><b>YOU</b> draws Tidecall.</p>
+                <p>The Warden sets Backrow 1.</p>
+                <p>You call Cinder Hound.</p>
+                <p><b>2,600</b> · guard removed.</p>
+                <p>The Warden draws.</p>
+                <p>Phase: Dusk.</p>
+                <p>You draw Ember Scout.</p>
+                <p>The Warden sets Backrow 2.</p>
+              </div>
+              <div class="s3x-rail__action s3x-rail__action--hot">STRIKE</div>
+              <div class="s3x-rail__action">END PHASE [E]</div>
+            </aside>
+                <div class="s3x-play"><div class="s3x-main--bottom"><div class="bg-board">
+              <div class="bg-mat bg-mat--warden"><div class="bg-row">
+                <div class="bg-pair">
+                  <div class="bg-card bg-set"><img src="assets/cards/back.png" alt="" /></div>
+                  <div class="bg-card bg-monster"><img src="assets/cards/ember_cinder_hound.png" alt="" /></div>
+                </div>
+                <div class="bg-pair">
+                  <div class="bg-card bg-ghost"><span>+</span></div>
+                  <div class="bg-card bg-tab-ghost"><span>+</span></div>
+                </div>
+                <div class="bg-pair">
+                  <div class="bg-card bg-ghost"><span>+</span></div>
+                  <div class="bg-card bg-tab-ghost"><span>+</span></div>
+                </div>
+              </div></div>
+              <div class="bg-seam"></div>
+              <div class="bg-mat bg-mat--player"><div class="bg-row">
+                <div class="bg-pair">
+                  <div class="bg-card bg-set"><img src="assets/cards/back.png" alt="" /></div>
+                  <div class="bg-card bg-monster"><img src="assets/cards/verdant_bramble_wall.png" alt="" /></div>
+                </div>
+                <div class="bg-pair">
+                  <div class="bg-card bg-ghost"><span>+</span></div>
+                  <div class="bg-card bg-tab-ghost"><span>+</span></div>
+                </div>
+                <div class="bg-pair">
+                  <div class="bg-card bg-ghost"><span>+</span></div>
+                  <div class="bg-card bg-tab-ghost"><span>+</span></div>
+                </div>
+              </div></div>
+            </div><div class="bg-hand">
+              <div class="bg-deck"><img src="assets/cards/back.png" alt="" /><span>34</span></div>
+              <div class="bg-hand-card"><img src="assets/cards/ember_ash_moth.png" alt="" /></div>
+              <div class="bg-hand-card"><img src="assets/cards/ember_ember_scout.png" alt="" /></div>
+              <div class="bg-hand-card"><img src="assets/cards/neutral_ninefold_seal.png" alt="" /></div>
+              <div class="bg-hand-card"><img src="assets/cards/ember_cinder_hound.png" alt="" /></div>
+              <div class="bg-hand-card"><img src="assets/cards/verdant_bramble_wall.png" alt="" /></div>
+            </div></div></div>
+              </div>
+            </div>
+          </div>
+            <div class="bg-opt-notes"><div><h4>What you get</h4><p>The full hand and the stacked mats are untouched. The score, phase ticks, piles, log, and actions move to the left wall; the board gains 36px.</p></div><div><h4>The cost</h4><p>The score is no longer a glance across the top; the rail pinches below 1200px. At 1440 it gives 203; at 1000 it loses to S3.</p></div></div>
+          </article>
+
+          <article class="fx-option is-recommended" id="opt-x2">
+            <header class="bg-opt-head"><div class="bg-opt-no">X2</div><div class="bg-opt-title"><h3>Spring Shelf · the S3+ default</h3><p>The hand rests as a 30% shelf: name and type visible, one horizontal line. Hover, focus, or click lifts a full card over the lower mat; click pins it. The board gets the missing height.</p><p class="bg-chosen">TEAM PICK · S3 FEEL, +35% BOARD</p></div><div class="bg-opt-specs"><span><b>283</b> card</span> <span><b>30%</b> shelf</span> <span><b>full</b> on lift</span> <span><b>+35%</b> board</span></div></header>
+            <div class="fx-frame-readout"><span>WINDOW <b>1920×1080</b></span><span>CARD <b>283</b></span><span>BOARD <b>1057</b></span><span>SHELF <b>85px</b></span><span>HAND <b>bottom · one line</b></span></div>
+            <div class="bg-frame-wrap">
+            <div class="bg-window acc fx-window s3x-window" data-kind="x2" style="--win-w:1920px;--win-h:1080px;--stage-h:1080px;--card:283px;--tab:52px;--score-h:82px;--dock-h:64px;--pad:4px;--gap:4px;--seam:10px;--lane-gap:26px;--ui:1.5;--btn-h:48px;--btn-font:13px;">
+              <div class="bg-table">
+                <div class="bg-score">
+              <div class="bg-side"><span>YOU</span><b>4,000</b><i class="bg-bar"></i></div>
+              <div class="bg-ticks"><i></i><i></i><i class="is-on"></i><i></i><i></i><i></i></div>
+              <div class="bg-side bg-side--hot"><span>THE DAMP WARDEN</span><b>4,000</b><span class="bg-pips"><i></i><i></i><i></i></span><i class="bg-bar"></i></div>
+              <div class="bg-tools"><span>≡</span></div>
+            </div>
+                <div class="s3x-main--shelf"><div class="bg-board">
+              <div class="bg-mat bg-mat--warden"><div class="bg-row">
+                <div class="bg-pair">
+                  <div class="bg-card bg-set"><img src="assets/cards/back.png" alt="" /></div>
+                  <div class="bg-card bg-monster"><img src="assets/cards/ember_cinder_hound.png" alt="" /></div>
+                </div>
+                <div class="bg-pair">
+                  <div class="bg-card bg-ghost"><span>+</span></div>
+                  <div class="bg-card bg-tab-ghost"><span>+</span></div>
+                </div>
+                <div class="bg-pair">
+                  <div class="bg-card bg-ghost"><span>+</span></div>
+                  <div class="bg-card bg-tab-ghost"><span>+</span></div>
+                </div>
+              </div></div>
+              <div class="bg-seam"></div>
+              <div class="bg-mat bg-mat--player"><div class="bg-row">
+                <div class="bg-pair">
+                  <div class="bg-card bg-set"><img src="assets/cards/back.png" alt="" /></div>
+                  <div class="bg-card bg-monster"><img src="assets/cards/verdant_bramble_wall.png" alt="" /></div>
+                </div>
+                <div class="bg-pair">
+                  <div class="bg-card bg-ghost"><span>+</span></div>
+                  <div class="bg-card bg-tab-ghost"><span>+</span></div>
+                </div>
+                <div class="bg-pair">
+                  <div class="bg-card bg-ghost"><span>+</span></div>
+                  <div class="bg-card bg-tab-ghost"><span>+</span></div>
+                </div>
+              </div></div>
+            </div><div class="s3x-shelf">
+              <div class="s3x-shelf__row">
+                <div class="s3x-deck"><img src="assets/cards/back.png" alt="" /><span>34</span></div>
+                <div class="s3x-strip is-peek"><img src="assets/cards/ember_ash_moth.png" alt="" /></div> <div class="s3x-strip"><img src="assets/cards/ember_ember_scout.png" alt="" /></div> <div class="s3x-strip"><img src="assets/cards/neutral_ninefold_seal.png" alt="" /></div> <div class="s3x-strip"><img src="assets/cards/ember_cinder_hound.png" alt="" /></div> <div class="s3x-strip"><img src="assets/cards/verdant_bramble_wall.png" alt="" /></div>
+              </div>
+              <span class="s3x-shelf__note">HOVER / FOCUS / CLICK TO LIFT</span>
+            </div></div>
+                <div class="bg-dock"><span>LIVE</span><span class="bg-btn">STRIKE</span><span class="bg-btn">END PHASE</span><span class="bg-btn">RESET</span></div>
+              </div>
+            </div>
+          </div>
+            <div class="bg-opt-notes"><div><h4>What you get</h4><p>283px board cards at 1920 (+35%), 225 at 1440, 399 at 2560. The hand stays one row; the resting shelf still shows every card's name and type.</p></div><div><h4>The cost</h4><p>The full face is a lift, not the default. The shelf is 85px tall; the reveal must work on hover, focus, and click, and pin for long reads. At 1000² the card is 256.</p></div></div>
+          </article>
+
+          <article class="fx-option" id="opt-x3">
+            <header class="bg-opt-head"><div class="bg-opt-no">X3</div><div class="bg-opt-title"><h3>Open Table · the wide-screen arena</h3><p>On wide windows the two mats become stage wagons, side by side, each with three lanes. The hand stays one full row beneath both; the width carries the card.</p><p class="bg-chosen">NADIA · 16:9 AND ULTRAWIDE</p></div><div class="bg-opt-specs"><span><b>247</b> card @1920</span> <span><b>354</b> @2560</span> <span><b>450</b> @3440</span> <span><b>wide only</b></span></div></header>
+            <div class="fx-frame-readout"><span>WINDOW <b>1920×1080</b></span><span>CARD <b>247</b></span><span>BOARD <b>1916</b></span><span>HAND <b>bottom · all six</b></span><span>USE <b>100% width</b></span></div>
+            <div class="bg-frame-wrap">
+            <div class="bg-window acc fx-window s3x-window" data-kind="x3" style="--win-w:1920px;--win-h:1080px;--stage-h:1080px;--card:247px;--tab:52px;--score-h:82px;--dock-h:64px;--pad:4px;--gap:4px;--seam:10px;--lane-gap:26px;--ui:1.5;--btn-h:48px;--btn-font:13px;">
+              <div class="bg-table">
+                <div class="bg-score">
+              <div class="bg-side"><span>YOU</span><b>4,000</b><i class="bg-bar"></i></div>
+              <div class="bg-ticks"><i></i><i></i><i class="is-on"></i><i></i><i></i><i></i></div>
+              <div class="bg-side bg-side--hot"><span>THE DAMP WARDEN</span><b>4,000</b><span class="bg-pips"><i></i><i></i><i></i></span><i class="bg-bar"></i></div>
+              <div class="bg-tools"><span>≡</span></div>
+            </div>
+                <div class="s3x-main--arena"><div class="s3x-arena">
+              <div class="bg-mat bg-mat--warden"><div class="bg-row">
+                <div class="bg-pair">
+                  <div class="bg-card bg-set"><img src="assets/cards/back.png" alt="" /></div>
+                  <div class="bg-card bg-monster"><img src="assets/cards/ember_cinder_hound.png" alt="" /></div>
+                </div>
+                <div class="bg-pair">
+                  <div class="bg-card bg-ghost"><span>+</span></div>
+                  <div class="bg-card bg-tab-ghost"><span>+</span></div>
+                </div>
+                <div class="bg-pair">
+                  <div class="bg-card bg-ghost"><span>+</span></div>
+                  <div class="bg-card bg-tab-ghost"><span>+</span></div>
+                </div>
+              </div></div>
+              <div class="s3x-seam-v"></div>
+              <div class="bg-mat bg-mat--player"><div class="bg-row">
+                <div class="bg-pair">
+                  <div class="bg-card bg-set"><img src="assets/cards/back.png" alt="" /></div>
+                  <div class="bg-card bg-monster"><img src="assets/cards/verdant_bramble_wall.png" alt="" /></div>
+                </div>
+                <div class="bg-pair">
+                  <div class="bg-card bg-ghost"><span>+</span></div>
+                  <div class="bg-card bg-tab-ghost"><span>+</span></div>
+                </div>
+                <div class="bg-pair">
+                  <div class="bg-card bg-ghost"><span>+</span></div>
+                  <div class="bg-card bg-tab-ghost"><span>+</span></div>
+                </div>
+              </div></div>
+            </div><div class="bg-hand">
+              <div class="bg-deck"><img src="assets/cards/back.png" alt="" /><span>34</span></div>
+              <div class="bg-hand-card"><img src="assets/cards/ember_ash_moth.png" alt="" /></div>
+              <div class="bg-hand-card"><img src="assets/cards/ember_ember_scout.png" alt="" /></div>
+              <div class="bg-hand-card"><img src="assets/cards/neutral_ninefold_seal.png" alt="" /></div>
+              <div class="bg-hand-card"><img src="assets/cards/ember_cinder_hound.png" alt="" /></div>
+              <div class="bg-hand-card"><img src="assets/cards/verdant_bramble_wall.png" alt="" /></div>
+            </div></div>
+                <div class="bg-dock"><span>LIVE</span><span class="bg-btn">STRIKE</span><span class="bg-btn">END PHASE</span><span class="bg-btn">RESET</span></div>
+              </div>
+            </div>
+          </div>
+            <div class="bg-opt-notes"><div><h4>What you get</h4><p>The bottom hand stays fully readable; the two mats use the full width. 354px at 2560 and 450 at 3440, the largest card on an ultrawide.</p></div><div><h4>The cost</h4><p>Lanes rotate from rows to columns; spatial memory changes. At 1440 it is 167 (S3 is 166); at 1000 it collapses to 94. Wide only.</p></div></div>
+          </article>
+
+          <article class="fx-option" id="opt-x4">
+            <header class="bg-opt-head"><div class="bg-opt-no">X4</div><div class="bg-opt-title"><h3>Hand Index + Lens · the board-first answer</h3><p>The hand becomes a 60px rail of names, types, and ATK/DEF. A full-card lens sits beside the board; click a tab to read the whole face. The one-token card is the lens and the board.</p><p class="bg-chosen">ROOK · MAX BOARD AT 1920/2560</p></div><div class="bg-opt-specs"><span><b>292</b> card</span> <span><b>60px</b> tabs</span> <span><b>full</b> lens</span> <span><b>+40%</b> board</span></div></header>
+            <div class="fx-frame-readout"><span>WINDOW <b>1920×1080</b></span><span>CARD <b>292</b></span><span>BOARD <b>1084</b></span><span>LENS <b>292</b></span><span>HAND <b>tabs · one line</b></span></div>
+            <div class="bg-frame-wrap">
+            <div class="bg-window acc fx-window s3x-window" data-kind="x4" style="--win-w:1920px;--win-h:1080px;--stage-h:1080px;--card:292px;--tab:52px;--score-h:82px;--dock-h:64px;--pad:4px;--gap:4px;--seam:10px;--lane-gap:26px;--ui:1.5;--btn-h:48px;--btn-font:13px;">
+              <div class="bg-table">
+                <div class="bg-score">
+              <div class="bg-side"><span>YOU</span><b>4,000</b><i class="bg-bar"></i></div>
+              <div class="bg-ticks"><i></i><i></i><i class="is-on"></i><i></i><i></i><i></i></div>
+              <div class="bg-side bg-side--hot"><span>THE DAMP WARDEN</span><b>4,000</b><span class="bg-pips"><i></i><i></i><i></i></span><i class="bg-bar"></i></div>
+              <div class="bg-tools"><span>≡</span></div>
+            </div>
+                <div class="s3x-main--lens"><div class="bg-board">
+              <div class="bg-mat bg-mat--warden"><div class="bg-row">
+                <div class="bg-pair">
+                  <div class="bg-card bg-set"><img src="assets/cards/back.png" alt="" /></div>
+                  <div class="bg-card bg-monster"><img src="assets/cards/ember_cinder_hound.png" alt="" /></div>
+                </div>
+                <div class="bg-pair">
+                  <div class="bg-card bg-ghost"><span>+</span></div>
+                  <div class="bg-card bg-tab-ghost"><span>+</span></div>
+                </div>
+                <div class="bg-pair">
+                  <div class="bg-card bg-ghost"><span>+</span></div>
+                  <div class="bg-card bg-tab-ghost"><span>+</span></div>
+                </div>
+              </div></div>
+              <div class="bg-seam"></div>
+              <div class="bg-mat bg-mat--player"><div class="bg-row">
+                <div class="bg-pair">
+                  <div class="bg-card bg-set"><img src="assets/cards/back.png" alt="" /></div>
+                  <div class="bg-card bg-monster"><img src="assets/cards/verdant_bramble_wall.png" alt="" /></div>
+                </div>
+                <div class="bg-pair">
+                  <div class="bg-card bg-ghost"><span>+</span></div>
+                  <div class="bg-card bg-tab-ghost"><span>+</span></div>
+                </div>
+                <div class="bg-pair">
+                  <div class="bg-card bg-ghost"><span>+</span></div>
+                  <div class="bg-card bg-tab-ghost"><span>+</span></div>
+                </div>
+              </div></div>
+            </div><aside class="s3x-lens">
+              <div class="s3x-lens__cap">INSPECT · FULL FACE</div>
+              <div class="s3x-lens__card"><img id="s3xLensImg" src="assets/cards/ember_ash_moth.png" alt="" /></div>
+              <div class="s3x-lens__name" id="s3xLensName">ASH MOTH</div>
+            </aside>
+            </div>
+                <div class="s3x-tabs">
+              <span class="s3x-tab" style="flex:0 0 86px; cursor:default;"><b>DECK 34</b><span>PILE</span><em>—</em></span>
+              <button class="s3x-tab is-active" data-src="assets/cards/ember_ash_moth.png" data-name="Ash Moth" data-type="Monster · Ember" data-stat="600 / 400" type="button">
+                  <b>Ash Moth</b><span>Monster · Ember</span><em>600 / 400</em>
+                </button><button class="s3x-tab" data-src="assets/cards/ember_ember_scout.png" data-name="Ember Scout" data-type="Monster · Ember" data-stat="1,600 / 1,000" type="button">
+                  <b>Ember Scout</b><span>Monster · Ember</span><em>1,600 / 1,000</em>
+                </button><button class="s3x-tab" data-src="assets/cards/neutral_ninefold_seal.png" data-name="Ninefold Seal" data-type="Trap · Neutral" data-stat="— / —" type="button">
+                  <b>Ninefold Seal</b><span>Trap · Neutral</span><em>— / —</em>
+                </button><button class="s3x-tab" data-src="assets/cards/ember_cinder_hound.png" data-name="Cinder Hound" data-type="Monster · Ember" data-stat="1,200 / 800" type="button">
+                  <b>Cinder Hound</b><span>Monster · Ember</span><em>1,200 / 800</em>
+                </button><button class="s3x-tab" data-src="assets/cards/verdant_bramble_wall.png" data-name="Bramble Wall" data-type="Monster · Verdant" data-stat="300 / 2,200" type="button">
+                  <b>Bramble Wall</b><span>Monster · Verdant</span><em>300 / 2,200</em>
+                </button>
+            </div>
+            <div class="bg-dock"><span>LIVE</span><span class="bg-btn">STRIKE</span><span class="bg-btn">END PHASE</span><span class="bg-btn">RESET</span></div>
+              </div>
+            </div>
+          </div>
+            <div class="bg-opt-notes"><div><h4>What you get</h4><p>292px board at 1920 and 421 at 2560, the biggest cards here. The lens shows the full face; the tab rail keeps all names and stats visible.</p></div><div><h4>The cost</h4><p>Only one full face at a time; the hand is an index, not six faces. Highest relearning. At 1000² the lens/board width drops the card to 196, so S3 or X2 wins there.</p></div></div>
+          </article>
+        </div>
+      </section>
+
+      <section class="wrap" id="matrix">
+        <div class="section-head">
+          <span class="section-head__no">04 / EVERY WINDOW</span>
+          <h2>One-line hands. <em>Different ceilings.</em></h2>
+          <p>
+            Card widths are computed from the 150% chrome budget and rounded down. The
+            winner changes with shape: the Spring Shelf owns compact/square; the Lens owns
+            1440–2560; the Open Table owns ultrawide; Wall Chrome is the full-hand fallback.
+          </p>
+        </div>
+        <div class="table-wrap">
+          <table class="acc-table">
+            <thead><tr><th>Window</th><th>S3 bottom</th><th>X1 wall</th><th>X2 shelf</th><th>X3 open</th><th>X4 lens</th><th>Best</th></tr></thead>
+            <tbody>
+<tr><td><b>1280×720</b></td><td>123</td><td>160</td><td><span class="s3x-best">167</span></td><td>141</td><td>163</td><td><span class="s3x-best">X2 · 167</span></td></tr>
+<tr><td><b>1440×900</b></td><td>166</td><td>202</td><td>225</td><td>167</td><td><span class="s3x-best">227</span></td><td><span class="s3x-best">X4 · 227</span></td></tr>
+<tr><td><b>1920×1080</b></td><td>209</td><td>245</td><td>283</td><td>247</td><td><span class="s3x-best">292</span></td><td><span class="s3x-best">X4 · 292</span></td></tr>
+<tr><td><b>2560×1440</b></td><td>294</td><td>331</td><td>399</td><td>354</td><td><span class="s3x-best">420</span></td><td><span class="s3x-best">X4 · 420</span></td></tr>
+<tr><td><b>3440×1440</b></td><td>294</td><td>331</td><td>399</td><td><span class="s3x-best">450</span></td><td>420</td><td><span class="s3x-best">X3 · 450</span></td></tr>
+<tr><td><b>1000×1000</b></td><td>190</td><td>173</td><td><span class="s3x-best">256</span></td><td>94</td><td>196</td><td><span class="s3x-best">X2 · 256</span></td></tr>
+<tr><td><b>960×960</b></td><td>180</td><td>164</td><td><span class="s3x-best">242</span></td><td>87</td><td>186</td><td><span class="s3x-best">X2 · 242</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="fx-table-note">
+          S3 is the current full bottom row. X1 keeps the full row but pays with a left wall.
+          X2 keeps one bottom line as a 30% shelf; X3 keeps the full bottom row but rotates
+          the mats; X4 trades six faces for a tab rail and a full lens. The 1920 frames are
+          actual size; the matrix is the same solver at the other windows.
+        </p>
+      </section>
+
+      <section class="wrap" id="pick">
+        <div class="section-head">
+          <span class="section-head__no">05 / PICK</span>
+          <h2>S3, with a spring. <em>Or S3 with walls.</em></h2>
+          <p>
+            The team's vote is not for the biggest card; it is for the option that still
+            feels like the table the player already knows. That is the Spring Shelf. Wall
+            Chrome is the no-hover fallback; Lens and Open Table are specialist answers.
+          </p>
+        </div>
+        <div class="s3x-pick">
+          <div>
+            <p class="eyebrow eyebrow--plain">TEAM PICK</p>
+            <h3>Spring Shelf (X2).<br />S3's hand, 35% more board.</h3>
+            <p>
+              One bottom line. A 30% resting shelf with every name and type visible. Hover,
+              focus, or click lifts the full card; click pins it. 283px at 1920, 225 at
+              1440, 399 at 2560, 256 at square. It is the only option that keeps S3's lane
+              map and hand line while buying a real height budget.
+            </p>
+          </div>
+          <ul>
+            <li><b>X2 Spring Shelf:</b> S3 feel; one line; +35%; reveal on hover/focus/click.</li>
+            <li><b>X1 Wall Chrome:</b> full hand at rest, no hover; 245 at 1920; score/dock left.</li>
+            <li><b>X4 Hand Index + Lens:</b> max board 292/421; tabs + full lens; one face at a time.</li>
+            <li><b>X3 Open Table:</b> 354/450 on 2560/3440; full hand; wide only.</li>
+            <li><b>Never:</b> hide a lane, shrink a card inside the hand, or make hover the only read.</li>
+          </ul>
+        </div>
+        <div class="fx-summary" style="margin-top: 16px;">
+          <article><span>NEXT PORT</span><h3>Spring Shelf</h3><p>Add a 30% shelf to S3; lift on hover/focus/click; pin on click; keep the existing card actors and lane map.</p></article>
+          <article><span>FALLBACK</span><h3>Wall Chrome</h3><p>If the shelf fails, move score/dock to a 180px left rail; the full hand and 245px card remain.</p></article>
+          <article><span>WIDE SCREEN</span><h3>Open Table</h3><p>At ≥1920, side-by-side mats; at ≥2560 the card reaches 354; at 3440, 450.</p></article>
+        </div>
+        <p class="frame-note" style="margin-top: 16px;">
+          This is a review page. The live table is still the fixed 190 / 1000 focus. The
+          team's four answers keep all three lanes and one card token inside the board; the
+          Spring Shelf is the proposed next port.
+        </p>
+      </section>
+    </main>
+
+    <footer class="wrap" style="padding: 30px 0 50px; color: var(--muted); font-family: var(--font-mono); font-size: 9px; letter-spacing: 0.08em;">
+      RAZEAH / S3 larger · six personas · 209 → 292 at 1920 · actual CardComposer renders
+    </footer>
+
+    <script src="js/s3-larger.js"></script>
+  </body>
+</html>

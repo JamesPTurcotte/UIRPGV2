@@ -1,0 +1,288 @@
+/* X2 Backrow — the team's public-effect layouts.
+   Builds on s3-larger.css (team, options, X2 hand shelf) and accessible.css. */
+
+.br-main {
+  flex: 1;
+  min-height: 0;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap);
+}
+
+.br-main > .bg-board {
+  flex: 1;
+  min-height: 0;
+  width: calc(3 * (var(--card) + var(--tab)) + 2 * var(--lane-gap) + 26px);
+  max-width: 100%;
+  align-self: center;
+}
+
+/* B1: two cards per lane — monster + face-up spell/trap. */
+.br-board {
+  flex: 1;
+  min-height: 0;
+  width: calc(6 * var(--card) + 48px);
+  max-width: 100%;
+  align-self: center;
+  display: flex;
+  flex-direction: column;
+}
+
+.br-mat {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid rgba(70, 240, 255, 0.24);
+  background:
+    radial-gradient(circle at 50% 52%, rgba(176, 107, 255, 0.10), transparent 55%),
+    linear-gradient(160deg, rgba(18, 10, 38, 0.72), rgba(7, 4, 16, 0.86));
+}
+
+.br-mat--warden {
+  border-color: rgba(255, 63, 164, 0.28);
+}
+
+.br-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.br-lane {
+  flex: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.br-card {
+  position: relative;
+  flex: none;
+  width: var(--card);
+  height: calc(var(--card) * 1.4);
+}
+
+.br-card img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: fill;
+  border-radius: 2px;
+  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.38);
+}
+
+.br-ghost {
+  display: grid;
+  place-items: center;
+  border: 2px dashed rgba(70, 240, 255, 0.28);
+  background: rgba(6, 3, 13, 0.2);
+  color: rgba(70, 240, 255, 0.5);
+  font-family: var(--font-data);
+  font-size: calc(var(--card) * 0.14);
+}
+
+.br-set-tab {
+  flex: none;
+  width: 52px;
+  height: calc(var(--card) * 1.4);
+  display: grid;
+  place-items: center;
+  border: 2px dashed rgba(142, 134, 168, 0.35);
+  background: rgba(6, 3, 13, 0.4);
+  color: var(--muted);
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.08em;
+}
+
+/* B2: monster + face-up back card + a 50% effect tab. */
+.br-board--tabs {
+  width: calc(4.5 * var(--card) + 52px);
+}
+
+.br-board--tucked {
+  width: calc(3 * (var(--card) + 60px) + 16px);
+}
+
+.br-tab-card {
+  flex: none;
+  width: 52px;
+  height: calc(var(--card) * 1.4);
+  position: relative;
+  overflow: hidden;
+  border: 1px solid rgba(142, 134, 168, 0.35);
+  background: rgba(6, 3, 13, 0.4);
+}
+
+.br-tab-card img {
+  display: block;
+  width: var(--card);
+  height: 100%;
+  object-fit: fill;
+  margin-left: calc(52px - var(--card));
+  filter: brightness(0.75);
+}
+
+.br-tab-card::after {
+  content: "FACE-UP";
+  position: absolute;
+  inset: auto 0 0;
+  padding: 3px 1px;
+  background: rgba(6, 3, 13, 0.9);
+  color: var(--cyan);
+  font-family: var(--font-mono);
+  font-size: 7px;
+  letter-spacing: 0.04em;
+  text-align: center;
+}
+
+.br-pair {
+  position: relative;
+  flex: none;
+  width: calc(1.5 * var(--card));
+  height: calc(var(--card) * 1.4);
+}
+
+.br-pair .br-card {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.br-pair .br-back {
+  left: calc(var(--card) * 0.5);
+  z-index: 1;
+}
+
+.br-pair .br-monster {
+  z-index: 2;
+}
+
+.br-set-pair {
+  width: calc(var(--card) + 52px);
+}
+
+.br-effect-tab {
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 3;
+  width: calc(var(--card) * 0.5);
+  height: calc(var(--card) * 1.4);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 3px;
+  padding: 6px;
+  border: 1px solid rgba(70, 240, 255, 0.4);
+  background: rgba(6, 3, 13, 0.94);
+  color: var(--muted);
+  font-family: var(--font-mono);
+  font-size: 9px;
+  line-height: 1.25;
+}
+
+.br-effect-tab b {
+  color: var(--cyan);
+  font-size: 10px;
+  font-weight: 500;
+}
+
+.br-effect-tab em {
+  font-style: normal;
+}
+
+.br-set-tab--pair {
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+
+/* B3: the always-on effect ribbon. */
+.br-ribbon {
+  flex: none;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0 8px;
+  border: 1px solid rgba(70, 240, 255, 0.28);
+  background: rgba(6, 3, 13, 0.76);
+  color: var(--muted);
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.br-ribbon b {
+  color: var(--cyan);
+  font-weight: 500;
+}
+
+.br-ribbon span {
+  padding: 4px 6px;
+  border: 1px solid var(--line);
+}
+
+.br-ribbon span:first-child {
+  color: var(--pink);
+  border-color: rgba(255, 63, 164, 0.35);
+}
+
+/* B4: a side gallery of full face-up cards. */
+.br-railrow {
+  flex: 1;
+  min-height: 0;
+  min-width: 0;
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  justify-content: center;
+}
+
+.br-railrow > .bg-board {
+  flex: 0 0 auto;
+  width: calc(3 * (var(--card) + var(--tab)) + 2 * var(--lane-gap) + 26px);
+  max-width: 100%;
+}
+
+.br-rail {
+  flex: none;
+  width: calc(var(--card) + 9px);
+  max-height: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  overflow-y: auto;
+  padding: 2px;
+  scrollbar-width: thin;
+  scrollbar-color: var(--cyan) transparent;
+}
+
+.br-rail .br-card {
+  flex: none;
+}
+
+.br-rail__cap {
+  color: var(--muted);
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.06em;
+}
+
+/* The shared X2 shelf sits under every option. */
+.br-main > .s3x-shelf {
+  flex: none;
+}
+
+@media (max-width: 980px) {
+  .br-ribbon {
+    font-size: 8px;
+  }
+}

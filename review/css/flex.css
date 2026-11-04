@@ -1,0 +1,658 @@
+/* Flex lab — let the table take the window instead of forcing a 1000 square.
+   Reuses the bigger/accessible table skeleton; only the space budget changes. */
+
+.fx-window {
+  --hand-gap: 6px;
+  flex: none;
+  border: 0;
+  box-shadow:
+    inset 0 0 0 1px rgba(70, 240, 255, 0.25),
+    0 18px 50px rgba(0, 0, 0, 0.5);
+}
+
+/* The table column owns score / body / dock. */
+.fx-window .fx-main {
+  flex: 1;
+  min-height: 0;
+  min-width: 0;
+  display: flex;
+  gap: var(--gap);
+}
+
+.fx-window .fx-play {
+  flex: 1;
+  min-width: 0;
+  min-height: 0;
+  display: flex;
+}
+
+.fx-window .fx-body {
+  flex: 1;
+  min-width: 0;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap);
+}
+
+.fx-window .fx-body > .bg-board {
+  flex: 1;
+  min-height: 0;
+  width: calc(3 * (var(--card) + var(--tab)) + 2 * var(--lane-gap) + 26px);
+  max-width: 100%;
+  align-self: center;
+}
+
+.fx-window .fx-body > .bg-hand {
+  flex: none;
+}
+
+/* A is the current 1000 focus: score, board, hand and dock are 900 wide,
+   centred with the same 50px gutters as the live table. */
+.fx-fixed .bg-table {
+  padding-left: 50px;
+  padding-right: 50px;
+}
+
+.fx-fixed .bg-board,
+.fx-fixed .bg-hand,
+.fx-fixed .fx-body {
+  width: 900px;
+  max-width: 900px;
+}
+
+.fx-fixed .fx-body > .bg-board {
+  width: 900px;
+}
+
+/* Five hand cards + deck. The row uses the same 33% overlap as the live
+   190px hand; the side layout switches the two columns to a vertical fan. */
+.fx-window .bg-hand-card + .bg-hand-card {
+  margin-left: calc(var(--card) * -0.33);
+}
+
+.fx-window .bg-deck {
+  margin-right: 4px;
+}
+
+.fx-col {
+  display: contents;
+}
+
+.fx-side .fx-body {
+  flex-direction: row;
+  align-items: stretch;
+}
+
+.fx-side .fx-body > .bg-board {
+  width: auto;
+  max-width: none;
+  align-self: stretch;
+}
+
+.fx-hand--side {
+  flex: none;
+  width: calc(2 * var(--card) + var(--hand-gap));
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: var(--hand-gap);
+  margin: 0;
+}
+
+.fx-hand--side .bg-deck {
+  margin: 0;
+}
+
+.fx-hand--side .bg-deck img {
+  filter: brightness(0.45) saturate(0.55);
+}
+
+.fx-hand--side .bg-deck::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(6, 3, 13, 0.18), rgba(6, 3, 13, 0.58));
+  pointer-events: none;
+}
+
+.fx-hand--side .bg-deck > span {
+  z-index: 4;
+  top: 7px;
+  left: 7px;
+  right: auto;
+  bottom: auto;
+  padding: 2px 5px;
+  background: rgba(6, 3, 13, 0.92);
+  font-size: 12px;
+}
+
+.fx-hand--side .bg-deck > span::before {
+  content: "DECK ";
+  color: var(--muted);
+}
+
+.fx-side .fx-col {
+  display: flex;
+  flex-direction: column;
+  flex: none;
+  width: var(--card);
+}
+
+.fx-side .fx-col + .fx-col {
+  margin-left: 0;
+}
+
+.fx-side .fx-col > * + * {
+  margin-top: calc(var(--card) * -0.70);
+}
+
+.fx-side .bg-deck,
+.fx-side .bg-hand-card {
+  margin-left: 0;
+  margin-right: 0;
+}
+
+.fx-side .bg-hand-card + .bg-hand-card {
+  margin-left: 0;
+  margin-top: calc(var(--card) * -0.70);
+}
+
+/* Docked cockpit: the bottom hand stays; the log/actions rail uses the right
+   gutter. Below 1200px the rail collapses and the option is simply B. */
+.fx-cockpit .fx-play {
+  min-width: 0;
+}
+
+.fx-rail {
+  flex: none;
+  width: var(--rail-w, 0px);
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  padding: 8px;
+  border-left: 1px solid rgba(70, 240, 255, 0.24);
+  background: rgba(6, 3, 13, 0.78);
+  overflow: hidden;
+}
+
+.fx-rail__cap {
+  color: var(--muted);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+}
+
+.fx-rail__box {
+  padding: 7px;
+  border: 1px solid rgba(176, 107, 255, 0.28);
+  background: rgba(18, 10, 38, 0.72);
+}
+
+.fx-rail__box b {
+  display: block;
+  color: var(--purple);
+  font-family: var(--font-display);
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.fx-rail__box span {
+  display: block;
+  margin-top: 3px;
+  color: var(--muted);
+  font-family: var(--font-mono);
+  font-size: 11px;
+}
+
+.fx-rail__tabs {
+  display: flex;
+  gap: 4px;
+}
+
+.fx-rail__tabs i {
+  flex: 1;
+  padding: 8px 2px;
+  border: 1px solid var(--line);
+  color: var(--muted);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-style: normal;
+  text-align: center;
+}
+
+.fx-rail__tabs i:first-child {
+  border-color: var(--cyan);
+  color: var(--cyan);
+}
+
+.fx-rail__log {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 4px;
+  min-height: 0;
+  overflow: hidden;
+  color: var(--muted);
+  font-size: 11px;
+  line-height: 1.35;
+}
+
+.fx-rail__log p {
+  margin: 0;
+}
+
+.fx-rail__log b {
+  color: var(--ink-2);
+  font-weight: 500;
+}
+
+.fx-rail__action {
+  padding: 8px;
+  border: 1px solid rgba(70, 240, 255, 0.35);
+  color: var(--cyan);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  text-align: center;
+}
+
+.fx-cockpit.is-narrow .fx-rail {
+  display: none;
+}
+
+/* Page furniture ------------------------------------------------------- */
+
+.fx-window-strip {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  margin: 20px 0 6px;
+  padding: 12px;
+  border: 1px solid var(--line);
+  background: rgba(6, 3, 13, 0.55);
+}
+
+.fx-window-strip > span {
+  margin-right: 4px;
+  color: var(--muted);
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.08em;
+}
+
+.fx-size {
+  min-height: 38px;
+  padding: 0 10px;
+  border: 1px solid var(--line);
+  background: rgba(6, 3, 13, 0.6);
+  color: var(--muted);
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.03em;
+  cursor: pointer;
+}
+
+.fx-size:hover {
+  border-color: var(--cyan);
+  color: var(--cyan);
+}
+
+.fx-size.is-active {
+  border-color: var(--pink);
+  color: var(--pink);
+  box-shadow: inset 0 0 0 1px rgba(255, 63, 164, 0.12);
+}
+
+.fx-selected {
+  margin-left: auto;
+  color: var(--cyan);
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.05em;
+  white-space: nowrap;
+}
+
+.fx-frame-readout {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--line);
+  color: var(--muted);
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.04em;
+}
+
+.fx-frame-readout span {
+  padding: 4px 6px;
+  border: 1px solid var(--line);
+  white-space: nowrap;
+}
+
+.fx-frame-readout b {
+  color: var(--ink);
+  font-weight: 500;
+}
+
+.fx-frame-readout .is-hot {
+  border-color: rgba(255, 63, 164, 0.4);
+  color: var(--pink);
+}
+
+.fx-frame-note {
+  margin: 0;
+  padding: 8px 14px;
+  border-bottom: 1px solid var(--line);
+  color: var(--muted);
+  font-size: 11px;
+  line-height: 1.5;
+}
+
+.fx-frame-note b {
+  color: var(--ink-2);
+}
+
+.fx-frame-note a {
+  color: var(--cyan);
+}
+
+.fx-window-strip + .fx-frame-note {
+  border: 1px solid var(--line);
+  border-top: 0;
+  background: rgba(6, 3, 13, 0.35);
+}
+
+.fx-deadspace {
+  margin-top: 18px;
+  padding: 14px;
+  border: 1px solid var(--line);
+  background: rgba(6, 3, 13, 0.55);
+}
+
+.fx-deadspace__screen {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  border: 1px solid rgba(70, 240, 255, 0.25);
+  background:
+    linear-gradient(160deg, rgba(14, 8, 30, 0.96), rgba(4, 2, 9, 0.99));
+}
+
+.fx-deadspace__window {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 39%;
+  height: 69%;
+  transform: translate(-50%, -50%);
+  border: 1px solid var(--cyan);
+  background: rgba(70, 240, 255, 0.035);
+}
+
+.fx-deadspace__board {
+  position: absolute;
+  top: 9%;
+  left: 5%;
+  width: 90%;
+  height: 39%;
+  border: 1px solid var(--pink);
+  background: rgba(255, 63, 164, 0.04);
+}
+
+.fx-deadspace__label {
+  position: absolute;
+  color: var(--muted);
+  font-family: var(--font-mono);
+  font-size: 8px;
+  letter-spacing: 0.05em;
+}
+
+.fx-deadspace__label--window {
+  top: 34%;
+  left: 50%;
+  transform: translateX(-50%);
+  color: var(--cyan);
+}
+
+.fx-deadspace__label--board {
+  top: 44%;
+  left: 50%;
+  transform: translateX(-50%);
+  color: var(--pink);
+  white-space: nowrap;
+}
+
+.fx-deadspace__label--side {
+  top: 52%;
+  left: 50%;
+  transform: translateX(-50%);
+  color: var(--muted);
+  white-space: nowrap;
+}
+
+.fx-deadspace__legend {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 8px;
+  margin-top: 8px;
+  color: var(--muted);
+  font-family: var(--font-mono);
+  font-size: 8px;
+  letter-spacing: 0.04em;
+}
+
+.fx-summary {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+  margin-top: 18px;
+}
+
+.fx-summary article {
+  padding: 12px;
+  border: 1px solid var(--line);
+  background: rgba(6, 3, 13, 0.5);
+}
+
+.fx-summary span {
+  color: var(--pink);
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.08em;
+}
+
+.fx-summary h3 {
+  margin: 4px 0 5px;
+  font-family: var(--font-display);
+  font-size: 15px;
+  font-weight: 500;
+}
+
+.fx-summary p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.fx-summary b {
+  color: var(--ink);
+}
+
+.fx-options {
+  display: flex;
+  flex-direction: column;
+  gap: 34px;
+  margin-top: 24px;
+}
+
+.fx-option {
+  border: 1px solid var(--line);
+  background: rgba(6, 3, 13, 0.54);
+}
+
+.fx-option.is-recommended {
+  border-color: rgba(255, 204, 85, 0.5);
+}
+
+.fx-option .bg-opt-head {
+  grid-template-columns: auto minmax(0, 1fr) auto;
+}
+
+.fx-option .bg-opt-title h3 {
+  font-size: 20px;
+}
+
+.fx-option .bg-opt-title p {
+  max-width: 760px;
+}
+
+.fx-option .bg-frame-wrap {
+  padding: 14px;
+}
+
+.fx-option .bg-window {
+  margin: 0 auto;
+}
+
+.fx-option .bg-opt-notes {
+  grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr);
+}
+
+.fx-option .bg-chosen {
+  color: var(--amber);
+}
+
+.fx-fixed-tag {
+  display: inline-block;
+  margin-top: 6px;
+  padding: 3px 6px;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  color: var(--muted);
+  font-family: var(--font-mono);
+  font-size: 8px;
+  letter-spacing: 0.06em;
+}
+
+.fx-best {
+  color: var(--cyan);
+}
+
+.fx-best::after {
+  content: " ↑";
+  color: var(--muted);
+}
+
+.fx-table-note {
+  margin: 12px 0 0;
+  color: var(--muted);
+  font-family: var(--font-mono);
+  font-size: 9px;
+  line-height: 1.55;
+  letter-spacing: 0.03em;
+}
+
+.fx-table-note code,
+.frame-note code {
+  color: var(--cyan);
+  font-family: var(--font-mono);
+  font-size: 0.94em;
+}
+
+.acc-table small {
+  display: block;
+  margin-top: 2px;
+  color: var(--muted);
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.03em;
+}
+
+.fx-matrix .fx-best {
+  color: var(--cyan);
+  font-weight: 500;
+}
+
+.fx-pick {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+  gap: 24px;
+  margin-top: 24px;
+  padding: 22px;
+  border: 1px solid rgba(255, 204, 85, 0.35);
+  background: rgba(255, 204, 85, 0.035);
+}
+
+.fx-pick h3 {
+  margin: 0 0 8px;
+  font-family: var(--font-display);
+  font-size: 24px;
+  font-weight: 500;
+}
+
+.fx-pick p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.65;
+}
+
+.fx-pick ul {
+  margin: 0;
+  padding-left: 16px;
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.7;
+}
+
+.fx-pick li b {
+  color: var(--ink);
+}
+
+.fx-pick code {
+  color: var(--cyan);
+  font-family: var(--font-mono);
+  font-size: 11px;
+}
+
+@media (max-width: 980px) {
+  .fx-summary,
+  .fx-pick {
+    grid-template-columns: 1fr;
+  }
+
+  .fx-option .bg-opt-head,
+  .fx-option .bg-opt-notes {
+    grid-template-columns: 1fr;
+  }
+
+  .fx-option .bg-opt-specs {
+    justify-content: flex-start;
+    max-width: none;
+  }
+
+  .fx-selected {
+    margin-left: 0;
+  }
+}
+
+@media (max-width: 640px) {
+  .fx-window-strip {
+    align-items: stretch;
+  }
+
+  .fx-size {
+    flex: 1 1 calc(50% - 8px);
+  }
+
+  .fx-summary {
+    grid-template-columns: 1fr;
+  }
+}

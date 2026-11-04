@@ -40,6 +40,10 @@ imported by Godot. The code-level migration route is
 - **Table screenshots:** `screenshots/table_focus.png`,
   `screenshots/table_focus_960.png`, `screenshots/table_focus_drawer.png`,
   `screenshots/table_focus_drawer_960.png`.
+- **Flex review:** `review/flex.html` compares fixed / fluid bottom / fluid side /
+  docked cockpit at 1280–3440; hybrid recommendation is C in landscape, B in
+  square. The live table is still fixed 190 / 1000; the window-position jump is
+  removed.
 - **Shell/room screenshots:** library, gate, deck, bench, folio at 1440×900.
 
 ## Working log
@@ -59,7 +63,11 @@ imported by Godot. The code-level migration route is
 | 2026-11-03 | Step 10 — readability lab | Actual-size 180/190/200/220 tables + 300px detail lens; 960/1012/1060/1096 windows; fit-to-pane; `review/bigger.html` | Pick a readability budget |
 | 2026-11-03 | Step 11 — accessibility lab | 190 focus + 100/125/150/200% chrome; 44–56px targets; 54/68/82/106 score bands; 960 exact at 125, 1000 at 150, 1200 at 200; `review/accessible.html` | 150% chosen; build 150 focus |
 | 2026-11-03 | Step 12 — accessibility decision | **150% chosen**: 190 card, 52 tab, 48px targets, 12–14px labels, 82 score, 64 dock, 1000×1000 focus; 8px board slack | Port table-only 150 |
-| 2026-11-03 | Step 13 — 150 table port | `A` token 190×266; `CARD_TAB` 52; 150/125 stage metrics; 1000/960 focus window; top-right pinned window; shell restore; top nav hidden; drawer doors; suite 412/0; layout audit 6/6; focus + fallback + drawer screenshots | Table manual/Auto QA at both scales |
+| 2026-11-03 | Step 13 — 150 table port | `A` token 190×266; `CARD_TAB` 52; 150/125 stage metrics; 1000/960 focus window; current-position pinned window; shell restore; top nav hidden; drawer doors; suite 412/0; layout audit 6/6; focus + fallback + drawer screenshots | Table manual/Auto QA at both scales |
+| 2026-11-04 | Step 14 — flex lab | Window-filling review: A fixed 190, B fluid bottom (123–294), C fluid side (144–443), D docked cockpit; 960–3440 matrix; hybrid C/B recommendation; `review/flex.html` | Pick flex mode and port |
+| 2026-11-04 | Step 15 — one-line side hand lab | S1 side fan (older cards 20%, newest full), S2 side scroll (3 visible, max card), S3 bottom row (all six readable, 123–294); one-column width 4c+226; 960–3440 matrix; `review/side-line.html` | Pick one-line hand and port |
+| 2026-11-04 | Step 16 — S3 larger lab | Six personas; S3 209 baseline; X1 wall chrome 245; X2 spring shelf 283; X3 open table 247/354/450; X4 hand index + lens 292; 960–3440 matrix; team pick X2; `review/s3-larger.html` | Pick S3 larger layout and port |
+| 2026-11-04 | Step 17 — X2 backrow lab | Set vs face-up rule; B1 front row 283/399; B2 effect tabs; B3 ribbon 270/244; B4 rail 292; 960–3440 matrix; team pick B1 1920+, B4 1440, B3 square; `review/x2-backrow.html` | Pick backrow mode and port |
 
 ## Locked decisions
 

@@ -162,8 +162,8 @@ the readability contract, not optional.
   sealed while any pip is lit.
 - No Warden strip, guard chip, intent sentence, or lane numeral on the board.
 - The drawer carries the four doors, detailed intent, log, inspect, actions,
-  piles, speed, and the PIN control. The focus window opens in the top-right and
-  starts pinned; PIN releases it, and the shell window is restored on exit.
+  piles, speed, and the PIN control. The table keeps the shell's current window
+  position, starts pinned, and restores the shell window on exit; PIN releases it.
 
 ### Mats and lanes (shipping Overlap)
 

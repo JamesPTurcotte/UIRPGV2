@@ -1,0 +1,464 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="dark" />
+    <title>Razeah — Side Hand, One Line</title>
+    <meta name="description" content="Three one-line hand versions of the Razeah Fluid Side table: side fan, side scroll, and bottom row." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500;600;700&family=Orbitron:wght@500;700;900&family=VT323&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="css/readability.css" />
+    <link rel="stylesheet" href="css/bigger.css" />
+    <link rel="stylesheet" href="css/accessible.css" />
+    <link rel="stylesheet" href="css/flex.css" />
+    <link rel="stylesheet" href="css/side-line.css" />
+  </head>
+  <body>
+    <a class="skip" href="#variants">Skip to variants</a>
+
+    <header class="masthead">
+      <div class="masthead__inner">
+        <a class="wordmark" href="#top"><span class="wordmark__mark">R</span><span>RAZEAH <em>/ side hand, one line</em></span></a>
+        <nav class="mastnav" aria-label="Review sections">
+          <a href="#problem">01 Problem</a>
+          <a href="#line">02 One line</a>
+          <a href="#variants">03 Variants</a>
+          <a href="#matrix">04 Matrix</a>
+          <a href="#pick">05 Pick</a>
+        </nav>
+        <div class="masttools">
+          <a class="toolbtn" href="flex.html">← Flex Lab</a>
+          <a class="toolbtn" href="index.html">Review Index</a>
+        </div>
+      </div>
+    </header>
+
+    <main id="top">
+      <section class="hero wrap">
+        <div class="hero__copy">
+          <p class="eyebrow"><span>Fluid side</span><span>·</span><span>one-line hand lab</span></p>
+          <h1>The side hand.<br /><em>One line, not two.</em></h1>
+          <p class="lede">
+            Fluid Side put the hand in two columns. These three versions keep every hand
+            card on one line: a tight side fan, a side scroll, or a bottom row. The first
+            two keep the maximum board card; the third keeps the hand fully readable and
+            gives back board size.
+          </p>
+          <ul class="hero__facts">
+            <li><b>03</b><span>one-line variants</span></li>
+            <li><b>123→443</b><span>card sizes</span></li>
+            <li><b>01</b><span>hand line</span></li>
+            <li><b>00</b><span>two-column hand</span></li>
+          </ul>
+          <p class="hero__note">
+            Actual-size frames. Use the window selector and <b>Fit frames</b>. The
+            board and chrome are the 150% table; only the hand line changes.
+          </p>
+          <p class="hero__note">
+            <a href="flex.html" style="color: var(--cyan);">← Flex lab</a> ·
+            <a href="accessible.html" style="color: var(--cyan);">Accessibility lab</a> ·
+            <a href="index.html" style="color: var(--cyan);">Review index</a>
+          </p>
+        </div>
+        <div class="hero__visual">
+          <div class="bg-sample" style="text-align:center;">
+            <img class="bg-sample__card" src="assets/cards/neutral_ninefold_seal.png" width="220" alt="" />
+            <span class="bg-sample__size">one line</span>
+            <span class="bg-sample__note">fan · scroll · bottom row</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="wrap" id="problem">
+        <div class="section-head">
+          <span class="section-head__no">01 / THE SECOND COLUMN</span>
+          <h2>Two lines. <em>One card width each.</em></h2>
+          <p>
+            The Fluid Side frame uses two hand columns. That fills the width (94–95%)
+            but puts the hand on two lines. A single column uses one card width
+            (<code>4c + 226</code>), keeps the same two-card-height board budget, and
+            leaves the table group centered with wider side gutters. The card itself
+            stays the same size in landscape — or grows at 1440 and square, where the
+            two-column hand was width-limited.
+          </p>
+        </div>
+        <div class="sl-formula">
+          <span><b>2-col width</b> 5c + 226 · 94–95%</span>
+          <span><b>1-col width</b> 4c + 226 · 77–99%</span>
+          <span><b>1-col card</b> min((H − 198) / 2.8, (W − 236) / 4)</span>
+          <span><b>bottom card</b> min((H − 202) / 3, …)</span>
+        </div>
+      </section>
+
+      <section class="wrap" id="line">
+        <div class="section-head">
+          <span class="section-head__no">02 / WHAT “ONE LINE” MEANS</span>
+          <h2>One column or one row. <em>Not two columns.</em></h2>
+          <p>
+            The side variants use a single vertical line on the right. The bottom
+            variant uses a single horizontal row. All three keep the deck back as a full
+            5:7 card; the side fan dims it and labels the count so the deck reads as a
+            stack, not as a stray face.
+          </p>
+        </div>
+        <div class="fx-summary">
+          <article><span>SIDE FAN</span><h3>All six edges</h3><p>One vertical line; older cards show a 20% strip, the newest card stays full. No scroll.</p></article>
+          <article><span>SIDE SCROLL</span><h3>Three visible</h3><p>One vertical line at 50% overlap; the remaining cards scroll. The readable side option.</p></article>
+          <article><span>BOTTOM ROW</span><h3>All six cards</h3><p>One horizontal line; the full hand is readable. The board returns to the bottom-hand size.</p></article>
+        </div>
+      </section>
+
+      <section class="wrap" id="variants">
+        <div class="section-head">
+          <span class="section-head__no">03 / THREE VARIANTS</span>
+          <h2>The same table. <em>Three hand lines.</em></h2>
+          <p>
+            Each frame is actual size at the selected window. The side variants use the
+            two-card-height board budget; the bottom variant uses the three-card-height
+            budget. No lane is hidden.
+          </p>
+        </div>
+        <div class="bg-fitbar">
+          <p><b>Actual-size frames.</b> Use the window selector below; <b>Fit frames</b> keeps the whole table in the pane.</p>
+          <label class="bg-fit"><input type="checkbox" id="fitFrames" checked /> Fit frames to pane</label>
+        </div>
+        <div class="fx-window-strip">
+          <span>WINDOW</span>
+          <button class="fx-size" data-w="1280" data-h="720">1280×720</button>
+          <button class="fx-size" data-w="1440" data-h="900">1440×900</button>
+          <button class="fx-size is-active" data-w="1920" data-h="1080" aria-pressed="true">1920×1080</button>
+          <button class="fx-size" data-w="2560" data-h="1440">2560×1440</button>
+          <button class="fx-size" data-w="3440" data-h="1440">3440×1440</button>
+          <button class="fx-size" data-w="1000" data-h="1000">1000×1000</button>
+          <button class="fx-size" data-w="960" data-h="960">960×960</button>
+          <span class="fx-selected">SELECTED <b id="fxSelected">1920 × 1080</b></span>
+        </div>
+        <p class="fx-frame-note">
+          The side line leaves wider gutters at 16:9. At 1920/2560 the card matches the
+          two-column layout; at 1440 and square it grows because the hand is narrower.
+          The bottom line keeps the hand fully readable, but the board card is 84px
+          smaller at 1440 and 106px smaller at 1920.
+        </p>
+
+        <div class="fx-options">
+          <article class="fx-option is-recommended" id="opt-s1">
+            <header class="bg-opt-head">
+              <div class="bg-opt-no">S1</div>
+              <div class="bg-opt-title">
+                <h3>Side fan · all six edges</h3>
+                <p>One vertical line on the right. Every older card is a 20% strip, the newest card stays full, and the board keeps the maximum card.</p>
+                <p class="bg-chosen">ONE LINE · NO SCROLL</p>
+              </div>
+              <div class="bg-opt-specs"><span><b>315</b> card @1920</span> <span><b>1-col</b> side</span> <span><b>6</b> edges</span> <span><b>77%</b> width</span></div>
+            </header>
+            <div class="fx-frame-readout">
+              <span>WINDOW <b data-win>1920×1080</b></span>
+              <span>CARD <b data-card>315</b></span>
+              <span>BOARD <b data-board>1153</b></span>
+              <span data-use>77% width</span>
+              <span data-height-use>85% board</span>
+              <span>HAND <b data-hand>side fan</b></span>
+            </div>
+            <div class="bg-frame-wrap">
+            <div class="bg-window acc fx-window sl-window" data-option="s1" style="--win-w:1920px;--win-h:1080px;--stage-h:1080px;--card:315px;--tab:52px;--score-h:82px;--dock-h:64px;--pad:4px;--gap:4px;--seam:10px;--lane-gap:26px;--ui:1.5;--btn-h:48px;--btn-font:13px;">
+              <div class="bg-table">
+                <div class="bg-score">
+              <div class="bg-side"><span>YOU</span><b>4,000</b><i class="bg-bar"></i></div>
+              <div class="bg-ticks"><i></i><i></i><i class="is-on"></i><i></i><i></i><i></i></div>
+              <div class="bg-side bg-side--hot"><span>THE DAMP WARDEN</span><b>4,000</b><span class="bg-pips"><i></i><i></i><i></i></span><i class="bg-bar"></i></div>
+              <div class="bg-tools"><span>≡</span></div>
+            </div>
+                <div class="sl-main sl-main--one">
+                  <div class="bg-board">
+              <div class="bg-mat bg-mat--warden"><div class="bg-row">
+                <div class="bg-pair">
+                  <div class="bg-card bg-set"><img src="assets/cards/back.png" alt="" /></div>
+                  <div class="bg-card bg-monster"><img src="assets/cards/ember_cinder_hound.png" alt="" /></div>
+                </div>
+                <div class="bg-pair">
+                  <div class="bg-card bg-ghost"><span>+</span></div>
+                  <div class="bg-card bg-tab-ghost"><span>+</span></div>
+                </div>
+                <div class="bg-pair">
+                  <div class="bg-card bg-ghost"><span>+</span></div>
+                  <div class="bg-card bg-tab-ghost"><span>+</span></div>
+                </div>
+              </div></div>
+              <div class="bg-seam"></div>
+              <div class="bg-mat bg-mat--player"><div class="bg-row">
+                <div class="bg-pair">
+                  <div class="bg-card bg-set"><img src="assets/cards/back.png" alt="" /></div>
+                  <div class="bg-card bg-monster"><img src="assets/cards/verdant_bramble_wall.png" alt="" /></div>
+                </div>
+                <div class="bg-pair">
+                  <div class="bg-card bg-ghost"><span>+</span></div>
+                  <div class="bg-card bg-tab-ghost"><span>+</span></div>
+                </div>
+                <div class="bg-pair">
+                  <div class="bg-card bg-ghost"><span>+</span></div>
+                  <div class="bg-card bg-tab-ghost"><span>+</span></div>
+                </div>
+              </div></div>
+            </div>
+                  <div class="sl-hand sl-hand--fan">
+              <div class="sl-col">
+                <div class="bg-deck"><img src="assets/cards/back.png" alt="" /><span>34</span></div>
+                <div class="bg-hand-card"><img src="assets/cards/ember_ash_moth.png" alt="" /></div>
+                <div class="bg-hand-card"><img src="assets/cards/ember_ember_scout.png" alt="" /></div>
+                <div class="bg-hand-card"><img src="assets/cards/neutral_ninefold_seal.png" alt="" /></div>
+                <div class="bg-hand-card"><img src="assets/cards/ember_cinder_hound.png" alt="" /></div>
+                <div class="bg-hand-card"><img src="assets/cards/verdant_bramble_wall.png" alt="" /></div>
+              </div>
+            </div>
+                </div>
+                <div class="bg-dock"><span>LIVE</span><span class="bg-btn">STRIKE</span><span class="bg-btn">END PHASE</span><span class="bg-btn">RESET</span></div>
+              </div>
+            </div>
+          </div>
+            <div class="bg-opt-notes">
+              <div><h4>What you get</h4><p>All six cards on one line, no scroll, and the same maximum board card as the side layout. The card names are the visible index.</p></div>
+              <div><h4>The cost</h4><p>Only the older cards are 20% strips; the newest card is full. The table uses 77% of the width at 1920 and 78% at 2560; the rest is side gutter.</p></div>
+            </div>
+            <p class="fx-frame-note"><b>Hover or focus</b> a strip to lift it to the full card. <b>Click or tap</b> pins the lift; click again to release. The newest card is already full.</p>
+          </article>
+
+          <article class="fx-option" id="opt-s2">
+            <header class="bg-opt-head">
+              <div class="bg-opt-no">S2</div>
+              <div class="bg-opt-title">
+                <h3>Side scroll · three visible</h3>
+                <p>One vertical line with the cards at half overlap. Three cards are readable at once; the rest scroll in the same line. The board keeps the maximum card.</p>
+              </div>
+              <div class="bg-opt-specs"><span><b>315</b> card @1920</span> <span><b>1-col</b> side</span> <span><b>3</b> visible</span> <span><b>scroll</b></span></div>
+            </header>
+            <div class="fx-frame-readout">
+              <span>WINDOW <b data-win>1920×1080</b></span>
+              <span>CARD <b data-card>315</b></span>
+              <span>BOARD <b data-board>1153</b></span>
+              <span data-use>77% width</span>
+              <span data-height-use>85% board</span>
+              <span>HAND <b data-hand>side scroll</b></span>
+            </div>
+            <div class="bg-frame-wrap">
+            <div class="bg-window acc fx-window sl-window" data-option="s2" style="--win-w:1920px;--win-h:1080px;--stage-h:1080px;--card:315px;--tab:52px;--score-h:82px;--dock-h:64px;--pad:4px;--gap:4px;--seam:10px;--lane-gap:26px;--ui:1.5;--btn-h:48px;--btn-font:13px;">
+              <div class="bg-table">
+                <div class="bg-score">
+              <div class="bg-side"><span>YOU</span><b>4,000</b><i class="bg-bar"></i></div>
+              <div class="bg-ticks"><i></i><i></i><i class="is-on"></i><i></i><i></i><i></i></div>
+              <div class="bg-side bg-side--hot"><span>THE DAMP WARDEN</span><b>4,000</b><span class="bg-pips"><i></i><i></i><i></i></span><i class="bg-bar"></i></div>
+              <div class="bg-tools"><span>≡</span></div>
+            </div>
+                <div class="sl-main sl-main--one">
+                  <div class="bg-board">
+              <div class="bg-mat bg-mat--warden"><div class="bg-row">
+                <div class="bg-pair">
+                  <div class="bg-card bg-set"><img src="assets/cards/back.png" alt="" /></div>
+                  <div class="bg-card bg-monster"><img src="assets/cards/ember_cinder_hound.png" alt="" /></div>
+                </div>
+                <div class="bg-pair">
+                  <div class="bg-card bg-ghost"><span>+</span></div>
+                  <div class="bg-card bg-tab-ghost"><span>+</span></div>
+                </div>
+                <div class="bg-pair">
+                  <div class="bg-card bg-ghost"><span>+</span></div>
+                  <div class="bg-card bg-tab-ghost"><span>+</span></div>
+                </div>
+              </div></div>
+              <div class="bg-seam"></div>
+              <div class="bg-mat bg-mat--player"><div class="bg-row">
+                <div class="bg-pair">
+                  <div class="bg-card bg-set"><img src="assets/cards/back.png" alt="" /></div>
+                  <div class="bg-card bg-monster"><img src="assets/cards/verdant_bramble_wall.png" alt="" /></div>
+                </div>
+                <div class="bg-pair">
+                  <div class="bg-card bg-ghost"><span>+</span></div>
+                  <div class="bg-card bg-tab-ghost"><span>+</span></div>
+                </div>
+                <div class="bg-pair">
+                  <div class="bg-card bg-ghost"><span>+</span></div>
+                  <div class="bg-card bg-tab-ghost"><span>+</span></div>
+                </div>
+              </div></div>
+            </div>
+                  <div class="sl-hand sl-hand--scroll">
+              <div class="sl-col">
+                <div class="bg-deck"><img src="assets/cards/back.png" alt="" /><span>34</span></div>
+                <div class="bg-hand-card"><img src="assets/cards/ember_ash_moth.png" alt="" /></div>
+                <div class="bg-hand-card"><img src="assets/cards/ember_ember_scout.png" alt="" /></div>
+                <div class="bg-hand-card"><img src="assets/cards/neutral_ninefold_seal.png" alt="" /></div>
+                <div class="bg-hand-card"><img src="assets/cards/ember_cinder_hound.png" alt="" /></div>
+                <div class="bg-hand-card"><img src="assets/cards/verdant_bramble_wall.png" alt="" /></div>
+              </div>
+            </div>
+                </div>
+                <div class="bg-dock"><span>LIVE</span><span class="bg-btn">STRIKE</span><span class="bg-btn">END PHASE</span><span class="bg-btn">RESET</span></div>
+              </div>
+            </div>
+          </div>
+            <div class="bg-opt-notes">
+              <div><h4>What you get</h4><p>The maximum board card plus three readable hand cards at once. The line stays one column; the scroll is the overflow.</p></div>
+              <div><h4>The cost</h4><p>A hand scroll is a new interaction; the player cannot see all six at once. The table uses the same 77–99% width as S1.</p></div>
+            </div>
+          </article>
+
+          <article class="fx-option" id="opt-s3">
+            <header class="bg-opt-head">
+              <div class="bg-opt-no">S3</div>
+              <div class="bg-opt-title">
+                <h3>Bottom row · all six cards</h3>
+                <p>The hand returns to the bottom as one horizontal line. All cards are readable; the board gives up the two-card-height budget and returns to the bottom-hand size.</p>
+              </div>
+              <div class="bg-opt-specs"><span><b>123–294</b> card</span> <span><b>bottom</b> row</span> <span><b>6</b> cards</span> <span><b>no cover</b></span></div>
+            </header>
+            <div class="fx-frame-readout">
+              <span>WINDOW <b data-win>1920×1080</b></span>
+              <span>CARD <b data-card>209</b></span>
+              <span>BOARD <b data-board>835</b></span>
+              <span data-use>51% width</span>
+              <span data-height-use>58% board</span>
+              <span>HAND <b data-hand>bottom</b></span>
+            </div>
+            <div class="bg-frame-wrap">
+            <div class="bg-window acc fx-window sl-window" data-option="s3" style="--win-w:1920px;--win-h:1080px;--stage-h:1080px;--card:209px;--tab:52px;--score-h:82px;--dock-h:64px;--pad:4px;--gap:4px;--seam:10px;--lane-gap:26px;--ui:1.5;--btn-h:48px;--btn-font:13px;">
+              <div class="bg-table">
+                <div class="bg-score">
+              <div class="bg-side"><span>YOU</span><b>4,000</b><i class="bg-bar"></i></div>
+              <div class="bg-ticks"><i></i><i></i><i class="is-on"></i><i></i><i></i><i></i></div>
+              <div class="bg-side bg-side--hot"><span>THE DAMP WARDEN</span><b>4,000</b><span class="bg-pips"><i></i><i></i><i></i></span><i class="bg-bar"></i></div>
+              <div class="bg-tools"><span>≡</span></div>
+            </div>
+                <div class="sl-main sl-main--bottom">
+                  <div class="bg-board">
+              <div class="bg-mat bg-mat--warden"><div class="bg-row">
+                <div class="bg-pair">
+                  <div class="bg-card bg-set"><img src="assets/cards/back.png" alt="" /></div>
+                  <div class="bg-card bg-monster"><img src="assets/cards/ember_cinder_hound.png" alt="" /></div>
+                </div>
+                <div class="bg-pair">
+                  <div class="bg-card bg-ghost"><span>+</span></div>
+                  <div class="bg-card bg-tab-ghost"><span>+</span></div>
+                </div>
+                <div class="bg-pair">
+                  <div class="bg-card bg-ghost"><span>+</span></div>
+                  <div class="bg-card bg-tab-ghost"><span>+</span></div>
+                </div>
+              </div></div>
+              <div class="bg-seam"></div>
+              <div class="bg-mat bg-mat--player"><div class="bg-row">
+                <div class="bg-pair">
+                  <div class="bg-card bg-set"><img src="assets/cards/back.png" alt="" /></div>
+                  <div class="bg-card bg-monster"><img src="assets/cards/verdant_bramble_wall.png" alt="" /></div>
+                </div>
+                <div class="bg-pair">
+                  <div class="bg-card bg-ghost"><span>+</span></div>
+                  <div class="bg-card bg-tab-ghost"><span>+</span></div>
+                </div>
+                <div class="bg-pair">
+                  <div class="bg-card bg-ghost"><span>+</span></div>
+                  <div class="bg-card bg-tab-ghost"><span>+</span></div>
+                </div>
+              </div></div>
+            </div>
+                  <div class="bg-hand">
+              <div class="bg-deck"><img src="assets/cards/back.png" alt="" /><span>34</span></div>
+              <div class="bg-hand-card"><img src="assets/cards/ember_ash_moth.png" alt="" /></div>
+              <div class="bg-hand-card"><img src="assets/cards/ember_ember_scout.png" alt="" /></div>
+              <div class="bg-hand-card"><img src="assets/cards/neutral_ninefold_seal.png" alt="" /></div>
+              <div class="bg-hand-card"><img src="assets/cards/ember_cinder_hound.png" alt="" /></div>
+              <div class="bg-hand-card"><img src="assets/cards/verdant_bramble_wall.png" alt="" /></div>
+            </div>
+                </div>
+                <div class="bg-dock"><span>LIVE</span><span class="bg-btn">STRIKE</span><span class="bg-btn">END PHASE</span><span class="bg-btn">RESET</span></div>
+              </div>
+            </div>
+          </div>
+            <div class="bg-opt-notes">
+              <div><h4>What you get</h4><p>The one horizontal line, all six cards readable, and no board cover. This is the safe one-line hand.</p></div>
+              <div><h4>The cost</h4><p>The card is 209 at 1920, not 315. At 1440 it is 166; at square it is 190 / 180. The side line gives that height back to the board.</p></div>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="wrap" id="matrix">
+        <div class="section-head">
+          <span class="section-head__no">04 / EVERY WINDOW</span>
+          <h2>The line wins the card. <em>The row wins the hand.</em></h2>
+          <p>
+            The one-line side hand never gives up card size to the two-column layout; it
+            matches it at 16:9 and gains at 1440 and square. The bottom row gives up
+            height for a fully readable hand.
+          </p>
+        </div>
+        <div class="table-wrap">
+          <table class="acc-table">
+            <thead><tr><th>Window</th><th>C 2-col</th><th>Side 1-line (S1/S2)</th><th>Bottom 1-line (S3)</th><th>Best one-line</th></tr></thead>
+            <tbody>
+<tr><td><b>1280×720</b></td><td>186</td><td><span class="sl-best">186</span></td><td>123</td><td><span class="sl-best">Side · 186</span></td></tr>
+<tr><td><b>1440×900</b></td><td>240</td><td><span class="sl-best">250</span></td><td>166</td><td><span class="sl-best">Side · 250</span></td></tr>
+<tr><td><b>1920×1080</b></td><td>315</td><td><span class="sl-best">315</span></td><td>209</td><td><span class="sl-best">Side · 315</span></td></tr>
+<tr><td><b>2560×1440</b></td><td>443</td><td><span class="sl-best">443</span></td><td>294</td><td><span class="sl-best">Side · 443</span></td></tr>
+<tr><td><b>3440×1440</b></td><td>443</td><td><span class="sl-best">443</span></td><td>294</td><td><span class="sl-best">Side · 443</span></td></tr>
+<tr><td><b>1000×1000</b></td><td>152</td><td><span class="sl-best">191</span></td><td>190</td><td><span class="sl-best">Side · 191</span></td></tr>
+<tr><td><b>960×960</b></td><td>144</td><td><span class="sl-best">181</span></td><td>180</td><td><span class="sl-best">Side · 181</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="fx-table-note">
+          Side 1-line and C 2-col share the same card at 1920/2560. At 1440 the one-column
+          width allows <b>250</b> vs 240; at 1000 it allows <b>191</b> vs 152. The bottom
+          line is 166 at 1440 and 190 at 1000. S1 and S2 share the side card; only the
+          hand scroll differs. At 1000/960 the side one-line is only 1px larger than the
+          bottom and leaves mat height unused; the bottom row is the practical square pick.
+        </p>
+      </section>
+
+      <section class="wrap" id="pick">
+        <div class="section-head">
+          <span class="section-head__no">05 / PICK</span>
+          <h2>One line. <em>Pick the overflow.</em></h2>
+          <p>
+            The side line is the max-card one-line hand. The bottom row is the
+            fully-readable one-line hand. Both are valid; they answer different worries.
+          </p>
+        </div>
+        <div class="sl-pick">
+          <div>
+            <p class="eyebrow eyebrow--plain">RECOMMENDATION</p>
+            <h3>Side scroll (S2)<br />or bottom row (S3).</h3>
+            <p>
+              S2 is the strongest one-line hand: one column, max board card, three
+              readable cards and a scroll for the rest. S3 is the safest: all six cards
+              on one horizontal line, no cover, at the cost of the board returning to
+              209 / 166 / 190. S1 is the no-scroll fan if seeing every card edge at once
+              matters more than reading the full face.
+            </p>
+          </div>
+          <ul>
+            <li><b>S1 fan:</b> one line, older cards 20%, newest full, no scroll.</li>
+            <li><b>S2 scroll:</b> one line, three readable, scroll, max card.</li>
+            <li><b>S3 bottom:</b> one line, all six readable, board 209/166/190.</li>
+            <li><b>C 2-col:</b> still the width-filling layout at 94–95%; two lines.</li>
+            <li><b>Never:</b> hide a lane or shrink a card inside the bottom row.</li>
+            <li><b>Drawer:</b> left overlay for S1/S2; right overlay for S3.</li>
+          </ul>
+        </div>
+        <p class="frame-note" style="margin-top: 16px;">
+          This is a review page. The live table is still the fixed 190 / 1000 focus.
+          S1/S2 keep the deck back as a full 5:7 card, dimmed and counted; S3 uses the
+          normal bottom hand. The next port would choose one line and move the drawer to
+          the matching side. If S3 is the favorite but still too small, the six-persona
+          follow-up is <a href="s3-larger.html" style="color: var(--cyan);">S3 Larger →</a>.
+        </p>
+      </section>
+    </main>
+
+    <footer class="wrap" style="padding: 30px 0 50px; color: var(--muted); font-family: var(--font-mono); font-size: 9px; letter-spacing: 0.08em;">
+      RAZEAH / side hand, one line · 123 → 443 card · actual CardComposer renders
+    </footer>
+
+    <script src="js/side-line.js"></script>
+  </body>
+</html>

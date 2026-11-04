@@ -11,6 +11,10 @@ const CARDS := [
 	"ember.ash_moth",
 	"ember.ember_scout",
 	"neutral.ninefold_seal",
+	"verdant.bone_orchard",
+	"umbra.hollow_lantern",
+	"tide.tidecall",
+	"neutral.quiet_ledger",
 ]
 const BACK_CARD := "ember.cinder_hound"
 

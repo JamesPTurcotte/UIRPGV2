@@ -27,6 +27,10 @@ The review is a static site: no build step, no server required.
 - Overlap examples and upgrades: [`review/overlap.html`](review/overlap.html)
 - Bigger-card readability options: [`review/bigger.html`](review/bigger.html)
 - Accessibility chrome scales (190 focus; **150% chosen**): [`review/accessible.html`](review/accessible.html)
+- Window-filling table options (fluid bottom / side / cockpit): [`review/flex.html`](review/flex.html)
+- One-line side-hand versions (fan / scroll / bottom): [`review/side-line.html`](review/side-line.html)
+- S3 larger: six personas, four bigger-board options: [`review/s3-larger.html`](review/s3-larger.html)
+- X2 backrow: face-up spells/traps are public, set cards stay secret: [`review/x2-backrow.html`](review/x2-backrow.html)
 - The mat and Duel Board labs use actual `CardComposer` renders, not a CSS
   imitation; see [`review/README.md`](review/README.md#actual-card-renders).
 - **or** serve the folder for a cleaner local URL:
@@ -66,8 +70,8 @@ folio sounds. The pack page has its own rating/notes/copy-feedback panel.
   three lanes stay visible; the score rail carries phase ticks, not phase names.
   The top nav hides in the focus window, so the drawer carries the four doors
   (Play / Library / Decks / Packs), log, inspect, actions, piles, and PIN. The
-  table opens in the top-right, pinned above other windows; PIN releases it and
-  leaving the table restores the 1440 × 900 shell.
+  table opens where the shell left the window and is pinned above other
+  windows; PIN releases it and leaving the table restores the 1440 × 900 shell.
 - **Smaller display:** **125% chrome at 960 × 960** with 44px targets, a 68px
   score rail, and a 56px dock. Same 190px cards and the same three lanes.
 - **Rules:** the face is sealed while any enemy monster remains in a monster

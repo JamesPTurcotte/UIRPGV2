@@ -1,0 +1,588 @@
+/* S3 Larger — the design team's five answers to the one-line hand.
+   Builds on flex.css / accessible.css. The frames are 1920×1080 references. */
+
+.team-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+  margin-top: 18px;
+}
+
+.team-card {
+  padding: 14px;
+  border: 1px solid var(--line);
+  background: rgba(6, 3, 13, 0.54);
+}
+
+.team-card__initials {
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  margin-bottom: 10px;
+  border: 1px solid rgba(70, 240, 255, 0.4);
+  color: var(--cyan);
+  font-family: var(--font-display);
+  font-size: 13px;
+}
+
+.team-card span {
+  color: var(--pink);
+  font-family: var(--font-mono);
+  font-size: 8px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.team-card h3 {
+  margin: 3px 0 5px;
+  font-family: var(--font-display);
+  font-size: 15px;
+  font-weight: 500;
+}
+
+.team-card p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.team-card b {
+  color: var(--ink);
+}
+
+.team-vote {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 16px;
+  padding: 12px;
+  border: 1px solid var(--line);
+  background: rgba(6, 3, 13, 0.45);
+}
+
+.team-vote span {
+  padding: 5px 7px;
+  border: 1px solid var(--line);
+  color: var(--muted);
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.04em;
+}
+
+.team-vote b {
+  color: var(--cyan);
+}
+
+/* Frames --------------------------------------------------------------- */
+
+.s3x-window {
+  flex: none;
+}
+
+.s3x-window .bg-table {
+  height: var(--stage-h);
+}
+
+.s3x-main--bottom {
+  flex: 1;
+  min-height: 0;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap);
+}
+
+.s3x-main--bottom > .bg-board {
+  flex: 1;
+  min-height: 0;
+  width: calc(3 * (var(--card) + var(--tab)) + 2 * var(--lane-gap) + 26px);
+  max-width: 100%;
+  align-self: center;
+}
+
+.s3x-main--bottom > .bg-hand {
+  flex: none;
+}
+
+/* The X1 cockpit rail. */
+.s3x-shell {
+  display: flex;
+  height: var(--stage-h);
+  gap: 8px;
+  padding: var(--pad);
+}
+
+.s3x-rail {
+  flex: none;
+  width: 240px;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 9px;
+  border: 2px solid rgba(70, 240, 255, 0.34);
+  background: rgba(6, 3, 13, 0.88);
+}
+
+.s3x-rail__cap {
+  color: var(--muted);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.08em;
+}
+
+.s3x-rail__score {
+  color: var(--cyan);
+  font-family: var(--font-data);
+  font-size: 48px;
+  line-height: 0.9;
+}
+
+.s3x-rail__score--hot {
+  color: var(--pink);
+}
+
+.s3x-rail__name {
+  color: var(--muted);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.04em;
+}
+
+.s3x-rail__ticks {
+  display: flex;
+  gap: 3px;
+}
+
+.s3x-rail__ticks i {
+  flex: 1;
+  height: 5px;
+  background: rgba(142, 134, 168, 0.25);
+}
+
+.s3x-rail__ticks i.is-on {
+  background: var(--cyan);
+}
+
+.s3x-rail__piles {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.s3x-rail__piles span {
+  min-height: 48px;
+  display: flex;
+  align-items: center;
+  padding: 7px 6px;
+  border: 1px solid var(--line);
+  color: var(--ink-2);
+  font-family: var(--font-mono);
+  font-size: 12px;
+}
+
+.s3x-rail__log {
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.4;
+}
+
+.s3x-rail__log p {
+  margin: 0 0 3px;
+}
+
+.s3x-rail__log b {
+  color: var(--ink-2);
+  font-weight: 500;
+}
+
+.s3x-rail__action {
+  min-height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px;
+  border: 1px solid rgba(70, 240, 255, 0.4);
+  color: var(--cyan);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  text-align: center;
+}
+
+.s3x-rail__action--hot {
+  border-color: rgba(255, 63, 164, 0.45);
+  color: var(--pink);
+}
+
+.s3x-play {
+  flex: 1;
+  min-width: 0;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+/* X2 spring shelf ------------------------------------------------------ */
+
+.s3x-main--shelf {
+  flex: 1;
+  min-height: 0;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap);
+}
+
+.s3x-main--shelf > .bg-board {
+  flex: 1;
+  min-height: 0;
+  width: calc(3 * (var(--card) + var(--tab)) + 2 * var(--lane-gap) + 26px);
+  max-width: 100%;
+  align-self: center;
+}
+
+.s3x-shelf {
+  flex: none;
+  height: calc(var(--card) * 0.30);
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+}
+
+.s3x-shelf__row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 0;
+  width: 100%;
+}
+
+.s3x-strip {
+  flex: none;
+  width: var(--card);
+  height: calc(var(--card) * 1.4);
+  position: relative;
+  overflow: hidden;
+  clip-path: inset(0 0 70% 0);
+  transition: transform 160ms ease, clip-path 160ms ease;
+  outline: none;
+  cursor: pointer;
+}
+
+.s3x-strip img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: fill;
+  border-radius: 2px;
+}
+
+.s3x-strip:hover,
+.s3x-strip:focus-visible,
+.s3x-strip.is-peek,
+.s3x-strip.is-open {
+  clip-path: none;
+  transform: translateY(calc(var(--card) * -1.1));
+  z-index: 40;
+  box-shadow: 0 18px 38px rgba(0, 0, 0, 0.6);
+}
+
+.s3x-strip:focus-visible {
+  outline: 2px solid var(--cyan);
+  outline-offset: 3px;
+}
+
+.s3x-deck {
+  flex: none;
+  width: var(--card);
+  height: calc(var(--card) * 1.4);
+  position: relative;
+  overflow: hidden;
+  clip-path: inset(0 0 70% 0);
+  z-index: 2;
+}
+
+.s3x-deck img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: fill;
+  border-radius: 2px;
+  filter: brightness(0.45) saturate(0.55);
+}
+
+.s3x-deck::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(6, 3, 13, 0.18), rgba(6, 3, 13, 0.58));
+}
+
+.s3x-deck span {
+  position: absolute;
+  top: 7px;
+  left: 7px;
+  z-index: 4;
+  padding: 2px 5px;
+  background: rgba(6, 3, 13, 0.92);
+  color: var(--cyan);
+  font-family: var(--font-data);
+  font-size: 12px;
+}
+
+.s3x-deck span::before {
+  content: "DECK ";
+  color: var(--muted);
+}
+
+.s3x-shelf__note {
+  position: absolute;
+  right: 4px;
+  bottom: calc(100% + 4px);
+  color: var(--muted);
+  font-family: var(--font-mono);
+  font-size: 8px;
+  letter-spacing: 0.04em;
+  pointer-events: none;
+}
+
+/* X3 open table -------------------------------------------------------- */
+
+.s3x-main--arena {
+  flex: 1;
+  min-height: 0;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 12px;
+}
+
+.s3x-arena {
+  flex: none;
+  display: flex;
+  justify-content: center;
+  align-items: stretch;
+  height: calc(var(--card) * 1.4 + 13px);
+}
+
+.s3x-arena .bg-mat {
+  flex: none;
+  width: calc(3 * (var(--card) + var(--tab)) + 2 * var(--lane-gap));
+  align-items: center;
+  justify-content: center;
+}
+
+.s3x-arena .bg-row {
+  width: 100%;
+}
+
+.s3x-seam-v {
+  flex: none;
+  width: 10px;
+  background: linear-gradient(180deg, transparent, rgba(70, 240, 255, 0.2), transparent);
+}
+
+.s3x-main--arena > .bg-hand {
+  flex: none;
+  align-self: center;
+}
+
+/* X4 hand index + lens ------------------------------------------------- */
+
+.s3x-main--lens {
+  flex: 1;
+  min-height: 0;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.s3x-main--lens > .bg-board {
+  flex: 0 0 auto;
+  width: calc(3 * (var(--card) + var(--tab)) + 2 * var(--lane-gap) + 26px);
+  height: calc(2.8 * var(--card) + 36px);
+}
+
+.s3x-lens {
+  flex: none;
+  width: var(--card);
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  align-items: center;
+}
+
+.s3x-lens__cap {
+  color: var(--muted);
+  font-family: var(--font-mono);
+  font-size: 8px;
+  letter-spacing: 0.07em;
+}
+
+.s3x-lens__card {
+  width: var(--card);
+  height: calc(var(--card) * 1.4);
+  position: relative;
+}
+
+.s3x-lens__card img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: fill;
+  border-radius: 2px;
+  box-shadow: 0 10px 26px rgba(0, 0, 0, 0.45);
+}
+
+.s3x-lens__name {
+  color: var(--cyan);
+  font-family: var(--font-display);
+  font-size: 12px;
+  text-align: center;
+}
+
+.s3x-tabs {
+  flex: none;
+  height: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: stretch;
+  gap: 4px;
+  padding: 0 4px;
+}
+
+.s3x-tab {
+  flex: 0 1 170px;
+  min-width: 120px;
+  min-height: 48px;
+  padding: 5px 7px;
+  border: 1px solid var(--line);
+  background: rgba(6, 3, 13, 0.72);
+  color: var(--muted);
+  font-family: var(--font-mono);
+  font-size: 10px;
+  text-align: left;
+  cursor: pointer;
+}
+
+.s3x-tab b {
+  display: block;
+  color: var(--ink-2);
+  font-size: 11px;
+  font-weight: 500;
+}
+
+.s3x-tab span,
+.s3x-tab em {
+  display: block;
+  font-size: 8px;
+  font-style: normal;
+  letter-spacing: 0.02em;
+}
+
+.s3x-tab em {
+  color: var(--cyan);
+}
+
+.s3x-tab.is-active {
+  border-color: var(--cyan);
+  background: rgba(70, 240, 255, 0.06);
+}
+
+.s3x-tab.is-active b {
+  color: var(--cyan);
+}
+
+/* Page bits ------------------------------------------------------------ */
+
+.s3x-formula {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.s3x-formula span {
+  padding: 6px 8px;
+  border: 1px solid var(--line);
+  color: var(--muted);
+  font-family: var(--font-mono);
+  font-size: 9px;
+}
+
+.s3x-formula b {
+  color: var(--ink);
+}
+
+.s3x-best {
+  color: var(--cyan);
+}
+
+.s3x-best::after {
+  content: " ↑";
+  color: var(--muted);
+}
+
+.s3x-pick {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+  gap: 24px;
+  margin-top: 24px;
+  padding: 22px;
+  border: 1px solid rgba(255, 204, 85, 0.35);
+  background: rgba(255, 204, 85, 0.035);
+}
+
+.s3x-pick h3 {
+  margin: 0 0 8px;
+  font-family: var(--font-display);
+  font-size: 24px;
+  font-weight: 500;
+}
+
+.s3x-pick p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.65;
+}
+
+.s3x-pick ul {
+  margin: 0;
+  padding-left: 16px;
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.7;
+}
+
+.s3x-pick li b {
+  color: var(--ink);
+}
+
+@media (max-width: 1100px) {
+  .team-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 980px) {
+  .team-grid,
+  .s3x-pick {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 680px) {
+  .team-grid {
+    grid-template-columns: 1fr;
+  }
+}

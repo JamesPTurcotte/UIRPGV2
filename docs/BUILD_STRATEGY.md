@@ -147,9 +147,9 @@ The table needs a structural rewrite:
 
 - stable `CardActor` per uid;
 - rest targets and a `BattleDirector`;
-- two-mat Overlap composition: one 190px token in the 1000×1000 focus
-  (125% / 960 fallback), tucked spell/trap with a 52px Index Tab, score rail,
-  hand, dock, drawer, and four doors in the drawer;
+- X2 Spring Shelf composition: full-window 150% chrome, dynamic 5:7 card,
+  B1 Front Row at ≥1280 / B3 Effect Ribbon below, a 30% hand shelf, a deck
+  strip, score rail, dock, drawer, and four doors in the drawer;
 - staged damage, score plates, Auto captions;
 - face-sealed rule in `DuelRules`.
 

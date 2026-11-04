@@ -129,22 +129,21 @@ All keep the 190px card, all three lanes, the bottom hand, and the Index Tab.
 The chosen scale is **150% at 1000×1000**. The card is never shrunk to make the
 chrome fit.
 
-Ported to Godot on 2026-11-03: the Table opens at 1000×1000 with 190px cards,
-52px Index Tabs, 48px targets, and 12–14px labels. The window keeps its current
-position; it no longer teleports to a corner. The top nav hides and the drawer
-carries Play / Library / Decks / Packs. When the display cannot hold the 1000
-square, the table falls back to 125% at 960×960 with 44px targets. Evidence:
-`screenshots/table_focus.png`, `table_focus_960.png`, `table_focus_drawer.png`,
-and `table_focus_drawer_960.png`.
+First ported to Godot on 2026-11-03 as the 190px / 1000×1000 focus table.
+The live table has since moved to **X2 Spring Shelf** (2026-11-04): it fills the
+window at 150% chrome, scales the 5:7 card, uses B1/B3 backrow, and keeps the
+30% hand shelf. Evidence: `screenshots/table_x2_1440x900.png`,
+`table_x2_1920x1080.png`, `table_x2_1000x1000.png`, and
+`table_x2_hand_1440x900.png`.
 
 ## Flex lab
 
 [`flex.html`](flex.html) starts from the 150% table and asks what happens when the
-window is not 1000×1000. The current board caps at 900 and the card at 190; at
-2560×1440 that is 35% of the screen width. The page compares four layouts with a
-live window selector from 1280×720 to 3440×1440:
+window is not 1000×1000. At the time of the lab the board capped at 900 and the
+card at 190; at 2560×1440 that was 35% of the screen width. The page compares four
+layouts with a live window selector from 1280×720 to 3440×1440:
 
-- **A — fixed 190:** the current 1000×1000 table. Baseline; 35% width at 2560.
+- **A — fixed 190:** the 1000×1000 baseline. 35% width at 2560.
 - **B — fluid bottom:** bottom hand, 123–294 card. Fits any window; leaves wide
   side gutters at 16:9.
 - **C — fluid side:** two-column hand on the right, 144–443 card. Fills 94–95%
@@ -152,10 +151,10 @@ live window selector from 1280×720 to 3440×1440:
 - **D — docked cockpit:** B-sized cards plus a persistent 260–440px log/actions
   rail. Keeps the bottom hand and removes the overlay; uses about 60% of 2560.
 
-The recommendation is **Hybrid: C in landscape, B in square**. The matrix shows
+The recommendation was **Hybrid: C in landscape, B in square**. The matrix shows
 the card budget at every size; the page's Fit frames toggle makes the 1920/2560
-tables comparable in a narrow pane. This is a review page; the live table is
-still the fixed 190 / 1000 focus.
+tables comparable in a narrow pane. The live X2 table now fills the window rather
+than forcing the old square.
 
 ## Side hand, one line
 
@@ -172,9 +171,9 @@ variants and compares:
 
 The one-column hand uses `4c + 226` instead of the two-column `5c + 226`. At
 1920/2560 the card size matches the two-column layout; at 1440 it gains 10px and
-at square it gains 39px. The page recommends **S2** for max card with a readable
-scroll, or **S3** when the full hand must be visible. This is still a review page;
-the live table remains the fixed 190 / 1000 focus.
+at square it gains 39px. The page recommended **S2** for max card with a readable
+scroll, or **S3** when the full hand must be visible. The live X2 table uses the
+bottom **Spring Shelf** (30% visible, hover/focus/click lift).
 
 ## S3 larger
 
@@ -192,7 +191,7 @@ bottom hand and compares:
   1920; one face at a time.
 
 S3 remains the reference at 209. The page has a size matrix from 960² to
-3440×1440 and a team vote. The live table is still the fixed 190 / 1000 focus.
+3440×1440 and a team vote. **X2 Spring Shelf is now the live table.**
 
 ## X2 backrow
 

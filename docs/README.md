@@ -21,22 +21,27 @@ still owned by V2; V3 is where the new presentation is built.
   Reference: [`../review/index.html#neon`](../review/index.html#neon).
 - **Pack ritual:** reviewed and approved; Godot port is next.
   Reference: [`../review/packs.html`](../review/packs.html).
-- **Scale / corner contract:** resolved. **Overlap 190 + Index Tab 52** is
-  ported to the Table: two 900px mats, one 190 × 266 token for
-  hand/monster/set/deck, a 52px set-card side tab that lifts forward, a score
-  rail with phase ticks, and a **1000 × 1000 focus window at 150% chrome**
-  (48px targets, 12–14px labels, 82px score, 64px dock). The top nav hides, and
-  the drawer carries the four doors. A **125% / 960 × 960** fallback keeps the
-  same 190px cards when the display cannot hold 1000.
-  Reference: [`../review/bigger.html`](../review/bigger.html) and
+- **Scale / corner contract:** resolved. **X2 Spring Shelf** is ported to the
+  Table: a full-window table at **150% chrome** (48px targets, 12–14px labels,
+  82px score, 64px dock), a dynamic 5:7 card (167–399px across the supported
+  windows), **B1 Front Row at ≥1280** and **B3 Effect Ribbon below 1280**, a
+  **30% hand shelf** with hover/focus/click lift and click pin, and a deck strip
+  with its count. Set cards stay face-down; face-up spells/traps are public.
+  The minimum window is **960 × 720**; the table keeps its current position and
+  fills the window it is given. The top nav hides, and the drawer carries the
+  four doors.
+  Reference: [`../review/x2-backrow.html`](../review/x2-backrow.html),
+  [`../review/s3-larger.html`](../review/s3-larger.html), and
   [`../review/accessible.html`](../review/accessible.html). The review labs use
   actual `CardComposer` renders from `review/assets/cards/`, not a CSS card
   imitation; regenerate with `tools/export_review_cards.tscn`.
-- **Current gate:** table manual/Auto QA at 1000/960 and reduced motion in
-  [`PLAN.md`](PLAN.md), then port the Folio ceremony.
-- **Evidence:** 412 tests pass; layout audit passes at six sizes; the focus
-  table renders 190px cards with a 52px tab at 1000×1000 (150%) and 960×960
-  (125%); the face-sealed rule is enforced and the seeded-duel shift is recorded.
+- **Current gate:** X2 manual/Auto QA (including 1280/1440/1920/2560 and
+  1000/960) and reduced motion in [`PLAN.md`](PLAN.md), then port the Folio
+  ceremony.
+- **Evidence:** 412 tests pass; layout audit passes at nine sizes; the X2 table
+  renders B1/B3 with a 30% shelf and public face-up backrow at 1280–2560 and
+  1000/960; the face-sealed rule is enforced and the seeded-duel shift is
+  recorded.
 
 ## The review labs are reference, not shipping code
 

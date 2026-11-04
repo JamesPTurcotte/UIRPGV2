@@ -165,16 +165,23 @@ the readability contract, not optional.
   piles, speed, and the PIN control. The table keeps the shell's current window
   position, starts pinned, and restores the shell window on exit; PIN releases it.
 
-### Mats and lanes (shipping Overlap)
+### Mats, backrow, and shelf (shipping X2 Spring Shelf)
 
-- Two mats stacked, one row of three slots per mat. Each slot is one 190 × 266
-  card token; the spell/trap card sits behind its monster with a 52px side tab.
+- Two mats stacked, one row of three slots per mat. The card is always 5:7 and
+  scales with the window; it is never squashed to fit a lane.
+- **B1 Front Row at ≥1280 width:** each lane is a monster plus a face-up
+  spell/trap seat. A face-up card is public and full size; a set card stays
+  face-down and secret. The board is `6c + 48` wide.
+- **B3 Effect Ribbon below 1280:** the card stays tucked behind its monster with
+  the 52px side tab, and a 40px ribbon above the board lists every face-up
+  effect in full text. The full face stays one click/inspect away.
 - All three lanes are always visible. Empty slots are ghost cards with a plus;
   legal zones get amber brackets; the threatened lane gets a pink bracket.
 - The active mat edge glows at the seam. No tabs, focus lane, hidden lane, or
   lane numerals.
-- The hand is the same 190px token, and the deck back is that token too. Cards
-  overlap when needed, and hover lifts the full face above its neighbours.
+- **Hand:** the bottom **30% shelf**. Only the title strip is visible; hover,
+  focus, or click lifts the full face and click pins it. The deck shows the same
+  strip with its count. Cards overlap only when the window cannot fit the step.
 
 ### Card face
 
@@ -249,12 +256,13 @@ Target: the V2 Table screen rebuilt as the Overlap stage.
 ### Structure
 
 ```text
-GLOBAL NAV        hidden in the table focus window
+GLOBAL NAV        hidden on the table
 SCORE RAIL        YOU · phase ticks · Warden · guard pips · menu
-WARDEN MAT        3 lanes, one 190px monster + 52px set tab each
+RIBBON (B3)       every face-up effect as text, only below 1280
+WARDEN MAT        3 lanes: monster + face-up backrow / set card
 SEAM              lit edge for the active side
-PLAYER MAT        3 lanes, one 190px monster + 52px set tab each
-HAND              deck back + 190px hand
+PLAYER MAT        3 lanes: monster + face-up backrow / set card
+HAND              30% shelf: deck strip + card title strips
 DOCK              Strike / End Phase / Reset
 DRAWER (closed)   Play / Library / Decks / Packs · log · inspect · actions · piles · PIN
 ```
@@ -262,9 +270,12 @@ DRAWER (closed)   Play / Library / Decks / Packs · log · inspect · actions ·
 ### Rules
 
 - Two mats, three lanes each, all visible at once. No tabs or hidden lane.
-- One 190px token for hand, monsters, set cards, and deck back. The set card
-  shows a 52px side tab behind its monster; hover lifts the full card forward.
-  The card never shrinks, and the 125% fallback keeps the same 190px token.
+- One 5:7 card, scaled by the window. A face-up spell/trap is a public rule:
+  at B1 it takes a full seat next to its monster; at B3 the ribbon states its
+  effect. A set card is the only hidden state and never reveals its effect
+  through the layout.
+- The hand is a 30% shelf, not a fan or a side column. Hover, focus, and click
+  lift the full face; click pins it. The deck is the same 30% strip.
 - Guard pips and the target bracket carry the rule and the intent. No lane
   numerals, OPEN/CALL/GUARDED, face-sealed chip, intent sentence, or phase names
   on the board.
@@ -298,23 +309,26 @@ DRAWER (closed)   Play / Library / Decks / Packs · log · inspect · actions ·
 - Score plate on a strike; damage plate on a hit; residue always.
 - Auto is a broadcast: letterbox, lane spotlight, cue captions, no dead air.
 
-### Implementation notes — V3 Overlap table, 2026-11-03
+### Implementation notes — X2 Spring Shelf, 2026-11-04
 
 - `src/presentation/table/duel_board_stage.gd` owns the two mats, score rail,
-  phase ticks, guard pips, 52px side tab, hand, deck back, and target bracket.
-  `access_scale` selects 150 or 125 chrome metrics (82/68 score, 64/56 dock).
+  phase ticks, guard pips, B1/B3 backrow, B3 ribbon, 30% hand shelf, deck strip,
+  and target bracket. `board_mode` is `b1` at width ≥1280 and `b3` below; the
+  stage computes `card_w`/`card_scale` from the window and never repositions it.
+- `src/presentation/table/card_actor.gd` scales one `A` 190 × 266 face to the
+  board card. The hand actor's footprint is the 30% shelf while the true 5:7
+  face lives inside a clipped container; hover, focus, and selection lift it by
+  110% of the card width. The stable hover target covers both the shelf strip
+  and the lifted face so the pointer cannot flicker it.
+- `src/presentation/table/card_slice.gd` renders the deck's 30% strip from the
+  same `CardComposer` back; the count badge sits above it.
 - `src/presentation/table/battle_stage.gd` remains the stable actor and animation
-  base; `TableScreen` owns the drawer, dock, focus window, PIN, and director.
-- One `A` token is 190 × 266 for hand, monsters, set cards, and deck back in the
-  1000 × 1000 focus window (150%) and the 960 × 960 fallback (125%). The 52px
-  tab is a layout constant, not a card size. The older `O` 145 and `B+` 120
-  tokens remain only for sub-900 embeds; the Table never opens below 960.
-- The top nav hides on the Table; the drawer's four-door row is the only way
-  out of the focus window, so leaving the table always restores the 1440 × 900
-  shell.
-- `CardComposer` remains the only face. The deck back is drawn from the same
-  composer, so the back and face share one geometry.
-  (64 × 89.6) behind the front row.
+  base; `TableScreen` owns the drawer, dock, PIN, and director. The table uses
+  150% chrome (82 score, 64 dock, 48 targets, 12–14 labels), a **960 × 720**
+  minimum, and fills the window it is given.
+- `CardComposer` remains the only face. The 52px tab is a layout constant, not a
+  card size. A set card is face-down; a face-up card is public. The hand shelf,
+  deck strip, and board cards all keep the true 5:7 geometry.
 - The Auto cue is a foreground `CueStrip` above the hand band, not an overlay on
   the lane headers. It may cross a backrow card for a beat; the caption is
   readable, and the card remains clickable. Damage uses the `plate` FX; the lane
@@ -562,7 +576,7 @@ Add a content definition, not a script. The card face is generated from
      stats, Inter rules, footer.
    - Add rarity dot, holo/ink variants. Test 100/150/196/300 px.
 3. **Table**
-   - Compose the score rail, two 190px mats, 52px side tabs, hand, dock, drawer.
+   - Compose the score rail, two mats, B1/B3 backrow, 30% shelf, dock, drawer.
    - Build stable actors, rest positions, event director.
    - Add intent, log, guards, score plate, residue.
    - Add Auto broadcast and the 1.2 s cadence budget.

@@ -14,19 +14,19 @@ from V2; the visual contract is Neon Reliquary; this document decides the order.
 | V3 Godot project | V2 baseline imported; Neon shell and Table rebuilt |
 | V2 rules/content | Source of truth, untouched |
 | Face-sealed rule | **Enforced in `DuelRules`**; tests cover sealed/open faces and AI |
-| Table presentation | Accessible 190 focus + 150% chrome port landed; manual/Auto QA open |
-| Scale / corner contract | **Resolved: 190 focus + 150% chrome at 1000×1000; 125% / 960 fallback** |
+| Table presentation | **X2 Spring Shelf landed** — fluid 150% table, B1/B3 backrow; QA evidence at 1280–2560 and 960/1000 |
+| Scale / corner contract | **Resolved: full-window 150% chrome; B1 ≥1280, B3 below; min 960×720; no forced square** |
 | Folio ceremony | Not started; review lab approved |
 
 The labs are approved design references. They are not shipping code and are not
 imported by Godot. The code-level migration route is
 [`BUILD_STRATEGY.md`](BUILD_STRATEGY.md).
 
-## Current evidence — 2026-11-03
+## Current evidence — 2026-11-04
 
 - **Domain suite:** 412 passed, 0 failed.
 - **Layout audit:** 0 failures at 1280×720, 1440×900, 1800×1125,
-  1920×1080, 1280×1024, 2560×1440.
+  1920×1080, 1280×1024, 2560×1440, 1000×1000, 960×960, and 960×720.
 - **Seeded 100 duels (Ember starter vs the Damp Warden, skill 55):**
   - before the face-sealed rule: **72 wins / 17 losses / 11 draws**, avg 10.4 turns;
   - after the face-sealed rule: **49 wins / 15 losses / 36 draws**, avg 15.8 turns.
@@ -34,16 +34,24 @@ imported by Godot. The code-level migration route is
     take longer and draws rise. This is a known balance consequence, not a test
     failure. Rebalance only with evidence; the first candidates are AI
     guard-breaking and content removal/penetration, not rolling the rule back.
-- **Accessible table:** 190px `A` token, 52px Index Tab, 150% chrome at
-  1000×1000 (82px score, 64px dock, 48px targets), 125% at 960×960 (68px score,
-  56px dock, 44px targets); top nav hidden, drawer carries all four doors.
-- **Table screenshots:** `screenshots/table_focus.png`,
-  `screenshots/table_focus_960.png`, `screenshots/table_focus_drawer.png`,
-  `screenshots/table_focus_drawer_960.png`.
+- **X2 table:** 150% chrome at every window (82px score, 64px dock, 48px
+  targets, 12–14px labels); the 5:7 card scales to 167 at 1280×720, 225 at
+  1440×900, 283 at 1920×1080, and 399 at 2560×1440. At ≥1280 width the backrow
+  is **B1 Front Row**: a face-up spell/trap is a full public card next to its
+  monster; set cards stay face-down. Below 1280 the backrow is **B3 Effect
+  Ribbon**: a 40px text ribbon lists every face-up effect; the full card stays
+  available on click/inspect. The hand is a **30% bottom shelf** (title strip
+  only) with hover/focus/click lift and click pin; the deck shows the same strip
+  and its count. The table fills the current window (min 960×720) and keeps its
+  position; top nav hidden, drawer carries all four doors.
+- **Table screenshots:** `screenshots/table_x2_1280x720.png`,
+  `table_x2_1440x900.png`, `table_x2_1920x1080.png`, `table_x2_2560x1440.png`,
+  `table_x2_1000x1000.png`, `table_x2_960x960.png`, `table_x2_960x720.png`, and
+  `table_x2_hand_1440x900.png` (pinned full face).
 - **Flex review:** `review/flex.html` compares fixed / fluid bottom / fluid side /
-  docked cockpit at 1280–3440; hybrid recommendation is C in landscape, B in
-  square. The live table is still fixed 190 / 1000; the window-position jump is
-  removed.
+  docked cockpit at 1280–3440; the hybrid recommendation was C in landscape, B in
+  square. The live table now uses the fluid full-window budget; the old fixed
+  190/1000 note in that lab is historical.
 - **Shell/room screenshots:** library, gate, deck, bench, folio at 1440×900.
 
 ## Working log
@@ -68,6 +76,7 @@ imported by Godot. The code-level migration route is
 | 2026-11-04 | Step 15 — one-line side hand lab | S1 side fan (older cards 20%, newest full), S2 side scroll (3 visible, max card), S3 bottom row (all six readable, 123–294); one-column width 4c+226; 960–3440 matrix; `review/side-line.html` | Pick one-line hand and port |
 | 2026-11-04 | Step 16 — S3 larger lab | Six personas; S3 209 baseline; X1 wall chrome 245; X2 spring shelf 283; X3 open table 247/354/450; X4 hand index + lens 292; 960–3440 matrix; team pick X2; `review/s3-larger.html` | Pick S3 larger layout and port |
 | 2026-11-04 | Step 17 — X2 backrow lab | Set vs face-up rule; B1 front row 283/399; B2 effect tabs; B3 ribbon 270/244; B4 rail 292; 960–3440 matrix; team pick B1 1920+, B4 1440, B3 square; `review/x2-backrow.html` | Pick backrow mode and port |
+| 2026-11-04 | Step 18 — X2 port | Spring Shelf 30% hand; B1 full face-up backrow ≥1280; B3 full-effect ribbon below; face-down sets stay secret; dynamic 5:7 card 152–399; 150% chrome; fluid min 960×720; stable hover/focus/click pin; 412/0; layout audit 9/9; size screenshots | Manual/Auto QA and reduced-motion pass |
 
 ## Locked decisions
 
@@ -101,14 +110,18 @@ These are not reopened without a written reason.
     sound off; reduced motion keeps all information.
 12. **The old build stays runnable.** V2 is not modified while V3 is being
     ported; it remains the comparison build and the rules source.
-13. **The accessible table is 190 focus + 150% chrome.** 1000 × 1000 focus
-    window; 900px board; every card — hand, monster, spell/trap, deck back — is
-    the same 190px 5:7 token. The spell/trap card sits 52px to the right behind
-    its monster, so a 52px side tab is visible; hover lifts the full card
-    forward. The chrome is 150%: 48px targets, 12–14px labels, 82px score,
-    64px dock. If the display cannot hold the 1000 square, the same table opens
-    at 125% chrome in 960 × 960 with 44px targets, a 68px score, and a 56px
-    dock. No second card size inside either board.
+13. **The table is X2 Spring Shelf.** It fills the window it is given at **150%
+    chrome**; there is no forced 1000/960 square. The card is always 5:7 and
+    scales with the board (167–399px across the supported windows). At width
+    **≥1280** the backrow is **B1 Front Row**: a face-up spell/trap is a full
+    public card next to its monster, and a set card stays face-down and secret.
+    Below 1280 the backrow is **B3 Effect Ribbon**: a 40px ribbon lists every
+    face-up effect as text; the card stays tucked and the full face is one
+    click/inspect away. The hand is the bottom **30% shelf**: only the title
+    strip is visible, and hover, focus, or click lifts the full face; click pins
+    it. The deck uses the same strip and carries its count. Chrome is 48px
+    targets, 12–14px labels, 82px score, 64px dock; the minimum window is
+    960×720; all three lanes stay visible; the window keeps its position.
 
 ## Target architecture
 
@@ -236,17 +249,18 @@ Tasks:
 9. Settings: motion, sound, speed, reduce-flash, keyboard.
 10. Layout audit at 1280 / 1440 / 1920; table breakpoints; the 3×2 mats.
 
-Status 2026-11-03: the Overlap Duel Board replaced the strip/rails composition
-(Step 7) and is now the accessible 190 focus + 150% chrome table (Step 13). The
-1000 × 1000 focus window, 960 × 960 / 125% fallback, hidden top nav, drawer
-doors, manual call, auto pass, 412 tests, and six-size layout audit are
-verified. Remaining: the 20-action manual acceptance, reduced-motion pass, and
-console sweep. Task 9 (settings) is still open.
+Status 2026-11-04: the Overlap Duel Board replaced the strip/rails composition
+(Step 7), then the accessible scale (Step 13), then X2 Spring Shelf (Step 18).
+The live table is full-window 150% chrome with B1/B3 backrow, a 30% hand shelf,
+hidden top nav, drawer doors, manual call, auto pass, 412 tests, and a nine-size
+layout audit. Remaining: the 20-action manual acceptance, reduced-motion pass,
+and console sweep. Task 9 (settings) is still open.
 
 Acceptance:
 
 - [x] Board screenshot matches the Neon direction at 1440.
-- [x] Overlap board renders 190px cards in the 1000 focus and 960 fallback windows.
+- [x] X2 table renders B1 at 1280–2560 and B3 at 1000/960 with a stable 5:7
+      card, a 30% shelf, and public face-up spells/traps.
 - [ ] A 20-action manual duel has no actor pop for call/set/play/attack/destroy.
 - [x] Every authored action has a movement, number, mark, or log line.
 - [ ] The score plate appears on damage in Auto and manual. (Implemented; dedicated capture pending.)

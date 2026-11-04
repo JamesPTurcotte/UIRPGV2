@@ -147,7 +147,7 @@ func show_screen(screen_name: String, payload_data: Dictionary = {}) -> void:
 
 func _apply_screen_scale(screen_name: String) -> void:
 	# Rooms use the 1440×900 design canvas. The table switches to native pixels
-	# so a 960×960 corner window draws the 900px Duel Board at 1:1.
+	# so its stage can scale the 5:7 board to the actual window.
 	var window := get_window()
 	if window == null:
 		return

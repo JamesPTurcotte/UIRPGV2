@@ -14,11 +14,20 @@ func _ready() -> void:
 	await get_tree().create_timer(0.6).timeout
 	var screen := "library"
 	var wait_time := 1.4
+	var requested_size := Vector2i.ZERO
 	for arg in OS.get_cmdline_user_args():
 		if arg.begins_with("--screen="):
 			screen = arg.get_slice("=", 1)
 		elif arg.begins_with("--wait="):
 			wait_time = float(arg.get_slice("=", 1))
+		elif arg.begins_with("--size="):
+			var parts := arg.get_slice("=", 1).split("x")
+			if parts.size() == 2:
+				requested_size = Vector2i(int(parts[0]), int(parts[1]))
+	if requested_size.x > 0 and requested_size.y > 0:
+		get_window().min_size = Vector2i(1, 1)
+		DisplayServer.window_set_size(requested_size)
+		await get_tree().create_timer(0.25).timeout
 	match screen:
 		"gate":
 			app.show_screen("gate")
@@ -194,6 +203,112 @@ func _ready() -> void:
 				if actor != null:
 					actor._on_hover_changed(actor.view, true)
 					print("index hover view=%s tab=%s" % [str(actor.view.position), str(actor.hover_zone.size)])
+		"table_x2":
+			_fresh_descent("manual")
+			app.show_screen("table")
+			await get_tree().create_timer(0.8).timeout
+			if app.current_screen != null:
+				var c = app.current_screen
+				c.mode = "manual"
+				c.paused = true
+				c.timer.stop()
+				var d = c.duel
+				_seed_x2(d)
+				c.stage.sync_all(d)
+				c.stage.apply_rest(d)
+				await get_tree().create_timer(0.2).timeout
+				var st = c.stage
+				print("x2 stage=%s mode=%s card=%.1f scale=%.3f shelf=%.1f board=%s hand=%s window=%s viewport=%s" % [str(st.size), st.board_mode, st.card_w, st.card_scale, st.hand_shelf_h, str(st.board_rect), str(st.hand_zone_rect), str(DisplayServer.window_get_size()), str(get_viewport_rect().size)])
+				for key in ["1|backrow|0", "1|monster|0", "1|backrow|1", "0|backrow|0", "0|backrow|2"]:
+					print("x2 zone %s rect=%s slot=%s" % [key, str(st.zone_rects.get(key, Rect2())), str(st.slot_rects.get(key, Rect2()))])
+				var back = st.actors.get(9102)
+				if back != null:
+					print("x2 faceup actor=%s view=%s clip=%s" % [str(back.size), str(back.view.position), str(back.card_clip.size)])
+		"table_x2_hand":
+			_fresh_descent("manual")
+			app.show_screen("table")
+			await get_tree().create_timer(0.8).timeout
+			if app.current_screen != null:
+				var c = app.current_screen
+				c.mode = "manual"
+				c.paused = true
+				c.timer.stop()
+				_seed_x2(c.duel)
+				c.stage.sync_all(c.duel)
+				c.stage.apply_rest(c.duel)
+				await get_tree().create_timer(0.2).timeout
+				var hand_uid: int = c.duel.players[0].hand[0].uid if not c.duel.players[0].hand.is_empty() else -1
+				if hand_uid >= 0:
+					c._on_hand_card_clicked(hand_uid)
+					await get_tree().create_timer(0.2).timeout
+					var hand_actor = c.stage.actors.get(hand_uid)
+					if hand_actor != null:
+						print("x2 hand pin uid=%d selected=%s clip=%s zone=%s" % [hand_uid, str(hand_actor.selected), str(hand_actor.card_clip.size), str(hand_actor.hover_zone.size)])
+		"table_x2_click":
+			_fresh_descent("manual")
+			app.show_screen("table")
+			await get_tree().create_timer(0.8).timeout
+			if app.current_screen != null:
+				var c = app.current_screen
+				c.mode = "manual"
+				c.paused = true
+				c.timer.stop()
+				_seed_x2(c.duel)
+				c.stage.sync_all(c.duel)
+				c.stage.apply_rest(c.duel)
+				await get_tree().create_timer(0.2).timeout
+				if not c.duel.players[0].hand.is_empty():
+					var uid: int = c.duel.players[0].hand[0].uid
+					var actor = c.stage.actors.get(uid)
+					if actor != null:
+						var point: Vector2 = actor.hover_zone.get_global_rect().get_center()
+						var motion := InputEventMouseMotion.new()
+						motion.position = point
+						motion.global_position = point
+						Input.parse_input_event(motion)
+						await get_tree().create_timer(0.15).timeout
+						print("x2 hover uid=%d hovered=%s actor=%s clip=%s zone=%s" % [uid, str(actor._hand_hovered), str(actor.size), str(actor.card_clip.size), str(actor.hover_zone.size)])
+						var down := InputEventMouseButton.new()
+						down.button_index = MOUSE_BUTTON_LEFT
+						down.pressed = true
+						down.position = point
+						Input.parse_input_event(down)
+						var up := InputEventMouseButton.new()
+						up.button_index = MOUSE_BUTTON_LEFT
+						up.pressed = false
+						up.position = point
+						Input.parse_input_event(up)
+						await get_tree().create_timer(0.2).timeout
+						print("x2 click selected=%d actor_selected=%s clip=%s" % [c.selected_hand_uid, str(actor.selected), str(actor.card_clip.size)])
+						var away := InputEventMouseMotion.new()
+						away.position = Vector2(8, 8)
+						away.global_position = Vector2(8, 8)
+						Input.parse_input_event(away)
+						await get_tree().create_timer(0.15).timeout
+						print("x2 leave hovered=%s selected=%s clip=%s" % [str(actor._hand_hovered), str(actor.selected), str(actor.card_clip.size)])
+						var down2 := InputEventMouseButton.new()
+						down2.button_index = MOUSE_BUTTON_LEFT
+						down2.pressed = true
+						down2.position = point
+						Input.parse_input_event(down2)
+						var up2 := InputEventMouseButton.new()
+						up2.button_index = MOUSE_BUTTON_LEFT
+						up2.pressed = false
+						up2.position = point
+						Input.parse_input_event(up2)
+						await get_tree().create_timer(0.2).timeout
+						print("x2 unpin selected=%d actor_selected=%s clip=%s" % [c.selected_hand_uid, str(actor.selected), str(actor.card_clip.size)])
+						var away2 := InputEventMouseMotion.new()
+						away2.position = Vector2(8, 8)
+						away2.global_position = Vector2(8, 8)
+						Input.parse_input_event(away2)
+						await get_tree().create_timer(0.15).timeout
+						actor.view.grab_focus()
+						await get_tree().create_timer(0.15).timeout
+						print("x2 focus focused=%s clip=%s actor_clip=%s hf=%s hh=%s" % [str(actor.view.has_focus()), str(actor.card_clip.size), str(actor.clip_contents), str(actor._hand_focused), str(actor._hand_hovered)])
+						actor.view.release_focus()
+						await get_tree().create_timer(0.15).timeout
+						print("x2 blur focused=%s clip=%s actor_clip=%s hf=%s hh=%s sel=%s" % [str(actor.view.has_focus()), str(actor.card_clip.size), str(actor.clip_contents), str(actor._hand_focused), str(actor._hand_hovered), str(actor.selected)])
 		"table_focus_drawer":
 			_fresh_descent("manual")
 			app.show_screen("table")
@@ -215,21 +330,21 @@ func _ready() -> void:
 			app.show_screen("table")
 			await get_tree().create_timer(0.8).timeout
 			var st = app.current_screen.stage
-			print("focus stage=%s board=%s hand=%s deck=%s hand_rects=%s" % [str(st.size), str(st.board_rect), str(st.hand_zone_rect), str(st.deck_rect), str(st.hand_rects)])
+			print("focus metrics=%s mode=%s card=%.1f scale=%.3f board=%s hand=%s shelf=%.1f" % [str(st.size), st.board_mode, st.card_w, st.card_scale, str(st.board_rect), str(st.hand_zone_rect), st.hand_shelf_h])
 		"table_focus_960":
 			_fresh_descent("manual")
 			app.show_screen("table")
 			await get_tree().create_timer(0.8).timeout
 			if app.current_screen != null:
 				var st = app.current_screen.stage
-				print("focus 960 stage=%s scale=%d board=%s mat=%s card=%s" % [str(st.size), int(app.current_screen.access_scale), str(st.board_rect), str(st.warden_mat_rect), str(Tokens.card_size(st.board_token))])
+				print("focus 960 stage=%s mode=%s card=%.1f scale=%.3f board=%s mat=%s shelf=%.1f" % [str(st.size), st.board_mode, st.card_w, st.card_scale, str(st.board_rect), str(st.warden_mat_rect), st.hand_shelf_h])
 		"table_focus":
 			_fresh_descent("manual")
 			app.show_screen("table")
 			await get_tree().create_timer(0.8).timeout
 			if app.current_screen != null:
 				var st = app.current_screen.stage
-				print("focus stage=%s scale=%d board=%s mat=%s card=%s tab=%s pinned=%s window=%s" % [str(st.size), int(app.current_screen.access_scale), str(st.board_rect), str(st.warden_mat_rect), str(Tokens.card_size(st.board_token)), str(Tokens.CARD_TAB), str(get_window().get_flag(Window.FLAG_ALWAYS_ON_TOP)), str(DisplayServer.window_get_position())])
+				print("focus stage=%s mode=%s card=%.1f scale=%.3f board=%s mat=%s shelf=%.1f pinned=%s window=%s" % [str(st.size), st.board_mode, st.card_w, st.card_scale, str(st.board_rect), str(st.warden_mat_rect), st.hand_shelf_h, str(get_window().get_flag(Window.FLAG_ALWAYS_ON_TOP)), str(DisplayServer.window_get_position())])
 		"result_win", "result_fall":
 			_fresh_descent("manual")
 			app.show_screen("table")
@@ -413,6 +528,35 @@ func _ready() -> void:
 	if Session.has_active_descent():
 		print("descent: floor=%d active=%s cleared=%d streak=%d" % [int(Session.descent.get("current_floor", 0)), str(Session.descent.get("active", false)), int(Session.descent.get("cleared", 0)), int(Session.descent.get("streak", 0))])
 	get_tree().quit(0)
+
+func _seed_x2(state: DuelState) -> void:
+	_seed_card(state, 1, 0, GameConst.ZONE_MONSTER, "ember.cinder_hound", false, 9101)
+	_seed_card(state, 1, 0, GameConst.ZONE_BACKROW, "verdant.bone_orchard", false, 9102)
+	_seed_card(state, 1, 1, GameConst.ZONE_BACKROW, "neutral.ninefold_seal", true, 9103)
+	_seed_card(state, 1, 2, GameConst.ZONE_MONSTER, "umbra.shade_ninth", false, 9104)
+	_seed_card(state, 0, 0, GameConst.ZONE_MONSTER, "verdant.bramble_wall", false, 9201)
+	_seed_card(state, 0, 0, GameConst.ZONE_BACKROW, "tide.tidecall", false, 9202)
+	_seed_card(state, 0, 1, GameConst.ZONE_BACKROW, "umbra.hollow_lantern", false, 9203)
+	_seed_card(state, 0, 2, GameConst.ZONE_BACKROW, "neutral.quiet_ledger", true, 9204)
+
+func _seed_card(state: DuelState, owner: int, lane: int, zone: String, def_id: String, face_down: bool, uid: int) -> DuelCard:
+	var def: CardDef = Content.cards.get(def_id)
+	if def == null:
+		return null
+	var instance := CardInstance.new(uid, def.id, 1)
+	var card := DuelCard.new()
+	card.uid = uid
+	card.instance = instance
+	card.def = def
+	card.owner = owner
+	card.lane = lane
+	card.zone = zone
+	card.face_down = face_down
+	if zone == GameConst.ZONE_MONSTER:
+		state.players[owner].monsters[lane] = card
+	elif zone == GameConst.ZONE_BACKROW:
+		state.players[owner].backrow[lane] = card
+	return card
 
 func _fresh_descent(play_mode: String) -> void:
 	# Visual QA must reach the Table even when the developer's current deck is

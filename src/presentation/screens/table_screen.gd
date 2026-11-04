@@ -69,21 +69,10 @@ func build() -> void:
 		return
 	mode = str(Session.descent.get("mode", Session.settings.get("mode", "auto")))
 	speed = int(Session.settings.get("table_speed", 1))
-	# 150% is the default; 125% is the automatic fallback when the display
-	# cannot hold the 1000 square. The QA arg lets the visual tests exercise
-	# both scales on one machine.
-	var forced_scale := 0
-	for arg in OS.get_cmdline_user_args():
-		if arg.begins_with("--table-scale="):
-			forced_scale = int(arg.get_slice("=", 1))
-	var usable := DisplayServer.screen_get_usable_rect(DisplayServer.window_get_current_screen())
-	if forced_scale == 125 or forced_scale == 150:
-		access_scale = forced_scale
-	else:
-		access_scale = 150 if usable.size.x >= 1000 and usable.size.y >= 1000 else 125
-	var target := 1000 if access_scale >= 150 else 960
-	get_window().min_size = Vector2i(target, target)
-	DisplayServer.window_set_size(Vector2i(target, target))
+	# X2 fills the window it is given. The chrome stays at 150%; the card and
+	# backrow budget respond to the actual table size.
+	access_scale = 150
+	get_window().min_size = Vector2i(960, 720)
 	# Keep the window where the shell left it. The table is pinned above other
 	# windows, but entering it must not teleport the window to a corner.
 	get_window().set_flag(Window.FLAG_ALWAYS_ON_TOP, true)
@@ -220,7 +209,7 @@ func _build_drawer() -> PanelContainer:
 	head.add_child(close)
 	box.add_child(head)
 
-	# The four doors live here while the top nav is hidden in the focus window.
+	# The four doors live here while the top nav is hidden on the table.
 	box.add_child(_caps("ROOMS"))
 	var doors := HBoxContainer.new()
 	doors.add_theme_constant_override("separation", 6)

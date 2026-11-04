@@ -10,7 +10,7 @@ game rules and content.
 ```bash
 godot --path .                 # play
 tools/run_tests.sh            # 412 tests
-tools/run_layout_audit.sh     # six reference sizes
+tools/run_layout_audit.sh     # nine reference sizes, 960 → 2560
 ```
 
 The Table is reachable from **Play**. Library, Decks, and Packs are being ported
@@ -62,40 +62,45 @@ folio sounds. The pack page has its own rating/notes/copy-feedback panel.
 - **Chosen direction:** Neon Reliquary.
 - **Global shell:** four doors, same order everywhere — Play / Library / Decks /
   Packs; no second nav.
-- **Table:** the Overlap Duel Board — two 900px-wide mats in a **1000 × 1000
-  focus window** at **150% chrome**. One **190px 5:7 token** for hand,
-  monsters, set cards, and deck back; the spell/trap card sits behind its
-  monster with a **52px Index Tab** and lifts forward on hover. The chrome is
-  **48px targets, 12–14px labels, an 82px score rail, and a 64px dock**. All
-  three lanes stay visible; the score rail carries phase ticks, not phase names.
-  The top nav hides in the focus window, so the drawer carries the four doors
-  (Play / Library / Decks / Packs), log, inspect, actions, piles, and PIN. The
-  table opens where the shell left the window and is pinned above other
-  windows; PIN releases it and leaving the table restores the 1440 × 900 shell.
-- **Smaller display:** **125% chrome at 960 × 960** with 44px targets, a 68px
-  score rail, and a 56px dock. Same 190px cards and the same three lanes.
+- **Table:** **X2 Spring Shelf**, a full-window table at **150% chrome**. The
+  5:7 card is never squashed; the board scales it from **167px at 1280×720** to
+  **283px at 1920×1080** and **399px at 2560×1440**.
+  - **B1 Front Row at ≥1280 width:** a face-up spell/trap is a public full card
+    next to its monster. A set card stays face-down and secret.
+  - **B3 Effect Ribbon below 1280:** a 40px ribbon lists every face-up effect
+    in plain text; the full card stays available on click/inspect.
+  - **Hand:** the bottom **30% Spring Shelf**. Only the title strip is visible;
+    hover, focus, or click lifts the full face, and click pins it. The deck
+    shows the same 30% strip with its count.
+  - **Chrome:** **48px targets, 12–14px labels, an 82px score rail, and a 64px
+    dock**. All three lanes stay visible; phase ticks sit on the score rail.
+  - **Window:** the table fills the window it is given (minimum **960×720**) and
+    keeps its current position. There is no forced 1000/960 square. The top nav
+    hides; the drawer carries the four doors (Play / Library / Decks / Packs),
+    log, inspect, actions, piles, and PIN. The table starts pinned; leaving it
+    restores the 1440×900 shell.
 - **Rules:** the face is sealed while any enemy monster remains in a monster
   zone; this is enforced in `DuelRules`, not faked by the UI.
-- **Tests:** 412 passed, 0 failed. Layout audit passes at all six reference sizes.
+- **Tests:** 412 passed, 0 failed. Layout audit passes at **nine sizes**
+  (1280×720 through 2560×1440, plus 1000×1000, 960×960, and 960×720).
 - **Seeded duels:** the seal shifts the Ember-vs-Damp-Warden matchup from
   72/17/11 (avg 10.4 turns) to 49/15/36 (avg 15.8 turns). That change is
   recorded in `docs/PLAN.md`; no balance rewrite has been made yet.
 - **Duel Board:** the four same-size variants were reviewed; **Overlap** was
-  chosen, then scaled to **190 focus + 150% chrome** after the readability and
-  accessibility labs. Open [`review/bigger.html`](review/bigger.html) and
-  [`review/accessible.html`](review/accessible.html) for the decision evidence.
+  chosen, then X2 Spring Shelf and the B1/B3 backrow were ported after the
+  readability, accessibility, flex, and backrow labs.
 
-Table evidence: `screenshots/table_focus.png` (1000×1000, 150%),
-`screenshots/table_focus_960.png` (960×960, 125%),
-`screenshots/table_focus_drawer.png`, and
-`screenshots/table_focus_drawer_960.png` (the drawer doors at both scales).
+Table evidence: `screenshots/table_x2_1440x900.png`,
+`screenshots/table_x2_1920x1080.png`, `screenshots/table_x2_1280x720.png`,
+`screenshots/table_x2_2560x1440.png`, `screenshots/table_x2_1000x1000.png`,
+`screenshots/table_x2_960x960.png`, `screenshots/table_x2_960x720.png`, and
+`screenshots/table_x2_hand_1440x900.png` (pinned full face).
 
 ## What this round is
 
-**Chosen direction: Neon Reliquary.** The table is now the accessible Overlap
-Duel Board: 190px cards, 150% chrome, a 1000 × 1000 focus window, and 125% at
-960 when the display cannot hold the square. The next room is the **Pack
-Ritual** — the full Neon folio ceremony.
+**Chosen direction: Neon Reliquary.** The table is now **X2 Spring Shelf**: a
+full-window 150% table with a 30% hand shelf and public face-up spells/traps.
+The next room is the **Pack Ritual** — the full Neon folio ceremony.
 
 ### Pack ritual
 

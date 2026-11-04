@@ -1,15 +1,25 @@
 class_name DuelBoardStage
 extends BattleStage
 
-## The 900 × 900 Overlap Duel Board.
+## The X2 table. The window is the budget: the board card grows with the table,
+## the chrome stays at 150%, and the hand is a 30% shelf.
 ##
-## One card token for every zone. The accessible table uses the 190px `A` token;
-## each mat is one row of three lanes; the set card sits behind its monster and
-## shows a 52px side tab. The smaller fallback keeps the same language at 145px.
-
-const MAX_BOARD_W := 900.0
+## At >=1280px the face-up backrow takes the full seat next to its monster (B1).
+## Below that the face-up effects live in a 40px ribbon (B3). Set cards stay
+## face-down; their effect is never exposed by the layout.
 
 var access_scale: int = 150
+var board_mode: String = "b1"
+var card_w: float = 190.0
+var card_scale: float = 1.0
+var hand_shelf_h: float = 57.0
+var ribbon_h: float = 0.0
+var ribbon_rect := Rect2()
+const CARD_SLICE := preload("res://src/presentation/table/card_slice.gd")
+
+var deck_clip: Control
+var deck_slice
+var deck_count: Label
 var warden_mat_rect := Rect2()
 var player_mat_rect := Rect2()
 var target_lane: int = -1
@@ -18,92 +28,117 @@ var score_h := 82.0
 var gap := 4.0
 var seam_h := 10.0
 var action_h := 64.0
-var lane_gap := 26.0
+var lane_gap := 8.0
 var slot_gap := 8.0
 
-func _choose_tokens() -> void:
-	# 960/1000 focus stages use the 190px accessible card. Only genuinely
-	# short stages fall back to the old 145px token.
-	if size.y > 0.0 and size.y < 900.0:
-		board_token = "O" if size.y >= 760.0 else "B+"
-	else:
-		board_token = "A"
-	hand_token = board_token
-	back_token = board_token
-
-func _apply_metrics() -> void:
-	if board_token == "A":
-		pad = 4.0
-		score_h = 82.0 if access_scale >= 150 else 68.0
-		action_h = 64.0 if access_scale >= 150 else 56.0
-		gap = 4.0
-		seam_h = 10.0
-		lane_gap = 26.0
-		slot_gap = 8.0
-	else:
-		pad = 10.0
-		score_h = 56.0
-		action_h = 46.0
-		gap = 6.0
-		seam_h = 8.0
-		lane_gap = 22.0
-		slot_gap = 8.0
+func _choose_layout() -> void:
+	board_mode = "b1" if size.x >= 1280.0 else "b3"
+	var chrome := 202.0 if board_mode == "b1" else 246.0
+	var height_limit := (size.y - chrome) / 3.1
+	var width_limit := (size.x - 48.0) / 6.0 if board_mode == "b1" else (size.x - 232.0) / 3.0
+	card_w = maxf(120.0, floor(minf(height_limit, width_limit)))
+	card_scale = card_w / Tokens.card_size("A").x
+	hand_shelf_h = card_w * 0.30
+	ribbon_h = 0.0 if board_mode == "b1" else 40.0
+	lane_gap = 8.0 if board_mode == "b1" else 26.0
+	board_token = "A"
+	hand_token = "A"
+	back_token = "A"
 
 func _compute_rects() -> void:
 	zone_rects.clear()
 	slot_rects.clear()
 	lane_rects.clear()
+	ribbon_rect = Rect2()
 	if size.x <= 1.0 or size.y <= 1.0:
 		return
-	_choose_tokens()
-	_apply_metrics()
+	_choose_layout()
 
-	var card := Tokens.card_size(board_token)
-	var board_w := minf(size.x - pad * 2.0, MAX_BOARD_W)
+	var card := Vector2(card_w, card_w * 1.4)
+	var lane_w := (2.0 * card_w + 8.0) if board_mode == "b1" else (card_w + Tokens.CARD_TAB)
+	var board_w := (3.0 * lane_w + 2.0 * lane_gap) + (8.0 if board_mode == "b1" else 0.0)
 	var board_x := (size.x - board_w) * 0.5
 	var action_y := size.y - pad - action_h
-	var hand_h := card.y + (0.0 if board_token == "A" else 8.0)
-	var hand_y := action_y - gap - hand_h
+	var hand_y := action_y - gap - hand_shelf_h
 	var board_bottom := hand_y - gap
 	var board_top := pad + score_h + gap
-	var board_h := maxf(200.0, board_bottom - board_top)
+	if board_mode == "b3":
+		ribbon_rect = Rect2(board_x, board_top, board_w, ribbon_h)
+		board_top += ribbon_h + gap
+	var board_h := maxf(120.0, board_bottom - board_top)
 
 	board_rect = Rect2(board_x, board_top, board_w, board_h)
-	hand_zone_rect = Rect2(board_x, hand_y, board_w, hand_h)
-	dock_rect = Rect2(board_x, action_y, board_w, action_h)
-	deck_rect = Rect2(hand_zone_rect.position.x + 2.0, hand_y + 2.0, card.x, card.y)
+	hand_zone_rect = Rect2(board_x, hand_y, board_w, hand_shelf_h)
+	dock_rect = Rect2(pad, action_y, size.x - pad * 2.0, action_h)
 
 	var mat_h := (board_h - seam_h) * 0.5
 	warden_mat_rect = Rect2(board_x, board_top, board_w, mat_h)
 	player_mat_rect = Rect2(board_x, board_top + mat_h + seam_h, board_w, mat_h)
 
-	# Index Tab: the set card is the same token, shifted 52px to the right
-	# behind the monster. The lane is card + 52 wide; the visible tab never eats
-	# the next lane and the monster keeps its full face.
-	var lane_w := card.x + Tokens.CARD_TAB
-	var slot_h := card.y
 	var row_w := lane_w * 3.0 + lane_gap * 2.0
 	var row_x := board_x + (board_w - row_w) * 0.5
+	for lane in range(3):
+		var lane_x := row_x + float(lane) * (lane_w + lane_gap)
+		lane_rects.append(Rect2(lane_x, board_top, lane_w, board_h))
 	for owner in [1, 0]:
 		var mat_rect := warden_mat_rect if owner == 1 else player_mat_rect
-		var slot_y := mat_rect.position.y + (mat_rect.size.y - slot_h) * 0.5
+		var slot_y := mat_rect.position.y + (mat_rect.size.y - card.y) * 0.5
 		for lane in range(3):
 			var sx := row_x + float(lane) * (lane_w + lane_gap)
-			var back_rect := Rect2(sx + Tokens.CARD_TAB, slot_y, card.x, card.y)
 			var front_rect := Rect2(sx, slot_y, card.x, card.y)
+			var back_rect: Rect2
+			var back_slot: Rect2
+			if board_mode == "b1":
+				back_rect = Rect2(sx + card_w + 8.0, slot_y, card.x, card.y)
+				back_slot = back_rect
+			else:
+				back_rect = Rect2(sx + Tokens.CARD_TAB, slot_y, card.x, card.y)
+				var guarded := duel != null and duel.players[owner].monsters[lane] != null
+				back_slot = Rect2(sx + card.x, slot_y, Tokens.CARD_TAB, card.y) if guarded else back_rect
 			zone_rects["%d|backrow|%d" % [owner, lane]] = back_rect
 			zone_rects["%d|monster|%d" % [owner, lane]] = front_rect
-			# The visible tab is the set-card click target; the full card
-			# remains behind it for the hover lift.
-			slot_rects["%d|backrow|%d" % [owner, lane]] = Rect2(sx + card.x, slot_y, Tokens.CARD_TAB, card.y)
+			slot_rects["%d|backrow|%d" % [owner, lane]] = back_slot
 			slot_rects["%d|monster|%d" % [owner, lane]] = front_rect
 
-	# Off-stage rest points for piles and the opponent hand. They are never
-	# drawn; they only give actors a valid home when a pile transition starts.
 	remains_rect = Rect2(-card.x - 24.0, hand_y, card.x, card.y)
 	void_rect = Rect2(-card.x * 2.0 - 40.0, hand_y, card.x, card.y)
 	opp_hand_rect = Rect2(-card.x * 3.0 - 56.0, 0.0, card.x, card.y)
 	_compute_hand_rects()
+
+func _ensure_deck_clip() -> void:
+	if deck_clip != null:
+		return
+	deck_clip = Control.new()
+	deck_clip.clip_contents = true
+	deck_clip.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	add_child(deck_clip)
+	deck_slice = CARD_SLICE.new()
+	deck_slice.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	deck_slice.face_down = true
+	deck_clip.add_child(deck_slice)
+	deck_count = UI.label("", 14, Tokens.INK_SECONDARY, Tokens.font_data())
+	deck_count.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	deck_count.position = Vector2(6, 2)
+	deck_count.add_theme_constant_override("outline_size", 4)
+	deck_count.add_theme_color_override("font_outline_color", Tokens.BG_VOID)
+	deck_count.z_index = 2
+	deck_clip.add_child(deck_count)
+
+func _sync_deck_slice() -> void:
+	_ensure_deck_clip()
+	if deck_clip == null:
+		return
+	deck_clip.position = deck_rect.position
+	deck_clip.size = Vector2(card_w, hand_shelf_h)
+	deck_slice.position = Vector2.ZERO
+	deck_slice.size = deck_clip.size
+	deck_slice.token = board_token
+	deck_slice.display_scale = card_scale
+	deck_slice.def = Content.card_list[0] if not Content.card_list.is_empty() else null
+	deck_slice.queue_redraw()
+	if deck_count != null and duel != null:
+		deck_count.text = str(duel.players[0].deck.size())
+		deck_count.queue_redraw()
 
 func _compute_hand_rects() -> void:
 	hand_rects.clear()
@@ -111,24 +146,42 @@ func _compute_hand_rects() -> void:
 	if duel == null:
 		return
 	var hand := duel.players[0].hand
-	var hand_size := Tokens.card_size(hand_token)
 	var count := hand.size()
-	if count == 0:
-		return
-	var start_x := deck_rect.end.x + slot_gap
-	var available := maxf(120.0, hand_zone_rect.end.x - start_x - 4.0)
-	var step := hand_size.x
-	if count > 1:
-		step = minf(hand_size.x, (available - hand_size.x) / float(count - 1))
+	var available := maxf(120.0, size.x - pad * 2.0 - 8.0)
+	var step := card_w
+	if count > 0:
+		step = minf(card_w, (available - card_w) / float(count))
 	step = maxf(28.0, step)
-	var total := step * float(count - 1) + hand_size.x
-	var x := start_x + maxf(0.0, (available - total) * 0.5)
-	var base_y := hand_zone_rect.position.y + (hand_zone_rect.size.y - hand_size.y) * 0.5
+	var total := card_w + step * float(count)
+	var x := pad + (size.x - pad * 2.0 - total) * 0.5
+	var base_y := hand_zone_rect.position.y
+	deck_rect = Rect2(x, base_y, card_w, card_w * 1.4)
 	for i in range(count):
 		var card: DuelCard = hand[i]
-		var lift := 6.0 if card.uid == selected_hand_uid else 0.0
-		hand_rects[card.uid] = Rect2(Vector2(x + step * float(i), base_y - lift), hand_size)
+		hand_rects[card.uid] = Rect2(Vector2(x + step * float(i + 1), base_y), Vector2(card_w, card_w * 1.4))
 		hand_angles[card.uid] = 0.0
+	_sync_deck_slice()
+
+func ensure_actor(card: DuelCard, token: String = "") -> CardActor:
+	if card == null:
+		return null
+	var actor: CardActor = actors.get(card.uid)
+	if actor == null:
+		actor = CardActor.new()
+		actor.setup(card, token if not token.is_empty() else _token_for(card), card_scale)
+		actor.clicked.connect(_on_actor_clicked)
+		actor.right_clicked.connect(_on_actor_right_clicked)
+		add_child(actor)
+		actors[card.uid] = actor
+	else:
+		actor.set_display_scale(card_scale)
+		if not token.is_empty() and actor.token != token:
+			actor.set_token(token)
+	actor.card = card
+	actor.backrow_tucked = board_mode == "b3"
+	actor.z_index = _z_for(card)
+	actor.refresh()
+	return actor
 
 func set_target_lane(lane: int) -> void:
 	target_lane = lane
@@ -138,6 +191,7 @@ func _draw() -> void:
 	if duel == null or size.x <= 1.0:
 		return
 	_draw_score()
+	_draw_ribbon()
 	_draw_mat(1, warden_mat_rect)
 	_draw_board_seam()
 	_draw_mat(0, player_mat_rect)
@@ -147,26 +201,25 @@ func _draw() -> void:
 		draw_rect(Rect2(0, hand_zone_rect.position.y - 3, size.x, 3), Color(0, 0, 0, 0.55))
 
 func _draw_score() -> void:
-	var large := board_token == "A"
-	var mode150 := large and access_scale >= 150
-	var label_size := 12 if mode150 else (10 if large else 9)
-	var score_size := 48 if mode150 else (40 if large else 36)
-	var name_size_base := 12 if mode150 else (10 if large else 9)
+	var mode150 := access_scale >= 150
+	var label_size := 12 if mode150 else 10
+	var score_size := 48 if mode150 else 40
+	var name_size_base := 12 if mode150 else 10
 	var name_size_min := 9 if mode150 else 7
-	var pips_radius := 6.0 if mode150 else (5.0 if large else 4.0)
-	var pips_step := 16.0 if mode150 else (13.0 if large else 11.0)
-	var bar_h := 5.0 if mode150 else (4.0 if large else 3.0)
-	var bar_w := 210.0 if mode150 else (190.0 if large else 156.0)
-	var bar_y := 70.0 if mode150 else (58.0 if large else 49.0)
-	var score_y := 62.0 if mode150 else (50.0 if large else 45.0)
-	var label_y := 18.0 if mode150 else (15.0 if large else 13.0)
-	var pips_y := 54.0 if mode150 else (44.0 if large else 40.0)
-	var tick_w := 24.0 if mode150 else (22.0 if large else 17.0)
-	var tick_h := 5.0 if mode150 else (4.0 if large else 3.0)
-	var tick_gap := 6.0 if mode150 else (5.0 if large else 4.0)
-	var tick_y := 40.0 if mode150 else (34.0 if large else 26.0)
-	var diamond_y := 58.0 if mode150 else (48.0 if large else 40.0)
-	var tool_gap := 112.0 if mode150 else (104.0 if large else 100.0)
+	var pips_radius := 6.0 if mode150 else 5.0
+	var pips_step := 16.0 if mode150 else 13.0
+	var bar_h := 5.0 if mode150 else 4.0
+	var bar_w := 210.0 if mode150 else 190.0
+	var bar_y := 70.0 if mode150 else 58.0
+	var score_y := 62.0 if mode150 else 50.0
+	var label_y := 18.0 if mode150 else 15.0
+	var pips_y := 54.0 if mode150 else 44.0
+	var tick_w := 24.0 if mode150 else 22.0
+	var tick_h := 5.0 if mode150 else 4.0
+	var tick_gap := 6.0 if mode150 else 5.0
+	var tick_y := 40.0 if mode150 else 34.0
+	var diamond_y := 58.0 if mode150 else 48.0
+	var tool_gap := 112.0 if mode150 else 104.0
 	var left := board_rect.position.x
 	var right := board_rect.end.x - tool_gap
 	var top := pad
@@ -219,11 +272,63 @@ func _draw_score() -> void:
 		if i == phase_index:
 			draw_rect(Rect2(rect.position + Vector2(0, -2.0), Vector2(rect.size.x, 7.0)), Color(active_color.r, active_color.g, active_color.b, 0.10))
 	var center_diamond := Vector2((left + right) * 0.5, top + diamond_y)
-	var diamond_radius := 4.0 if mode150 else (3.0 if large else 3.0)
+	var diamond_radius := 4.0 if mode150 else 3.0
 	draw_colored_polygon(PackedVector2Array([
 		center_diamond + Vector2(0, -diamond_radius), center_diamond + Vector2(diamond_radius, 0),
 		center_diamond + Vector2(0, diamond_radius), center_diamond + Vector2(-diamond_radius, 0),
 	]), Color(active_color.r, active_color.g, active_color.b, 0.55))
+
+func _draw_ribbon() -> void:
+	if board_mode != "b3" or ribbon_rect.size.y <= 0.0:
+		return
+	var accent := Tokens.CYAN
+	Chrome.draw_cut_rect(self, ribbon_rect, 5.0, Color(Tokens.BG_PANEL.r, Tokens.BG_PANEL.g, Tokens.BG_PANEL.b, 0.78))
+	Chrome.draw_cut_outline(self, ribbon_rect, 5.0, Color(accent.r, accent.g, accent.b, 0.28), 1.0)
+	var font := Tokens.font_label()
+	var font_size := 9 if ribbon_rect.size.x >= 800.0 else 8
+	var line_h := 14.0 if font_size >= 9 else 12.0
+	var left := ribbon_rect.position.x + 9.0
+	var right := ribbon_rect.end.x - 8.0
+	var effect_x := left + 58.0
+	var x := effect_x
+	var y := ribbon_rect.position.y + 16.0
+	var line := 0
+	draw_string(font, Vector2(left, y), "IN PLAY", HORIZONTAL_ALIGNMENT_LEFT, -1, font_size, Tokens.PINK)
+	var effects: Array[DuelCard] = []
+	for owner in [1, 0]:
+		for lane in range(3):
+			var back = duel.players[owner].backrow[lane]
+			if back != null and not back.face_down:
+				effects.append(back)
+	if effects.is_empty():
+		draw_string(font, Vector2(effect_x, y), "NO FACE-UP SPELL/TRAP", HORIZONTAL_ALIGNMENT_LEFT, -1, font_size, Tokens.INK_MUTED)
+		return
+	for index in range(effects.size()):
+		var back: DuelCard = effects[index]
+		var text := "%s: %s" % [back.def.name.to_upper(), back.def.text]
+		var text_w := font.get_string_size(text, HORIZONTAL_ALIGNMENT_LEFT, -1, font_size).x
+		if x + text_w > right and x > effect_x:
+			line += 1
+			if line > 1:
+				var more := "+%d MORE" % (effects.size() - index)
+				var more_w := font.get_string_size(more, HORIZONTAL_ALIGNMENT_LEFT, -1, font_size).x
+				draw_string(font, Vector2(right - more_w, y), more, HORIZONTAL_ALIGNMENT_LEFT, -1, font_size, Tokens.AMBER)
+				break
+			x = effect_x
+			y += line_h
+		if text_w > right - effect_x:
+			text = _fit_text(font, text, right - effect_x, font_size)
+			text_w = font.get_string_size(text, HORIZONTAL_ALIGNMENT_LEFT, -1, font_size).x
+		draw_string(font, Vector2(x, y), text, HORIZONTAL_ALIGNMENT_LEFT, -1, font_size, Tokens.INK_SECONDARY)
+		x += text_w + 14.0
+
+func _fit_text(font: Font, text: String, width: float, font_size: int) -> String:
+	if font.get_string_size(text, HORIZONTAL_ALIGNMENT_LEFT, -1, font_size).x <= width:
+		return text
+	var cut := text
+	while cut.length() > 1 and font.get_string_size(cut + "…", HORIZONTAL_ALIGNMENT_LEFT, -1, font_size).x > width:
+		cut = cut.substr(0, cut.length() - 1)
+	return cut + "…"
 
 func _draw_mat(owner: int, rect: Rect2) -> void:
 	var accent := Tokens.PINK if owner == 1 else Tokens.CYAN
@@ -231,10 +336,10 @@ func _draw_mat(owner: int, rect: Rect2) -> void:
 	if owner == 0:
 		fill = Color(Tokens.BG_DEEP.r, Tokens.BG_DEEP.g, Tokens.BG_DEEP.b, 0.62)
 	Chrome.draw_cut_rect(self, rect, 9.0, fill)
-	Chrome.draw_cut_outline(self, rect, 9.0, Color(accent.r, accent.g, accent.b, 0.60 if board_token == "A" else 0.42), 2.0 if board_token == "A" else 1.0)
+	Chrome.draw_cut_outline(self, rect, 9.0, Color(accent.r, accent.g, accent.b, 0.60), 2.0)
 	Chrome.draw_grid(self, rect.grow(-1.0), Color(accent.r, accent.g, accent.b, 0.016), 64.0)
 	draw_arc(rect.get_center(), rect.size.y * 0.36, 0.0, TAU, 64, Color(accent.r, accent.g, accent.b, 0.055), 1.0, true)
-	var lane_w := Tokens.card_size(board_token).x + Tokens.CARD_TAB
+	var lane_w := (2.0 * card_w + 8.0) if board_mode == "b1" else (card_w + Tokens.CARD_TAB)
 	var row_w := lane_w * 3.0 + lane_gap * 2.0
 	var row_left := rect.position.x + (rect.size.x - row_w) * 0.5
 	for divider in range(2):
@@ -242,7 +347,7 @@ func _draw_mat(owner: int, rect: Rect2) -> void:
 		draw_line(Vector2(x, rect.position.y + 10.0), Vector2(x, rect.end.y - 10.0), Color(accent.r, accent.g, accent.b, 0.08), 1.0)
 	if duel.active == owner:
 		var edge_y := rect.end.y if owner == 1 else rect.position.y
-		draw_line(Vector2(rect.position.x + 14.0, edge_y), Vector2(rect.end.x - 14.0, edge_y), Color(accent.r, accent.g, accent.b, 0.90), 3.0 if board_token == "A" else 2.0)
+		draw_line(Vector2(rect.position.x + 14.0, edge_y), Vector2(rect.end.x - 14.0, edge_y), Color(accent.r, accent.g, accent.b, 0.90), 3.0)
 
 	for lane in range(3):
 		var back_rect: Rect2 = zone_rects.get("%d|backrow|%d" % [owner, lane], Rect2())
@@ -252,36 +357,33 @@ func _draw_mat(owner: int, rect: Rect2) -> void:
 		var back = duel.players[owner].backrow[lane]
 		var monster = duel.players[owner].monsters[lane]
 		var tab_rect := Rect2(front_rect.end.x, back_rect.position.y, Tokens.CARD_TAB, back_rect.size.y)
+		var back_target := back_rect if board_mode == "b1" or monster == null else tab_rect
 		if back == null:
-			_draw_ghost(tab_rect, accent, true)
+			_draw_ghost(back_rect if board_mode == "b1" else tab_rect, accent, true)
 		if monster == null:
 			_draw_ghost(front_rect, accent, true)
-		_draw_legal(owner, lane, tab_rect, front_rect)
+		_draw_legal(owner, lane, back_target, front_rect)
 		if owner == 0 and (focus_lane == lane or target_lane == lane):
-			Chrome.draw_corner_brackets(self, front_rect.grow(5.0), Tokens.PINK, 12.0 if board_token == "A" else 11.0, 2.0 if board_token == "A" else 1.0)
-			draw_rect(front_rect.grow(2.0), Color(Tokens.PINK.r, Tokens.PINK.g, Tokens.PINK.b, 0.05 if board_token == "A" else 0.035))
+			Chrome.draw_corner_brackets(self, front_rect.grow(5.0), Tokens.PINK, 12.0, 2.0)
+			draw_rect(front_rect.grow(2.0), Color(Tokens.PINK.r, Tokens.PINK.g, Tokens.PINK.b, 0.05))
 
 func _draw_ghost(rect: Rect2, accent: Color, plus: bool) -> void:
-	var strong := board_token == "A"
-	_draw_dashed_rect(rect, Color(accent.r, accent.g, accent.b, 0.38 if strong else 0.22), 2.0 if strong else 1.0, 5.0)
+	_draw_dashed_rect(rect, Color(accent.r, accent.g, accent.b, 0.38), 2.0, 5.0)
 	if plus:
 		var center := rect.get_center()
-		var arm := 14.0 if strong else 12.0
-		var color := Color(accent.r, accent.g, accent.b, 0.62 if strong else 0.42)
-		var width := 2.0 if strong else 1.0
-		draw_line(center - Vector2(arm, 0), center + Vector2(arm, 0), color, width)
-		draw_line(center - Vector2(0, arm), center + Vector2(0, arm), color, width)
+		var arm := 14.0
+		var color := Color(accent.r, accent.g, accent.b, 0.62)
+		draw_line(center - Vector2(arm, 0), center + Vector2(arm, 0), color, 2.0)
+		draw_line(center - Vector2(0, arm), center + Vector2(0, arm), color, 2.0)
 
 func _draw_legal(owner: int, lane: int, tab_rect: Rect2, front_rect: Rect2) -> void:
 	var back_key := "%d|backrow|%d" % [owner, lane]
 	var front_key := "%d|monster|%d" % [owner, lane]
-	var strong := board_token == "A"
-	var width := 2.0 if strong else 1.0
 	if bool(legal_zones.get(back_key, false)):
-		Chrome.draw_corner_brackets(self, tab_rect.grow(4.0), Tokens.AMBER, 10.0 if strong else 9.0, width)
+		Chrome.draw_corner_brackets(self, tab_rect.grow(4.0), Tokens.AMBER, 10.0, 2.0)
 		draw_rect(tab_rect.grow(2.0), Color(Tokens.AMBER.r, Tokens.AMBER.g, Tokens.AMBER.b, 0.06))
 	if bool(legal_zones.get(front_key, false)):
-		Chrome.draw_corner_brackets(self, front_rect.grow(4.0), Tokens.AMBER, 10.0 if strong else 9.0, width)
+		Chrome.draw_corner_brackets(self, front_rect.grow(4.0), Tokens.AMBER, 10.0, 2.0)
 		draw_rect(front_rect.grow(2.0), Color(Tokens.AMBER.r, Tokens.AMBER.g, Tokens.AMBER.b, 0.06))
 
 func _draw_board_seam() -> void:
@@ -295,23 +397,10 @@ func _draw_board_seam() -> void:
 	]), Color(Tokens.CYAN.r, Tokens.CYAN.g, Tokens.CYAN.b, 0.55))
 
 func _draw_hand() -> void:
-	# The deck is the same card back token as the hand, not a separate doodle.
-	if not Content.card_list.is_empty():
-		var back_def: CardDef = Content.card_list[0]
-		draw_set_transform(deck_rect.position, 0.0, Vector2.ONE)
-		CardComposer.draw(self, back_def, null, board_token, {"face_down": true})
-		draw_set_transform(Vector2.ZERO, 0.0, Vector2.ONE)
-	else:
-		Chrome.draw_cut_rect(self, deck_rect, 4.0, Tokens.CARD_FACE_DEEP)
-		Chrome.draw_cut_outline(self, deck_rect, 4.0, Color(Tokens.CYAN.r, Tokens.CYAN.g, Tokens.CYAN.b, 0.30), 1.0)
-	for i in range(2):
-		var offset := Vector2(float(2 - i) * 2.0, float(2 - i) * 2.0)
-		Chrome.draw_cut_outline(self, Rect2(deck_rect.position + offset, deck_rect.size), 4.0, Color(Tokens.CYAN.r, Tokens.CYAN.g, Tokens.CYAN.b, 0.12), 1.0)
-	var count_text := str(duel.players[0].deck.size())
-	var count_width := Tokens.font_data().get_string_size(count_text, HORIZONTAL_ALIGNMENT_LEFT, -1, 14).x
-	var count_rect := Rect2(deck_rect.end.x - count_width - 7.0, deck_rect.end.y - 20.0, count_width + 5.0, 17.0)
-	Chrome.draw_cut_rect(self, count_rect, 2.0, Color(Tokens.BG_VOID.r, Tokens.BG_VOID.g, Tokens.BG_VOID.b, 0.82))
-	draw_string(Tokens.font_data(), Vector2(count_rect.position.x + 2.0, count_rect.end.y - 4.0), count_text, HORIZONTAL_ALIGNMENT_LEFT, -1, 14, Tokens.INK_SECONDARY)
+	if Content.card_list.is_empty():
+		var shelf_rect := Rect2(deck_rect.position, Vector2(card_w, hand_shelf_h))
+		Chrome.draw_cut_rect(self, shelf_rect, 4.0, Tokens.CARD_FACE_DEEP)
+		Chrome.draw_cut_outline(self, shelf_rect, 4.0, Color(Tokens.CYAN.r, Tokens.CYAN.g, Tokens.CYAN.b, 0.30), 1.0)
 	if duel.players[0].hand.is_empty():
 		var text := "NO CARDS IN HAND"
 		var width := Tokens.font_data().get_string_size(text, HORIZONTAL_ALIGNMENT_LEFT, -1, 12).x

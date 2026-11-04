@@ -9,10 +9,16 @@ extends Control
 
 var app: Control
 var failures: Array[String] = []
+var requested_size := Vector2i.ZERO
 
 func _ready() -> void:
 	theme = ThemeBuilder.build()
 	set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	for arg in OS.get_cmdline_user_args():
+		if arg.begins_with("--size="):
+			var parts := arg.get_slice("=", 1).split("x")
+			if parts.size() == 2:
+				requested_size = Vector2i(int(parts[0]), int(parts[1]))
 	app = load("res://src/presentation/app.gd").new()
 	app.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	add_child(app)
@@ -78,6 +84,16 @@ func _check_table() -> void:
 	Session.start_descent(1, Session.active_deck_id, "manual")
 	app.show_screen("table")
 	await get_tree().create_timer(0.8).timeout
+	# The table is native-pixel and fills its window. Other rooms use the 1440
+	# design canvas, so only the table is audited at each requested size.
+	if requested_size.x > 0 and requested_size.y > 0:
+		DisplayServer.window_set_size(requested_size)
+		await get_tree().create_timer(0.35).timeout
+	# Freeze the duel before auditing so a card caught mid-tween is not reported
+	# as a layout failure; the audit is about rest geometry, not animation paths.
+	app.current_screen.paused = true
+	app.current_screen.timer.stop()
+	await get_tree().create_timer(0.5).timeout
 	_audit("table", app.current_screen)
 
 func _audit(screen_name: String, screen: Control) -> void:
@@ -94,7 +110,7 @@ func _audit(screen_name: String, screen: Control) -> void:
 		failures.append("%s: root %s outside %s" % [screen_name, str(root_rect), str(viewport)])
 	_audit_children(root, viewport, screen_name)
 
-func _audit_children(node: Node, viewport: Vector2, screen_name: String) -> void:
+func _audit_children(node: Node, viewport: Vector2, screen_name: String, clipped: bool = false) -> void:
 	if node is ScrollContainer:
 		var scroll := node as ScrollContainer
 		if scroll.is_visible_in_tree() and not _inside(scroll.get_global_rect(), viewport):
@@ -102,14 +118,16 @@ func _audit_children(node: Node, viewport: Vector2, screen_name: String) -> void
 		if scroll.horizontal_scroll_mode == ScrollContainer.SCROLL_MODE_DISABLED:
 			_audit_scroll_width(scroll, scroll.get_global_rect(), screen_name)
 		return
+	var next_clipped := clipped
 	if node is Control:
 		var control := node as Control
-		if control.is_visible_in_tree():
+		if not clipped and control.is_visible_in_tree():
 			var rect := control.get_global_rect()
 			if not _inside(rect, viewport):
 				failures.append("%s: %s %s outside %s" % [screen_name, control.get_path(), str(rect), str(viewport)])
+		next_clipped = clipped or control.clip_contents
 	for child in node.get_children():
-		_audit_children(child, viewport, screen_name)
+		_audit_children(child, viewport, screen_name, next_clipped)
 
 func _audit_scroll_width(node: Node, bounds: Rect2, screen_name: String) -> void:
 	for child in node.get_children():

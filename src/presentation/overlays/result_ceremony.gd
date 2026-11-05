@@ -34,13 +34,10 @@ func setup(table_ref: Node, result_ref: Dictionary) -> void:
 	dim.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	dim.mouse_filter = Control.MOUSE_FILTER_STOP
 	add_child(dim)
-	var center := CenterContainer.new()
-	center.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
-	center.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	add_child(center)
+	var fit := FitPanel.new()
+	add_child(fit)
 	panel = UI.panel(Tokens.BG_PANEL, Tokens.WAX if str(result.get("kind", "")) == "fall" else Tokens.BRASS, 18)
-	panel.custom_minimum_size = Vector2(760, 0)
-	center.add_child(panel)
+	fit.setup(panel, Vector2(760, 0), 16.0)
 	var box := UI.vbox(8)
 	panel.add_child(box)
 	var win := str(result.get("kind", "")) == "win"

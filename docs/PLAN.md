@@ -16,6 +16,7 @@ from V2; the visual contract is Neon Reliquary; this document decides the order.
 | Face-sealed rule | **Enforced in `DuelRules`**; tests cover sealed/open faces and AI |
 | Table presentation | **X2 Spring Shelf landed** — fluid 150% table, B1/B3 backrow; QA evidence at 1280–2560 and 960/1000 |
 | Scale / corner contract | **Resolved: full-window 150% chrome; B1 ≥1280, B3 below; min 960×720; no forced square** |
+| Viewport / fullscreen fit | **Phase 1 landed** — WindowMode, ViewportFrame, FitPanel, fullscreen/modal audit; Phase 2 table safe rect pending |
 | Folio ceremony | Not started; review lab approved |
 
 The labs are approved design references. They are not shipping code and are not
@@ -25,8 +26,10 @@ imported by Godot. The code-level migration route is
 ## Current evidence — 2026-11-04
 
 - **Domain suite:** 412 passed, 0 failed.
-- **Layout audit:** 0 failures at 1280×720, 1440×900, 1800×1125,
-  1920×1080, 1280×1024, 2560×1440, 1000×1000, 960×960, and 960×720.
+- **Layout audit:** 0 failures at 15 windowed sizes plus fullscreen: 1280×720,
+  1440×900, 1800×1125, 1920×1080, 1280×1024, 2560×1440, 1000×1000, 960×960,
+  960×720, 1024×768, 1366×768, 1920×1200, 2560×1080, 3440×1440, and
+  2560×1600 fullscreen (with modal pass).
 - **Seeded 100 duels (Ember starter vs the Damp Warden, skill 55):**
   - before the face-sealed rule: **72 wins / 17 losses / 11 draws**, avg 10.4 turns;
   - after the face-sealed rule: **49 wins / 15 losses / 36 draws**, avg 15.8 turns.
@@ -52,6 +55,11 @@ imported by Godot. The code-level migration route is
   docked cockpit at 1280–3440; the hybrid recommendation was C in landscape, B in
   square. The live table now uses the fluid full-window budget; the old fixed
   190/1000 note in that lab is historical.
+- **Viewport / fullscreen:** `WindowMode` saves and restores the exact
+  windowed rect; `ViewportFrame` owns the safe rect/DPR; the shell uses a
+  contained 1440×900 canvas; the Table stays native. Drawer, pile, zoom,
+  confirm, result, and help surfaces use `FitPanel`. Fullscreen and window
+  restore are covered by the visual QA scenarios.
 - **Shell/room screenshots:** library, gate, deck, bench, folio at 1440×900.
 
 ## Working log
@@ -77,6 +85,8 @@ imported by Godot. The code-level migration route is
 | 2026-11-04 | Step 16 — S3 larger lab | Six personas; S3 209 baseline; X1 wall chrome 245; X2 spring shelf 283; X3 open table 247/354/450; X4 hand index + lens 292; 960–3440 matrix; team pick X2; `review/s3-larger.html` | Pick S3 larger layout and port |
 | 2026-11-04 | Step 17 — X2 backrow lab | Set vs face-up rule; B1 front row 283/399; B2 effect tabs; B3 ribbon 270/244; B4 rail 292; 960–3440 matrix; team pick B1 1920+, B4 1440, B3 square; `review/x2-backrow.html` | Pick backrow mode and port |
 | 2026-11-04 | Step 18 — X2 port | Spring Shelf 30% hand; B1 full face-up backrow ≥1280; B3 full-effect ribbon below; face-down sets stay secret; dynamic 5:7 card 152–399; 150% chrome; fluid min 960×720; stable hover/focus/click pin; 412/0; layout audit 9/9; size screenshots | Manual/Auto QA and reduced-motion pass |
+| 2026-11-04 | Step 19 — viewport fit spec | Fullscreen/windowed fit contract; WindowMode + ViewportFrame; safe rects; FitPanel overlays; Table B1/B3 clamp; 800×600–5120×1440 / windowed-fullscreen / DPR matrix; `docs/RESPONSIVE_VIEWPORT_SPEC.md` | Phase 1: stop fullscreen resets, add safe rect + FitPanel + audit |
+| 2026-11-05 | Step 20 — viewport fit Phase 1 | `WindowMode` fullscreen save/restore; `ViewportFrame` safe rect/DPR; shell `KEEP` canvas; `FitPanel` for drawer/pile/zoom/confirm/result/help; fullscreen + modal audit; 15 windowed sizes + fullscreen 0 failures; 412/0; exact window restore verified | Phase 2: table safe-rect clamp and below-min fit-scale |
 
 ## Locked decisions
 
@@ -122,6 +132,12 @@ These are not reopened without a written reason.
     it. The deck uses the same strip and carries its count. Chrome is 48px
     targets, 12–14px labels, 82px score, 64px dock; the minimum window is
     960×720; all three lanes stay visible; the window keeps its position.
+
+14. **Fullscreen is a window mode, not a layout.** `WindowMode` owns entry/exit
+    and exact restore. `ViewportFrame` owns the safe rect and DPR. No screen may
+    call `window_set_size` in fullscreen; every overlay uses `FitPanel`. The
+    shell is contained; the table is native and will get its safe-rect clamp in
+    Phase 2.
 
 ## Target architecture
 

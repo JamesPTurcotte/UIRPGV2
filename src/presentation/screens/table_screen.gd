@@ -97,6 +97,7 @@ func build() -> void:
 	drawer.visible = false
 	drawer.z_index = 80
 	add_child(drawer)
+	resized.connect(_layout_drawer)
 
 	timer = Timer.new()
 	timer.wait_time = 0.55 / float(speed)
@@ -110,6 +111,7 @@ func build() -> void:
 	call_deferred("_refresh_board")
 	call_deferred("_layout_dock")
 	call_deferred("_layout_menu_button")
+	call_deferred("_layout_drawer")
 	if duel.ended:
 		_on_duel_end()
 
@@ -194,10 +196,13 @@ func _build_drawer() -> PanelContainer:
 	var btn_h := 48.0 if access_scale >= 150 else 44.0
 	var body_size := 13 if access_scale >= 150 else 11
 	var panel := UI.panel(Tokens.BG_VOID, Color(Tokens.CYAN.r, Tokens.CYAN.g, Tokens.CYAN.b, 0.40), 4)
-	panel.custom_minimum_size = Vector2(420, 0)
+	panel.custom_minimum_size = Vector2(0, 0)
+	var scroll := UI.scroll()
+	panel.add_child(scroll)
 	var box := UI.vbox(8)
 	box.add_theme_constant_override("separation", 8)
-	panel.add_child(box)
+	box.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	scroll.add_child(box)
 
 	var head := HBoxContainer.new()
 	head.add_theme_constant_override("separation", 8)
@@ -392,6 +397,18 @@ func _layout_menu_button() -> void:
 	var hud_size := 48.0 if access_scale >= 150 else 44.0
 	menu_button.position = Vector2(stage.board_rect.end.x - hud_size - 4.0, 8.0)
 	menu_button.size = Vector2(hud_size, hud_size)
+
+func _layout_drawer() -> void:
+	if drawer == null or not is_instance_valid(drawer):
+		return
+	var safe_width := get_viewport_rect().size.x
+	if app != null and app.viewport_frame != null:
+		safe_width = app.viewport_frame.safe_rect.size.x
+	var width := minf(420.0, maxf(0.0, safe_width - 24.0))
+	drawer.offset_left = -width
+	drawer.offset_right = 0
+	drawer.offset_top = 0
+	drawer.offset_bottom = 0
 
 func _toggle_drawer() -> void:
 	if drawer == null or not is_instance_valid(drawer):
@@ -1613,12 +1630,10 @@ func _show_pile(title: String, cards: Array, hidden: bool) -> void:
 			pile_overlay.queue_free()
 			pile_overlay = null
 	)
-	var center := CenterContainer.new()
-	center.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
-	pile_overlay.add_child(center)
+	var fit := FitPanel.new()
+	pile_overlay.add_child(fit)
 	var panel := UI.panel(Tokens.BG_PANEL, Tokens.BRASS, 16)
-	panel.custom_minimum_size = Vector2(860, 600)
-	center.add_child(panel)
+	fit.setup(panel, Vector2(860, 600), 16.0)
 	var box := UI.vbox(6)
 	panel.add_child(box)
 	var head := HBoxContainer.new()

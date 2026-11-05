@@ -10,6 +10,7 @@ extends Control
 var app: Control
 var failures: Array[String] = []
 var requested_size := Vector2i.ZERO
+var requested_fullscreen := false
 
 func _ready() -> void:
 	theme = ThemeBuilder.build()
@@ -19,10 +20,15 @@ func _ready() -> void:
 			var parts := arg.get_slice("=", 1).split("x")
 			if parts.size() == 2:
 				requested_size = Vector2i(int(parts[0]), int(parts[1]))
+		elif arg == "--fullscreen":
+			requested_fullscreen = true
 	app = load("res://src/presentation/app.gd").new()
 	app.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	add_child(app)
 	await get_tree().create_timer(0.7).timeout
+	if requested_fullscreen:
+		app.set_fullscreen(true)
+		await get_tree().create_timer(0.8).timeout
 	await _check_plain("library")
 	await _check_plain("gate")
 	await _check_plain("deck")
@@ -30,6 +36,7 @@ func _ready() -> void:
 	await _check_plain("folio")
 	await _check_salvage()
 	await _check_table()
+	await _check_modals()
 	print("layout audit: %d failure(s) at %s" % [failures.size(), str(get_viewport_rect().size)])
 	for failure in failures:
 		print("  FAIL: %s" % failure)
@@ -86,7 +93,7 @@ func _check_table() -> void:
 	await get_tree().create_timer(0.8).timeout
 	# The table is native-pixel and fills its window. Other rooms use the 1440
 	# design canvas, so only the table is audited at each requested size.
-	if requested_size.x > 0 and requested_size.y > 0:
+	if requested_size.x > 0 and requested_size.y > 0 and not app.is_fullscreen():
 		DisplayServer.window_set_size(requested_size)
 		await get_tree().create_timer(0.35).timeout
 	# Freeze the duel before auditing so a card caught mid-tween is not reported
@@ -100,8 +107,11 @@ func _audit(screen_name: String, screen: Control) -> void:
 	if screen == null:
 		failures.append("%s: screen is null" % screen_name)
 		return
-	var viewport := get_viewport_rect().size
 	var root := screen.get_child(0) as Control
+	_audit_node(screen_name, root)
+
+func _audit_node(screen_name: String, root: Control) -> void:
+	var viewport := get_viewport_rect().size
 	if root == null:
 		failures.append("%s: no root control" % screen_name)
 		return
@@ -109,6 +119,30 @@ func _audit(screen_name: String, screen: Control) -> void:
 	if not _inside(root_rect, viewport):
 		failures.append("%s: root %s outside %s" % [screen_name, str(root_rect), str(viewport)])
 	_audit_children(root, viewport, screen_name)
+
+func _check_modals() -> void:
+	if app.current_screen == null or app.current_screen_name != "table":
+		return
+	var table = app.current_screen
+	app.show_zoom(Content.cards.values()[0], null)
+	await get_tree().create_timer(0.35).timeout
+	_audit_node("zoom", app.overlay)
+	app.close_zoom()
+	app.confirm("Audit dialog", "A long confirmation message that must stay inside the viewport.", func() -> void: pass, "Confirm")
+	await get_tree().create_timer(0.35).timeout
+	_audit_node("confirm", app.overlay)
+	if app.confirm_dialog != null:
+		app.confirm_dialog.close()
+	table._show_pile("DECK", table.duel.players[0].deck, true)
+	await get_tree().create_timer(0.35).timeout
+	if table.pile_overlay != null:
+		_audit_node("pile", table.pile_overlay)
+		table.pile_overlay.queue_free()
+		table.pile_overlay = null
+	app._toggle_help()
+	await get_tree().create_timer(0.35).timeout
+	_audit_node("help", app.overlay)
+	app._toggle_help()
 
 func _audit_children(node: Node, viewport: Vector2, screen_name: String, clipped: bool = false) -> void:
 	if node is ScrollContainer:

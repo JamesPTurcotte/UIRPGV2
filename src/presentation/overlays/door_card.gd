@@ -62,6 +62,9 @@ func _build() -> void:
 	var detail := UI.label(detail_text, 10, Tokens.INK_SECONDARY)
 	detail.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	detail.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	# Give the wrap a real column width; otherwise its minimum height is one
+	# word per line and a FitPanel overestimates the modal.
+	detail.custom_minimum_size = Vector2(150, 0)
 	box.add_child(detail)
 
 func _apply_style() -> void:

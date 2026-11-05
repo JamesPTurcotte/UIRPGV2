@@ -11,6 +11,7 @@ still owned by V2; V3 is where the new presentation is built.
 | [`BUILD_STRATEGY.md`](BUILD_STRATEGY.md) | The code-level migration route: strangler port, token compatibility, shell, shared components, room order. |
 | [`PLAN.md`](PLAN.md) | The current state, the locked decisions, the phase order, and the acceptance gates. |
 | [`STYLE_NEON_RELIQUARY.md`](STYLE_NEON_RELIQUARY.md) | The complete visual, motion, FX, and sound recipe for the chosen Neon Reliquary direction. |
+| [`RESPONSIVE_VIEWPORT_SPEC.md`](RESPONSIVE_VIEWPORT_SPEC.md) | The fit contract for windowed/fullscreen layouts, safe rects, DPI, overlays, and the resolution matrix. |
 
 ## Current status
 
@@ -35,10 +36,16 @@ still owned by V2; V3 is where the new presentation is built.
   [`../review/accessible.html`](../review/accessible.html). The review labs use
   actual `CardComposer` renders from `review/assets/cards/`, not a CSS card
   imitation; regenerate with `tools/export_review_cards.tscn`.
+- **Viewport / fullscreen fit:** **Phase 1 is landed** — `WindowMode` exact
+  save/restore, `ViewportFrame` safe rect/DPR, contained shell canvas, and
+  `FitPanel` for the drawer, pile, zoom, confirm, result, and help surfaces.
+  Phase 2 is the Table's internal safe-rect clamp.
+  Reference: [`RESPONSIVE_VIEWPORT_SPEC.md`](RESPONSIVE_VIEWPORT_SPEC.md).
 - **Current gate:** X2 manual/Auto QA (including 1280/1440/1920/2560 and
-  1000/960) and reduced motion in [`PLAN.md`](PLAN.md), then port the Folio
-  ceremony.
-- **Evidence:** 412 tests pass; layout audit passes at nine sizes; the X2 table
+  1000/960), viewport Phase 2, and reduced motion in [`PLAN.md`](PLAN.md), then
+  port the Folio ceremony.
+- **Evidence:** 412 tests pass; layout audit passes at 15 windowed sizes plus
+  fullscreen, including the modal pass; the X2 table
   renders B1/B3 with a 30% shelf and public face-up backrow at 1280–2560 and
   1000/960; the face-sealed rule is enforced and the seeded-duel shift is
   recorded.

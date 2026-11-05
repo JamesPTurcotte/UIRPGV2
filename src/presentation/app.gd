@@ -25,12 +25,23 @@ var confirm_dialog: ConfirmDialog
 var context_menu: ContextMenu
 var _help_overlay: Control
 var _shell_window_position := Vector2i.ZERO
+var _shell_window_size := Vector2i.ZERO
+var _shell_window_min_size := Vector2i.ZERO
 var _shell_window_saved := false
+var viewport_frame: ViewportFrame
+var window_mode: WindowMode
+var _viewport_debug: Control
+var _viewport_debug_label: Label
+var _metrics_refresh_queued := false
 
 func _ready() -> void:
 	theme = ThemeBuilder.build()
 	set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
-	get_window().min_size = Vector2i(1280, 720)
+	window_mode = WindowMode.new()
+	viewport_frame = ViewportFrame.new()
+	viewport_frame.refresh(self)
+	if not is_fullscreen():
+		get_window().min_size = Vector2i(1280, 720)
 	_set_runtime_icon()
 	backdrop = Backdrop.new()
 	add_child(backdrop)
@@ -60,6 +71,7 @@ func _ready() -> void:
 
 	Session.toast.connect(_on_toast)
 	get_viewport().size_changed.connect(_on_viewport_size_changed)
+	get_window().dpi_changed.connect(_on_viewport_size_changed)
 	if not Session.loaded:
 		_fatal("Content failed to load. Run tools/build_content.py and relaunch.")
 		return
@@ -102,8 +114,11 @@ func show_screen(screen_name: String, payload_data: Dictionary = {}) -> void:
 	close_context_menu()
 	_apply_screen_scale(screen_name)
 	var is_table := screen_name == "table"
-	if is_table and not _shell_window_saved:
+	if is_table and not _shell_window_saved and not is_fullscreen():
+		viewport_frame.refresh(self)
 		_shell_window_position = DisplayServer.window_get_position()
+		_shell_window_size = viewport_frame.window_size
+		_shell_window_min_size = Vector2i(1280, 720)
 		_shell_window_saved = true
 	if top_nav != null:
 		top_nav.visible = not is_table
@@ -111,11 +126,8 @@ func show_screen(screen_name: String, payload_data: Dictionary = {}) -> void:
 		host.offset_top = 0 if is_table else 52
 	if not is_table:
 		get_window().set_flag(Window.FLAG_ALWAYS_ON_TOP, false)
-		get_window().min_size = Vector2i(1280, 720)
-		DisplayServer.window_set_size(Vector2i(1440, 900))
-		if _shell_window_saved:
-			DisplayServer.window_set_position(_shell_window_position)
-			_shell_window_saved = false
+		if not is_fullscreen():
+			get_window().min_size = Vector2i(1280, 720)
 	var path: String = SCREEN_PATHS.get(screen_name, "")
 	if path.is_empty():
 		return
@@ -138,12 +150,65 @@ func show_screen(screen_name: String, payload_data: Dictionary = {}) -> void:
 		var tween := create_tween()
 		tween.tween_property(current_screen, "modulate:a", 1.0, 0.22)
 	current_screen_name = screen_name
+	if not is_table and not is_fullscreen():
+		_restore_shell_window_if_needed()
 	backdrop.screen_kind = _backdrop_kind(screen_name)
 	backdrop.queue_redraw()
 	if top_nav != null:
 		top_nav.set_active(_door_for_screen(screen_name))
 		top_nav.update_resources()
 	_flash_transition()
+	call_deferred("_refresh_viewport_frame")
+
+func _refresh_viewport_frame() -> void:
+	if viewport_frame == null:
+		return
+	viewport_frame.refresh(self)
+	update_viewport_debug()
+
+func _queue_metrics_refresh() -> void:
+	if _metrics_refresh_queued:
+		return
+	_metrics_refresh_queued = true
+	call_deferred("_flush_metrics_refresh")
+
+func _flush_metrics_refresh() -> void:
+	_metrics_refresh_queued = false
+	_refresh_viewport_frame()
+
+func is_fullscreen() -> bool:
+	var mode := DisplayServer.window_get_mode()
+	return mode == DisplayServer.WINDOW_MODE_FULLSCREEN or mode == DisplayServer.WINDOW_MODE_EXCLUSIVE_FULLSCREEN
+
+func set_fullscreen(value: bool) -> void:
+	var window := get_window()
+	if window == null:
+		return
+	if value:
+		if not window_mode.enter(window):
+			_refresh_viewport_frame()
+			return
+	else:
+		if not window_mode.exit(window):
+			_refresh_viewport_frame()
+			return
+	_apply_screen_scale(current_screen_name)
+	if not value and current_screen_name != "table":
+		_restore_shell_window_if_needed()
+	call_deferred("_refresh_viewport_frame")
+
+func toggle_fullscreen() -> void:
+	set_fullscreen(not is_fullscreen())
+
+func _restore_shell_window_if_needed() -> void:
+	if not _shell_window_saved or is_fullscreen() or current_screen_name == "table":
+		return
+	var window := get_window()
+	window.min_size = Vector2i(1280, 720)
+	if _shell_window_size.x > 0 and _shell_window_size.y > 0:
+		DisplayServer.window_set_size(_shell_window_size)
+		DisplayServer.window_set_position(_shell_window_position)
+	_shell_window_saved = false
 
 func _apply_screen_scale(screen_name: String) -> void:
 	# Rooms use the 1440×900 design canvas. The table switches to native pixels
@@ -154,9 +219,11 @@ func _apply_screen_scale(screen_name: String) -> void:
 	if screen_name == "table":
 		window.content_scale_mode = Window.CONTENT_SCALE_MODE_DISABLED
 	else:
+		# The shell is a 1440×900 design canvas. Contain it so fullscreen and
+		# unusual aspect ratios never crop or push a rail past the screen.
 		window.content_scale_mode = Window.CONTENT_SCALE_MODE_CANVAS_ITEMS
 		window.content_scale_size = Vector2i(1440, 900)
-		window.content_scale_aspect = Window.CONTENT_SCALE_ASPECT_EXPAND
+		window.content_scale_aspect = Window.CONTENT_SCALE_ASPECT_KEEP
 
 func _flash_transition() -> void:
 	if bool(Session.settings.get("reduced_motion", false)):
@@ -272,6 +339,7 @@ func close_context_menu(restore_focus: bool = true) -> void:
 
 func _on_viewport_size_changed() -> void:
 	close_context_menu(false)
+	_queue_metrics_refresh()
 
 func toast(message: String, kind: String = "info") -> void:
 	if toast_layer == null:
@@ -289,9 +357,9 @@ func toast(message: String, kind: String = "info") -> void:
 	toast_layer.add_child(panel)
 	panel.modulate.a = 0.0
 	panel.position = Vector2(0, 0)
-	var viewport := get_viewport_rect().size
+	var safe: Rect2 = viewport_frame.safe_rect if viewport_frame != null else Rect2(Vector2.ZERO, get_viewport_rect().size)
 	panel.reset_size()
-	panel.position = Vector2((viewport.x - panel.size.x) * 0.5, 74)
+	panel.position = Vector2(safe.position.x + (safe.size.x - panel.size.x) * 0.5, safe.position.y + 74.0)
 	var tween := create_tween()
 	tween.tween_property(panel, "modulate:a", 1.0, 0.12)
 	tween.tween_interval(2.2)
@@ -318,6 +386,12 @@ func _unhandled_key_input(event: InputEvent) -> void:
 			_help_overlay.queue_free()
 			_help_overlay = null
 			get_viewport().set_input_as_handled()
+		elif key.keycode == KEY_F11:
+			toggle_fullscreen()
+			get_viewport().set_input_as_handled()
+		elif key.keycode == KEY_F10 and OS.is_debug_build():
+			_toggle_viewport_debug()
+			get_viewport().set_input_as_handled()
 		elif key.keycode == KEY_Q and not key.ctrl_pressed:
 			confirm("Leave the Library?", "Your collection is saved. Quit UIRPG?", func() -> void:
 				Session.save_now()
@@ -341,6 +415,44 @@ func _export_screen_text() -> void:
 	DisplayServer.clipboard_set(text)
 	toast("Screen exported to clipboard.", "good")
 
+func _toggle_viewport_debug() -> void:
+	if _viewport_debug != null and is_instance_valid(_viewport_debug):
+		_viewport_debug.queue_free()
+		_viewport_debug = null
+		_viewport_debug_label = null
+		return
+	_viewport_debug = UI.panel(Tokens.BG_VOID, Tokens.CYAN, 10)
+	_viewport_debug.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	_viewport_debug.z_index = 900
+	_viewport_debug.position = Vector2(12, 12)
+	overlay.add_child(_viewport_debug)
+	_viewport_debug_label = UI.data_label("", 12, Tokens.INK_PRIMARY)
+	_viewport_debug_label.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	_viewport_debug.add_child(_viewport_debug_label)
+	update_viewport_debug()
+
+func update_viewport_debug() -> void:
+	if _viewport_debug_label == null or viewport_frame == null:
+		return
+	var mode := "FULLSCREEN" if is_fullscreen() else "WINDOWED"
+	var safe: Rect2 = viewport_frame.safe_rect
+	var lines := [
+		"MODE      %s" % mode,
+		"WINDOW    %s" % str(viewport_frame.window_size),
+		"VIEWPORT  %s" % str(viewport_frame.viewport_size),
+		"SAFE      %s" % str(safe),
+		"DPR       %.2f" % viewport_frame.dpr,
+		"SCREEN    %s" % current_screen_name.to_upper(),
+	]
+	if current_screen_name == "table" and current_screen != null:
+		var stage = current_screen.get("stage")
+		if stage != null:
+			lines.append("TABLE     %s · card %.0f · shelf %.1f" % [str(stage.board_mode), float(stage.card_w), float(stage.hand_shelf_h)])
+	_viewport_debug_label.text = "\n".join(lines)
+	var minimum := _viewport_debug_label.get_combined_minimum_size()
+	_viewport_debug.size = minimum + Vector2(20, 20)
+	_viewport_debug_label.position = Vector2(10, 10)
+
 func _toggle_help() -> void:
 	close_context_menu()
 	if _help_overlay != null and is_instance_valid(_help_overlay):
@@ -355,12 +467,10 @@ func _toggle_help() -> void:
 	dim.color = Color(0, 0, 0, 0.6)
 	dim.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	_help_overlay.add_child(dim)
-	var center := CenterContainer.new()
-	center.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
-	_help_overlay.add_child(center)
+	var fit := FitPanel.new()
+	_help_overlay.add_child(fit)
 	var panel := UI.panel(Tokens.BG_PANEL, Tokens.BRASS, 24)
-	panel.custom_minimum_size = Vector2(720, 520)
-	center.add_child(panel)
+	fit.setup(panel, Vector2(720, 520), 16.0)
 	var box := UI.vbox(8)
 	panel.add_child(box)
 	box.add_child(UI.display("KEYS", 26))

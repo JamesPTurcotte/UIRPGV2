@@ -16,13 +16,11 @@ func open(title: String, message: String, confirm_text: String, on_yes: Callable
 	dim.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	dim.mouse_filter = Control.MOUSE_FILTER_STOP
 	add_child(dim)
-	var center := CenterContainer.new()
-	center.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
-	add_child(center)
+	var fit := FitPanel.new()
+	add_child(fit)
 	_panel = PanelContainer.new()
 	_panel.add_theme_stylebox_override("panel", Tokens.panel_style(Tokens.PAPER, Tokens.WAX, 2, 6))
-	_panel.custom_minimum_size = Vector2(520, 220)
-	center.add_child(_panel)
+	fit.setup(_panel, Vector2(520, 220), 16.0)
 	var margin := MarginContainer.new()
 	for side in ["left", "right"]:
 		margin.add_theme_constant_override("margin_" + side, 26)

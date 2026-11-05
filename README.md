@@ -10,7 +10,7 @@ game rules and content.
 ```bash
 godot --path .                 # play
 tools/run_tests.sh            # 412 tests
-tools/run_layout_audit.sh     # nine reference sizes, 960 → 2560
+tools/run_layout_audit.sh     # 15 windowed sizes + fullscreen
 ```
 
 The Table is reachable from **Play**. Library, Decks, and Packs are being ported
@@ -54,6 +54,8 @@ folio sounds. The pack page has its own rating/notes/copy-feedback panel.
 - [`docs/STYLE_NEON_RELIQUARY.md`](docs/STYLE_NEON_RELIQUARY.md) — the complete
   Neon Reliquary palette, type, materials, layout, motion, FX, sound, reuse, and
   Godot mapping.
+- [`docs/RESPONSIVE_VIEWPORT_SPEC.md`](docs/RESPONSIVE_VIEWPORT_SPEC.md) — the
+  fullscreen/windowed fit contract, safe rects, breakpoints, and test matrix.
 - [`review/PACK_RITUAL.md`](review/PACK_RITUAL.md) — the folio ceremony's state
   machine and timings.
 
@@ -78,11 +80,15 @@ folio sounds. The pack page has its own rating/notes/copy-feedback panel.
     keeps its current position. There is no forced 1000/960 square. The top nav
     hides; the drawer carries the four doors (Play / Library / Decks / Packs),
     log, inspect, actions, piles, and PIN. The table starts pinned; leaving it
-    restores the 1440×900 shell.
+    restores the windowed shell rect.
+  - **Fullscreen:** **F11** enters/exits fullscreen with exact window restore.
+    The shell is contained in its 1440×900 canvas; the drawer, pile, zoom,
+    confirm, result, and help surfaces fit with `FitPanel`. **F10** opens the
+    dev viewport/safe-rect readout.
 - **Rules:** the face is sealed while any enemy monster remains in a monster
   zone; this is enforced in `DuelRules`, not faked by the UI.
-- **Tests:** 412 passed, 0 failed. Layout audit passes at **nine sizes**
-  (1280×720 through 2560×1440, plus 1000×1000, 960×960, and 960×720).
+- **Tests:** 412 passed, 0 failed. Layout audit passes at **15 windowed sizes
+  plus fullscreen**, including the modal pass (960×720 through 3440×1440).
 - **Seeded duels:** the seal shifts the Ember-vs-Damp-Warden matchup from
   72/17/11 (avg 10.4 turns) to 49/15/36 (avg 15.8 turns). That change is
   recorded in `docs/PLAN.md`; no balance rewrite has been made yet.

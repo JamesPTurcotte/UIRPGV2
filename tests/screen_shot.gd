@@ -26,7 +26,8 @@ func _ready() -> void:
 				requested_size = Vector2i(int(parts[0]), int(parts[1]))
 	if requested_size.x > 0 and requested_size.y > 0:
 		get_window().min_size = Vector2i(1, 1)
-		DisplayServer.window_set_size(requested_size)
+		if DisplayServer.window_get_mode() != DisplayServer.WINDOW_MODE_FULLSCREEN and DisplayServer.window_get_mode() != DisplayServer.WINDOW_MODE_EXCLUSIVE_FULLSCREEN:
+			DisplayServer.window_set_size(requested_size)
 		await get_tree().create_timer(0.25).timeout
 	match screen:
 		"gate":
@@ -309,6 +310,83 @@ func _ready() -> void:
 						actor.view.release_focus()
 						await get_tree().create_timer(0.15).timeout
 						print("x2 blur focused=%s clip=%s actor_clip=%s hf=%s hh=%s sel=%s" % [str(actor.view.has_focus()), str(actor.card_clip.size), str(actor.clip_contents), str(actor._hand_focused), str(actor._hand_hovered), str(actor.selected)])
+		"shell_metrics":
+			app.show_screen("library")
+			await get_tree().create_timer(0.6).timeout
+			var window := get_window()
+			var current = app.current_screen
+			print("shell metrics window=%s viewport=%s content=%s aspect=%s root=%s" % [str(DisplayServer.window_get_size()), str(get_viewport_rect().size), str(window.content_scale_size), str(window.content_scale_aspect), str(current.size)])
+		"table_window_restore":
+			get_window().min_size = Vector2i(1, 1)
+			DisplayServer.window_set_size(Vector2i(1600, 900))
+			await get_tree().create_timer(0.25).timeout
+			app.show_screen("library")
+			await get_tree().create_timer(0.4).timeout
+			var before := DisplayServer.window_get_size()
+			_fresh_descent("manual")
+			app.show_screen("table")
+			await get_tree().create_timer(0.7).timeout
+			var table_size := DisplayServer.window_get_size()
+			app.show_screen("library")
+			await get_tree().create_timer(0.7).timeout
+			var after := DisplayServer.window_get_size()
+			print("window restore before=%s table=%s after=%s" % [str(before), str(table_size), str(after)])
+		"fullscreen_toggle":
+			_fresh_descent("manual")
+			app.show_screen("table")
+			await get_tree().create_timer(0.8).timeout
+			var before := {
+				"mode": DisplayServer.window_get_mode(),
+				"size": DisplayServer.window_get_size(),
+				"viewport": get_viewport_rect().size,
+				"safe": app.viewport_frame.safe_rect,
+			}
+			app.set_fullscreen(true)
+			await get_tree().create_timer(0.8).timeout
+			var full := {
+				"mode": DisplayServer.window_get_mode(),
+				"size": DisplayServer.window_get_size(),
+				"viewport": get_viewport_rect().size,
+				"safe": app.viewport_frame.safe_rect,
+			}
+			app.set_fullscreen(false)
+			await get_tree().create_timer(0.8).timeout
+			var after := {
+				"mode": DisplayServer.window_get_mode(),
+				"size": DisplayServer.window_get_size(),
+				"viewport": get_viewport_rect().size,
+				"safe": app.viewport_frame.safe_rect,
+			}
+			print("fullscreen before=%s full=%s after=%s" % [str(before), str(full), str(after)])
+		"table_modals":
+			_fresh_descent("manual")
+			app.show_screen("table")
+			await get_tree().create_timer(0.8).timeout
+			if app.current_screen != null:
+				var c = app.current_screen
+				c.mode = "manual"
+				c.paused = true
+				c.timer.stop()
+				print("modal viewport=%s safe=%s" % [str(get_viewport_rect().size), str(app.viewport_frame.safe_rect)])
+				app.show_zoom(Content.cards["ember.cinder_hound"], null)
+				await get_tree().create_timer(0.35).timeout
+				print("modal zoom panel=%s" % str(app.zoom_overlay.panel.get_global_rect()))
+				app.close_zoom()
+				app.confirm("Test dialog", "A long confirmation message that must stay inside the viewport at every resolution.", func() -> void: pass, "Confirm")
+				await get_tree().create_timer(0.35).timeout
+				print("modal confirm panel=%s" % str(app.confirm_dialog._panel.get_global_rect()))
+				app.confirm_dialog.close()
+				c._show_pile("DECK", c.duel.players[0].deck, true)
+				await get_tree().create_timer(0.35).timeout
+				var pile_fit = c.pile_overlay.get_child(1)
+				print("modal pile panel=%s" % str(pile_fit.get_child(0).get_global_rect()))
+				c.pile_overlay.queue_free()
+				c.pile_overlay = null
+				app._toggle_help()
+				await get_tree().create_timer(0.35).timeout
+				var help_fit = app._help_overlay.get_child(1)
+				print("modal help panel=%s" % str(help_fit.get_child(0).get_global_rect()))
+				app._toggle_help()
 		"table_focus_drawer":
 			_fresh_descent("manual")
 			app.show_screen("table")

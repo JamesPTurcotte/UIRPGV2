@@ -13,6 +13,7 @@ var tab: String = "overview"
 var tab_buttons: Dictionary = {}
 var detail_box: VBoxContainer
 var panel: PanelContainer
+var fit_panel: FitPanel
 
 func setup(app_ref: Node) -> void:
 	app = app_ref
@@ -34,14 +35,13 @@ func open(card_def: CardDef, card_instance: CardInstance, card_entry: Dictionary
 		if event is InputEventMouseButton and event.pressed:
 			close()
 	)
-	var center := CenterContainer.new()
-	center.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
-	add_child(center)
+	fit_panel = FitPanel.new()
+	add_child(fit_panel)
 	panel = PanelContainer.new()
 	panel.add_theme_stylebox_override("panel", Tokens.panel_style(Tokens.BG_PANEL, Tokens.BRASS, 1, 8))
 	var viewport := get_viewport_rect().size
-	panel.custom_minimum_size = Vector2(1024, 720) if viewport.y >= 820 else Vector2(920, 660)
-	center.add_child(panel)
+	var design := Vector2(1024, 720) if viewport.y >= 820 else Vector2(920, 660)
+	fit_panel.setup(panel, design, 16.0)
 	var margin := MarginContainer.new()
 	margin.add_theme_constant_override("margin_left", 18)
 	margin.add_theme_constant_override("margin_top", 16)
@@ -114,11 +114,13 @@ func open(card_def: CardDef, card_instance: CardInstance, card_entry: Dictionary
 	actions.add_child(UI.button("Close", close, Tokens.BRASS_LO))
 	_refresh_tabs()
 	_refresh_detail()
+	fit_panel.refresh()
 
 func _set_tab(next_tab: String) -> void:
 	tab = next_tab
 	_refresh_tabs()
 	_refresh_detail()
+	fit_panel.refresh()
 
 func _refresh_tabs() -> void:
 	for key in tab_buttons.keys():
@@ -138,6 +140,8 @@ func _refresh_detail() -> void:
 			_refresh_passport()
 		_:
 			_refresh_overview()
+	if fit_panel != null:
+		fit_panel.refresh()
 
 func _refresh_overview() -> void:
 	var facts := GridContainer.new()

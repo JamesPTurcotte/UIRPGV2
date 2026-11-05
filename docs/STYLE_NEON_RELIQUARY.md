@@ -329,6 +329,10 @@ DRAWER (closed)   Play / Library / Decks / Packs · log · inspect · actions ·
 - `CardComposer` remains the only face. The 52px tab is a layout constant, not a
   card size. A set card is face-down; a face-up card is public. The hand shelf,
   deck strip, and board cards all keep the true 5:7 geometry.
+- `WindowMode` owns fullscreen save/restore; `ViewportFrame` owns the safe rect
+  and DPR; `FitPanel` bounds every modal. The shell is a contained 1440×900
+  canvas and the table is native. **F11** toggles fullscreen; **F10** shows the
+  dev viewport readout.
 - The Auto cue is a foreground `CueStrip` above the hand band, not an overlay on
   the lane headers. It may cross a backrow card for a beat; the caption is
   readable, and the card remains clickable. Damage uses the `plate` FX; the lane

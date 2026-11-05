@@ -18,6 +18,7 @@ var suggestion: Dictionary = {}
 var legal_cache: Array[Dictionary] = []
 var selected_hand_uid: int = -1
 var selected_board_uid: int = -1
+var _drag_actor: CardActor
 var inspected_card: DuelCard
 var rail_tab: String = "log"
 
@@ -57,6 +58,9 @@ var end_sub: Label
 var reset_button: Button
 var drawer: PanelContainer
 var menu_button: Button
+var rail_pinned: bool = false
+var rail_user_collapsed: bool = false
+const RAIL_WIDTH := 288.0
 var pin_button: Button
 var log_box: VBoxContainer
 var log_tab_built: bool = false
@@ -91,13 +95,12 @@ func build() -> void:
 	# The old dashboard rails become a drawer. The board keeps the full square;
 	# the drawer is opened from the single menu button in the score rail.
 	drawer = _build_drawer()
-	drawer.set_anchors_and_offsets_preset(Control.PRESET_RIGHT_WIDE)
-	drawer.offset_left = -420
-	drawer.offset_right = 0
+	drawer.set_anchors_preset(Control.PRESET_TOP_LEFT)
 	drawer.visible = false
 	drawer.z_index = 80
 	add_child(drawer)
 	resized.connect(_layout_drawer)
+	resized.connect(_apply_responsive_rail)
 
 	timer = Timer.new()
 	timer.wait_time = 0.55 / float(speed)
@@ -112,6 +115,7 @@ func build() -> void:
 	call_deferred("_layout_dock")
 	call_deferred("_layout_menu_button")
 	call_deferred("_layout_drawer")
+	call_deferred("_apply_responsive_rail")
 	if duel.ended:
 		_on_duel_end()
 
@@ -160,8 +164,10 @@ func _build_compact_run_strip() -> Control:
 	marks_label = UI.label("0 MARKS", body_size + 1, Tokens.AMBER, Tokens.font_data())
 	box.add_child(marks_label)
 
-	var controls := HBoxContainer.new()
-	controls.add_theme_constant_override("separation", 6)
+	var controls := GridContainer.new()
+	controls.columns = 3
+	controls.add_theme_constant_override("h_separation", 6)
+	controls.add_theme_constant_override("v_separation", 6)
 	for value in [1, 2, 4]:
 		var button := UI.button("%d×" % value, Callable(), Tokens.PANEL_LINE)
 		button.pressed.connect(_set_speed.bind(value))
@@ -213,11 +219,21 @@ func _build_drawer() -> PanelContainer:
 	close.add_theme_font_size_override("font_size", 20)
 	head.add_child(close)
 	box.add_child(head)
+	box.add_child(_build_intent_panel())
+
+	var right := _build_right_rail()
+	right.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	box.add_child(right)
+
+	box.add_child(_build_compact_run_strip())
+	box.add_child(_build_left_rail())
 
 	# The four doors live here while the top nav is hidden on the table.
 	box.add_child(_caps("ROOMS"))
-	var doors := HBoxContainer.new()
-	doors.add_theme_constant_override("separation", 6)
+	var doors := GridContainer.new()
+	doors.columns = 2
+	doors.add_theme_constant_override("h_separation", 6)
+	doors.add_theme_constant_override("v_separation", 6)
 	for pair in [["PLAY", "play"], ["LIBRARY", "library"], ["DECKS", "decks"], ["PACKS", "packs"]]:
 		var door_id: String = pair[1]
 		var door := UI.button(pair[0], func() -> void: app.open_room(door_id), Tokens.CYAN)
@@ -226,13 +242,6 @@ func _build_drawer() -> PanelContainer:
 		door.add_theme_font_size_override("font_size", body_size)
 		doors.add_child(door)
 	box.add_child(doors)
-
-	box.add_child(_build_compact_run_strip())
-	box.add_child(_build_left_rail())
-
-	var right := _build_right_rail()
-	right.size_flags_vertical = Control.SIZE_EXPAND_FILL
-	box.add_child(right)
 
 	var tools := HBoxContainer.new()
 	tools.add_theme_constant_override("separation", 6)
@@ -277,8 +286,10 @@ func _build_left_rail() -> Control:
 	box.add_child(player_face_label)
 	box.add_child(UI.hsep())
 	box.add_child(_caps("PILES"))
-	var piles := HBoxContainer.new()
-	piles.add_theme_constant_override("separation", 6)
+	var piles := GridContainer.new()
+	piles.columns = 3
+	piles.add_theme_constant_override("h_separation", 6)
+	piles.add_theme_constant_override("v_separation", 6)
 	deck_button = _rail_button("DECK 40", func() -> void: _show_pile("Deck", duel.players[0].deck, true))
 	remains_button = _rail_button("REMAINS 0", func() -> void: _show_pile("Remains", duel.players[0].remains, false))
 	void_button = _rail_button("VOID 0", func() -> void: _show_pile("Void", duel.players[0].banished, false))
@@ -313,12 +324,12 @@ func _build_stage() -> Control:
 	dock = _build_dock()
 	dock.z_index = 30
 	stage.add_child(dock)
-	menu_button = UI.button("≡", _toggle_drawer, Tokens.PANEL_LINE)
+	menu_button = UI.button("PANEL ›", _toggle_drawer, Tokens.PANEL_LINE)
 	var hud_size := 48.0 if access_scale >= 150 else 44.0
-	menu_button.custom_minimum_size = Vector2(hud_size, hud_size)
-	menu_button.add_theme_font_size_override("font_size", 18)
+	menu_button.custom_minimum_size = Vector2(118, hud_size)
+	menu_button.add_theme_font_size_override("font_size", 10 if access_scale >= 150 else 9)
 	menu_button.z_index = 40
-	menu_button.tooltip_text = "Open the table drawer."
+	menu_button.tooltip_text = "Open the table panel."
 	stage.add_child(menu_button)
 	var cue := CueStrip.new()
 	cue.stage = stage
@@ -326,6 +337,7 @@ func _build_stage() -> Control:
 	stage.add_child(cue)
 	stage.resized.connect(_layout_dock)
 	stage.resized.connect(_layout_menu_button)
+	stage.resized.connect(_layout_drawer)
 	fx = FxLayer.new()
 	fx.z_index = 50
 	stage.add_child(fx)
@@ -395,28 +407,60 @@ func _layout_menu_button() -> void:
 	if menu_button == null or stage == null or not is_instance_valid(menu_button):
 		return
 	var hud_size := 48.0 if access_scale >= 150 else 44.0
-	menu_button.position = Vector2(stage.board_rect.end.x - hud_size - 4.0, 8.0)
-	menu_button.size = Vector2(hud_size, hud_size)
+	menu_button.position = Vector2(stage.size.x - 118.0 - 8.0, 8.0)
+	menu_button.size = Vector2(118, hud_size)
 
 func _layout_drawer() -> void:
-	if drawer == null or not is_instance_valid(drawer):
+	if drawer == null or not is_instance_valid(drawer) or stage == null:
 		return
-	var safe_width := get_viewport_rect().size.x
+	var viewport := get_viewport_rect().size
+	var safe_width := viewport.x
 	if app != null and app.viewport_frame != null:
 		safe_width = app.viewport_frame.safe_rect.size.x
-	var width := minf(420.0, maxf(0.0, safe_width - 24.0))
-	drawer.offset_left = -width
-	drawer.offset_right = 0
-	drawer.offset_top = 0
-	drawer.offset_bottom = 0
+	if rail_pinned and drawer.visible:
+		var top := 86.0
+		var bottom := maxf(top + 120.0, stage.hand_zone_rect.position.y - 4.0)
+		drawer.position = Vector2(safe_width - RAIL_WIDTH, top)
+		drawer.size = Vector2(RAIL_WIDTH, bottom - top)
+	else:
+		var width := minf(420.0, maxf(0.0, safe_width - 24.0))
+		drawer.position = Vector2(safe_width - width, 0)
+		drawer.size = Vector2(width, viewport.y)
+
+func _apply_responsive_rail() -> void:
+	if drawer == null or not is_instance_valid(drawer) or stage == null:
+		return
+	var width := get_viewport_rect().size.x
+	rail_pinned = width >= 1440.0
+	if rail_pinned and not rail_user_collapsed:
+		drawer.visible = true
+		stage.set_rail_width(RAIL_WIDTH)
+	else:
+		drawer.visible = false
+		stage.set_rail_width(0.0)
+	_layout_drawer()
+	_layout_menu_button()
+	_update_menu_button()
+
+func _update_menu_button() -> void:
+	if menu_button == null or not is_instance_valid(menu_button):
+		return
+	var open := drawer != null and drawer.visible
+	var glyph := "‹" if rail_pinned and open else ("×" if open else "›")
+	menu_button.text = "PANEL " + glyph
+	menu_button.tooltip_text = "Collapse the table panel." if open else "Open the table panel."
 
 func _toggle_drawer() -> void:
 	if drawer == null or not is_instance_valid(drawer):
 		return
-	drawer.visible = not drawer.visible
-	if menu_button != null:
-		menu_button.text = "×" if drawer.visible else "≡"
-		menu_button.tooltip_text = "Close the table drawer." if drawer.visible else "Open the table drawer."
+	if rail_pinned:
+		rail_user_collapsed = not rail_user_collapsed
+		drawer.visible = not rail_user_collapsed
+		stage.set_rail_width(RAIL_WIDTH if drawer.visible else 0.0)
+	else:
+		drawer.visible = not drawer.visible
+	_update_menu_button()
+	_layout_drawer()
 	if drawer.visible:
 		_refresh_top()
 		_refresh_rail()
@@ -430,16 +474,9 @@ func _toggle_pin() -> void:
 		pin_button.modulate = Tokens.PINK if not pinned else Color.WHITE
 	app.toast("Table pinned above other windows." if not pinned else "Table unpinned.", "info")
 
-func _build_right_rail() -> Control:
-	var btn_h := 48.0 if access_scale >= 150 else 44.0
+func _build_intent_panel() -> Control:
 	var body_size := 13 if access_scale >= 150 else 11
 	var small_size := 11 if access_scale >= 150 else 9
-	var panel := UI.panel(Tokens.BG_PANEL, Tokens.PANEL_LINE, 10)
-	panel.custom_minimum_size = Vector2(0, 0)
-	panel.size_flags_vertical = Control.SIZE_EXPAND_FILL
-	var box := UI.vbox(8)
-	panel.add_child(box)
-
 	intent_panel = PanelContainer.new()
 	var intent_style := Tokens.panel_style(Color(Tokens.BG_VOID.r, Tokens.BG_VOID.g, Tokens.BG_VOID.b, 0.55), Color(Tokens.PURPLE.r, Tokens.PURPLE.g, Tokens.PURPLE.b, 0.34), 1, 2)
 	intent_style.content_margin_left = 10
@@ -470,7 +507,16 @@ func _build_right_rail() -> Control:
 	intent_line_label.visible = false
 	intent_line_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	intent_box.add_child(intent_line_label)
-	box.add_child(intent_panel)
+	return intent_panel
+
+func _build_right_rail() -> Control:
+	var btn_h := 48.0 if access_scale >= 150 else 44.0
+	var panel := UI.panel(Tokens.BG_PANEL, Tokens.PANEL_LINE, 10)
+	panel.custom_minimum_size = Vector2(0, 0)
+	panel.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	var box := UI.vbox(8)
+	panel.add_child(box)
+
 
 	var tabs := HBoxContainer.new()
 	tabs.add_theme_constant_override("separation", 4)
@@ -488,7 +534,7 @@ func _build_right_rail() -> Control:
 	# A plain wrapper stops a freshly built ScrollContainer from briefly lending
 	# its child's height to the whole table. The rail must fit the room at once.
 	var scroll_wrap := Control.new()
-	scroll_wrap.custom_minimum_size = Vector2(0, 0)
+	scroll_wrap.custom_minimum_size = Vector2(0, 240)
 	scroll_wrap.size_flags_vertical = Control.SIZE_EXPAND_FILL
 	scroll_wrap.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	box.add_child(scroll_wrap)
@@ -513,7 +559,7 @@ func _refresh_top() -> void:
 	var floor_number := int(Session.descent.get("current_floor", 1))
 	var circuit := int(ceil(float(floor_number) / 9.0))
 	run_depth_label.text = "DEPTH %02d · CIRCUIT %d" % [floor_number, circuit]
-	run_streak_label.text = "STREAK %d · CLEARED %d" % [int(Session.descent.get("streak", 0)), int(Session.descent.get("cleared", 0))]
+	run_streak_label.text = "STREAK %d · CLR %d" % [int(Session.descent.get("streak", 0)), int(Session.descent.get("cleared", 0))]
 	marks_label.text = "%s MARKS" % _fmt_number(int(Session.currency.get("marks", 0)))
 	pause_button.text = "RESUME" if paused else "PAUSE"
 	mode_button.text = mode.to_upper()
@@ -544,6 +590,8 @@ func _refresh_top() -> void:
 	void_button.text = "VOID %d" % player.banished.size()
 	player_hand_label.text = "HAND %d" % player.hand.size()
 	current_intent = _compute_intent()
+	var intent_chip := str(current_intent.get("chip", ""))
+	stage.set_intent_text("THE WARDEN · " + intent_chip if not intent_chip.is_empty() else "")
 	if warden_meta_label != null:
 		var warden = duel.players[1]
 		warden_meta_label.text = "HAND %d · DECK %d" % [warden.hand.size(), warden.deck.size()]
@@ -1137,7 +1185,7 @@ func _play_events(events: Array[Dictionary], before: Dictionary, after: Dictiona
 					await _wait(_dur(0.12))
 					continue
 				var actor := stage.ensure_actor(card, stage.hand_token)
-				var hand_size := Tokens.card_size(stage.hand_token)
+				var hand_size := stage.hand_size()
 				var draw_start := Rect2(Vector2(stage.deck_rect.position.x, stage.deck_rect.end.y - hand_size.y), hand_size)
 				actor.set_rest(draw_start)
 				actor.set_token(stage.hand_token)
@@ -1429,6 +1477,113 @@ func _on_stage_card_right_clicked(card: DuelCard, _pos: Vector2) -> void:
 		inspected_card = card
 		rail_tab = "inspect"
 		_refresh_rail()
+
+func _slot_key_at(local: Vector2) -> String:
+	if stage == null:
+		return ""
+	# Magnetic drop: prefer the slot under the pointer, then the nearest legal
+	# slot within 24px. Invalid slots never capture the card.
+	var best := ""
+	var best_dist := 24.0
+	for key in stage.slot_rects.keys():
+		if not bool(stage.legal_zones.get(key, false)):
+			continue
+		var rect: Rect2 = stage.slot_rects[key]
+		if rect.has_point(local):
+			return str(key)
+		var closest := Vector2(
+			clampf(local.x, rect.position.x, rect.end.x),
+			clampf(local.y, rect.position.y, rect.end.y)
+		)
+		var distance := local.distance_to(closest)
+		if distance < best_dist:
+			best_dist = distance
+			best = str(key)
+	return best
+
+func _on_card_drag_started(actor: CardActor) -> void:
+	if actor == null or actor.card == null:
+		return
+	if mode != "manual" or duel == null or duel.active != 0 or duel.ended or busy:
+		actor.cancel_drag()
+		return
+	if actor.card.owner != 0:
+		actor.cancel_drag()
+		return
+	legal_cache = DuelRules.legal_actions(duel)
+	var zones: Dictionary = {}
+	var card := actor.card
+	if card.zone == GameConst.ZONE_HAND:
+		selected_hand_uid = card.uid
+		selected_board_uid = -1
+		for action in legal_cache:
+			if int(action.get("uid", -1)) != card.uid:
+				continue
+			var action_type := str(action.get("type", ""))
+			if action_type == "call":
+				zones["0|monster|%d" % int(action.get("lane", -1))] = true
+			elif action_type in ["play", "set_card"]:
+				zones["0|backrow|%d" % int(action.get("lane", -1))] = true
+		stage.set_hand_selected(card.uid)
+		stage.set_board_selected(-1)
+	elif card.zone == GameConst.ZONE_MONSTER:
+		selected_board_uid = card.uid
+		selected_hand_uid = -1
+		for action in legal_cache:
+			if str(action.get("type", "")) == "attack" and int(action.get("uid", -1)) == card.uid:
+				zones["1|monster|%d" % int(action.get("target_lane", -1))] = true
+		stage.set_board_selected(card.uid)
+		stage.set_hand_selected(-1)
+	else:
+		actor.cancel_drag()
+		return
+	if zones.is_empty():
+		actor.cancel_drag()
+		return
+	_drag_actor = actor
+	stage.set_legal_zones(zones)
+	stage.set_drag_hover("")
+	rail_tab = "actions"
+	_refresh_rail()
+	_refresh_dock()
+
+func _on_card_drag_moved(actor: CardActor) -> void:
+	if _drag_actor == null or _drag_actor != actor or stage == null:
+		return
+	stage.set_drag_hover(_slot_key_at(stage.get_local_mouse_position()))
+
+func _on_card_drag_ended(actor: CardActor) -> void:
+	if stage == null:
+		actor.cancel_drag()
+		return
+	_resolve_drag_drop(actor, stage.get_local_mouse_position(), Input.is_key_pressed(KEY_SHIFT))
+
+func _resolve_drag_drop(actor: CardActor, local: Vector2, shift: bool) -> void:
+	if _drag_actor == null or _drag_actor != actor:
+		actor.cancel_drag()
+		return
+	var key := _slot_key_at(local)
+	var parts := key.split("|")
+	var action: Dictionary = {}
+	if parts.size() == 3 and actor.card.zone == GameConst.ZONE_HAND:
+		action = _action_for_zone(str(parts[1]), int(parts[0]), int(parts[2]), shift)
+	elif parts.size() == 3 and actor.card.zone == GameConst.ZONE_MONSTER:
+		if int(parts[0]) == 1 and str(parts[1]) == "monster":
+			action = _attack_action(actor.card.uid, int(parts[2]))
+	_drag_actor = null
+	stage.set_drag_hover("")
+	if not action.is_empty():
+		actor.finish_drag()
+		_apply_player_action(action)
+		return
+	actor.cancel_drag()
+	selected_hand_uid = -1
+	selected_board_uid = -1
+	stage.set_hand_selected(-1)
+	stage.set_board_selected(-1)
+	stage.set_legal_zones({})
+	_refresh_board()
+	_refresh_rail()
 
 func _on_stage_zone_clicked(owner: int, zone: String, lane: int) -> void:
 	if mode != "manual" or duel.active != 0 or duel.ended:

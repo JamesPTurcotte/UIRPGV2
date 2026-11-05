@@ -9,7 +9,7 @@ const SCREEN_PATHS := {
 	"table": "res://src/presentation/screens/table_screen.gd",
 	"bench": "res://src/presentation/screens/bench_screen.gd",
 	"salvage": "res://src/presentation/screens/salvage_screen.gd",
-	"folio": "res://src/presentation/screens/folio_screen.gd",
+	"pack": "res://src/presentation/screens/pack_screen.gd",
 	"deck": "res://src/presentation/screens/deck_screen.gd",
 }
 
@@ -244,8 +244,8 @@ func _backdrop_kind(screen_name: String) -> String:
 			return "table"
 		"gate":
 			return "gate"
-		"folio":
-			return "folio"
+		"pack":
+			return "pack"
 		"salvage":
 			return "salvage"
 		_:
@@ -257,7 +257,7 @@ func _door_for_screen(screen_name: String) -> String:
 			return "play"
 		"deck":
 			return "decks"
-		"folio":
+		"pack":
 			return "packs"
 		_:
 			return "library"
@@ -275,7 +275,7 @@ func open_room(door: String) -> void:
 		"decks":
 			go_deck()
 		"packs":
-			go_folio()
+			go_packs()
 		_:
 			go_library()
 
@@ -294,8 +294,12 @@ func go_bench(instance: CardInstance, return_def: String = "") -> void:
 func go_salvage(result: Dictionary, returned: bool = false) -> void:
 	show_screen("salvage", {"result": result, "returned": returned})
 
+func go_packs(pack_id: int = 0) -> void:
+	show_screen("pack", {"pack_id": pack_id})
+
+## Legacy alias; remove after the one-version compatibility window.
 func go_folio(pack_id: int = 0) -> void:
-	show_screen("folio", {"pack_id": pack_id})
+	go_packs(pack_id)
 
 func go_deck() -> void:
 	show_screen("deck")
@@ -402,7 +406,7 @@ func _unhandled_key_input(event: InputEvent) -> void:
 func _export_screen_text() -> void:
 	var lines: Array[String] = []
 	lines.append("UIRPG — %s" % current_screen_name.to_upper())
-	lines.append("Marks %d · Cards %d · Definitions %d · Crafted %d · Folios %d" % [
+	lines.append("Marks %d · Cards %d · Definitions %d · Crafted %d · Packs %d" % [
 		int(Session.currency.get("marks", 0)),
 		Session.total_cards(),
 		Session.total_definitions(),

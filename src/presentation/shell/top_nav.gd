@@ -15,7 +15,7 @@ var app: Node
 var active_door: String = "library"
 var door_buttons: Dictionary = {}
 var marks_label: Label
-var folios_label: Label
+var packs_label: Label
 var _built: bool = false
 
 func setup(app_ref: Node) -> void:
@@ -26,8 +26,8 @@ func setup(app_ref: Node) -> void:
 	_build()
 	if not Session.currency_changed.is_connected(_on_resources_changed):
 		Session.currency_changed.connect(_on_resources_changed)
-	if not Session.folios_changed.is_connected(_on_resources_changed):
-		Session.folios_changed.connect(_on_resources_changed)
+	if not Session.packs_changed.is_connected(_on_resources_changed):
+		Session.packs_changed.connect(_on_resources_changed)
 
 func _build() -> void:
 	custom_minimum_size = Vector2(0, 52)
@@ -93,7 +93,7 @@ func _build() -> void:
 	resources.add_theme_constant_override("separation", 6)
 	resources.custom_minimum_size = Vector2(286, 0)
 	marks_label = _build_resource("MARKS", Tokens.AMBER, resources)
-	folios_label = _build_resource("FOLIOS", Tokens.GREEN, resources)
+	packs_label = _build_resource("PACKS", Tokens.GREEN, resources)
 	var help := UI.button("?", func() -> void:
 		if app != null and app.has_method("_toggle_help"):
 			app._toggle_help()
@@ -199,8 +199,8 @@ func _on_resources_changed() -> void:
 func update_resources() -> void:
 	if marks_label != null:
 		marks_label.text = "%d" % int(Session.currency.get("marks", 0))
-	if folios_label != null:
-		folios_label.text = "%d" % Session.unopened_packs().size()
+	if packs_label != null:
+		packs_label.text = "%d" % Session.unopened_packs().size()
 
 func set_active(door: String) -> void:
 	active_door = door

@@ -2,7 +2,7 @@ class_name LibraryScreen
 extends UIScreen
 
 ## The Library is the game: shelves, a reading desk, the Gate, the Bench, and
-## the folio satchel are one continuous room. The second click on a selected
+## the pack satchel are one continuous room. The second click on a selected
 ## card opens the card menu; the first click only reads it.
 
 var entries_all: Array[Dictionary] = []
@@ -24,7 +24,7 @@ var shelf_caption: Label
 var cards_count_label: Label
 var defs_label: Label
 var crafted_label: Label
-var folios_label: Label
+var packs_label: Label
 var marks_label: Label
 var index_buttons: Array[Dictionary] = []
 var desk_tab_buttons: Dictionary = {}
@@ -81,7 +81,7 @@ func _build_top_bar() -> Control:
 	cards_count_label = _chip_label(chips, "0 CARDS")
 	defs_label = _chip_label(chips, "0 DEFS")
 	crafted_label = _chip_label(chips, "0 CRAFTED")
-	folios_label = _chip_label(chips, "0 FOLIOS")
+	packs_label = _chip_label(chips, "0 PACKS")
 	marks_label = _chip_label(chips, "0 MARKS")
 	row.add_child(chips)
 	return panel
@@ -109,7 +109,7 @@ func _build_index() -> Control:
 	box.add_child(UI.spacer())
 	var satchel := UI.vbox(3)
 	satchel.add_child(UI.small_caps("SATCHEL"))
-	satchel.add_child(UI.button("Open folios", func() -> void: app.go_folio(), Tokens.VERDIGRIS))
+	satchel.add_child(UI.button("Open packs", func() -> void: app.go_packs(), Tokens.VERDIGRIS))
 	satchel.add_child(UI.button("Deck workshop", func() -> void: app.go_deck(), Tokens.BRASS_LO))
 	box.add_child(satchel)
 	return panel
@@ -245,7 +245,7 @@ func _refresh_chips() -> void:
 	cards_count_label.text = "%d CARDS" % Session.total_cards()
 	defs_label.text = "%d DEFS" % Session.total_definitions()
 	crafted_label.text = "%d CRAFTED" % Session.crafted_count()
-	folios_label.text = "%d FOLIOS" % Session.unopened_packs().size()
+	packs_label.text = "%d PACKS" % Session.unopened_packs().size()
 	marks_label.text = "%d MARKS" % int(Session.currency.get("marks", 0))
 
 func _refresh_index_styles() -> void:

@@ -122,7 +122,7 @@ a strength that reduces contrast.
 | Numbers / stats / logs / data | **VT323** | Natural size for numbers; tabular; cyan/pink/amber. |
 | Rules / body / UI prose | **Inter** 400–600 | Line-height 1.2–1.6; 4.5:1 minimum. |
 | Small system labels | **IBM Plex Mono** 400–500 | 8–10 px at 1440; tracking `.08`–`.16em`. |
-| Pack/folio labels | Orbitron + VT323 | Pips/labels use VT323 or Plex Mono. |
+| Pack/pack labels | Orbitron + VT323 | Pips/labels use VT323 or Plex Mono. |
 
 ### Scale on the 1440 board
 
@@ -240,7 +240,7 @@ PLAY    LIBRARY    DECKS    PACKS
 
 - Active: cyan text + magenta underline/glow.
 - Inactive: `MUTED`; hover -> `INK`.
-- Packs carries a small pink badge for unopened folios when relevant.
+- Packs carries a small pink badge for unopened packs when relevant.
 - No second nav bar, no dropdown, no fifth noun.
 - Settings/sound are icon actions on the right, not doors.
 - The shell is the same in every room; only the active door changes.
@@ -346,12 +346,12 @@ DRAWER (closed)   Play / Library / Decks / Packs · log · inspect · actions ·
   `DuelRules.validate()`. Three pips beside the Warden score show the enemy guard contract;
   the drawer shows the player's own face contract. The UI does not decide it.
 
-## 8. Folio recipe
+## 8. Pack recipe
 
 Reference: `review/packs.html`, full breakdown in
 [`../review/PACK_RITUAL.md`](../review/PACK_RITUAL.md).
 
-- Sealed Brass folio; seal is the only primary action.
+- Sealed Brass pack; seal is the only primary action.
 - Crack: 9-segment line, 12 flecks, 120 ms; dry snap + low thump.
 - Flap: 260 ms; mouth glow.
 - Deal: 55 ms stagger; cards from the mouth into a fan.
@@ -436,7 +436,7 @@ one hero; do not add confetti.
 ### Forbidden
 
 - full-screen white flash / strobe
-- screen shake in the folio or a menu
+- screen shake in the pack or a menu
 - full-screen confetti
 - slot-machine coin cascades / jackpot arpeggios
 - fake near-miss glow
@@ -445,7 +445,7 @@ one hero; do not add confetti.
 
 ## 11. Sound
 
-No music in the folio. The table may have a low ambient bed.
+No music in the pack. The table may have a low ambient bed.
 
 ### Cue families
 
@@ -456,20 +456,20 @@ No music in the folio. The table may have a low ambient bed.
 | table hit | paper snap + low thump + rarity tail |
 | table destroy | paper tear + low body |
 | table phase / turn | brass tick / soft chime |
-| folio press | soft leather/paper |
-| folio crack | dry wax snap + 80–120 Hz thump |
-| folio flap | paper slide |
-| folio deal | rising paper ticks |
-| folio tell | 1/2/3/4-note rise; metallic for rare, low swell for legendary |
-| folio flip | paper snap |
-| folio rare/legendary | metallic ring / low brass swell |
-| folio stamp | wood block |
-| folio summary | soft chime |
-| folio skip | paper whoosh |
+| pack press | soft leather/paper |
+| pack crack | dry wax snap + 80–120 Hz thump |
+| pack flap | paper slide |
+| pack deal | rising paper ticks |
+| pack tell | 1/2/3/4-note rise; metallic for rare, low swell for legendary |
+| pack flip | paper snap |
+| pack rare/legendary | metallic ring / low brass swell |
+| pack stamp | wood block |
+| pack summary | soft chime |
+| pack skip | paper whoosh |
 
 - Start the cue on the same frame as the visual; never lead by >30 ms.
 - Sound is enhancement: the game must be legible silent.
-- Mix: folio SFX around −6 dB; no ducking gymnastics.
+- Mix: pack SFX around −6 dB; no ducking gymnastics.
 - Haptics mobile only: crack 30 ms, flip 10 ms, rare 20 ms, legendary 20+120+20,
   stamp 8 ms.
 
@@ -529,7 +529,7 @@ newCount, setBefore/setAfter
 guarantee, provenance, price, keeper
 ```
 
-The ceremony is one state machine for all packs. Do not special-case a folio in
+The ceremony is one state machine for all packs. Do not special-case a pack in
 the animation.
 
 ### Add a table card
@@ -545,8 +545,8 @@ Add a content definition, not a script. The card face is generated from
 | `review.css` shell | `App` + `ThemeBuilder` |
 | `board.css` board/lane/card skeleton | `BattleStage`, `TableScreen`, `CardComposer` |
 | `board.js` timing / effects | `BattleDirector`, `FxLayer`, `AudioDirector` |
-| `pack.css` / `pack.js` | `FolioCeremony`, `FolioFan`, `FolioRevealCard`, `FolioFlare` |
-| `pack-data.js` | folio content / `PackRoll` result |
+| `pack.css` / `pack.js` | `PackCeremony`, `PackFan`, `PackRevealCard`, `PackFlare` |
+| `pack-data.js` | pack content / `PackRoll` result |
 | `sound.js` cue names | `AudioDirector` cue contract |
 | `review/js/icons.js` glyphs | `SealComposer` / procedural `_draw` glyphs |
 
@@ -585,7 +585,7 @@ Add a content definition, not a script. The card face is generated from
    - Add intent, log, guards, score plate, residue.
    - Add Auto broadcast and the 1.2 s cadence budget.
    - Enforce face-sealed in rules; add tests.
-4. **Folio**
+4. **Pack**
    - Build sealed envelope + seal; crack/flap/deal.
    - Fan + tells + flip + flare + stamps.
    - Ledger + modes + skip + zoom.
@@ -626,10 +626,10 @@ Add a content definition, not a script. The card face is generated from
 - [ ] Reduced motion: no tween >100 ms; no pulse; summary immediate.
 - [ ] Sound off: every beat still has a number/mark/movement.
 - [ ] No colour-only meaning; pips/labels/glyphs present.
-- [ ] No full-screen flash; no room shake in the folio.
+- [ ] No full-screen flash; no room shake in the pack.
 - [ ] Hit-stop only on the impact object; ≤2 px table shake in shipping.
 - [ ] Auto: max 1.2 s without a visible change.
-- [ ] Folio: skip ≤150 ms to a readable ledger; tells exact; stamps from the
+- [ ] Pack: skip ≤150 ms to a readable ledger; tells exact; stamps from the
   pre-open snapshot.
 - [ ] 60 fps at 1440 with the heaviest effect; no per-frame node creation.
 - [ ] Domain suite and layout audit pass; seeded duel results recorded.
@@ -643,8 +643,8 @@ Add a content definition, not a script. The card face is generated from
 | Board skeleton / card base / FX | `review/css/board.css` |
 | Pack room / envelope / fan / tells / ledger | `review/css/pack.css` |
 | Board interaction / table choreography | `review/js/board.js` |
-| Folio ceremony state machine | `review/js/pack.js` |
-| Folio content / tell grammar / beats | `review/js/pack-data.js` |
+| Pack ceremony state machine | `review/js/pack.js` |
+| Pack content / tell grammar / beats | `review/js/pack-data.js` |
 | Procedural cues | `review/js/sound.js` |
 | Cards | `review/js/data.js` |
 | Pack ceremony handoff | `review/PACK_RITUAL.md` |
@@ -728,9 +728,9 @@ const NEON_MOTION := {
     "panel": 0.20,
     "room": 0.45,
     "ceremony": 0.70,
-    "folio_flip": 0.47,
-    "folio_hold": 0.06,
-    "folio_skip": 0.12,
+    "pack_flip": 0.47,
+    "pack_hold": 0.06,
+    "pack_skip": 0.12,
 }
 ```
 
@@ -741,7 +741,7 @@ The practical port order is:
 3. `CardComposer` — apply the Neon material to the existing six bands.
 4. `BattleStage` / `BattleDirector` — stable actors and the event beats.
 5. `FxLayer` — numbers, plates, rings, motes, residue.
-6. `FolioCeremony` — the pack ritual on the same tokens.
+6. `PackCeremony` — the pack ritual on the same tokens.
 7. Settings, reduced motion, audio, QA.
 
 If you change a value here, change it in `review/css/themes.css`, `review/` and

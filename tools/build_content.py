@@ -246,16 +246,18 @@ def validate_reagents(reagents: list[dict]) -> None:
                 fail(f"{where}: missing {field}")
 
 
-def validate_folios(folios: list[dict]) -> None:
+def validate_packs(packs: list[dict]) -> None:
     ids = set()
-    for folio in folios:
-        where = f"folio {folio.get('id')}"
-        if not folio.get("id") or folio["id"] in ids:
+    for pack in packs:
+        where = f"pack {pack.get('id')}"
+        if not pack.get("id") or pack["id"] in ids:
             fail(f"{where}: missing/duplicate id")
-        ids.add(folio.get("id"))
-        if not (1 <= folio.get("cards", 0) <= 5):
+        ids.add(pack.get("id"))
+        if not str(pack.get("id", "")).startswith("pack."):
+            fail(f"{where}: id must start with 'pack.'")
+        if not (1 <= pack.get("cards", 0) <= 5):
             fail(f"{where}: cards must be 1..5")
-        if not (1 <= folio.get("provenance", 0) <= 100):
+        if not (1 <= pack.get("provenance", 0) <= 100):
             fail(f"{where}: provenance must be 1..100")
 
 
@@ -298,7 +300,7 @@ def build(write: bool = True) -> None:
     cards_by_id = {c["id"]: c for c in cards if c.get("id")}
     mods = load_list("mods.yaml")
     reagents = load_list("reagents.yaml")
-    folios = load_list("folios.yaml")
+    packs = load_list("packs.yaml")
     starters = load_list("starters.yaml")
     inks = load_list("inks.yaml")
     shimmers = load_list("shimmer.yaml")
@@ -307,7 +309,7 @@ def build(write: bool = True) -> None:
 
     validate_mods(mods)
     validate_reagents(reagents)
-    validate_folios(folios)
+    validate_packs(packs)
 
     for starter in starters:
         validate_deck(f"starter {starter.get('id')}", starter.get("deck"), starter.get("sideboard"), cards_by_id)
@@ -335,7 +337,7 @@ def build(write: bool = True) -> None:
         "opponents": opponents,
         "mods": mods,
         "reagents": reagents,
-        "folios": folios,
+        "packs": packs,
         "starters": starters,
         "inks": inks,
         "shimmers": shimmers,
@@ -357,10 +359,10 @@ def build(write: bool = True) -> None:
     if write:
         OUT.write_text(json.dumps(data, indent=2, ensure_ascii=False, default=str) + "\n", encoding="utf-8")
         print(f"content: {len(cards)} cards, {len(opponents)} opponents, {len(mods)} mods, "
-              f"{len(reagents)} reagents, {len(folios)} folios, {len(starters)} starters -> {OUT.relative_to(ROOT)}")
+              f"{len(reagents)} reagents, {len(packs)} packs, {len(starters)} starters -> {OUT.relative_to(ROOT)}")
     else:
         print(f"content validation passed: {len(cards)} cards, {len(opponents)} opponents, "
-              f"{len(mods)} mods, {len(reagents)} reagents, {len(folios)} folios, {len(starters)} starters")
+              f"{len(mods)} mods, {len(reagents)} reagents, {len(packs)} packs, {len(starters)} starters")
 
 
 def main() -> None:

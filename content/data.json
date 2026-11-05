@@ -1118,10 +1118,10 @@
       "weight": 14
     }
   ],
-  "folios": [
+  "packs": [
     {
-      "id": "folio.paper",
-      "name": "Paper Folio",
+      "id": "pack.paper",
+      "name": "Paper Pack",
       "cards": 3,
       "guarantee": "uncommon",
       "provenance": 5,
@@ -1130,8 +1130,8 @@
       "reagent_guarantee": null
     },
     {
-      "id": "folio.brass",
-      "name": "Brass Folio",
+      "id": "pack.brass",
+      "name": "Brass Pack",
       "cards": 5,
       "guarantee": "rare",
       "provenance": 25,
@@ -1140,8 +1140,8 @@
       "reagent_guarantee": null
     },
     {
-      "id": "folio.deep",
-      "name": "Deep Folio",
+      "id": "pack.deep",
+      "name": "Deep Pack",
       "cards": 5,
       "guarantee": "rare",
       "provenance": 50,
@@ -1150,8 +1150,8 @@
       "reagent_guarantee": null
     },
     {
-      "id": "folio.set",
-      "name": "Set Folio",
+      "id": "pack.set",
+      "name": "Set Pack",
       "cards": 5,
       "guarantee": "rare",
       "provenance": 25,
@@ -1160,8 +1160,8 @@
       "reagent_guarantee": null
     },
     {
-      "id": "folio.salvage",
-      "name": "Salvage Cache",
+      "id": "pack.salvage",
+      "name": "Salvage Pack",
       "cards": 3,
       "guarantee": "common_reagent",
       "provenance": 1,

@@ -1,4 +1,4 @@
-class_name FolioScreen
+class_name PackScreen
 extends UIScreen
 
 ## The Satchel Room: an envelope stack, a physical opening table, the Press,
@@ -11,7 +11,8 @@ var opened: bool = false
 var reveal_data: Dictionary = {}
 var revealed: Array[bool] = []
 var before_owned: Dictionary = {}
-var fan: FolioFan
+var fan: PackFan
+var wrapper_art: PackWrapperArt
 var next_medallion: SealMedallion
 var seal_button: SealMedallion
 var stage_box: VBoxContainer
@@ -23,6 +24,8 @@ var satchel_box: VBoxContainer
 var marks_label: Label
 var unopened_label: Label
 var _busy: bool = false
+var _cracking: bool = false
+var _select_first_on_refresh: bool = true
 var _current_cards: Array = []
 
 func build() -> void:
@@ -54,8 +57,8 @@ func _build_top() -> Control:
 	row.add_theme_constant_override("separation", 8)
 	panel.add_child(row)
 	var title := UI.vbox(0)
-	title.add_child(UI.display("FOLIOS", 27))
-	title.add_child(UI.small_caps("THE SATCHEL ROOM"))
+	title.add_child(UI.display("PACKS", 27))
+	title.add_child(UI.small_caps("THE PACK ROOM"))
 	row.add_child(title)
 	row.add_child(UI.spacer())
 	# Chips keep their labels so values update without reconstructing the header.
@@ -145,7 +148,7 @@ func _build_press() -> Control:
 
 func _refresh() -> void:
 	var packs := Session.unopened_packs()
-	if pack_id == 0 and not packs.is_empty():
+	if pack_id == 0 and _select_first_on_refresh and not packs.is_empty():
 		pack_id = int(packs[0].get("id", 0))
 	if marks_label != null:
 		marks_label.text = "%d MARKS" % int(Session.currency.get("marks", 0))
@@ -165,14 +168,14 @@ func _build_satchel_list() -> void:
 		var empty := UI.panel(Tokens.BG_LACQUER, Tokens.BRASS_LO, 14)
 		var box := UI.vbox(5)
 		empty.add_child(box)
-		box.add_child(UI.label("No sealed folios.", 13, Tokens.INK_SECONDARY))
+		box.add_child(UI.label("No sealed packs.", 13, Tokens.INK_SECONDARY))
 		satchel_box.add_child(empty)
 		return
 	for pack in packs:
 		satchel_box.add_child(_pack_row(pack))
 
 func _pack_row(pack: Dictionary) -> Control:
-	var folio := Content.folio(str(pack.get("kind", "")))
+	var pack_def := Content.pack(str(pack.get("kind", "")))
 	var selected := int(pack.get("id", 0)) == pack_id
 	var panel := PanelContainer.new()
 	panel.add_theme_stylebox_override("panel", Tokens.panel_style(Tokens.PAPER if not selected else Tokens.PAPER.lightened(0.04), Tokens.BRASS if selected else Tokens.BRASS_LO, 1, 5))
@@ -191,10 +194,10 @@ func _pack_row(pack: Dictionary) -> Control:
 	var box := UI.vbox(1)
 	box.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	box.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	var name := UI.label(str(folio.get("name", "Folio")), 16, Tokens.PAPER_INK)
+	var name := UI.label(str(pack_def.get("name", "Pack")), 16, Tokens.PAPER_INK)
 	name.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	box.add_child(name)
-	var meta := UI.label("%d cards · provenance %d" % [int(folio.get("cards", 3)), int(folio.get("provenance", 5))], 10, Color("#5A5144"))
+	var meta := UI.label("%d cards · provenance %d" % [int(pack_def.get("cards", 3)), int(pack_def.get("provenance", 5))], 10, Color("#5A5144"))
 	meta.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	box.add_child(meta)
 	var sealed := UI.label("SEALED · %s" % str(pack.get("source", "drop")).capitalize(), 9, Color("#7A7060"))
@@ -215,8 +218,7 @@ func _on_pack_input(event: InputEvent, selected_id: int) -> void:
 func _selected_pack() -> Dictionary:
 	if pack_id > 0:
 		return Session.pack_by_id(pack_id)
-	var packs := Session.unopened_packs()
-	return packs[0] if not packs.is_empty() else {}
+	return {}
 
 func _build_stage_content() -> void:
 	for child in stage_box.get_children():
@@ -224,13 +226,12 @@ func _build_stage_content() -> void:
 		child.queue_free()
 	var pack := _selected_pack()
 	if pack.is_empty():
+		var packs := Session.unopened_packs()
 		var empty := PanelContainer.new()
 		empty.add_theme_stylebox_override("panel", Tokens.panel_style(Tokens.PAPER, Tokens.BRASS, 2, 8))
 		empty.custom_minimum_size = Vector2(520, 300)
 		empty.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
 		stage_box.add_child(empty)
-		var art := FolioEnvelopeArt.new()
-		empty.add_child(art)
 		var margin := MarginContainer.new()
 		margin.add_theme_constant_override("margin_left", 28)
 		margin.add_theme_constant_override("margin_right", 28)
@@ -240,19 +241,24 @@ func _build_stage_content() -> void:
 		var box := UI.vbox(6)
 		margin.add_child(box)
 		box.add_child(UI.display("THE TABLE", 28, Tokens.PAPER_INK))
-		box.add_child(UI.label("No sealed folios.", 12, Color("#5A5144")))
-		box.add_child(UI.label("3 cards · uncommon guarantee · provenance 5", 10, Color("#7A7060")))
-		box.add_child(UI.hsep(Color("#B9AE97")))
-		box.add_child(UI.spacer())
-		var buy_row := HBoxContainer.new()
-		buy_row.alignment = BoxContainer.ALIGNMENT_CENTER
-		box.add_child(buy_row)
-		var buy := SealMedallion.new()
-		buy.caption = "BUY PAPER"
-		buy.custom_minimum_size = Vector2(124, 140)
-		buy.set_enabled(int(Session.currency.get("marks", 0)) >= 120)
-		buy.pressed.connect(func() -> void: _buy_folio("folio.paper"))
-		buy_row.add_child(buy)
+		if packs.is_empty():
+			box.add_child(UI.label("No sealed packs.", 12, Color("#5A5144")))
+			box.add_child(UI.label("3 cards · uncommon guarantee · provenance 5", 10, Color("#7A7060")))
+			box.add_child(UI.hsep(Color("#B9AE97")))
+			box.add_child(UI.spacer())
+			var buy_row := HBoxContainer.new()
+			buy_row.alignment = BoxContainer.ALIGNMENT_CENTER
+			box.add_child(buy_row)
+			var buy := SealMedallion.new()
+			buy.caption = "BUY PACK"
+			buy.custom_minimum_size = Vector2(124, 140)
+			buy.set_enabled(int(Session.currency.get("marks", 0)) >= 120)
+			buy.pressed.connect(func() -> void: _buy_pack("pack.paper"))
+			buy_row.add_child(buy)
+		else:
+			box.add_child(UI.label("Select a sealed pack.", 12, Color("#5A5144")))
+			box.add_child(UI.label("Choose one from the satchel on the left.", 10, Color("#7A7060")))
+			box.add_child(UI.spacer())
 		return
 	stage_box.add_child(UI.spacer())
 	if not opened:
@@ -263,41 +269,50 @@ func _build_stage_content() -> void:
 	stage_box.add_child(UI.spacer())
 
 func _build_sealed(pack: Dictionary) -> void:
-	var folio := Content.folio(str(pack.get("kind", "")))
+	var pack_def := Content.pack(str(pack.get("kind", "")))
 	var envelope := PanelContainer.new()
-	envelope.add_theme_stylebox_override("panel", Tokens.panel_style(Tokens.PAPER, Tokens.BRASS, 2, 8))
-	envelope.custom_minimum_size = Vector2(520, 300)
+	envelope.add_theme_stylebox_override("panel", Tokens.panel_style(Tokens.BG_DEEP, Tokens.PINK, 2, 8))
+	envelope.custom_minimum_size = Vector2(520, 380)
 	envelope.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
 	stage_box.add_child(envelope)
-	var art := FolioEnvelopeArt.new()
-	envelope.add_child(art)
+	wrapper_art = PackWrapperArt.new()
+	wrapper_art.pack_name = str(pack_def.get("name", "Pack"))
+	wrapper_art.set_label = "%d cards · %s · prov %d" % [
+		int(pack_def.get("cards", 3)),
+		str(pack_def.get("guarantee", "uncommon")).capitalize(),
+		int(pack_def.get("provenance", 5)),
+	]
+	wrapper_art.pack_no = "%02d" % maxi(1, int(pack.get("id", 1)))
+	wrapper_art.pressed.connect(_crack)
+	envelope.add_child(wrapper_art)
 	var margin := MarginContainer.new()
-	margin.add_theme_constant_override("margin_left", 28)
-	margin.add_theme_constant_override("margin_right", 28)
-	margin.add_theme_constant_override("margin_top", 22)
-	margin.add_theme_constant_override("margin_bottom", 18)
+	margin.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	margin.add_theme_constant_override("margin_left", 18)
+	margin.add_theme_constant_override("margin_right", 18)
+	margin.add_theme_constant_override("margin_top", 14)
+	margin.add_theme_constant_override("margin_bottom", 12)
+	margin.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	envelope.add_child(margin)
-	var box := UI.vbox(6)
+	var box := UI.vbox(4)
+	box.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	margin.add_child(box)
-	box.add_child(UI.display(str(folio.get("name", "Folio")), 28, Tokens.PAPER_INK))
-	box.add_child(UI.label("%d cards · provenance %d · from %s" % [int(folio.get("cards", 3)), int(folio.get("provenance", 5)), str(pack.get("source", "drop"))], 11, Color("#5A5144")))
-	box.add_child(UI.hsep(Color("#B9AE97")))
-	box.add_child(UI.label("SEALED", 11, Color("#7A7060")))
 	box.add_child(UI.spacer())
 	var seal_row := HBoxContainer.new()
 	seal_row.alignment = BoxContainer.ALIGNMENT_CENTER
+	seal_row.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	box.add_child(seal_row)
 	seal_button = SealMedallion.new()
-	seal_button.caption = "CRACK"
-	seal_button.custom_minimum_size = Vector2(124, 140)
+	seal_button.caption = "TEAR"
+	seal_button.custom_minimum_size = Vector2(96, 112)
 	seal_button.pressed.connect(_crack)
 	seal_row.add_child(seal_button)
-	var hint := UI.label("Contents stored at acquisition.", 10, Color("#7A7060"))
+	var hint := UI.label("Click the pack or the seal.", 10, Tokens.INK_MUTED)
 	hint.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	hint.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	box.add_child(hint)
 
 func _build_sealed_details(pack: Dictionary) -> void:
-	var folio := Content.folio(str(pack.get("kind", "")))
+	var pack_def := Content.pack(str(pack.get("kind", "")))
 	var details := UI.panel(Tokens.BG_PANEL, Tokens.BRASS_LO, 10)
 	details.custom_minimum_size = Vector2(520, 0)
 	stage_box.add_child(details)
@@ -306,8 +321,8 @@ func _build_sealed_details(pack: Dictionary) -> void:
 	details.add_child(row)
 	var contents := UI.vbox(2)
 	contents.add_child(UI.small_caps("CONTENTS"))
-	contents.add_child(UI.data_label("%d CARDS · PROVENANCE %d" % [int(folio.get("cards", 3)), int(folio.get("provenance", 5))], 11, Tokens.INK_SECONDARY))
-	contents.add_child(UI.label("Guarantee: %s" % str(folio.get("guarantee", "uncommon")).capitalize(), 11, Tokens.VERDIGRIS))
+	contents.add_child(UI.data_label("%d CARDS · PROVENANCE %d" % [int(pack_def.get("cards", 3)), int(pack_def.get("provenance", 5))], 11, Tokens.INK_SECONDARY))
+	contents.add_child(UI.label("Guarantee: %s" % str(pack_def.get("guarantee", "uncommon")).capitalize(), 11, Tokens.VERDIGRIS))
 	row.add_child(contents)
 	var set_box := UI.vbox(2)
 	set_box.size_flags_horizontal = Control.SIZE_EXPAND_FILL
@@ -327,10 +342,10 @@ func _build_sealed_details(pack: Dictionary) -> void:
 	for open_mode in ["ritual", "quick", "auto"]:
 		var button := UI.button(open_mode.capitalize(), Callable(), Tokens.BRASS_LO)
 		button.toggle_mode = true
-		button.button_pressed = str(Session.settings.get("folio_mode", "ritual")) == open_mode
+		button.button_pressed = str(Session.settings.get("pack_mode", "ritual")) == open_mode
 		button.add_theme_font_size_override("font_size", 10)
 		button.pressed.connect(func() -> void:
-			Session.settings["folio_mode"] = open_mode
+			Session.settings["pack_mode"] = open_mode
 			Session.save_now()
 			_refresh()
 		)
@@ -343,7 +358,7 @@ func _build_reveal(pack: Dictionary) -> void:
 	stage_box.add_child(status_label)
 	var cards: Array = reveal_data.get("cards", [])
 	var reveal_token := "S" if cards.size() > 3 or get_viewport_rect().size.x < 1360 else "M"
-	fan = FolioFan.new()
+	fan = PackFan.new()
 	fan.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	fan.custom_minimum_size = Vector2(0, fan.height_for_count(cards.size(), reveal_token))
 	stage_box.add_child(fan)
@@ -358,13 +373,14 @@ func _build_reveal(pack: Dictionary) -> void:
 		temp.ink_id = str(drop.get("ink_id", "ink.iron"))
 		temp.shimmer_id = str(drop.get("shimmer_id", "shimmer.none"))
 		var before := int(before_owned.get(def.id, 0))
-		var card_view := FolioRevealCard.new()
+		var card_view := PackRevealCard.new()
 		card_view.setup(def, temp, before <= 0, before, reveal_token)
 		card_view.pressed.connect(_on_reveal_card)
 		_current_cards.append(card_view)
 		if i < revealed.size() and revealed[i]:
 			card_view.reveal_instant()
 	fan.set_cards(_current_cards)
+	call_deferred("_deal_fan")
 	var controls := HBoxContainer.new()
 	controls.add_theme_constant_override("separation", 6)
 	controls.alignment = BoxContainer.ALIGNMENT_CENTER
@@ -383,7 +399,7 @@ func _build_reveal(pack: Dictionary) -> void:
 	stage_box.add_child(summary_box)
 	_refresh_summary()
 
-func _on_reveal_card(card: FolioRevealCard) -> void:
+func _on_reveal_card(card: PackRevealCard) -> void:
 	if card == null:
 		return
 	if card.revealed:
@@ -392,7 +408,10 @@ func _on_reveal_card(card: FolioRevealCard) -> void:
 	if _busy:
 		return
 	_busy = true
-	await card.flip(0.22 if not bool(Session.settings.get("reduced_motion", false)) else 0.0)
+	var duration := 0.19 if str(Session.settings.get("pack_mode", "ritual")) == "quick" else 0.47
+	if bool(Session.settings.get("reduced_motion", false)):
+		duration = 0.0
+	await card.flip(duration)
 	var index := _current_cards.find(card)
 	if index >= 0 and index < revealed.size():
 		revealed[index] = true
@@ -425,6 +444,13 @@ func _reveal_all() -> void:
 	_refresh_summary()
 
 func _skip() -> void:
+	# Skip is a first-class action: it lands on the ledger, never leaves the
+	# pack unseen. The SATCHEL button is the separate exit.
+	if opened:
+		_reveal_all()
+
+func _go_satchel(select_next: bool = false) -> void:
+	_select_first_on_refresh = select_next
 	mode = "satchel"
 	opened = false
 	pack_id = 0
@@ -464,21 +490,17 @@ func _refresh_summary() -> void:
 	var actions := HBoxContainer.new()
 	actions.add_theme_constant_override("separation", 6)
 	summary_box.add_child(actions)
-	actions.add_child(UI.button("OPEN ANOTHER", func() -> void:
-		mode = "satchel"
-		opened = false
-		pack_id = 0
-		reveal_data = {}
-		revealed.clear()
-		_refresh()
-	, Tokens.BRASS))
-	actions.add_child(UI.button("SATCHEL", _skip, Tokens.BRASS_LO))
+	actions.add_child(UI.button("OPEN ANOTHER", func() -> void: _go_satchel(true), Tokens.BRASS))
+	actions.add_child(UI.button("SATCHEL", _go_satchel, Tokens.BRASS_LO))
 
 func _crack() -> void:
+	if _cracking:
+		return
 	var pack := Session.pack_by_id(pack_id)
 	if pack.is_empty():
-		app.toast("Folio not found.", "bad")
+		app.toast("Pack not found.", "bad")
 		return
+	_cracking = true
 	if seal_button != null:
 		seal_button.pulse()
 		if not bool(Session.settings.get("reduced_motion", false)):
@@ -494,44 +516,65 @@ func _crack() -> void:
 			before_owned[def_id] = Session.def_owned_count(def_id)
 	var result := Session.open_pack(pack_id)
 	if not bool(result.get("ok", false)):
+		_cracking = false
 		app.toast(str(result.get("reason", "Could not open.")), "bad")
 		return
 	reveal_data = result
 	opened = true
+	mode = "reveal"
 	revealed.clear()
 	for drop in result.get("cards", []):
 		revealed.append(false)
-	app.toast("Committed.", "good")
+	app.toast("Pack torn. Click each card.", "good")
+	await _play_tear()
+	if not is_inside_tree():
+		return
 	_refresh()
-	if str(Session.settings.get("folio_mode", "ritual")) in ["quick", "auto"]:
+	_cracking = false
+	if str(Session.settings.get("pack_mode", "ritual")) in ["quick", "auto"]:
 		_auto_reveal()
+
+func _play_tear() -> void:
+	if wrapper_art == null or not is_instance_valid(wrapper_art):
+		return
+	wrapper_art.open_progress = 1.0
+	if bool(Session.settings.get("reduced_motion", false)):
+		wrapper_art.tear_progress = 1.0
+		return
+	var tween := create_tween()
+	tween.tween_property(wrapper_art, "tear_progress", 1.0, 0.34)
+	await tween.finished
+
+func _deal_fan() -> void:
+	if fan != null and is_instance_valid(fan):
+		fan.deal_in()
 
 func _refresh_press_list() -> void:
 	for child in press_box.get_children():
 		press_box.remove_child(child)
 		child.queue_free()
-	for kind in ["folio.paper", "folio.brass", "folio.deep", "folio.set"]:
-		var folio := Content.folio(kind)
+	for kind in ["pack.paper", "pack.brass", "pack.deep", "pack.set"]:
+		var pack_def := Content.pack(kind)
 		var row := HBoxContainer.new()
 		row.add_theme_constant_override("separation", 5)
 		var box := UI.vbox(0)
 		box.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-		box.add_child(UI.label(str(folio.get("name", kind)), 12, Tokens.INK_PRIMARY))
-		var guarantee := str(folio.get("guarantee", "uncommon")).capitalize()
-		box.add_child(UI.label("%d cards · %s · prov %d" % [int(folio.get("cards", 3)), guarantee, int(folio.get("provenance", 5))], 9, Tokens.INK_MUTED))
+		box.add_child(UI.label(str(pack_def.get("name", kind)), 12, Tokens.INK_PRIMARY))
+		var guarantee := str(pack_def.get("guarantee", "uncommon")).capitalize()
+		box.add_child(UI.label("%d cards · %s · prov %d" % [int(pack_def.get("cards", 3)), guarantee, int(pack_def.get("provenance", 5))], 9, Tokens.INK_MUTED))
 		row.add_child(box)
-		var price := int(folio.get("price", 0))
+		var price := int(pack_def.get("price", 0))
 		row.add_child(UI.data_label("%d" % price, 11, Tokens.BRASS_HI))
-		var buy := UI.button("BUY", _buy_folio.bind(kind), Tokens.BRASS)
+		var buy := UI.button("BUY", _buy_pack.bind(kind), Tokens.BRASS)
 		buy.disabled = int(Session.currency.get("marks", 0)) < price
 		row.add_child(buy)
 		press_box.add_child(row)
 
-func _buy_folio(kind: String) -> void:
-	var folio := Content.folio(kind)
-	var price := int(folio.get("price", 0))
+func _buy_pack(kind: String) -> void:
+	var pack_def := Content.pack(kind)
+	var price := int(pack_def.get("price", 0))
 	var do_buy := func() -> void:
-		var result := Session.buy_folio(kind)
+		var result := Session.buy_pack(kind)
 		if bool(result.get("ok", false)):
 			var pack: Dictionary = result.get("pack", {})
 			pack_id = int(pack.get("id", 0))
@@ -542,7 +585,7 @@ func _buy_folio(kind: String) -> void:
 		else:
 			app.toast(str(result.get("reason", "Not enough Marks.")), "bad")
 	if price >= 400:
-		app.confirm("Buy %s?" % str(folio.get("name", kind)), "%d Marks. The contents are committed when the wax cracks." % price, do_buy, "Buy")
+		app.confirm("Buy %s?" % str(pack_def.get("name", kind)), "%d Marks. The contents are committed when the wax cracks." % price, do_buy, "Buy")
 	else:
 		do_buy.call()
 
@@ -575,7 +618,7 @@ func _unhandled_key_input(event: InputEvent) -> void:
 		match key.keycode:
 			KEY_ESCAPE:
 				if mode == "reveal":
-					_skip()
+					_go_satchel()
 				else:
 					app.go_library()
 			KEY_SPACE:
@@ -594,7 +637,7 @@ func _unhandled_key_input(event: InputEvent) -> void:
 					_skip()
 
 func export_text() -> Array[String]:
-	var lines: Array[String] = ["Folios · %d unopened · %d Marks" % [Session.unopened_packs().size(), int(Session.currency.get("marks", 0))]]
+	var lines: Array[String] = ["Packs · %d unopened · %d Marks" % [Session.unopened_packs().size(), int(Session.currency.get("marks", 0))]]
 	for card in _current_cards:
 		if card != null and card.def != null:
 			lines.append("%s · %s" % [card.def.name, "revealed" if card.revealed else "sealed"])

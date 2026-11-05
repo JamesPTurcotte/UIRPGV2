@@ -4,7 +4,10 @@ extends RefCounted
 ## Atomic-ish JSON save with a backup slot. The shape mirrors the SQLite schema
 ## in the spec; this is the documented shortcut until the SQLite adapter lands.
 
-const SAVE_VERSION := 1
+const SAVE_VERSION := 2
+
+## v2 renames folio_mode/content ids to pack_mode/pack.*; Session._load_doc
+## migrates v1 documents in place on load.
 
 var prefix: String = "user://"
 

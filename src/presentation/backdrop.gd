@@ -47,7 +47,7 @@ func _draw() -> void:
 		"table":
 			Chrome.draw_cut_outline(self, Rect2(size.x * 0.055, size.y * 0.115, size.x * 0.89, size.y * 0.79), 12.0, Tokens.CYAN * Color(1, 1, 1, 0.055), 1.0)
 			Chrome.draw_corner_bosses(self, Rect2(size.x * 0.055, size.y * 0.115, size.x * 0.89, size.y * 0.79), Tokens.CYAN * Color(1, 1, 1, 0.16), 8.0)
-		"folio":
+		"pack":
 			_draw_ring(Vector2(size.x * 0.5, size.y * 0.62), size.x * 0.18, Tokens.PINK, 0.09)
 			_draw_ring(Vector2(size.x * 0.5, size.y * 0.62), size.x * 0.25, Tokens.CYAN, 0.035)
 		"gate":

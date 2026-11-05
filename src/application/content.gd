@@ -12,7 +12,7 @@ var opponents_by_floor: Dictionary = {}
 var mods: Dictionary = {}
 var reagents: Dictionary = {}
 var reagent_list: Array[Dictionary] = []
-var folios: Dictionary = {}
+var packs: Dictionary = {}
 var starters: Dictionary = {}
 var inks: Dictionary = {}
 var shimmers: Dictionary = {}
@@ -59,8 +59,8 @@ func load_content() -> void:
 	for raw in data.get("reagents", []):
 		reagents[str(raw.get("id", ""))] = raw
 		reagent_list.append(raw)
-	for raw in data.get("folios", []):
-		folios[str(raw.get("id", ""))] = raw
+	for raw in data.get("packs", data.get("folios", [])):
+		packs[str(raw.get("id", ""))] = raw
 	for raw in data.get("starters", []):
 		starters[str(raw.get("id", ""))] = raw
 	for raw in data.get("inks", []):
@@ -88,8 +88,18 @@ func mod(mod_id: String) -> Dictionary:
 func reagent(reagent_id: String) -> Dictionary:
 	return reagents.get(reagent_id, {})
 
+func pack(pack_id: String) -> Dictionary:
+	var found: Dictionary = packs.get(pack_id, {})
+	if not found.is_empty():
+		return found
+	# One-version compatibility for saves and content authored before the rename.
+	if pack_id.begins_with("folio."):
+		return packs.get("pack." + pack_id.substr(6), {})
+	return {}
+
+## Legacy alias; remove after the one-version compatibility window.
 func folio(folio_id: String) -> Dictionary:
-	return folios.get(folio_id, {})
+	return pack(folio_id)
 
 func starter(starter_id: String) -> Dictionary:
 	return starters.get(starter_id, {})
@@ -116,8 +126,12 @@ func reagent_ids() -> Array[String]:
 		result.append(str(raw.get("id", "")))
 	return result
 
-func folio_ids() -> Array[String]:
+func pack_ids() -> Array[String]:
 	var result: Array[String] = []
-	for raw in data.get("folios", []):
+	for raw in data.get("packs", data.get("folios", [])):
 		result.append(str(raw.get("id", "")))
 	return result
+
+## Legacy alias; remove after the one-version compatibility window.
+func folio_ids() -> Array[String]:
+	return pack_ids()

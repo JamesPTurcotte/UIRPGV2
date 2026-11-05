@@ -1,0 +1,782 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="dark" />
+    <title>Razeah — Packs + Table UX Review</title>
+    <meta
+      name="description"
+      content="A seven-person design review of the Razeah pack-opening experience and the table's panel, hand, and drag-to-play interaction."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,500&family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500;600;700&family=Orbitron:wght@500;700;900&family=VT323&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/readability.css" />
+    <link rel="stylesheet" href="css/ux.css" />
+  </head>
+  <body class="ux-page">
+    <a class="skip" href="#panel">Skip to the panel</a>
+
+    <header class="masthead">
+      <div class="masthead__inner">
+        <a class="wordmark" href="#top"><span class="wordmark__mark">R</span><span>RAZEAH <em>/ packs + table ux</em></span></a>
+        <nav class="mastnav" aria-label="Review sections">
+          <a href="#panel">01 Panel</a>
+          <a href="#brief">02 Brief</a>
+          <a href="#packs">03 Packs</a>
+          <a href="#table-panel">04 Panel UX</a>
+          <a href="#hand">05 Hand</a>
+          <a href="#drag">06 Drag</a>
+          <a href="#table-lab">07 Table Lab</a>
+          <a href="#pick">08 Pick</a>
+        </nav>
+        <div class="masttools">
+          <a class="toolbtn" href="packs.html">Pack ritual ↗</a>
+          <a class="toolbtn" href="index.html">Review index</a>
+        </div>
+      </div>
+      <div class="scroll-progress" aria-hidden="true"><i id="uxProgress"></i></div>
+    </header>
+
+    <main id="top">
+      <section class="hero wrap">
+        <div class="hero__copy">
+          <p class="eyebrow"><span>Interaction review</span><span>·</span><span>packs + table</span></p>
+          <h1>Open it. See it.<br /><em>Drag it.</em></h1>
+          <p class="lede">
+            Two rooms, one problem: the player cannot see the thing they are about to
+            touch. <b>Packs</b> still read like a receipt table, not a pack opening. The
+            table hides the hand in a 30% shelf, hides the panel behind a mystery
+            <b>≡</b>, and only plays cards by select-then-click. A seven-person panel
+            reviewed the options; this page is the argument, the live prototypes, and
+            the shortlist.
+          </p>
+          <ul class="hero__facts">
+            <li><b>07</b><span>disciplines</span></li>
+            <li><b>04</b><span>pack formats</span></li>
+            <li><b>04</b><span>panel layouts</span></li>
+            <li><b>05</b><span>hand layouts</span></li>
+            <li><b>04</b><span>drag models</span></li>
+          </ul>
+          <p class="hero__note">
+            Waves 0–3 are landed: the rename, R1 pinned rail, H1/H2 hand,
+            D2 magnetic drop, and the P1 Rip & Fan ceremony. The prototypes below
+            remain the reference; they use the real card renders and the real
+            1440×900 budget, but their rules are simplified. The locked pick is at
+            <a href="#pick">08 Pick</a>.
+          </p>
+        </div>
+        <div class="hero__visual ux-hero-visual" aria-label="Three current-state problems: hidden hand, hidden panel, no drag">
+          <div class="ux-hero-shot">
+            <img src="assets/table-current-1440.png" alt="Current Razeah table: hand cards are clipped to title strips at the bottom, and the panel is hidden behind a menu button." />
+            <span class="ux-hero-shot__tag">CURRENT 1440×900</span>
+          </div>
+          <div class="ux-hero-callouts">
+            <span><b>30%</b> hand shelf · only titles at rest</span>
+            <span><b>≡</b> the only door to the panel</span>
+            <span><b>0</b> draggable cards</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="wrap ux-section" id="panel">
+        <div class="section-head">
+          <span class="section-head__no">01 / THE PANEL</span>
+          <h2>Seven disciplines. <em>One table.</em></h2>
+          <p>
+            These are fictional review personas, not quotes from real people. Each one
+            owns a different failure mode: the hand, the input, the pack, the
+            information architecture, the window budget, the psychology, and the drop.
+            Their job was to disagree productively.
+          </p>
+        </div>
+
+        <div class="ux-team">
+          <article class="ux-person">
+            <div class="ux-person__top"><span class="ux-person__initials">MV</span><span class="ux-person__stance">FULL HAND</span></div>
+            <span class="ux-person__role">Tabletop UX · card ergonomics</span>
+            <h3>Mara Voss</h3>
+            <p><b>“The hand is the player's body.”</b> A title strip is a memory test. If the player has to hover to remember what they hold, the hand is not in the game.</p>
+          </article>
+          <article class="ux-person">
+            <div class="ux-person__top"><span class="ux-person__initials">IC</span><span class="ux-person__stance">CLICK TWIN</span></div>
+            <span class="ux-person__role">Accessibility · inclusive input</span>
+            <h3>Ivo Chen</h3>
+            <p><b>“Every drag needs a click twin.”</b> Every hover needs a focus twin. A drag-only table is a table that some players cannot sit at.</p>
+          </article>
+          <article class="ux-person">
+            <div class="ux-person__top"><span class="ux-person__initials">SA</span><span class="ux-person__stance">CONTAINER FAILS</span></div>
+            <span class="ux-person__role">Stage &amp; industrial design</span>
+            <h3>Sana Adeyemi</h3>
+            <p><b>“A pack is a container.”</b> The opening is the container failing beautifully: the tear, the flap, the spill. If the container never fails, it is a menu.</p>
+          </article>
+          <article class="ux-person">
+            <div class="ux-person__top"><span class="ux-person__initials">RC</span><span class="ux-person__stance">PANEL IS A PLACE</span></div>
+            <span class="ux-person__role">Information architecture</span>
+            <h3>Rook Calder</h3>
+            <p><b>“The panel is a place, not a popup.”</b> Intent, log, inspect, and actions need a wall the eye can return to. A drawer is a place you keep losing.</p>
+          </article>
+          <article class="ux-person">
+            <div class="ux-person__top"><span class="ux-person__initials">NP</span><span class="ux-person__stance">WINDOW BUDGET</span></div>
+            <span class="ux-person__role">Responsive systems</span>
+            <h3>Nadia Petrov</h3>
+            <p><b>“The window is the budget.”</b> At 1440 the hand is the budget; at 1920 the board is. Spend it where the player is looking, not where the code is easiest.</p>
+          </article>
+          <article class="ux-person">
+            <div class="ux-person__top"><span class="ux-person__initials">EP</span><span class="ux-person__stance">COMMIT, THEN REVEAL</span></div>
+            <span class="ux-person__role">Player psychology · game feel</span>
+            <h3>Elias Park</h3>
+            <p><b>“Commit, then reveal.”</b> The result is sealed before the first frame. The ceremony only decides how it lands. Clicking each card is the player spending attention.</p>
+          </article>
+          <article class="ux-person">
+            <div class="ux-person__top"><span class="ux-person__initials">JO</span><span class="ux-person__stance">LEGAL BEFORE LIFT</span></div>
+            <span class="ux-person__role">Combat/input engineering · QA</span>
+            <h3>June Okafor</h3>
+            <p><b>“Drag is a promise.”</b> The drop must be legal before the card leaves the hand. Glow the zones first; snap back honestly when the promise is broken.</p>
+          </article>
+        </div>
+
+        <div class="ux-roundtable">
+          <article class="ux-topic">
+            <header><span>01</span><h3>What is a pack opening, actually?</h3></header>
+            <div class="ux-topic__quotes">
+              <p><b>Sana:</b> “A pack is a container with a tear line. The player should feel the material fail.”</p>
+              <p><b>Elias:</b> “The reveal is a sequence of commitments: crack, deal, turn, stamp. Clicking each card is the player spending attention, not the game spending it for them.”</p>
+              <p><b>Rook:</b> “The fan is the receipt. Keep the cards on screen after the last flip.”</p>
+            </div>
+            <p class="ux-verdict"><b>PANEL VERDICT</b> One state machine, three skins. Rip &amp; Fan for standard packs; Reliquary Case for premium; Stack Peel for narrow windows. Default to Rip &amp; Fan, and never auto-turn the last card without asking.</p>
+          </article>
+          <article class="ux-topic">
+            <header><span>02</span><h3>Where does the panel live?</h3></header>
+            <div class="ux-topic__quotes">
+              <p><b>Rook:</b> “A persistent rail is a place. The board can afford 180px cards; the player cannot afford to hunt for the log.”</p>
+              <p><b>Nadia:</b> “At 1440 a 280px rail costs 20% of the board. Pin it at 1600+, peek it at 1440, command-deck it at 960.”</p>
+              <p><b>Ivo:</b> “If it opens over the board, it needs a visible edge tab, a close button, Esc, and focus return. No mystery ≡.”</p>
+            </div>
+            <p class="ux-verdict"><b>PANEL VERDICT</b> A responsive panel, not one layout: Cockpit Rail at ≥1600, Edge Peek at 1280–1599, Command Deck below. The top-right button is labeled and carries the Warden intent chip.</p>
+          </article>
+          <article class="ux-topic">
+            <header><span>03</span><h3>How visible is the hand?</h3></header>
+            <div class="ux-topic__quotes">
+              <p><b>Mara:</b> “If the hand is a 30% shelf, the player plans by hover. That is not a hand; it is a tooltip.”</p>
+              <p><b>Nadia:</b> “Full hand at 1440 costs the board 20%. A 60% tray costs 5% and shows name, type, and stats.”</p>
+              <p><b>Ivo:</b> “Hover cannot be the only way. Pin, focus, and click must do the same job. On touch, a tray is the only honest default.”</p>
+            </div>
+            <p class="ux-verdict"><b>PANEL VERDICT</b> Readable Tray 60% is the default at 1440; Full Hand is a real option at ≥1920; Spring Shelf stays below 1280. The hand never drops below the name/type band; the full face is one lift away.</p>
+          </article>
+          <article class="ux-topic">
+            <header><span>04</span><h3>Does drag replace click?</h3></header>
+            <div class="ux-topic__quotes">
+              <p><b>June:</b> “No. Drag is a second input, not a replacement. The click path stays; the drag path shares the same legal-action resolver.”</p>
+              <p><b>Ivo:</b> “Keyboard and touch need the same verbs: select, choose lane, confirm, cancel. Drag is a shortcut, not a gate.”</p>
+              <p><b>Mara:</b> “Drag is the fastest way to say ‘this card goes there’. Keep it direct; don't make me open a menu on drop.”</p>
+            </div>
+            <p class="ux-verdict"><b>PANEL VERDICT</b> Hybrid: drag primary, click fallback, Shift/right-drag to set, keyboard lane picker. Legal zones glow before the lift; invalid drops snap back with no toast.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="wrap ux-section ux-brief" id="brief">
+        <div class="section-head">
+          <span class="section-head__no">02 / THE BRIEF</span>
+          <h2>The diagnosis is <em>visible.</em></h2>
+          <p>
+            These are the current Godot screens, not mockups. The pack screen has the
+            right bones but the wrong verb: it cracks a letter and shows a receipt. The
+            table has the right board but hides the two things the player needs most:
+            their hand and the panel.
+          </p>
+        </div>
+
+        <div class="ux-diagnosis">
+          <figure class="ux-shot">
+            <div class="ux-shot__frame">
+              <img src="assets/table-current-1440.png" alt="The current table at 1440 by 900. The hand is clipped to title strips and the panel is behind a menu button." />
+              <span class="ux-pin" aria-hidden="true" style="--x: 18%; --y: 91%;">1</span>
+              <span class="ux-pin" aria-hidden="true" style="--x: 97%; --y: 4%;">2</span>
+              <span class="ux-pin" aria-hidden="true" style="--x: 55%; --y: 91%;">3</span>
+            </div>
+            <figcaption>
+              <b>THE TABLE · 1440×900</b>
+              <span>The board is strong. The hand and panel are not in the same conversation.</span>
+            </figcaption>
+          </figure>
+          <ol class="ux-findings">
+            <li><span>01</span><div><b>Hand at 30%.</b> Only the title strip is visible at rest. Hover or pin lifts the full face, but the default state is a memory test.</div></li>
+            <li><span>02</span><div><b>Panel behind ≡.</b> The drawer is 420px, covers the board, and is the only way to reach log, inspect, actions, and descent.</div></li>
+            <li><span>03</span><div><b>No drag.</b> Cards play by select-then-click. The dock carries Strike / End Phase / Reset; everything else is in the drawer.</div></li>
+            <li><span>04</span><div><b>Naming drift.</b> The door says Packs, the screen says FOLIOS, the shop says Press, and the save says <code>folio_mode</code>.</div></li>
+          </ol>
+        </div>
+
+        <div class="ux-diagnosis ux-diagnosis--reverse">
+          <figure class="ux-shot">
+            <div class="ux-shot__frame">
+              <img src="assets/packs-current-1440.png" alt="The current Packs screen, titled FOLIOS, with a sealed Brass Folio, a Crack button, a satchel rail, and a Press rail." />
+              <span class="ux-pin" aria-hidden="true" style="--x: 9%; --y: 8%;">1</span>
+              <span class="ux-pin" aria-hidden="true" style="--x: 51%; --y: 48%;">2</span>
+              <span class="ux-pin" aria-hidden="true" style="--x: 76%; --y: 55%;">3</span>
+            </div>
+            <figcaption>
+              <b>THE PACKS ROOM · 1440×900</b>
+              <span>A satchel, a table, a press. The ceremony is one crack and a fan.</span>
+            </figcaption>
+          </figure>
+          <ol class="ux-findings">
+            <li><span>01</span><div><b>“Folios” is the first word.</b> It reads as a document or an envelope. The door, the nav, and the player's mental model all say pack.</div></li>
+            <li><span>02</span><div><b>The stage is rebuilt.</b> The envelope is a static panel; the crack is a medallion; the fan appears after a full refresh. There is no stable ceremony actor.</div></li>
+            <li><span>03</span><div><b>Click-to-reveal exists, but the ritual is thin.</b> The HTML lab has tear, flap, deal, tells, flares, stamps, and a ledger. The Godot screen has the committed result and a 220ms flip.</div></li>
+          </ol>
+        </div>
+
+        <div class="ux-keep">
+          <span class="ux-keep__label">KEEP, DO NOT REOPEN</span>
+          <span>Neon Reliquary</span><span>5:7 card face</span><span>four doors</span><span>face-sealed rule</span><span>committed pack result</span><span>honest rarity tell</span><span>150% chrome</span><span>B1/B3 backrow</span><span>reduced motion</span>
+        </div>
+      </section>
+
+      <section class="wrap ux-section" id="packs">
+        <div class="section-head">
+          <span class="section-head__no">03 / PACKS</span>
+          <h2>Stop mailing the cards. <em>Open the pack.</em></h2>
+          <p>
+            The rename and the ceremony are two different jobs. Do the rename once, with
+            a save migration, so “folio” does not leak back into the UI. Then build one
+            <code>PackCeremony</code> state machine and let the container skin change.
+          </p>
+        </div>
+
+        <div class="ux-naming">
+          <div class="ux-subhead"><span>3.1 / THE NAME</span><h3>Folio → Pack</h3></div>
+          <div class="ux-table-wrap">
+            <table class="ux-table">
+              <thead>
+                <tr><th>Option</th><th>What changes</th><th>Effort</th><th>Save risk</th><th>Verdict</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><b>N1</b> Surface only</td>
+                  <td>UI strings say Packs. Code, content IDs, and settings still say folio.</td>
+                  <td><span class="ux-pill">S</span></td>
+                  <td><span class="ux-pill ux-pill--good">None</span></td>
+                  <td>No. The drift comes back in errors, tests, and docs.</td>
+                </tr>
+                <tr class="is-recommended">
+                  <td><b>N2</b> Full rename + aliases</td>
+                  <td>UI, classes, functions, content keys, settings, and save. Keep <code>folio.*</code> aliases for one version.</td>
+                  <td><span class="ux-pill">M</span></td>
+                  <td><span class="ux-pill ux-pill--warn">Managed</span></td>
+                  <td><b>Recommended.</b> Clean player language without losing testers' saves.</td>
+                </tr>
+                <tr>
+                  <td><b>N3</b> Hard cut</td>
+                  <td>Everything renamed, no aliases, no migration.</td>
+                  <td><span class="ux-pill">M</span></td>
+                  <td><span class="ux-pill ux-pill--bad">High</span></td>
+                  <td>No. Old packs and <code>folio_mode</code> break silently.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="ux-rename-map">
+            <div><span>PLAYER</span><b>Packs</b><em>door, title, buttons, copy</em></div>
+            <div><span>CONTENT</span><b><code>pack.paper</code></b><em><code>content/folios.yaml</code> → <code>packs.yaml</code>; alias <code>folio.paper</code> for one version</em></div>
+            <div><span>CODE</span><b><code>PackScreen</code> · <code>PackCeremony</code></b><em>FolioScreen → PackScreen; <code>Content.folio</code> → <code>Content.pack</code>; <code>Session.buy_folio</code> → <code>buy_pack</code></em></div>
+            <div><span>SAVE</span><b>v2 migration</b><em><code>folio_mode</code> → <code>pack_mode</code>; rewrite pack kinds</em></div>
+            <div><span>ROOM</span><b>Packs / The Press</b><em>“Satchel” can stay as the collection metaphor</em></div>
+            <div><span>TESTS</span><b>v1 save fixture</b><em>open an old folio pack after migration</em></div>
+          </div>
+        </div>
+
+        <div class="ux-subhead ux-subhead--spaced"><span>3.2 / THE OPENING</span><h3>Four containers, one ceremony</h3></div>
+        <div class="ux-pack-options">
+          <article class="ux-option ux-option--pack">
+            <div class="ux-pack-thumb ux-pack-thumb--envelope"><span class="ux-pack-thumb__seal"></span><span class="ux-pack-thumb__label">P0</span></div>
+            <div class="ux-option__head"><span class="ux-option__no">P0</span><h3>Sealed Envelope</h3><span class="ux-option__tag">CURRENT</span></div>
+            <p class="ux-option__line">A letter with wax. Press the seal, the flap opens, the cards fan.</p>
+            <div class="ux-proscons"><div><b>Good</b><span>Identity, already built, cheap.</span></div><div><b>Bad</b><span>Reads as mail, not a pack; the ceremony is one beat.</span></div></div>
+            <div class="ux-votes"><span class="ux-vote">0 panel votes</span><span class="ux-effort">Effort S</span></div>
+          </article>
+          <article class="ux-option ux-option--pack is-recommended">
+            <div class="ux-pack-thumb ux-pack-thumb--rip"><span class="ux-pack-thumb__tear"></span><span class="ux-pack-thumb__seal"></span><span class="ux-pack-thumb__label">P1</span></div>
+            <div class="ux-option__head"><span class="ux-option__no">P1</span><h3>Rip &amp; Fan</h3><span class="ux-option__tag ux-option__tag--hot">PANEL PICK</span></div>
+            <p class="ux-option__line">Tear the top, spill the cards into a fan. Click each card to turn it.</p>
+            <div class="ux-proscons"><div><b>Good</b><span>Universal pack grammar; tactile; 3–5 cards; cheap to build.</span></div><div><b>Bad</b><span>Less reliquary; the foil/paper material has to carry it.</span></div></div>
+            <div class="ux-votes"><span class="ux-vote">4 panel votes</span><span class="ux-effort">Effort M</span></div>
+          </article>
+          <article class="ux-option ux-option--pack">
+            <div class="ux-pack-thumb ux-pack-thumb--case"><span class="ux-pack-thumb__clasp"></span><span class="ux-pack-thumb__label">P2</span></div>
+            <div class="ux-option__head"><span class="ux-option__no">P2</span><h3>Reliquary Case</h3><span class="ux-option__tag">PREMIUM SKIN</span></div>
+            <p class="ux-option__line">Press the clasp, the brass lid opens, the cards rise. Same beats, heavier material.</p>
+            <div class="ux-proscons"><div><b>Good</b><span>Strongest Neon identity; premium; reusable for boss/set packs.</span></div><div><b>Bad</b><span>More motion and art; a case is a box, not a pack.</span></div></div>
+            <div class="ux-votes"><span class="ux-vote">2 panel votes</span><span class="ux-effort">Effort L</span></div>
+          </article>
+          <article class="ux-option ux-option--pack">
+            <div class="ux-pack-thumb ux-pack-thumb--stack"><span class="ux-pack-thumb__stack"></span><span class="ux-pack-thumb__stack"></span><span class="ux-pack-thumb__stack"></span><span class="ux-pack-thumb__label">P3</span></div>
+            <div class="ux-option__head"><span class="ux-option__no">P3</span><h3>Stack Peel</h3><span class="ux-option__tag">FOCUS MODE</span></div>
+            <p class="ux-option__line">One back at a time. Click the top card, it peels away and turns. The next card is already waiting.</p>
+            <div class="ux-proscons"><div><b>Good</b><span>Maximum focus; any card count; best at narrow widths.</span></div><div><b>Bad</b><span>Hides the overview; slower; less like opening a pack.</span></div></div>
+            <div class="ux-votes"><span class="ux-vote">1 panel vote</span><span class="ux-effort">Effort M</span></div>
+          </article>
+        </div>
+
+        <div class="ux-lab" id="packLab">
+          <div class="ux-labbar">
+            <div class="ux-labbar__label"><span class="live-dot"></span> LIVE PACK LAB <span>CLICK THE PACK · CLICK EACH CARD</span></div>
+            <div class="ux-seg" role="tablist" aria-label="Pack format">
+              <button type="button" data-packmode="rip" class="is-on" role="tab" aria-selected="true">01 Rip &amp; Fan</button>
+              <button type="button" data-packmode="case" role="tab" aria-selected="false">02 Reliquary Case</button>
+              <button type="button" data-packmode="stack" role="tab" aria-selected="false">03 Stack Peel</button>
+            </div>
+            <button class="ux-labbtn" type="button" data-pack-reset>RESET</button>
+          </div>
+          <div class="ux-pack-wrap" id="packWrap">
+            <div class="ux-packstage" id="packStage">
+              <div class="ux-packstage__grid" aria-hidden="true"></div>
+              <div class="ux-packstage__status" id="packStatus">SEALED · CLICK THE PACK</div>
+              <div class="ux-packstage__hint" id="packHint">The result is committed before the first frame. The tell is exact.</div>
+              <div class="ux-pack-object" id="packObject" role="button" tabindex="0" aria-label="Open the sealed pack"></div>
+              <div class="ux-pack-fan" id="packFan"></div>
+              <div class="ux-pack-ledger" id="packLedger" hidden></div>
+            </div>
+          </div>
+          <div class="ux-labfoot">
+            <span><b>Try it:</b> click the pack, then click every card. Hover a back for the tell. Reset to try another container.</span>
+            <span><b>Prototype:</b> simplified pack contents; the real ceremony reads the committed result.</span>
+          </div>
+        </div>
+
+        <div class="ux-beats">
+          <div class="ux-subhead"><span>3.3 / THE BEATS</span><h3>Eight beats, one honest result</h3></div>
+          <div class="ux-beat-grid">
+            <div><span>01</span><b>Sealed</b><p>Pack on the table. Name, set, guarantee. No purchase CTA.</p></div>
+            <div><span>02</span><b>Tear</b><p>Click or drag the tear line. Paper/foil flex, flecks, 80–160ms.</p></div>
+            <div><span>03</span><b>Spill</b><p>Cards rise into a fan with a 55ms stagger. The container stays.</p></div>
+            <div><span>04</span><b>Tell</b><p>Hover or focus a back: pips, ring, label. Read from the committed card.</p></div>
+            <div><span>05</span><b>Turn</b><p>Click each card. 470ms ritual, 190ms quick, 60ms hold. Same at every rarity.</p></div>
+            <div><span>06</span><b>Stamp</b><p>NEW or ×N lands on the card. Duplicates are income, not failure.</p></div>
+            <div><span>07</span><b>Flare</b><p>120 / 220 / 420 / 900ms. Local bloom; no full-screen flash.</p></div>
+            <div><span>08</span><b>Ledger</b><p>Counts, set gauge, recent pulls. Cards stay clickable. Skip lands here.</p></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="wrap ux-section" id="table-panel">
+        <div class="section-head">
+          <span class="section-head__no">04 / THE TABLE PANEL</span>
+          <h2>Give the panel <em>a wall.</em></h2>
+          <p>
+            The panel is not a settings menu. It is the Warden's intent, the log, the
+            inspect lens, and the legal actions. It has to be visible enough to glance
+            at, and honest enough to get out of the way. Four layouts were compared at
+            1440×900.
+          </p>
+        </div>
+
+        <div class="ux-panel-options">
+          <article class="ux-option ux-option--layout">
+            <div class="ux-diagram ux-diagram--rail"><div class="ux-diagram__board"><i></i><i></i><i></i></div><div class="ux-diagram__rail"><span></span><span></span><span></span></div></div>
+            <div class="ux-option__head"><span class="ux-option__no">R1</span><h3>Cockpit Rail</h3><span class="ux-option__tag">≥1600</span></div>
+            <p class="ux-option__line">A persistent 280–320px rail. The board shifts left; the panel never covers it.</p>
+            <div class="ux-proscons"><div><b>Good</b><span>Always visible; stable drag targets; teaches the loop.</span></div><div><b>Bad</b><span>Costs board width: 225→180 at 1440 with a 280px rail.</span></div></div>
+            <div class="ux-votes"><span class="ux-vote">3 panel votes</span><span class="ux-effort">Effort M</span></div>
+          </article>
+          <article class="ux-option ux-option--layout is-recommended">
+            <div class="ux-diagram ux-diagram--peek"><div class="ux-diagram__board"><i></i><i></i><i></i></div><div class="ux-diagram__edge">PANEL</div><div class="ux-diagram__overlay"></div></div>
+            <div class="ux-option__head"><span class="ux-option__no">R2</span><h3>Edge Peek</h3><span class="ux-option__tag ux-option__tag--hot">1440 DEFAULT</span></div>
+            <p class="ux-option__line">A labeled edge tab slides a 320px panel over the board. Pin it if you want it to stay.</p>
+            <div class="ux-proscons"><div><b>Good</b><span>Board keeps its full width; cheap; yields when you pick up a card.</span></div><div><b>Bad</b><span>Overlay covers the board; hover-edge can be accidental.</span></div></div>
+            <div class="ux-votes"><span class="ux-vote">2 panel votes</span><span class="ux-effort">Effort M</span></div>
+          </article>
+          <article class="ux-option ux-option--layout">
+            <div class="ux-diagram ux-diagram--deck"><div class="ux-diagram__board"><i></i><i></i><i></i></div><div class="ux-diagram__chips"><span>INTENT</span><span>LOG</span><span>INSPECT</span><span>ACTIONS</span></div></div>
+            <div class="ux-option__head"><span class="ux-option__no">R3</span><h3>Command Deck</h3><span class="ux-option__tag">&lt;1280</span></div>
+            <p class="ux-option__line">Four labeled chips in the top-right open anchored popovers. No permanent width cost.</p>
+            <div class="ux-proscons"><div><b>Good</b><span>Works at 960; fast; no rail.</span></div><div><b>Bad</b><span>Popovers cover the board; less glanceable; more clicks.</span></div></div>
+            <div class="ux-votes"><span class="ux-vote">1 panel vote</span><span class="ux-effort">Effort M</span></div>
+          </article>
+          <article class="ux-option ux-option--layout">
+            <div class="ux-diagram ux-diagram--bottom"><div class="ux-diagram__board"><i></i><i></i><i></i></div><div class="ux-diagram__sheet">LOG · ACTIONS · DESCENT</div></div>
+            <div class="ux-option__head"><span class="ux-option__no">R4</span><h3>Bottom Drawer</h3><span class="ux-option__tag">NOT PICKED</span></div>
+            <p class="ux-option__line">Move log and actions into a sheet above the dock. The top-right keeps only intent.</p>
+            <div class="ux-proscons"><div><b>Good</b><span>Touch-friendly; top stays clean.</span></div><div><b>Bad</b><span>Fights the hand; covers the drag targets; the hand is already there.</span></div></div>
+            <div class="ux-votes"><span class="ux-vote">0 panel votes</span><span class="ux-effort">Effort S</span></div>
+          </article>
+        </div>
+
+        <div class="ux-panel-spec">
+          <div><span>THE BUTTON</span><b>PANEL ›</b><p>Labeled, 48px, with a live intent chip. Not ≡. It remembers its tab and pin state.</p></div>
+          <div><span>THE CONTENTS</span><b>Intent · Log · Inspect · Actions</b><p>Intent stays at the top even when the panel is closed. Piles and descent live at the bottom.</p></div>
+          <div><span>THE CONTRACT</span><b>Never cover the hand</b><p>The rail ends above the hand shelf. The hand keeps the full width. Edge Peek yields when you pick up a card.</p></div>
+        </div>
+      </section>
+
+      <section class="wrap ux-section" id="hand">
+        <div class="section-head">
+          <span class="section-head__no">05 / THE HAND</span>
+          <h2>The hand is not a <em>tooltip.</em></h2>
+          <p>
+            The current shelf shows 30% of the card width, which is about 21% of its
+            height: enough for the name, not enough for the type or stats. The panel
+            compared five budgets. The exact numbers below are 5:7 card widths at each
+            window; the hand height is the shelf.
+          </p>
+        </div>
+
+        <div class="ux-hand-options">
+          <article class="ux-option ux-option--hand">
+            <div class="ux-hand-diagram ux-hand-diagram--shelf"><div class="ux-hand-diagram__board"></div><div class="ux-hand-diagram__shelf"><i></i><i></i><i></i><i></i><i></i></div><span>30%</span></div>
+            <div class="ux-option__head"><span class="ux-option__no">H0</span><h3>Spring Shelf</h3><span class="ux-option__tag">CURRENT</span></div>
+            <p class="ux-option__line">Title strips at rest. Hover, focus, or click lifts the full face; click pins it.</p>
+            <div class="ux-proscons"><div><b>Good</b><span>Maximum board size; clean silhouette.</span></div><div><b>Bad</b><span>Hover-only planning; touch has no hover; rules are hidden.</span></div></div>
+            <div class="ux-votes"><span class="ux-vote">0 panel votes</span><span class="ux-effort">Effort S</span></div>
+          </article>
+          <article class="ux-option ux-option--hand is-recommended">
+            <div class="ux-hand-diagram ux-hand-diagram--tray"><div class="ux-hand-diagram__board"></div><div class="ux-hand-diagram__shelf"><i></i><i></i><i></i><i></i><i></i></div><span>60%</span></div>
+            <div class="ux-option__head"><span class="ux-option__no">H1</span><h3>Readable Tray</h3><span class="ux-option__tag ux-option__tag--hot">1440 DEFAULT</span></div>
+            <p class="ux-option__line">Name and type line at rest. Hover, focus, or click lifts the full card.</p>
+            <div class="ux-proscons"><div><b>Good</b><span>Small board cost; identity at a glance; works on touch.</span></div><div><b>Bad</b><span>Stats and rules still need the lift; not a full hand.</span></div></div>
+            <div class="ux-votes"><span class="ux-vote">4 panel votes</span><span class="ux-effort">Effort M</span></div>
+          </article>
+          <article class="ux-option ux-option--hand">
+            <div class="ux-hand-diagram ux-hand-diagram--full"><div class="ux-hand-diagram__board"></div><div class="ux-hand-diagram__shelf ux-hand-diagram__shelf--full"><i></i><i></i><i></i><i></i><i></i></div><span>FULL</span></div>
+            <div class="ux-option__head"><span class="ux-option__no">H2</span><h3>Full Hand</h3><span class="ux-option__tag">≥1920</span></div>
+            <p class="ux-option__line">Every card fully visible at rest. The board pays for it with ~20% of its card width at 1440.</p>
+            <div class="ux-proscons"><div><b>Good</b><span>No hover; best planning; every rule visible.</span></div><div><b>Bad</b><span>Board shrinks; hand cards get small; not viable at 720p.</span></div></div>
+            <div class="ux-votes"><span class="ux-vote">2 panel votes</span><span class="ux-effort">Effort M</span></div>
+          </article>
+          <article class="ux-option ux-option--hand">
+            <div class="ux-hand-diagram ux-hand-diagram--fan"><div class="ux-hand-diagram__board"></div><div class="ux-hand-diagram__fan"><i></i><i></i><i></i><i></i><i></i></div><span>ARC</span></div>
+            <div class="ux-option__head"><span class="ux-option__no">H3</span><h3>Fan Arc</h3><span class="ux-option__tag">EXPRESSIVE</span></div>
+            <p class="ux-option__line">A classic overlapping fan. Hover brings a card forward; the rest stay as edges.</p>
+            <div class="ux-proscons"><div><b>Good</b><span>Expressive; all cards present; strong silhouette.</span></div><div><b>Bad</b><span>Covered text; overlapping drag targets; stats are hidden.</span></div></div>
+            <div class="ux-votes"><span class="ux-vote">1 panel vote</span><span class="ux-effort">Effort M</span></div>
+          </article>
+          <article class="ux-option ux-option--hand">
+            <div class="ux-hand-diagram ux-hand-diagram--side"><div class="ux-hand-diagram__board ux-hand-diagram__board--narrow"></div><div class="ux-hand-diagram__side"><i></i><i></i><i></i></div><span>SIDE</span></div>
+            <div class="ux-option__head"><span class="ux-option__no">H4</span><h3>Side Hand</h3><span class="ux-option__tag">ULTRAWIDE</span></div>
+            <p class="ux-option__line">A vertical hand on the left or right. Three full cards visible, scroll for the rest.</p>
+            <div class="ux-proscons"><div><b>Good</b><span>Board keeps height; full cards; uses ultrawide width.</span></div><div><b>Bad</b><span>Conflicts with the right panel; hand is far from the dock.</span></div></div>
+            <div class="ux-votes"><span class="ux-vote">0 panel votes</span><span class="ux-effort">Effort L</span></div>
+          </article>
+        </div>
+
+        <div class="ux-budget">
+          <div class="ux-subhead"><span>5.1 / THE BUDGET</span><h3>What each hand costs the board</h3></div>
+          <div class="ux-table-wrap">
+            <table class="ux-table ux-table--budget">
+              <thead>
+                <tr><th>Window</th><th>Current shelf</th><th>Readable tray 60%</th><th>Full hand</th><th>Panel call</th></tr>
+              </thead>
+              <tbody>
+                <tr><td><b>1280×720</b></td><td>167 board · 50 shelf</td><td>152 board · 91 shelf</td><td>123 board · 123 hand</td><td>Tray</td></tr>
+                <tr><td><b>1440×900</b></td><td>225 board · 68 shelf</td><td>205 board · 123 shelf</td><td>166 board · 166 hand</td><td>Tray default · Full option</td></tr>
+                <tr><td><b>1920×1080</b></td><td>283 board · 85 shelf</td><td>258 board · 155 shelf</td><td>209 board · 209 hand</td><td>Full hand</td></tr>
+                <tr><td><b>2560×1440</b></td><td>399 board · 120 shelf</td><td>364 board · 218 shelf</td><td>295 board · 295 hand</td><td>Full hand</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p class="ux-note">Rounded 5:7 card widths. The 60% tray is 60% of the card width: name, seal, and type line at rest; the full face is one lift away. The live table lab and the game use about 64% at 1440 (a little above the 60% budget) so the type line stays clear. The pinned panel at 1440 can width-limit the board to ~180; the hand still spans the full window, so it can stay at 205. That is why the panel must end above the hand.</p>
+        </div>
+      </section>
+
+      <section class="wrap ux-section" id="drag">
+        <div class="section-head">
+          <span class="section-head__no">06 / DRAG</span>
+          <h2>Make the card <em>go there.</em></h2>
+          <p>
+            Drag is the fastest way to say “this card goes there.” It is also the easiest
+            way to break a table. The panel's rule: the legal zones appear before the
+            card leaves the hand, the drop resolves through the same
+            <code>DuelRules.legal_actions</code> as the click path, and the click path
+            never goes away.
+          </p>
+        </div>
+
+        <div class="ux-drag-options">
+          <article class="ux-option ux-option--drag">
+            <div class="ux-drag-diagram ux-drag-diagram--click"><div class="ux-drag-diagram__card">CARD</div><span>1</span><span>2</span><div class="ux-drag-diagram__zone"></div></div>
+            <div class="ux-option__head"><span class="ux-option__no">D0</span><h3>Click-Select</h3><span class="ux-option__tag">CURRENT</span></div>
+            <p class="ux-option__line">Click the card, then click the lane. Legal zones glow between the two clicks.</p>
+            <div class="ux-proscons"><div><b>Good</b><span>Accessible; simple; no drag bugs.</span></div><div><b>Bad</b><span>Two steps; no spatial feel; slow with a hidden hand.</span></div></div>
+            <div class="ux-votes"><span class="ux-vote">0 panel votes</span><span class="ux-effort">Effort S</span></div>
+          </article>
+          <article class="ux-option ux-option--drag">
+            <div class="ux-drag-diagram ux-drag-diagram--drag"><div class="ux-drag-diagram__card">CARD</div><div class="ux-drag-diagram__arrow"></div><div class="ux-drag-diagram__zone is-hot"></div></div>
+            <div class="ux-option__head"><span class="ux-option__no">D1</span><h3>Direct Drag</h3><span class="ux-option__tag">FAST</span></div>
+            <p class="ux-option__line">Grab the card and drop it on a zone. No menu; the zone is the verb.</p>
+            <div class="ux-proscons"><div><b>Good</b><span>Spatial; fast; familiar from other card games.</span></div><div><b>Bad</b><span>Needs legal zones, invalid drops, touch, and cancel handling.</span></div></div>
+            <div class="ux-votes"><span class="ux-vote">1 panel vote</span><span class="ux-effort">Effort M</span></div>
+          </article>
+          <article class="ux-option ux-option--drag">
+            <div class="ux-drag-diagram ux-drag-diagram--magnet"><div class="ux-drag-diagram__card">CARD</div><div class="ux-drag-diagram__arrow"></div><div class="ux-drag-diagram__zone is-hot"><i></i></div><div class="ux-drag-diagram__zone is-ghost"></div></div>
+            <div class="ux-option__head"><span class="ux-option__no">D2</span><h3>Magnetic Drop</h3><span class="ux-option__tag">FORGIVING</span></div>
+            <p class="ux-option__line">Legal zones glow; the nearest legal zone pulls the card in within 24px. A ghost preview shows the result.</p>
+            <div class="ux-proscons"><div><b>Good</b><span>Forgiving; teaches legality; feels fast.</span></div><div><b>Bad</b><span>More work; can feel sticky if the magnet is too strong.</span></div></div>
+            <div class="ux-votes"><span class="ux-vote">2 panel votes</span><span class="ux-effort">Effort L</span></div>
+          </article>
+          <article class="ux-option ux-option--drag is-recommended">
+            <div class="ux-drag-diagram ux-drag-diagram--hybrid"><div class="ux-drag-diagram__card">CARD</div><div class="ux-drag-diagram__arrow"></div><div class="ux-drag-diagram__zone is-hot"></div><div class="ux-drag-diagram__keys">↵ · S · Esc</div></div>
+            <div class="ux-option__head"><span class="ux-option__no">D4</span><h3>Hybrid</h3><span class="ux-option__tag ux-option__tag--hot">PANEL PICK</span></div>
+            <p class="ux-option__line">Drag primary; click fallback; Shift/right-drag to set; keyboard lane picker. All paths resolve the same action.</p>
+            <div class="ux-proscons"><div><b>Good</b><span>Fast for pointer, fair for keyboard/touch, no rule forks.</span></div><div><b>Bad</b><span>Most work; the affordances have to be taught clearly.</span></div></div>
+            <div class="ux-votes"><span class="ux-vote">4 panel votes</span><span class="ux-effort">Effort L</span></div>
+          </article>
+        </div>
+
+        <div class="ux-drag-spec">
+          <div><span>LIFT</span><b>6px threshold</b><p>Card lifts 8px, scales 1.04, keeps its face, casts a shadow. The source slot holds a ghost.</p></div>
+          <div><span>LEGAL</span><b>Glow before the lift</b><p>Amber corner brackets and a 6% fill. Invalid zones dim to 30%. Enemy targets get a pink bracket.</p></div>
+          <div><span>DROP</span><b>120ms snap · 160ms return</b><p>Valid drop snaps to the zone center. Invalid drop returns to the hand with a small red pulse; no toast.</p></div>
+          <div><span>SET</span><b>Shift / right-drag</b><p>A SET badge rides the drag ghost. On touch, a two-chip choice appears after the lift.</p></div>
+          <div><span>ATTACK</span><b>Drag the monster</b><p>Drag a board monster onto an enemy monster or the open face. An arrow follows the pointer.</p></div>
+          <div><span>PARITY</span><b>Click · keyboard · touch</b><p>Click: select card, click zone. Keyboard: focus, arrows, Enter, S, Esc. Touch: long-press 180ms.</p></div>
+        </div>
+
+        <div class="ux-map">
+          <div><span>CardActor</span><b>drag_started · drag_moved · drag_ended</b><p>Emit the pointer intent; keep the actor stable.</p></div>
+          <div><span>DuelBoardStage</span><b>DragLayer + zone hit-test</b><p>Own the ghost, legal zone glow, magnet, snap-back. Read <code>zone_rects</code> and <code>slot_rects</code>.</p></div>
+          <div><span>TableScreen</span><b>resolve one action</b><p>Use the same <code>_action_for_zone</code> path as click. No new rules, no new state.</p></div>
+          <div><span>Tests</span><b>every card × every zone</b><p>Legal, invalid, cancel, touch, keyboard, reduced motion, 960–2560. The rule stays in <code>DuelRules</code>.</p></div>
+        </div>
+      </section>
+
+      <section class="wrap ux-section" id="table-lab">
+        <div class="section-head">
+          <span class="section-head__no">07 / THE TABLE LAB</span>
+          <h2>Feel the <em>recommended table.</em></h2>
+          <p>
+            This is the panel's recommended composition at 1440×900: a labeled panel,
+            a hand you can read, and cards that drag to legal zones. Toggle the panel and
+            hand budgets to feel the tradeoff. The rules are simplified; the geometry is
+            the real 5:7 budget.
+          </p>
+        </div>
+
+        <div class="ux-lab ux-tablelab">
+          <div class="ux-labbar">
+            <div class="ux-labbar__label"><span class="live-dot"></span> LIVE TABLE LAB <span>DRAG A CARD · CLICK A CARD THEN A ZONE</span></div>
+            <div class="ux-seg" aria-label="Hand budget">
+              <button type="button" data-hand-mode="tray" class="is-on">Hand: Tray 60%</button>
+              <button type="button" data-hand-mode="full">Hand: Full</button>
+            </div>
+            <div class="ux-seg" aria-label="Panel budget">
+              <button type="button" data-panel-mode="overlay" class="is-on">Panel: Peek</button>
+              <button type="button" data-panel-mode="pinned">Panel: Pinned</button>
+            </div>
+            <button class="ux-labbtn" type="button" data-table-reset>RESET</button>
+          </div>
+          <div class="ux-table-wrap" id="uxTableWrap">
+            <div class="ux-tablelab__stage" id="uxTable" data-hand="tray" data-panel="overlay">
+              <div class="ux-table__score">
+                <div class="ux-score ux-score--you"><span>YOU</span><b>4,000</b><i></i></div>
+                <div class="ux-score__mid"><span class="ux-phase is-on"></span><span class="ux-phase"></span><span class="ux-phase"></span><span class="ux-phase"></span><span class="ux-phase"></span><span class="ux-phase"></span><em>THE WARDEN'S INTENT · TIDECALL · LANE II</em></div>
+                <div class="ux-score ux-score--warden"><span>THE DAMP WARDEN</span><b>3,180</b><span class="ux-guards"><i></i><i></i><i class="is-out"></i></span><i></i></div>
+                <button class="ux-panelbtn" id="uxPanelButton" type="button">PANEL <span>›</span></button>
+              </div>
+              <div class="ux-table__board" id="uxBoard">
+                <div class="ux-mat ux-mat--warden"><span class="ux-mat__label">THE DAMP WARDEN</span></div>
+                <div class="ux-seam"></div>
+                <div class="ux-mat ux-mat--player"><span class="ux-mat__label">YOU</span></div>
+              </div>
+              <div class="ux-table__hand" id="uxHand"></div>
+              <div class="ux-table__dock">
+                <span class="ux-live">LIVE</span>
+                <span class="ux-dockhint" id="uxDockHint">SELECT OR DRAG A CARD</span>
+                <button class="ux-btn ux-btn--strike" type="button">STRIKE <small>LANE II</small></button>
+                <button class="ux-btn ux-btn--end" type="button">END PHASE <small>NEXT · DRAW</small></button>
+                <button class="ux-btn ux-btn--ghost" type="button">RESET</button>
+              </div>
+              <aside class="ux-table__panel" id="uxPanel" aria-label="Table panel">
+                <header class="ux-panelhead">
+                  <span>TABLE PANEL</span>
+                  <div><button type="button" id="uxPinButton" class="ux-panelpin">PIN</button><button type="button" id="uxPanelClose" class="ux-panelclose">×</button></div>
+                </header>
+                <div class="ux-intent">
+                  <span>THE WARDEN</span>
+                  <div><b>TIDECALL</b><em>LANE II · 1,800</em></div>
+                  <p>Draw 1. If you control a TIDE monster, draw 1 more.</p>
+                </div>
+                <div class="ux-paneltabs" role="tablist">
+                  <button type="button" class="is-on" data-ptab="log">Log</button>
+                  <button type="button" data-ptab="inspect">Inspect</button>
+                  <button type="button" data-ptab="actions">Actions</button>
+                </div>
+                <div class="ux-panelbody" id="uxPanelBody"></div>
+                <footer class="ux-panelfoot">
+                  <span>DECK <b>28</b></span><span>REMAINS <b>2</b></span><span>VOID <b>0</b></span>
+                </footer>
+              </aside>
+              <div class="ux-tablescrim" id="uxScrim"></div>
+            </div>
+          </div>
+          <div class="ux-labfoot">
+            <span><b>Try it:</b> drag Cinder Hound to an empty monster lane. Drag Tidecall to a backrow lane. Hold Shift to set. Drag a board monster onto an enemy to attack.</span>
+            <span><b>Prototype:</b> simplified rules; the real build resolves through <code>DuelRules.legal_actions</code>.</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="wrap ux-section" id="pick">
+        <div class="section-head">
+          <span class="section-head__no">08 / THE PICK</span>
+          <h2>Choose the <em>shape.</em></h2>
+          <p>
+            The panel's recommendation is a package, not a single option. Pick the parts
+            you want, leave a note, and copy the feedback. Nothing is committed until you
+            say so.
+          </p>
+        </div>
+
+        <div class="ux-matrix-wrap">
+          <div class="ux-subhead"><span>8.1 / THE MATRIX</span><h3>How the options compare</h3></div>
+          <div class="ux-table-wrap">
+            <table class="ux-table ux-matrix">
+              <thead>
+                <tr><th>Option</th><th>Clarity</th><th>Board friendly</th><th>Low effort</th><th>Accessible</th><th>Votes</th></tr>
+              </thead>
+              <tbody>
+                <tr><td><b>P0</b> Envelope</td><td>3</td><td>5</td><td>5</td><td>4</td><td>0</td></tr>
+                <tr class="is-recommended"><td><b>P1</b> Rip &amp; Fan</td><td>5</td><td>5</td><td>4</td><td>5</td><td>4</td></tr>
+                <tr><td><b>P2</b> Reliquary Case</td><td>4</td><td>5</td><td>3</td><td>4</td><td>2</td></tr>
+                <tr><td><b>P3</b> Stack Peel</td><td>5</td><td>5</td><td>4</td><td>4</td><td>1</td></tr>
+                <tr><td><b>R1</b> Cockpit Rail</td><td>5</td><td>3</td><td>3</td><td>4</td><td>3</td></tr>
+                <tr class="is-recommended"><td><b>R2</b> Edge Peek</td><td>4</td><td>5</td><td>4</td><td>3</td><td>2</td></tr>
+                <tr><td><b>R3</b> Command Deck</td><td>3</td><td>5</td><td>4</td><td>4</td><td>1</td></tr>
+                <tr><td><b>R4</b> Bottom Drawer</td><td>3</td><td>2</td><td>3</td><td>4</td><td>0</td></tr>
+                <tr><td><b>H0</b> Spring Shelf</td><td>2</td><td>5</td><td>5</td><td>1</td><td>0</td></tr>
+                <tr class="is-recommended"><td><b>H1</b> Readable Tray</td><td>4</td><td>4</td><td>5</td><td>4</td><td>4</td></tr>
+                <tr><td><b>H2</b> Full Hand</td><td>5</td><td>3</td><td>4</td><td>5</td><td>2</td></tr>
+                <tr><td><b>H3</b> Fan Arc</td><td>3</td><td>3</td><td>3</td><td>2</td><td>1</td></tr>
+                <tr><td><b>H4</b> Side Hand</td><td>4</td><td>3</td><td>2</td><td>3</td><td>0</td></tr>
+                <tr><td><b>D0</b> Click-Select</td><td>3</td><td>5</td><td>5</td><td>5</td><td>0</td></tr>
+                <tr><td><b>D1</b> Direct Drag</td><td>4</td><td>5</td><td>4</td><td>2</td><td>1</td></tr>
+                <tr><td><b>D2</b> Magnetic Drop</td><td>4</td><td>5</td><td>3</td><td>3</td><td>2</td></tr>
+                <tr class="is-recommended"><td><b>D4</b> Hybrid</td><td>5</td><td>5</td><td>2</td><td>5</td><td>4</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p class="ux-note">Scores are design judgments, not measurements. “Board friendly” means the option leaves the most card size; “low effort” means the smallest implementation surface.</p>
+        </div>
+
+        <div class="ux-package">
+          <div class="ux-subhead"><span>8.2 / THE PACKAGE</span><h3>What I would ship, in order</h3></div>
+          <div class="ux-waves">
+            <article class="ux-wave">
+              <span class="ux-wave__no">WAVE 0</span>
+              <h4>Name it Packs</h4>
+              <p>N2 full rename with aliases. UI strings, <code>PackScreen</code>, content keys, <code>pack_mode</code>, save v2 migration, tests, docs.</p>
+              <span class="ux-wave__gate">Gate: no “folio” in player copy; a v1 save opens an old pack.</span>
+            </article>
+            <article class="ux-wave">
+              <span class="ux-wave__no">WAVE 1</span>
+              <h4>Panel + hand layout</h4>
+              <p>R1 at ≥1600, R2 at 1440, R3 below. Labeled top-right button + intent chip. H1 tray default; H2 full-hand option at ≥1920; H0 below 1280.</p>
+              <span class="ux-wave__gate">Gate: panel visible at every size; hand shows name/type at rest; no cover when pinned.</span>
+            </article>
+            <article class="ux-wave">
+              <span class="ux-wave__no">WAVE 2</span>
+              <h4>Drag-to-play</h4>
+              <p>D4 hybrid. Drag layer, legal-zone glow, magnetic drop, Shift set, attack arrow, click/keyboard/touch parity.</p>
+              <span class="ux-wave__gate">Gate: every legal action draggable; invalid drops snap back; no rule changes; 60fps.</span>
+            </article>
+            <article class="ux-wave">
+              <span class="ux-wave__no">WAVE 3</span>
+              <h4>Pack ceremony</h4>
+              <p>P1 Rip &amp; Fan default, P2 Reliquary Case premium skin, P3 Stack Peel for narrow. One <code>PackCeremony</code>; click each card; tells, stamps, flares, ledger.</p>
+              <span class="ux-wave__gate">Gate: click-to-reveal on every card; tell matches the committed card; skip lands on the ledger; no stage rebuild.</span>
+            </article>
+          </div>
+          <p class="ux-note"><b>Why this order:</b> the rename is cheap and unblocks copy. The panel/hand layout is the foundation drag needs. Drag is the core loop. The pack ceremony is independent and can run in parallel after the rename.</p>
+        </div>
+
+        <div class="ux-picks" id="uxPicks">
+          <div class="ux-subhead"><span>8.3 / YOUR CALL</span><h3>Shortlist the implementation</h3></div>
+          <div class="ux-locked">
+            <span>LOCKED · 2026-11-05</span>
+            <b>P1 Rip &amp; Fan · N2 Full rename + aliases · R1 Cockpit Rail · H1 Readable Tray (H2 Full Hand at 1920+) · D2 Magnetic Drop</b>
+          </div>
+          <form id="uxForm">
+            <fieldset class="ux-fieldset">
+              <legend>Naming</legend>
+              <label><input type="radio" name="ux-name" value="N2" checked /><span><b>N2</b> Full rename + aliases <em>Recommended</em></span></label>
+              <label><input type="radio" name="ux-name" value="N1" /><span><b>N1</b> Surface only <em>Fast, but drift returns</em></span></label>
+              <label><input type="radio" name="ux-name" value="N3" /><span><b>N3</b> Hard cut <em>Clean, but breaks old saves</em></span></label>
+            </fieldset>
+            <fieldset class="ux-fieldset">
+              <legend>Pack format</legend>
+              <label><input type="radio" name="ux-pack" value="P1" checked /><span><b>P1</b> Rip &amp; Fan <em>Panel pick</em></span></label>
+              <label><input type="radio" name="ux-pack" value="P2" /><span><b>P2</b> Reliquary Case <em>Premium skin</em></span></label>
+              <label><input type="radio" name="ux-pack" value="P3" /><span><b>P3</b> Stack Peel <em>Focus / narrow</em></span></label>
+              <label><input type="radio" name="ux-pack" value="P0" /><span><b>P0</b> Keep the envelope <em>Cheapest</em></span></label>
+            </fieldset>
+            <fieldset class="ux-fieldset">
+              <legend>Panel at 1440</legend>
+              <label><input type="radio" name="ux-panel" value="R2" /><span><b>R2</b> Edge Peek <em>No width cost</em></span></label>
+              <label><input type="radio" name="ux-panel" value="R1" checked /><span><b>R1</b> Pinned rail <em>Locked; panel always visible; board ~180</em></span></label>
+              <label><input type="radio" name="ux-panel" value="R3" /><span><b>R3</b> Command Deck <em>No rail; popovers</em></span></label>
+              <label><input type="radio" name="ux-panel" value="R4" /><span><b>R4</b> Bottom drawer <em>Not recommended</em></span></label>
+            </fieldset>
+            <fieldset class="ux-fieldset">
+              <legend>Hand at 1440</legend>
+              <label><input type="radio" name="ux-hand" value="H1" checked /><span><b>H1</b> Readable Tray 60% <em>Locked default at 1440</em></span></label>
+              <label><input type="radio" name="ux-hand" value="H2" /><span><b>H2</b> Full Hand <em>Locked at 1920+</em></span></label>
+              <label><input type="radio" name="ux-hand" value="H0" /><span><b>H0</b> Keep the 30% shelf <em>Board 225</em></span></label>
+              <label><input type="radio" name="ux-hand" value="H3" /><span><b>H3</b> Fan Arc <em>Expressive, covered text</em></span></label>
+            </fieldset>
+            <fieldset class="ux-fieldset">
+              <legend>Drag</legend>
+              <label><input type="radio" name="ux-drag" value="D4" /><span><b>D4</b> Hybrid <em>Drag + click + keyboard</em></span></label>
+              <label><input type="radio" name="ux-drag" value="D2" checked /><span><b>D2</b> Magnetic Drop <em>Locked; drag only, forgiving</em></span></label>
+              <label><input type="radio" name="ux-drag" value="D1" /><span><b>D1</b> Direct Drag <em>Drag only</em></span></label>
+              <label><input type="radio" name="ux-drag" value="D0" /><span><b>D0</b> Click only <em>Keep the current path</em></span></label>
+            </fieldset>
+            <fieldset class="ux-fieldset ux-fieldset--checks">
+              <legend>Also do</legend>
+              <label><input type="checkbox" name="ux-extra" value="Full hand at 1920+" checked /><span>Full hand at 1920+</span></label>
+              <label><input type="checkbox" name="ux-extra" value="Pin panel at 1440+" checked /><span>Pin panel at 1440+</span></label>
+              <label><input type="checkbox" name="ux-extra" value="Keep envelope as a skin" checked /><span>Keep the envelope as a skin</span></label>
+              <label><input type="checkbox" name="ux-extra" value="Stack Peel for narrow" checked /><span>Stack Peel for narrow windows</span></label>
+            </fieldset>
+            <label class="ux-noteslabel" for="uxNotes">NOTES</label>
+            <textarea id="uxNotes" rows="5" placeholder="What lands? What should be bigger, faster, slower, or gone? Be specific — this becomes the implementation brief."></textarea>
+            <div class="ux-formfoot">
+              <span class="ux-saved" id="uxSaved">SAVED IN THIS BROWSER</span>
+              <div>
+                <button type="button" class="btn btn--signal" id="uxCopy">Copy feedback</button>
+                <button type="button" class="btn btn--ghost" id="uxReset">Reset</button>
+              </div>
+            </div>
+            <pre class="ux-summary" id="uxSummary" aria-live="polite"></pre>
+          </form>
+        </div>
+
+        <div class="ux-questions">
+          <div class="ux-subhead"><span>8.4 / OPEN QUESTIONS</span><h3>What the build needs from you</h3></div>
+          <ul>
+            <li><b>Does “Satchel” stay?</b> The panel recommends keeping it as the collection metaphor, but the room and every object become Packs.</li>
+            <li><b>Is 190px a hard board floor?</b> If yes, pin the panel only at ≥1600 and use Edge Peek at 1440. If no, a 260px pinned rail at 1440 is viable.</li>
+            <li><b>Is Shift-to-set discoverable enough?</b> The alternative is a two-chip CALL/SET choice after the drop. The panel prefers Shift plus a visible legend.</li>
+            <li><b>Do you want the envelope at all?</b> It can survive as a “Vault” skin on the same ceremony, or be retired with the folio name.</li>
+            <li><b>How much auto is allowed?</b> The panel recommends Ritual default, Quick optional, Auto opt-in, and skip always landing on the ledger.</li>
+          </ul>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer wrap ux-footer">
+      <span>Razeah · packs + table UX review · Neon Reliquary</span>
+      <span><a href="packs.html">← Pack ritual lab</a> · <a href="index.html">Direction review</a> · <a href="#top">Top ↑</a></span>
+    </footer>
+
+    <div class="site-toast" id="uxToast" role="status" aria-live="polite"></div>
+
+    <script src="js/data.js"></script>
+    <script src="js/pack-data.js"></script>
+    <script src="js/ux.js"></script>
+  </body>
+</html>

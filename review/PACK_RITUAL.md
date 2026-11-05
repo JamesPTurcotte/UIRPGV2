@@ -1,5 +1,10 @@
 # The Pack Ritual — Neon Reliquary
 
+> **Naming note (2026-11-05):** the player-facing name is **Packs**, and Waves
+> 0–3 are in the game. This handoff still says “folio” because it describes the
+> approved lab; the save migration and pack-format options are in
+> [`ux.html`](ux.html).
+
 A review lab for the Folio ceremony. It is built on the same Neon Reliquary
 tokens as the chosen table direction, and on the real folio rules: the result is
 committed at acquisition, the tell comes from the committed card, skip lands on
@@ -170,17 +175,17 @@ Add a record to `RAZEAH_PACKS.folios` in `pack-data.js`:
 
 | Review | Godot |
 |---|---|
-| `pack.js` state machine | new `FolioCeremony` (`SEALED → CRACKING → DEALING → READY → FLIPPING → SUMMARY`) |
-| `packs.html` room | `FolioScreen` rebuilt around stable nodes; no stage rebuild on crack |
-| Envelope markup | `envelope_art.gd` with `crack_progress`, `flap_progress`, `mouth_glow`, flecks |
-| Card slots / flip | `FolioRevealCard` + `FolioFan`; pinched turn, paper edge, hit-stop |
+| `pack.js` state machine | new `PackCeremony` (`SEALED → CRACKING → DEALING → READY → FLIPPING → SUMMARY`) |
+| `packs.html` room | `PackScreen` rebuilt around stable nodes; no stage rebuild on crack |
+| Envelope markup | `pack_wrapper_art.gd` with `crack_progress`, `flap_progress`, `mouth_glow`, flecks |
+| Card slots / flip | `PackRevealCard` + `PackFan`; pinched turn, paper edge, hit-stop |
 | Tell pips / ring | same card back composition; pips 1/2/3/4, rarity label |
-| Aura / rays / motes | new `FolioFlare` renderer pooled per card |
-| Summary strip | `FolioScreen` ledger; the fan stays alive |
-| Cue sheet | new `FolioAudio`; silent fallback keeps the timing |
-| Neon tokens | `Tokens.gd` + `ThemeBuilder` scoped to the Folio room |
+| Aura / rays / motes | new `PackFlare` renderer pooled per card |
+| Summary strip | `PackScreen` ledger; the fan stays alive |
+| Cue sheet | new `PackAudio`; silent fallback keeps the timing |
+| Neon tokens | `Tokens.gd` + `ThemeBuilder` scoped to the Pack room |
 
-The target is the same as the spec: **one `FolioCeremony`, stable actors, one
+The target is the same as the spec: **one `PackCeremony`, stable actors, one
 renderer, no rebuild between beats.** This lab is the visual/timing target for
 that implementation.
 

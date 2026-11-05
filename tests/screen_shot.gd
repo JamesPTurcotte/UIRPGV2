@@ -138,8 +138,8 @@ func _ready() -> void:
 				var deck_accept := deck_view._can_drop_data(Vector2.ZERO, lib_payload)
 				deck_view._drop_data(Vector2.ZERO, lib_payload)
 				print("card drop deck accepts=%s main_after=%d" % [str(deck_accept), Session.active_deck().main.size()])
-		"folio":
-			app.show_screen("folio")
+		"pack":
+			app.show_screen("pack")
 		"table":
 			_fresh_descent("manual")
 			app.show_screen("table")
@@ -245,6 +245,38 @@ func _ready() -> void:
 					var hand_actor = c.stage.actors.get(hand_uid)
 					if hand_actor != null:
 						print("x2 hand pin uid=%d selected=%s clip=%s zone=%s" % [hand_uid, str(hand_actor.selected), str(hand_actor.card_clip.size), str(hand_actor.hover_zone.size)])
+		"table_x2_drag":
+			_fresh_descent("manual")
+			app.show_screen("table")
+			await get_tree().create_timer(0.8).timeout
+			if app.current_screen != null:
+				var c = app.current_screen
+				c.mode = "manual"
+				c.paused = true
+				c.timer.stop()
+				c.duel.active = 0
+				_seed_x2(c.duel)
+				c.stage.sync_all(c.duel)
+				c.stage.apply_rest(c.duel)
+				await get_tree().create_timer(0.2).timeout
+				for hand_card in c.duel.players[0].hand:
+					var actor = c.stage.actors.get(hand_card.uid)
+					if actor == null:
+						continue
+					c._on_card_drag_started(actor)
+					if c._drag_actor == null:
+						continue
+					var keys: Array = c.stage.legal_zones.keys()
+					if keys.is_empty():
+						c._resolve_drag_drop(actor, Vector2(-999, -999), false)
+						continue
+					var key := str(keys[0])
+					var rect: Rect2 = c.stage.slot_rects.get(key, Rect2())
+					c._resolve_drag_drop(actor, rect.get_center(), false)
+					await get_tree().create_timer(0.8).timeout
+					var lane_card = c.duel.players[0].monsters[1]
+					print("x2 drag uid=%d zone=%s hand=%d lane1=%s busy=%s" % [hand_card.uid, key, c.duel.players[0].hand.size(), lane_card.display_name() if lane_card != null else "empty", str(c.busy)])
+					break
 		"table_x2_click":
 			_fresh_descent("manual")
 			app.show_screen("table")
@@ -427,7 +459,7 @@ func _ready() -> void:
 			_fresh_descent("manual")
 			app.show_screen("table")
 			await get_tree().create_timer(0.8).timeout
-			var fake = {"kind": "win", "floor": 1, "marks": 120, "cards": [], "folios": [], "streak": 1, "chapter_seal": false, "performance": {"total": 0}, "underdog": 0.1, "reagents": {}}
+			var fake = {"kind": "win", "floor": 1, "marks": 120, "cards": [], "packs": [], "streak": 1, "chapter_seal": false, "performance": {"total": 0}, "underdog": 0.1, "reagents": {}}
 			if screen == "result_fall":
 				fake = {"kind": "fall", "floor": 1, "marks": 198, "cards": [], "performance": {"total": 140, "floor_points": 60, "streak_points": 20, "flawless_points": 50, "damage_points": 6, "heal_points": 2, "cards_points": 2}, "underdog": 0.2, "reagents": {}, "salvage_cache": true}
 			if app.current_screen != null:
@@ -436,7 +468,7 @@ func _ready() -> void:
 			_fresh_descent("manual")
 			app.show_screen("table")
 			await get_tree().create_timer(0.8).timeout
-			var fake = {"kind": "win", "floor": 1, "marks": 120, "cards": [], "folios": [], "streak": 1, "chapter_seal": false, "performance": {"total": 0}, "underdog": 0.1, "reagents": {}}
+			var fake = {"kind": "win", "floor": 1, "marks": 120, "cards": [], "packs": [], "streak": 1, "chapter_seal": false, "performance": {"total": 0}, "underdog": 0.1, "reagents": {}}
 			if app.current_screen != null:
 				Session.descent["door_pending"] = false
 				app.current_screen._show_result(fake)
@@ -531,30 +563,55 @@ func _ready() -> void:
 			await get_tree().create_timer(1.0).timeout
 			if app.current_screen != null:
 				print("table_auto mode=%s rail=%s active=%d" % [str(app.current_screen.mode), str(app.current_screen.rail_tab), int(app.current_screen.duel.active)])
-		"folio_reveal":
+		"pack_click":
+			Session.currency["marks"] = 1000
+			Session.buy_pack("pack.paper")
+			app.show_screen("pack")
+			await get_tree().create_timer(0.8).timeout
+			if app.current_screen != null:
+				var c = app.current_screen
+				if c.seal_button != null:
+					var point: Vector2 = c.seal_button.get_global_rect().get_center()
+					var down := InputEventMouseButton.new()
+					down.button_index = MOUSE_BUTTON_LEFT
+					down.pressed = true
+					down.position = point
+					Input.parse_input_event(down)
+					var up := InputEventMouseButton.new()
+					up.button_index = MOUSE_BUTTON_LEFT
+					up.pressed = false
+					up.position = point
+					Input.parse_input_event(up)
+					await get_tree().create_timer(1.2).timeout
+					print("pack click opened=%s mode=%s fan=%s" % [str(c.opened), c.mode, str(c.fan != null)])
+		"pack_sealed":
+			Session.currency["marks"] = 1000
+			Session.buy_pack("pack.paper")
+			app.show_screen("pack")
+		"pack_reveal":
 			var unopened = Session.unopened_packs()
 			if unopened.is_empty():
-				var bought: Dictionary = Session.buy_folio("folio.paper")
+				var bought: Dictionary = Session.buy_pack("pack.paper")
 				unopened = Session.unopened_packs()
 			if not unopened.is_empty():
-				app.go_folio(int(unopened[0].get("id", 0)))
+				app.go_packs(int(unopened[0].get("id", 0)))
 				await get_tree().create_timer(0.4).timeout
 				if app.current_screen != null:
 					app.current_screen._crack()
 					await get_tree().create_timer(0.3).timeout
 					if app.current_screen != null:
 						app.current_screen._reveal_all()
-		"folio_reveal5":
+		"pack_reveal5":
 			Session.currency["marks"] = 1000
-			var bought: Dictionary = Session.buy_folio("folio.brass")
+			var bought: Dictionary = Session.buy_pack("pack.brass")
 			var pack_id := int(bought.get("pack", {}).get("id", 0)) if bool(bought.get("ok", false)) else 0
 			if pack_id == 0:
 				for pack in Session.unopened_packs():
-					if str(pack.get("kind", "")) == "folio.brass":
+					if str(pack.get("kind", "")) == "pack.brass":
 						pack_id = int(pack.get("id", 0))
 						break
 			if pack_id > 0:
-				app.go_folio(pack_id)
+				app.go_packs(pack_id)
 				await get_tree().create_timer(0.4).timeout
 				if app.current_screen != null:
 					app.current_screen._crack()

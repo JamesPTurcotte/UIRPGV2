@@ -10,22 +10,29 @@ from V2; the visual contract is Neon Reliquary; this document decides the order.
 | Table direction review | Complete — seven directions in `review/index.html` |
 | Chosen table direction | **Neon Reliquary** |
 | Pack-opening review | Complete — `review/packs.html` |
-| Pack ceremony direction | **Neon Reliquary / Folio Protocol** |
+| Pack ceremony direction | **Neon Reliquary / Pack Protocol** |
 | V3 Godot project | V2 baseline imported; Neon shell and Table rebuilt |
 | V2 rules/content | Source of truth, untouched |
 | Face-sealed rule | **Enforced in `DuelRules`**; tests cover sealed/open faces and AI |
-| Table presentation | **X2 Spring Shelf landed** — fluid 150% table, B1/B3 backrow; QA evidence at 1280–2560 and 960/1000 |
+| Table presentation | **R1 Cockpit Rail + H1/H2 hand + D2 magnetic drag landed** — pinned 288px rail ≥1440, tray 64% at 1440, full hand ≥1920, 24px magnet; QA evidence at 1280–2560 and 960/1000 |
 | Scale / corner contract | **Resolved: full-window 150% chrome; B1 ≥1280, B3 below; min 960×720; no forced square** |
 | Viewport / fullscreen fit | **Phase 1 landed** — WindowMode, ViewportFrame, FitPanel, fullscreen/modal audit; Phase 2 table safe rect pending |
-| Folio ceremony | Not started; review lab approved |
+| Pack ceremony | **P1 Rip & Fan landed** — sealed foil wrapper, tear, fan deal-in, exact tells, 470/190ms flip, stamps, skip-to-ledger; P2/P3 skins and stable-actor refactor pending |
+| Packs + table UX review | Complete — `review/ux.html`; picks locked: **P1 / N2 / R1 / H1 (H2 at 1920+) / D2** |
 
 The labs are approved design references. They are not shipping code and are not
 imported by Godot. The code-level migration route is
 [`BUILD_STRATEGY.md`](BUILD_STRATEGY.md).
 
-## Current evidence — 2026-11-04
+> **Locked 2026-11-05 — Packs + table UX picks:** P1 Rip & Fan · N2 full
+> Folio → Pack rename with aliases and a v1 → v2 save migration · R1 Cockpit
+> Rail (pinned at 1440+) · H1 Readable Tray at 1440, H2 Full Hand at 1920+ · D2
+> Magnetic Drop. Sequence: Wave 0 rename → Wave 1 panel + hand → Wave 2 drag →
+> Wave 3 pack ceremony. See [`../review/ux.html`](../review/ux.html).
 
-- **Domain suite:** 412 passed, 0 failed.
+## Current evidence — 2026-11-05
+
+- **Domain suite:** 419 passed, 0 failed.
 - **Layout audit:** 0 failures at 15 windowed sizes plus fullscreen: 1280×720,
   1440×900, 1800×1125, 1920×1080, 1280×1024, 2560×1440, 1000×1000, 960×960,
   960×720, 1024×768, 1366×768, 1920×1200, 2560×1080, 3440×1440, and
@@ -37,20 +44,29 @@ imported by Godot. The code-level migration route is
     take longer and draws rise. This is a known balance consequence, not a test
     failure. Rebalance only with evidence; the first candidates are AI
     guard-breaking and content removal/penetration, not rolling the rule back.
-- **X2 table:** 150% chrome at every window (82px score, 64px dock, 48px
-  targets, 12–14px labels); the 5:7 card scales to 167 at 1280×720, 225 at
-  1440×900, 283 at 1920×1080, and 399 at 2560×1440. At ≥1280 width the backrow
-  is **B1 Front Row**: a face-up spell/trap is a full public card next to its
-  monster; set cards stay face-down. Below 1280 the backrow is **B3 Effect
-  Ribbon**: a 40px text ribbon lists every face-up effect; the full card stays
-  available on click/inspect. The hand is a **30% bottom shelf** (title strip
-  only) with hover/focus/click lift and click pin; the deck shows the same strip
-  and its count. The table fills the current window (min 960×720) and keeps its
-  position; top nav hidden, drawer carries all four doors.
-- **Table screenshots:** `screenshots/table_x2_1280x720.png`,
-  `table_x2_1440x900.png`, `table_x2_1920x1080.png`, `table_x2_2560x1440.png`,
-  `table_x2_1000x1000.png`, `table_x2_960x960.png`, `table_x2_960x720.png`, and
-  `table_x2_hand_1440x900.png` (pinned full face).
+- **Table:** 150% chrome at every window (82px score, 64px dock, 48px targets,
+  12–14px labels). **R1 Cockpit Rail** is a 288px pinned rail at ≥1440, ending
+  above the hand; below 1440 the same panel is an edge overlay. **H1 Readable
+  Tray** is 64% of the hand card width at 1440–1919; **H2 Full Hand** takes over
+  at ≥1920. The hand spans the full window below the rail. The board card is
+  **184 at 1440** (pinned), **209 at 1920** (full hand), and **294 at 2560**
+  (full hand). **B1 Front Row** applies when the available board width is ≥1080
+  (including 1440 with the rail); **B3 Effect Ribbon** handles the narrow board.
+  **D2 Magnetic Drop** snaps the nearest legal slot within 24px; Shift-drag
+  sets, invalid drops return, and click-select remains. The top-right button is
+  labeled **PANEL**; the rail carries intent, log, inspect, actions, descent,
+  run, resolve, piles, and doors. The table fills the current window (min
+  960×720) and keeps its position.
+- **Table screenshots:** `screenshots/table_x2.png` (1440 pinned rail + tray),
+  `table_x2_1920x1080.png` (full hand), `table_x2_drag.png` (magnetic drop), plus
+  `table_x2_1280x720.png`, `table_x2_2560x1440.png`, `table_x2_1000x1000.png`,
+  `table_x2_960x960.png`, and `table_x2_960x720.png`.
+- **Pack ceremony:** **P1 Rip & Fan** is in `PackScreen`: sealed foil wrapper,
+  tear strip, fan deal-in, exact pips + label tells, 470ms Ritual / 190ms Quick
+  flips, NEW/×N stamps, and skip-to-ledger. Evidence:
+  `screenshots/pack_sealed.png`, `pack_reveal.png`, `pack_click.png`. P2/P3
+  skins, the stable-actor `PackCeremony` refactor, and the legendary flare are
+  still open.
 - **Flex review:** `review/flex.html` compares fixed / fluid bottom / fluid side /
   docked cockpit at 1280–3440; the hybrid recommendation was C in landscape, B in
   square. The live table now uses the fluid full-window budget; the old fixed
@@ -60,7 +76,7 @@ imported by Godot. The code-level migration route is
   contained 1440×900 canvas; the Table stays native. Drawer, pile, zoom,
   confirm, result, and help surfaces use `FitPanel`. Fullscreen and window
   restore are covered by the visual QA scenarios.
-- **Shell/room screenshots:** library, gate, deck, bench, folio at 1440×900.
+- **Shell/room screenshots:** library, gate, deck, bench, pack at 1440×900.
 
 ## Working log
 
@@ -68,7 +84,7 @@ imported by Godot. The code-level migration route is
 |---|---|---|---|
 | 2026-11-02 | Step 0 — baseline | V2 imported; suite 406/0; seeded 72/17/11, avg 10.4; layout audit pass | Neon tokens and shell |
 | 2026-11-02 | Step 1 — Neon foundation | Neon tokens/fonts/theme/backdrop; four-door nav; suite 406/0; layout audit pass; room screenshots | Table refactor |
-| 2026-11-02 | Step 2 — Neon Table + face seal | Warden strip, three lanes, player/intent rails, hand fan, dock, face contracts, foreground cues, plates, stable actors; suite 412/0; layout audit pass; seeded 49/15/36, avg 15.8 | Finish Phase 2 acceptance, then Folio |
+| 2026-11-02 | Step 2 — Neon Table + face seal | Warden strip, three lanes, player/intent rails, hand fan, dock, face contracts, foreground cues, plates, stable actors; suite 412/0; layout audit pass; seeded 49/15/36, avg 15.8 | Finish Phase 2 acceptance, then Pack |
 | 2026-11-02 | Step 3 — surface review | First five scale options rejected; committee split the job into Altar (play), Vigil (watch), Sealbreak (hit), Broadside (full), and recommended the stack; `review/surfaces.html` | User rejected hidden lanes/labels |
 | 2026-11-02 | Step 4 — twin mats | Two playmats, all three lanes always visible, no I/II/III, OPEN, CALL, or guard sentence; Twin Mat, Clash Rail, Table Edge, Corner Mat in `review/mats.html` | Pick a mat or family |
 | 2026-11-03 | Step 5 — Duel Board lab | Four 900 × 900 variants with one card size per board: Grid 105, Overlap 145, Shelf 120, Mirror 120; `review/duel-board.html` | Overlap picked |
@@ -87,6 +103,10 @@ imported by Godot. The code-level migration route is
 | 2026-11-04 | Step 18 — X2 port | Spring Shelf 30% hand; B1 full face-up backrow ≥1280; B3 full-effect ribbon below; face-down sets stay secret; dynamic 5:7 card 152–399; 150% chrome; fluid min 960×720; stable hover/focus/click pin; 412/0; layout audit 9/9; size screenshots | Manual/Auto QA and reduced-motion pass |
 | 2026-11-04 | Step 19 — viewport fit spec | Fullscreen/windowed fit contract; WindowMode + ViewportFrame; safe rects; FitPanel overlays; Table B1/B3 clamp; 800×600–5120×1440 / windowed-fullscreen / DPR matrix; `docs/RESPONSIVE_VIEWPORT_SPEC.md` | Phase 1: stop fullscreen resets, add safe rect + FitPanel + audit |
 | 2026-11-05 | Step 20 — viewport fit Phase 1 | `WindowMode` fullscreen save/restore; `ViewportFrame` safe rect/DPR; shell `KEEP` canvas; `FitPanel` for drawer/pile/zoom/confirm/result/help; fullscreen + modal audit; 15 windowed sizes + fullscreen 0 failures; 412/0; exact window restore verified | Phase 2: table safe-rect clamp and below-min fit-scale |
+| 2026-11-05 | Step 21 — packs + table UX review | Seven-person panel; N1/N2/N3 rename; P0–P3 pack formats; R1–R4 panel layouts; H0–H4 hand budgets; D0–D4 drag models; live pack and table prototypes at 1440×900; recommended package; `review/ux.html` | Pick the rename, format, panel, hand, and drag; then implement Wave 0–3 |
+| 2026-11-05 | Step 22 — Wave 0 Pack rename | Folio → Pack across content, domain, session, presentation, tests, tools, and docs; `content/packs.yaml` + `pack.*`; `PackScreen`/`PackFan`/`PackRevealCard`/`PackWrapperArt`; `pack_mode`; save v2 migration with `folio.*` aliases; v1 migration test; 419/0; layout audit 15 sizes + fullscreen 0 failures; `screenshots/pack.png` | Wave 1: pinned cockpit rail + tray/full hand |
+| 2026-11-05 | Step 23 — Wave 1/2 table UX | `R1` pinned 288px Cockpit Rail ≥1440 with intent/log/inspect/actions/descent and a scrollable run/resolve/piles/rooms footer; `H1` 64% tray at 1440 and `H2` full hand ≥1920; hand spans the full width below the rail; `D2` 24px magnetic drag with legal-zone glow, Shift-set, snap-back, click fallback, and board-monster attack; 419/0; layout audit 15 sizes + fullscreen 0 failures; `table_x2.png`, `table_x2_1920x1080.png`, `table_x2_drag.png` | Final cockpit polish + keyboard lane picker |
+| 2026-11-05 | Step 24 — Wave 3 P1 pack ceremony | `PackScreen` sealed foil wrapper + tear strip; `PackFan` deal-in; `PackRevealCard` pips/label tell, 470/190ms flip, NEW/×N stamps; skip-to-ledger; `OPEN ANOTHER` / `SATCHEL` select states; 419/0; layout audit 15 sizes + fullscreen 0 failures; `pack_sealed.png`, `pack_reveal.png`, `pack_click.png` | P2/P3 skins, stable-actor `PackCeremony`, legendary flare |
 
 ## Locked decisions
 
@@ -106,15 +126,15 @@ These are not reopened without a written reason.
    material and type, never geometry.
 6. **One renderer, one token file.** Seven skins or four rooms must not fork the
    board/card/ceremony components. Theme is data.
-7. **The table is ported before the folio.** The table is the core loop; the
-   folio reference is already stable and does not block it.
+7. **The table is ported before the pack.** The table is the core loop; the
+   pack reference is already stable and does not block it.
 8. **The face is sealed while any enemy monster remains.** A direct face attack
    is illegal if any opponent monster zone is occupied, regardless of which lane
    is open. The guard count is visible as three pips beside the Warden score.
 9. **The ceremony never decides a result.** Pack contents are committed before
    the first crack frame. The tell is exact. No reroll, no paid re-open, no fake
    near-miss, no urgency.
-10. **Skip is a first-class action.** In the folio, skip lands on the ledger,
+10. **Skip is a first-class action.** In the pack, skip lands on the ledger,
     never leaves the pack unseen.
 11. **Sound is enhancement, not a dependency.** The game remains legible with
     sound off; reduced motion keeps all information.
@@ -176,7 +196,7 @@ Tasks:
    - `tools/run_layout_audit.sh`
    - `tools/.venv/bin/python tools/build_content.py`
    - `tools/.venv/bin/python tools/validate_content.py`
-5. Take a baseline build/screenshot of the current table and folio for
+5. Take a baseline build/screenshot of the current table and pack for
    comparison.
 6. Record the baseline evidence in this file: test count, failures, wins/losses,
    average turns, layout sizes.
@@ -201,7 +221,7 @@ Tasks:
    every screen is migrated.
 2. `ThemeBuilder`: Neon controls, focus rings, line edits, scrollbars, tooltips.
 3. Four-door shell: Play / Library / Decks / Packs, with the active state and
-   keyboard paths. Packs routes to the Folio.
+   keyboard paths. Packs routes to the Pack.
 4. Shared chrome: run strip, panels, tabs, section labels, buttons, modals,
    gauges, toast style.
 5. Room background: void, grid, scanlines, grain, ambient motes, vignette.
@@ -268,7 +288,7 @@ Tasks:
 Status 2026-11-04: the Overlap Duel Board replaced the strip/rails composition
 (Step 7), then the accessible scale (Step 13), then X2 Spring Shelf (Step 18).
 The live table is full-window 150% chrome with B1/B3 backrow, a 30% hand shelf,
-hidden top nav, drawer doors, manual call, auto pass, 412 tests, and a nine-size
+hidden top nav, drawer doors, manual call, auto pass, 419 tests, and a nine-size
 layout audit. Remaining: the 20-action manual acceptance, reduced-motion pass,
 and console sweep. Task 9 (settings) is still open.
 
@@ -288,16 +308,22 @@ Acceptance:
 - [ ] Keyboard: select card, lane, attack/defend, end phase, inspect.
 - [ ] No console errors; sound-off legibility confirmed.
 
-### Phase 3 — Folio ceremony
+### Phase 3 — Pack ceremony
 
-**Goal:** port the approved pack ritual with stable actors and honest tells.
+**Goal:** port the approved **P1 Rip & Fan** pack ceremony with stable actors and honest tells.
+
+Status 2026-11-05: the visible P1 ceremony is landed in `PackScreen` (sealed foil
+wrapper, tear, fan deal-in, tells, 470/190ms flip, stamps, skip-to-ledger,
+reduced motion). The stable-actor `PackCeremony` refactor, P2/P3 skins, and the
+legendary flare remain open.
 
 Tasks:
 
-1. Create `FolioCeremony` as the single owner of timing/input/the state machine.
-2. Keep the envelope, fan, cards, flare, and stamps stable; no stage rebuild.
+1. Create `PackCeremony` as the single owner of timing/input/the state machine.
+2. Keep the wrapper, fan, cards, flare, and stamps stable; no stage rebuild.
 3. Implement:
-   - sealed, press, crack, flecks, flap, mouth glow, deal stagger
+   - sealed pack, tear strip, flecks, spill/deal stagger
+   - the envelope/wax case stays a skin on the same state machine
    - exact tells: pips + ring + label, from the committed card
    - 470 ms pinch-and-turn flip + paper edge + 60 ms hold
    - flare grammar: 120 / 220 / 420 / 900 ms
@@ -312,15 +338,15 @@ Tasks:
 
 Acceptance:
 
-- [ ] The envelope persists from sealed through the ledger.
-- [ ] Cards emerge from the mouth; no first frame at the destination.
-- [ ] Skip reaches a readable ledger in ≤150 ms from any reveal state.
-- [ ] Every rarity tell matches the committed card; no fake near-miss.
-- [ ] The flip is 470 ms ±10 ms in Ritual; Quick ≤2.2 s for five cards.
-- [ ] Auto stops at the ledger; any input cancels auto.
+- [ ] The pack wrapper persists from sealed through the ledger. (Current `PackScreen` rebuilds the stage after the tear; stable actors are the refactor target.)
+- [x] Cards emerge from the tear; no first frame at the destination. (Fan deal-in.)
+- [x] Skip reaches a readable ledger in ≤150 ms from any reveal state.
+- [x] Every rarity tell matches the committed card; no fake near-miss.
+- [x] The flip is 470 ms in Ritual; Quick uses 190 ms.
+- [x] Auto stops at the ledger; any input cancels auto.
 - [ ] A legendary flare finishes behind the card; next flip is not blocked.
-- [ ] Cards remain inspectable in the summary.
-- [ ] Reduced motion keeps all labels/stamps/results.
+- [x] Cards remain inspectable in the summary.
+- [x] Reduced motion keeps all labels/stamps/results.
 - [ ] 60 fps at 1440×900 with five cards and one legendary flare.
 
 ### Phase 4 — The other three doors
@@ -339,7 +365,7 @@ Tasks:
 - No illustrations; cards and procedural patterns carry the screen.
 - Every screen has a clear primary action and a keyboard path.
 - Keep the four-door nav global; never nest another top nav.
-- Verify flows: Play → Library → Decks → Packs → Folio → Play.
+- Verify flows: Play → Library → Decks → Packs → Pack → Play.
 
 Acceptance:
 
@@ -355,7 +381,7 @@ Acceptance:
 - Settings: master/music/SFX, reduced motion, reduced flash, rarity tell,
   haptics, speed.
 - Accessibility: focus order, contrast, no colour-only signals, screen-reader
-  status for the table/folio, text scale.
+  status for the table/pack, text scale.
 - Performance: actor pool, flare pool, no per-frame allocations, 60 fps at
   1440, fast-forward path.
 - Localization-ready semantic strings.
@@ -376,7 +402,7 @@ Phase 1  tokens + four-door shell
    ↓
 Phase 2  table + face-sealed rules
    ↓
-Phase 3  folio ceremony
+Phase 3  pack ceremony
    ↓
 Phase 4  library / decks / press
    ↓
@@ -387,7 +413,7 @@ Phase 6  content and launch
 
 - Phase 2 depends on Phase 1 tokens and shell.
 - Phase 3 depends on Phase 1 tokens; it can run in parallel with late Phase 2 if
-  the Folio owner does not touch table files.
+  the Pack owner does not touch table files.
 - Phase 4 depends on the shared components from 1–3.
 - Phase 5 is continuous but the full matrix lands after Phase 4.
 - Phase 6 is content; it must not precede a proven loop.
@@ -413,7 +439,7 @@ In scope now:
 - Phase 0 baseline.
 - Phase 1 Neon shell.
 - Phase 2 table, face-sealed rule, Auto broadcast.
-- Phase 3 folio ceremony.
+- Phase 3 pack ceremony.
 
 Not now:
 
@@ -423,13 +449,16 @@ Not now:
 
 ## Immediate next action
 
-1. Choose the mat / family in `review/mats.html` and record
-   the pick here. This changes the small-window contract, not the rules.
+1. The picks are locked: P1 / N2 / R1 / H1 (H2 at 1920+) / D2. Waves 0–3 are
+   landed. The next candidates are the final cockpit polish (collapsed intent
+   chip, keyboard lane picker, drag residue), P2/P3 skins, and the stable-actor
+   `PackCeremony` refactor; do not silently reorder the phases.
 2. Finish Phase 2 acceptance: a 20-action manual duel, a full Auto turn with
    pause/resume, score-plate capture, reduced motion, and a clean console.
-3. Only then start Phase 3: the Folio ceremony state machine and stable actors.
-3. Keep the face-sealed rule and its seeded-duel evidence attached to any later
+3. Then start the chosen UX wave; the Pack ceremony is Wave 3 (or a parallel
+   workstream after the rename).
+4. Keep the face-sealed rule and its seeded-duel evidence attached to any later
    balance change.
 
-If the order changes (folio before table finish), record the reason here first;
+If the order changes (pack before table finish), record the reason here first;
 do not silently reorder the phases.

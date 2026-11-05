@@ -115,7 +115,7 @@ func build() -> void:
 	buttons.add_child(UI.button("RETURN TO LIBRARY", func() -> void: app.go_library(), Tokens.BRASS))
 	buttons.add_child(UI.button("THE GATE", func() -> void: app.go_gate(), Tokens.BRASS))
 	if not Session.unopened_packs().is_empty():
-		buttons.add_child(UI.button("OPEN A FOLIO", func() -> void: app.go_folio(), Tokens.VERDIGRIS))
+		buttons.add_child(UI.button("OPEN A PACK", func() -> void: app.go_packs(), Tokens.VERDIGRIS))
 	buttons.add_child(UI.spacer())
 
 func _breakdown(parent: VBoxContainer) -> void:

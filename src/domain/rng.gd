@@ -1,7 +1,7 @@
 class_name GameRng
 extends RefCounted
 
-## Deterministic random stream. Every duel / folio / craft derives its own
+## Deterministic random stream. Every duel / pack / craft derives its own
 ## stream from a root seed so replay does not depend on call order elsewhere.
 
 var _rng := RandomNumberGenerator.new()

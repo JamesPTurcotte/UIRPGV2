@@ -1,7 +1,7 @@
 class_name PackRoll
 extends RefCounted
 
-## Deterministic folio contents. Rolled once at acquisition; opening never
+## Deterministic pack contents. Rolled once at acquisition; opening never
 ## rerolls. No pity, no hidden manipulation.
 
 const EARLY_WEIGHTS := {"common": 70, "uncommon": 22, "rare": 7, "legendary": 1}
@@ -41,11 +41,11 @@ static func _pick_card(rng: GameRng, cards: Array, rarity: String) -> CardDef:
 		pool = cards
 	return rng.pick(pool) as CardDef
 
-static func roll_folio(folio: Dictionary, seed_value: int, cards: Array, reagents: Array, inks: Array, shimmers: Array) -> Dictionary:
+static func roll_pack(pack: Dictionary, seed_value: int, cards: Array, reagents: Array, inks: Array, shimmers: Array) -> Dictionary:
 	var rng := GameRng.new(seed_value, 7)
-	var count := int(folio.get("cards", 3))
-	var provenance := int(folio.get("provenance", 5))
-	var guarantee := str(folio.get("guarantee", ""))
+	var count := int(pack.get("cards", 3))
+	var provenance := int(pack.get("provenance", 5))
+	var guarantee := str(pack.get("guarantee", ""))
 	var weights := _weights_for(provenance)
 	var results: Array[Dictionary] = []
 	var guarantee_met := false
@@ -64,7 +64,7 @@ static func roll_folio(folio: Dictionary, seed_value: int, cards: Array, reagent
 		if not inks.is_empty() and rng.chance(0.10):
 			ink_id = str(rng.pick(inks)["id"])
 		var shimmer_id := "shimmer.none"
-		var shimmer_chance := float(folio.get("shimmer_chance", 0.0))
+		var shimmer_chance := float(pack.get("shimmer_chance", 0.0))
 		if not shimmers.is_empty() and rng.chance(shimmer_chance):
 			var options: Array = []
 			for shimmer in shimmers:
@@ -93,10 +93,14 @@ static func roll_folio(folio: Dictionary, seed_value: int, cards: Array, reagent
 			"shimmer_id": "shimmer.none",
 		}
 	var reagent_rewards: Array[String] = []
-	var reagent_guarantee = folio.get("reagent_guarantee", null)
+	var reagent_guarantee = pack.get("reagent_guarantee", null)
 	if reagent_guarantee != null and not str(reagent_guarantee).is_empty():
 		reagent_rewards.append(str(reagent_guarantee))
 	return {"cards": results, "reagents": reagent_rewards}
+
+## Legacy alias; remove after the one-version compatibility window.
+static func roll_folio(folio: Dictionary, seed_value: int, cards: Array, reagents: Array, inks: Array, shimmers: Array) -> Dictionary:
+	return roll_pack(folio, seed_value, cards, reagents, inks, shimmers)
 
 static func roll_card_drop(seed_value: int, floor_number: int, cards: Array, index: int = 0) -> Dictionary:
 	var rng := GameRng.new(seed_value, 1000 + index + floor_number * 13)

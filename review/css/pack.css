@@ -169,6 +169,20 @@
   line-height: 1.65;
 }
 
+.pk-naming-note {
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  color: var(--pk-faint) !important;
+  font-family: var(--font-mono);
+  font-size: 10px !important;
+  line-height: 1.5 !important;
+}
+
+.pk-naming-note a {
+  color: var(--pk-cyan);
+}
+
 .pk-chips {
   display: flex;
   flex-wrap: wrap;

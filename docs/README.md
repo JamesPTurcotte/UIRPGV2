@@ -43,8 +43,8 @@ still owned by V2; V3 is where the new presentation is built.
   Reference: [`RESPONSIVE_VIEWPORT_SPEC.md`](RESPONSIVE_VIEWPORT_SPEC.md).
 - **Current gate:** X2 manual/Auto QA (including 1280/1440/1920/2560 and
   1000/960), viewport Phase 2, and reduced motion in [`PLAN.md`](PLAN.md), then
-  port the Folio ceremony.
-- **Evidence:** 412 tests pass; layout audit passes at 15 windowed sizes plus
+  port the Pack ceremony.
+- **Evidence:** 419 tests pass; layout audit passes at 15 windowed sizes plus
   fullscreen, including the modal pass; the X2 table
   renders B1/B3 with a 30% shelf and public face-up backrow at 1280–2560 and
   1000/960; the face-sealed rule is enforced and the seeded-duel shift is
@@ -59,9 +59,9 @@ The labs become the visual contract:
 
 - `review/css/themes.css` → Neon token values.
 - `review/css/board.css` → board skeleton, card anatomy, FX vocabulary.
-- `review/css/pack.css` → the Folio room, envelope, fan, tells, ledger.
+- `review/css/pack.css` → the Pack room, envelope, fan, tells, ledger.
 - `review/js/board.js` → interaction and event choreography reference.
-- `review/js/pack.js` → `FolioCeremony` state machine reference.
+- `review/js/pack.js` → `PackCeremony` state machine reference.
 - `review/js/sound.js` → the procedural cue palette.
 
 ## External references
@@ -69,6 +69,6 @@ The labs become the visual contract:
 - V2 architecture: `../../RazeahCardsV2/docs/ARCHITECTURE.md`
 - V2 UI/UX pass: `../../RazeahCardsV2/docs/UI_UX_SPEC.md`
 - V2 content/effect DSL: `../../RazeahCardsV2/docs/CONTENT.md`
-- V2 folio ceremony research: `../../RazeahCardsV2/docs/FOLIO_PACK_OPENING_SPEC.md`
+- V2 pack ceremony research: `../../RazeahCardsV2/docs/FOLIO_PACK_OPENING_SPEC.md`
 - V2 roadmap: `../../RazeahCardsV2/docs/ROADMAP.md`
 - The working V2 build: `../../RazeahCardsV2`

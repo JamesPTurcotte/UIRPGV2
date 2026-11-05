@@ -96,7 +96,7 @@ Every visual phase needs:
 - No console errors / no GDScript errors.
 - The existing domain tests still pass.
 - For the table: the seeded duel suite and the 8–12 turn / 65–75% target.
-- For the folio: the skip-to-ledger timing and the exact-tell checks.
+- For the pack: the skip-to-ledger timing and the exact-tell checks.
 
 If a check is not run, say so in the handoff. Do not call it verified.
 

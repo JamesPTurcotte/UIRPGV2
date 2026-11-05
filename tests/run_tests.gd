@@ -40,6 +40,7 @@ func _run_all() -> void:
 	print("test: serialization")
 	_test_serialization()
 	_test_save_store()
+	_test_pack_migration()
 	_test_session_loop()
 	_test_deck_moves_and_query()
 	_test_card_layout_audit()
@@ -140,7 +141,7 @@ func _test_content() -> void:
 		_ok(def.base_power >= 0, "card power non-negative: %s" % def.id)
 	_ok(Content.mods.size() >= 10, "mod pool present")
 	_ok(Content.reagents.size() == 10, "10 launch reagents")
-	_ok(Content.folios.size() == 5, "5 folios")
+	_ok(Content.packs.size() == 5, "5 packs")
 	_ok(Content.starters.has("starter.ember"), "starter present")
 	_ok(Content.opponent_for_floor(1).get("id", "") == "warden.damp", "floor 1 Warden")
 	_ok(Content.opponent_for_floor(3).get("boss", false), "floor 3 boss")
@@ -383,22 +384,22 @@ func _test_economy() -> void:
 	_eq(Economy.mastery_level_for_xp(100), 5, "mastery level threshold")
 
 func _test_packs() -> void:
-	var folio: Dictionary = Content.folio("folio.paper")
+	var pack_def: Dictionary = Content.pack("pack.paper")
 	var inks: Array = Content.data.get("inks", [])
 	var shimmers: Array = Content.data.get("shimmers", [])
-	var a := PackRoll.roll_folio(folio, 42, Content.card_list, Content.reagent_list, inks, shimmers)
-	var b := PackRoll.roll_folio(folio, 42, Content.card_list, Content.reagent_list, inks, shimmers)
-	_eq(JSON.stringify(a), JSON.stringify(b), "folio contents are deterministic by seed")
-	var c := PackRoll.roll_folio(folio, 43, Content.card_list, Content.reagent_list, inks, shimmers)
-	_ok(JSON.stringify(a) != JSON.stringify(c), "different seed rolls a different folio")
+	var a := PackRoll.roll_pack(pack_def, 42, Content.card_list, Content.reagent_list, inks, shimmers)
+	var b := PackRoll.roll_pack(pack_def, 42, Content.card_list, Content.reagent_list, inks, shimmers)
+	_eq(JSON.stringify(a), JSON.stringify(b), "pack contents are deterministic by seed")
+	var c := PackRoll.roll_pack(pack_def, 43, Content.card_list, Content.reagent_list, inks, shimmers)
+	_ok(JSON.stringify(a) != JSON.stringify(c), "different seed rolls a different pack")
 	for i in range(30):
-		var roll := PackRoll.roll_folio(folio, 100 + i, Content.card_list, Content.reagent_list, inks, shimmers)
+		var roll := PackRoll.roll_pack(pack_def, 100 + i, Content.card_list, Content.reagent_list, inks, shimmers)
 		var has_guarantee := false
 		for card in roll.get("cards", []):
 			if card.get("rarity", "") in ["uncommon", "rare", "legendary"]:
 				has_guarantee = true
-		_ok(has_guarantee, "paper folio guarantees Uncommon+ (seed %d)" % (100 + i))
-	var salvage := PackRoll.roll_folio(Content.folio("folio.salvage"), 7, Content.card_list, Content.reagent_list, inks, shimmers)
+		_ok(has_guarantee, "paper pack guarantees Uncommon+ (seed %d)" % (100 + i))
+	var salvage := PackRoll.roll_pack(Content.pack("pack.salvage"), 7, Content.card_list, Content.reagent_list, inks, shimmers)
 	_ok(salvage.get("reagents", []).size() >= 1, "salvage cache contains a reagent")
 
 func _test_crafting() -> void:
@@ -494,6 +495,50 @@ func _test_save_store() -> void:
 	_ok(not fallback.is_empty(), "save store falls back to backup")
 	store.delete_save()
 
+func _test_pack_migration() -> void:
+	print("test: pack migration")
+	var script = load("res://src/application/session.gd")
+	var test_session = script.new()
+	test_session.test_mode = true
+	var doc := {
+		"version": 1,
+		"meta": {},
+		"currency": {"marks": 500},
+		"reagents": {},
+		"instances": [],
+		"stacks": [{
+			"def_id": "ember.cinder_hound",
+			"count": 1,
+			"provenance": 1,
+			"ink_id": "ink.iron",
+			"shimmer_id": "shimmer.none",
+			"source": "folio",
+		}],
+		"decks": [],
+		"active_deck_id": 0,
+		"packs": [{
+			"id": 7,
+			"kind": "folio.paper",
+			"seed": 1,
+			"contents": {"cards": [], "reagents": []},
+			"source": "folio",
+			"acquired_at": 0,
+			"opened_at": 0,
+		}],
+		"codex": {},
+		"settings": {"folio_mode": "quick"},
+		"last_result": {"kind": "win", "folios": [{"id": 7}]},
+		"next_pack_id": 8,
+	}
+	test_session._load_doc(doc)
+	_eq(str(test_session.settings.get("pack_mode", "")), "quick", "v1 folio_mode migrates to pack_mode")
+	_eq(str(test_session.packs[0].get("kind", "")), "pack.paper", "v1 pack kind migrates")
+	_eq(str(test_session.packs[0].get("source", "")), "pack", "v1 pack source migrates")
+	_eq(str(test_session.stacks[0].get("source", "")), "pack", "v1 stack source migrates")
+	_ok(test_session.last_result.has("packs"), "v1 result folios migrates to packs")
+	_ok(not Content.pack("folio.paper").is_empty(), "legacy content id alias resolves")
+	_ok(not Content.pack("pack.paper").is_empty(), "new content id resolves")
+
 func _test_session_loop() -> void:
 	print("test: session loop")
 	var script = load("res://src/application/session.gd")
@@ -502,11 +547,11 @@ func _test_session_loop() -> void:
 	test_session.new_game("starter.ember", 12345)
 	_ok(test_session.total_cards() >= 45, "new game seeds a deck and stock")
 	_ok(test_session.deck_errors(test_session.active_deck()).is_empty(), "starter deck legal in session")
-	_ok(test_session.unopened_packs().size() == 1, "starter folio present")
+	_ok(test_session.unopened_packs().size() == 1, "starter pack present")
 	var pack = test_session.unopened_packs()[0]
 	var opened: Dictionary = test_session.open_pack(int(pack.get("id", 0)))
-	_ok(bool(opened.get("ok", false)), "folio opens")
-	_ok(opened.get("cards", []).size() >= 3, "folio reveals cards")
+	_ok(bool(opened.get("ok", false)), "pack opens")
+	_ok(opened.get("cards", []).size() >= 3, "pack reveals cards")
 	var stack_entry: Dictionary = {}
 	for entry in test_session.collection_entries():
 		if str(entry.get("kind", "")) == "stack":

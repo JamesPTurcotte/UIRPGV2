@@ -1,10 +1,10 @@
-class_name FolioFan
+class_name PackFan
 extends Control
 
 ## A fanned row of reveal cards. Cards overlap like physical paper; geometry is
 ## fixed and the layout only changes position.
 
-var cards: Array[FolioRevealCard] = []
+var cards: Array[PackRevealCard] = []
 
 func _ready() -> void:
 	custom_minimum_size = Vector2(0, Tokens.card_size("M").y)
@@ -20,10 +20,23 @@ func set_cards(list: Array) -> void:
 			child.queue_free()
 	cards.clear()
 	for card in list:
-		if card is FolioRevealCard:
+		if card is PackRevealCard:
 			add_child(card)
 			cards.append(card)
 	_layout()
+
+func deal_in() -> void:
+	if cards.is_empty():
+		return
+	for i in range(cards.size()):
+		var card := cards[i]
+		var target := card.position
+		card.position = target + Vector2(0, 34)
+		card.modulate.a = 0.0
+		var tween := create_tween()
+		tween.set_parallel(true)
+		tween.tween_property(card, "position", target, 0.24).set_delay(float(i) * 0.055)
+		tween.tween_property(card, "modulate:a", 1.0, 0.18).set_delay(float(i) * 0.055)
 
 func _layout() -> void:
 	if cards.is_empty():

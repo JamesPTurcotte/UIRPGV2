@@ -2,7 +2,11 @@
 
 **Neon Reliquary is the chosen direction.** The table lab is here; the pack
 ritual is [`packs.html`](packs.html), with its own handoff in
-[`PACK_RITUAL.md`](PACK_RITUAL.md). The scale and small-window pass is
+[`PACK_RITUAL.md`](PACK_RITUAL.md). The packs + table UX review is
+[`ux.html`](ux.html): a seven-person panel, four pack formats, four panel
+layouts, five hand layouts, four drag models, live prototypes, and a shortlist.
+The game now uses **Packs** (Waves 0–3, 2026-11-05); the older labs below keep
+their original Folio copy as historical evidence. The scale and small-window pass is
 [`mats.html`](mats.html); the Duel Board same-size variation lab is [`duel-board.html`](duel-board.html), and
 [`bigger.html`](bigger.html) compares 180–220px readability budgets;
 [`accessible.html`](accessible.html) scales the chrome around the chosen 190px
@@ -229,6 +233,56 @@ The chosen direction's pack-opening ceremony is a second page:
 
 See [`PACK_RITUAL.md`](PACK_RITUAL.md).
 
+## Packs + table UX review
+
+[`ux.html`](ux.html) is the interaction review for the next pass. Waves 0–3 are
+implemented (rename, R1 rail, H1/H2 hand, D2 magnetic drop, P1 Rip & Fan); the
+options below remain the reference and acceptance contract.
+
+**The pack room.** The door says Packs; the screen says FOLIOS. The review
+compares a surface rename, a full rename with aliases and a save migration, and a
+hard cut. It recommends the full rename, with `folio.*` aliases for one version
+and a v1 → v2 save migration. The ceremony compares four containers:
+
+- **P0 Sealed Envelope** — the current screen. Identity, but it reads as mail.
+- **P1 Rip & Fan** — tear the top, spill the cards, click each card to turn it.
+  The panel pick for standard packs.
+- **P2 Reliquary Case** — press the clasp, the brass lid opens. The premium skin
+  on the same state machine.
+- **P3 Stack Peel** — one back at a time; the best narrow-window/focus mode.
+
+The live lab lets you open each container and click every card. The game ships
+**P1 Rip & Fan**; P2/P3 remain skins/modes for a later pass. The tells are
+pips + label, the result is committed before the first frame, and the ledger
+keeps the fan on screen.
+
+**The table.** The review diagnoses the 30% hand shelf, the hidden `≡` drawer,
+and the select-then-click-only play path. It compares four panel layouts:
+
+- **R1 Cockpit Rail** — a persistent rail; best at ≥1600.
+- **R2 Edge Peek** — a labeled edge tab; the 1440 default because it keeps the
+  board at 225.
+- **R3 Command Deck** — top-right chips and popovers below 1280.
+- **R4 Bottom Drawer** — rejected; it fights the hand.
+
+Five hand layouts: the current 30% shelf, a 60% readable tray (name and type at
+rest; full face on lift), a full hand at ≥1920, a fan arc, and a side hand. Four
+drag models: click-select, direct drag, magnetic drop, and the recommended
+hybrid (drag primary, click/keyboard fallback, Shift/right-drag to set). The live
+table lab at 1440×900 lets you toggle tray/full and peek/pinned, then drag cards
+to legal zones, set with Shift, and attack by dragging a monster onto an enemy.
+
+The recommended package is at the bottom: Wave 0 rename, Wave 1 panel + hand,
+Wave 2 drag, Wave 3 pack ceremony. Waves 0–3 are now landed in the game; the
+shortlist form still saves in the browser and copies a feedback summary.
+
+Verified in Chromium at 800px (the in-app pane) with the 1440×900 stage scaled:
+pack open / reveal all / ledger, table drag / click / keyboard / attack / set,
+panel peek / pinned, hand tray / full, picker persistence, no console errors,
+and no horizontal overflow. The game-side table and pack screens were also
+exercised through the Godot screenshot harness at 1440 and 1920. The fixed 1440 stage is the actual-size reference;
+the page's own editorial shell is responsive below 1180.
+
 ---
 
 ## What you are looking at
@@ -269,6 +323,7 @@ skin, the motion, the voice, and the amount of noise — not a moving layout.
 review/
   index.html          table direction review
   packs.html          the Neon pack ritual (chosen direction)
+  ux.html             packs + table UX review (panel, hand, drag, pack formats)
   readability.html    rejected first pass (kept for reference)
   surfaces.html       rejected second pass: four surfaces
   mats.html           third pass: two mats, all lanes, no state labels
@@ -278,12 +333,16 @@ review/
   accessible.html     190 focus + 125/150/200% chrome accessibility lab
   assets/
     current-table.png current 1440 table, used in the diagnosis
+    table-current-1440.png      current table screenshot for the UX review
+    packs-current-1440.png      current Packs screen screenshot for the UX review
+    table-hand-lift-1440.png    current hand-lift screenshot for the UX review
     cards/            actual CardComposer renders for the mat and Duel Board labs
   css/
     review.css        editorial shell, hero, index, stage, decision
     board.css         shared board skeleton, cards, lanes, FX, auto
     themes.css        seven token sets + per-theme material overrides
     pack.css          satchel room, envelope, fan, tells, flares, ledger
+    ux.css            packs + table UX option cards, pack lab, table lab, picker
     readability.css   shared shell/cards for the scale labs
     surfaces.css      second-pass surface compositions
     mats.css          third-pass twin-mat compositions
@@ -302,6 +361,7 @@ review/
     board.js          one board renderer + interaction + FX
     pack-data.js      three folios, tell grammar, beats, ethics
     pack.js           FolioCeremony state machine, modes, FX, zoom, feedback
+    ux.js             pack lab, table lab (drag/click), panel/hand toggles, picks
     review.js         shortlist, notes, theater, copy, nav
     readability.js    first-pass cards, exchange demo, pick memory
     surfaces.js       second-pass cards, exchange, pick memory

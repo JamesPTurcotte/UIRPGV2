@@ -6,6 +6,9 @@ extends Control
 
 signal clicked(actor: CardActor)
 signal right_clicked(actor: CardActor, position: Vector2)
+signal drag_started(actor: CardActor)
+signal drag_moved(actor: CardActor)
+signal drag_ended(actor: CardActor)
 
 var card: DuelCard
 var view: CardView
@@ -19,6 +22,10 @@ var action_seal: bool = false
 var ad_label: String = ""
 var ad_tab: Label
 var hover_zone: Control
+var drag_zone: Control
+var dragging: bool = false
+var _drag_pending: bool = false
+var _drag_start: Vector2 = Vector2.ZERO
 var _hand_hovered: bool = false
 var _hand_focused: bool = false
 
@@ -27,6 +34,7 @@ func setup(duel_card: DuelCard, size_token: String, scale: float = 1.0) -> void:
 	token = size_token
 	card_scale = maxf(0.01, scale)
 	mouse_filter = Control.MOUSE_FILTER_PASS
+	set_process(true)
 	# The hand is a 30% shelf: only the title strip is visible until the card is
 	# hovered, focused, or pinned. Clipping the view keeps the face at its true
 	# 5:7 size instead of squashing or faking a short card.
@@ -67,6 +75,17 @@ func setup(duel_card: DuelCard, size_token: String, scale: float = 1.0) -> void:
 	ad_tab.visible = false
 	ad_tab.z_index = 5
 	add_child(ad_tab)
+	# Player monsters get a transparent drag surface on top of the face. Hand
+	# cards use their existing hover shelf; this zone keeps the click fallback.
+	drag_zone = Control.new()
+	drag_zone.mouse_filter = Control.MOUSE_FILTER_STOP
+	drag_zone.mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND
+	drag_zone.gui_input.connect(_on_drag_zone_input)
+	drag_zone.mouse_entered.connect(func() -> void: _on_hover_changed(view, true))
+	drag_zone.mouse_exited.connect(func() -> void: _on_hover_changed(view, false))
+	drag_zone.visible = false
+	drag_zone.z_index = 6
+	add_child(drag_zone)
 	refresh()
 
 func refresh() -> void:
@@ -118,7 +137,7 @@ func _full_size() -> Vector2:
 func _actor_size() -> Vector2:
 	var full := _full_size()
 	if card != null and card.zone == GameConst.ZONE_HAND:
-		return Vector2(full.x, full.x * 0.30)
+		return Vector2(full.x, _hand_shelf_h())
 	return full
 
 func _apply_actor_size() -> void:
@@ -240,7 +259,7 @@ func _sync_hover_zone() -> void:
 	elif is_hand:
 		var full := _full_size()
 		hover_zone.position = Vector2.ZERO
-		hover_zone.size = Vector2(full.x, full.x * 0.30)
+		hover_zone.size = Vector2(full.x, _hand_shelf_h())
 		hover_zone.tooltip_text = card.display_name()
 	if (is_back or is_hand) and view != null:
 		# The visible strip stays under the pointer while the face lifts, so
@@ -248,6 +267,13 @@ func _sync_hover_zone() -> void:
 		view.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	elif view != null:
 		view.mouse_filter = Control.MOUSE_FILTER_STOP
+	if drag_zone != null:
+		var is_draggable_monster := card.owner == 0 and card.zone == GameConst.ZONE_MONSTER
+		drag_zone.visible = is_draggable_monster
+		if is_draggable_monster:
+			drag_zone.position = Vector2.ZERO
+			drag_zone.size = _full_size()
+			drag_zone.tooltip_text = "Drag to attack, or click to select."
 
 func _on_hover_zone_input(event: InputEvent) -> void:
 	if not (event is InputEventMouseButton) or not event.pressed:
@@ -255,13 +281,101 @@ func _on_hover_zone_input(event: InputEvent) -> void:
 	if event.button_index == MOUSE_BUTTON_LEFT:
 		if card != null and card.zone == GameConst.ZONE_HAND and view != null:
 			view.grab_focus()
-		clicked.emit(self)
+		_begin_drag_pending()
 		accept_event()
 	elif event.button_index == MOUSE_BUTTON_RIGHT:
 		right_clicked.emit(self, event.position + position)
 		accept_event()
 
+func _on_drag_zone_input(event: InputEvent) -> void:
+	if not (event is InputEventMouseButton) or not event.pressed:
+		return
+	if event.button_index == MOUSE_BUTTON_LEFT:
+		_begin_drag_pending()
+		accept_event()
+	elif event.button_index == MOUSE_BUTTON_RIGHT:
+		right_clicked.emit(self, event.position + position)
+		accept_event()
+
+func _begin_drag_pending() -> void:
+	_drag_pending = true
+	_drag_start = get_global_mouse_position()
+
+func _process(_delta: float) -> void:
+	if not _drag_pending:
+		return
+	var mouse := get_global_mouse_position()
+	if not Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
+		_drag_pending = false
+		if dragging:
+			dragging = false
+			drag_ended.emit(self)
+		else:
+			clicked.emit(self)
+		_update_hand_lift()
+		return
+	if not dragging and mouse.distance_to(_drag_start) > 6.0:
+		dragging = true
+		z_index = 80
+		drag_started.emit(self)
+		_update_hand_lift()
+	if dragging:
+		var parent := get_parent()
+		if parent is Control:
+			var local := (parent as Control).get_local_mouse_position()
+			var full := _full_size()
+			var lift := _hand_lift_offset() if card != null and card.zone == GameConst.ZONE_HAND else 0.0
+			position = local - Vector2(full.x * 0.5, full.y * 0.5 - lift)
+		drag_moved.emit(self)
+
+func finish_drag() -> void:
+	_drag_pending = false
+	dragging = false
+	position = rest_rect.position
+	z_index = _default_z()
+	_update_hand_lift()
+	queue_redraw()
+
+func cancel_drag() -> void:
+	finish_drag()
+
+func _default_z() -> int:
+	if card == null:
+		return 1
+	if card.owner == 0 and card.zone == GameConst.ZONE_HAND:
+		return 20
+	if card.zone == GameConst.ZONE_BACKROW:
+		return 2
+	if card.zone == GameConst.ZONE_MONSTER:
+		return 4
+	return 1
+
+func _stage() -> BattleStage:
+	var node := get_parent()
+	while node != null:
+		if node is BattleStage:
+			return node as BattleStage
+		node = node.get_parent()
+	return null
+
+func _hand_shelf_h() -> float:
+	var stage := _stage()
+	if stage is DuelBoardStage:
+		return (stage as DuelBoardStage).hand_shelf_h
+	return _full_size().x * 0.30
+
+func _hand_full() -> bool:
+	var stage := _stage()
+	return stage is DuelBoardStage and (stage as DuelBoardStage).hand_full
+
+func _hand_lift_offset() -> float:
+	return maxf(0.0, _full_size().y - _hand_shelf_h())
+
 func _hand_lifted() -> bool:
+	if dragging:
+		return true
+	if _hand_full():
+		return false
 	return _hand_hovered or _hand_focused or selected
 
 func _sync_card_clip() -> void:
@@ -279,7 +393,7 @@ func _sync_card_clip() -> void:
 		card_clip.size = full
 	elif is_hand:
 		card_clip.clip_contents = false
-		card_clip.position = Vector2(0, -1.1 * full.x)
+		card_clip.position = Vector2(0, -_hand_lift_offset())
 		card_clip.size = full
 	else:
 		card_clip.clip_contents = false
@@ -298,8 +412,8 @@ func _update_hand_lift() -> void:
 	if hover_zone != null and hover_zone.visible:
 		# The hover target covers the shelf strip and the lifted face, so the
 		# pointer can move from the strip to the card without leaving hover.
-		hover_zone.position = Vector2(0, -1.1 * full.x) if lifted else Vector2.ZERO
-		hover_zone.size = full if lifted else Vector2(full.x, full.x * 0.30)
+		hover_zone.position = Vector2(0, -_hand_lift_offset()) if lifted else Vector2.ZERO
+		hover_zone.size = full if lifted else Vector2(full.x, _hand_shelf_h())
 
 func _on_hover_changed(_view: CardView, hovered: bool) -> void:
 	if card == null:

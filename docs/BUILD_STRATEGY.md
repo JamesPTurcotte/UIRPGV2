@@ -15,7 +15,7 @@ Replace the presentation from the outside in:
 3. move global navigation into `App`;
 4. restyle the shared card / chrome / overlay components;
 5. refactor each room onto the new shell and card system;
-6. port the table choreography and the folio ceremony;
+6. port the table choreography and the pack ceremony;
 7. prove, screenshot, document, repeat.
 
 The game stays playable after every step. No step may leave V3 unbootable or the
@@ -54,7 +54,7 @@ Copy the V2 project into the V3 root, excluding caches, `.godot`, screenshots,
 the Python venv, and V2's own README/docs. Keep V3's `docs/` and `review/`.
 Add `.gdignore` files so Godot ignores the review labs and docs.
 
-Acceptance: the game boots, the suite runs, the old table/folio screenshots are
+Acceptance: the game boots, the suite runs, the old table/pack screenshots are
 captured for comparison.
 
 ### 2. Token compatibility layer
@@ -94,11 +94,11 @@ App
 
 - `App` owns the active-door state and routing.
 - Play goes to the Gate when no descent is active, otherwise the Table.
-- Library goes to the Library; Decks to the Deck Workshop; Packs to the Folio.
+- Library goes to the Library; Decks to the Deck Workshop; Packs to the Pack.
 - Bench is a Library sub-room; Salvage is a Play sub-room; the active door
   remains Library/Play.
 - The old per-screen top bars are replaced by a local page header inside the
-  room. Contextual actions (Gate, Deck, Folios) move into the global nav or the
+  room. Contextual actions (Gate, Deck, Packs) move into the global nav or the
   room's own content, never into a second top nav.
 - The run strip stays inside the Play/Table room.
 
@@ -125,12 +125,12 @@ refactored. That is the checkpoint that proves the token surface is complete.
 | Order | Room | Why |
 |---:|---|---|
 | 1 | **Table** | Core loop; proves actors, director, score plates, Auto. |
-| 2 | **Folio** | Already designed in the lab; proves the pack ceremony. |
+| 2 | **Pack** | Already designed in the lab; proves the pack ceremony. |
 | 3 | **Library** | The home room; shelves and reading desk. |
 | 4 | **Gate** | Entry to Play; depth rail and descend medallion. |
 | 5 | **Deck Workshop** | Reuses Library filters/cards. |
 | 6 | **Bench** | Crafting room; shares card actions. |
-| 7 | **Salvage** | Run result; shares ledger language with the folio. |
+| 7 | **Salvage** | Run result; shares ledger language with the pack. |
 
 Each room follows the same loop:
 
@@ -141,7 +141,7 @@ Each room follows the same loop:
 5. add the room's signature FX/motion only after the layout is stable;
 6. run the layout audit, take screenshots, update the plan.
 
-### 6. Table and folio are their own projects
+### 6. Table and pack are their own projects
 
 The table needs a structural rewrite:
 
@@ -153,9 +153,9 @@ The table needs a structural rewrite:
 - staged damage, score plates, Auto captions;
 - face-sealed rule in `DuelRules`.
 
-The folio needs a state machine:
+The pack needs a state machine:
 
-- `FolioCeremony` owns beats and input;
+- `PackCeremony` owns beats and input;
 - stable envelope/fan/cards;
 - exact tells, flips, flares, stamps, skip-to-ledger.
 
@@ -173,9 +173,9 @@ tools/run_layout_audit.sh
 
 plus the appropriate screenshots:
 
-- shell / library / gate / folio / deck / bench / salvage: 1280, 1440, 1920;
+- shell / library / gate / pack / deck / bench / salvage: 1280, 1440, 1920;
 - table: 1280, 1440, 1920 plus manual / Auto / end states;
-- folio: sealed / fan / rare / legendary / summary;
+- pack: sealed / fan / rare / legendary / summary;
 - reduced motion and sound-off for each interactive screen.
 
 A visual step is not done until it has a screenshot at 1440 and the suite is

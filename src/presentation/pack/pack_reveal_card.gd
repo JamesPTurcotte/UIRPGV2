@@ -1,7 +1,7 @@
-class_name FolioRevealCard
+class_name PackRevealCard
 extends Control
 
-signal pressed(card: FolioRevealCard)
+signal pressed(card: PackRevealCard)
 
 var def: CardDef
 var instance: CardInstance
@@ -10,6 +10,7 @@ var revealed: bool = false
 var is_new: bool = false
 var duplicate_count: int = 0
 var stamp: Label
+var tell: Label
 var _flipping: bool = false
 
 func setup(card_def: CardDef, card_instance: CardInstance, new_flag: bool, dupes: int, size_token: String = "M") -> void:
@@ -34,10 +35,23 @@ func setup(card_def: CardDef, card_instance: CardInstance, new_flag: bool, dupes
 	stamp.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	stamp.position = Vector2(10, size.y - 28)
 	stamp.size = Vector2(size.x - 20, 20)
+	stamp.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	stamp.visible = false
 	add_child(stamp)
+	# The tell is read from the committed card, not chosen by the animation.
+	var pips: int = {"common": 1, "uncommon": 2, "rare": 3, "legendary": 4}.get(def.rarity, 1)
+	tell = UI.label("", 9, Tokens.rarity_color(def.rarity), Tokens.font_data())
+	tell.text = "◆".repeat(pips) + " " + def.rarity.to_upper()
+	tell.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	tell.position = Vector2(6, 6)
+	tell.size = Vector2(size.x - 12, 18)
+	tell.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	tell.add_theme_constant_override("outline_size", 4)
+	tell.add_theme_color_override("font_outline_color", Tokens.BG_VOID)
+	tell.z_index = 5
+	add_child(tell)
 
-func flip(duration: float = 0.22) -> void:
+func flip(duration: float = 0.47) -> void:
 	if revealed or _flipping:
 		return
 	_flipping = true
@@ -62,6 +76,8 @@ func _finish_flip() -> void:
 	revealed = true
 	_flipping = false
 	view.set_flag("face_down", false)
+	if tell != null:
+		tell.visible = false
 	if is_new:
 		stamp.text = "NEW"
 		stamp.visible = true

@@ -45,7 +45,7 @@ The current code also has no fullscreen state at all.
 Local fullscreen captures:
 
 - `screenshots/full_library.png`, `full_gate.png`, `full_deck.png`,
-  `full_bench.png`, `full_folio.png` — shell at 2560×1600 fullscreen.
+  `full_bench.png`, `full_pack.png` — shell at 2560×1600 fullscreen.
 - `screenshots/table_focus.png` — table at 2560×1600 fullscreen.
 - `screenshots/table_x2_*.png` — table at windowed sizes from 960×720 to
   2560×1440.
@@ -445,7 +445,7 @@ Additional matrix passes:
 
 - Windowed ↔ fullscreen ↔ windowed, 10 cycles, exact window restore.
 - Move the window between two displays with different DPR.
-- Toggle fullscreen from Library, Gate, Deck, Bench, Folio, Table, and with a
+- Toggle fullscreen from Library, Gate, Deck, Bench, Pack, Table, and with a
   drawer/pile/zoom/confirm open.
 - Resize by dragging the window edge through all breakpoints.
 - Reduced motion, 200% text/scale (if supported), and the smallest supported
@@ -541,7 +541,7 @@ dev-only and hidden in release.
 
 ### Phase 3 — Shell fluid rails (future-proofing)
 
-- Convert Library/Gate/Deck/Bench/Folio to `ScreenLayoutSpec` + fluid rails.
+- Convert Library/Gate/Deck/Bench/Pack to `ScreenLayoutSpec` + fluid rails.
 - Remove the fixed 1440 canvas dependence.
 - **Exit:** shell fills wide screens without stretch, stacks at compact sizes,
   and never clips.

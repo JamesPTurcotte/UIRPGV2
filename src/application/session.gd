@@ -1,14 +1,15 @@
 extends Node
 
 ## Player session: save document, collection binder, decks, crafting bench,
-## folio satchel, and the active Descent. Presentation reads this; it never
+## pack satchel, and the active Descent. Presentation reads this; it never
 ## mutates rules directly.
 
 signal game_ready
 signal collection_changed
 signal currency_changed
 signal decks_changed
-signal folios_changed
+signal packs_changed
+signal folios_changed # Legacy alias; remove after the compatibility window.
 signal descent_changed
 signal toast(message: String, kind: String)
 
@@ -68,12 +69,16 @@ func default_settings() -> Dictionary:
 		"route_policy": "safe",
 		"library_query": {},
 		"deck_query": {},
-		"folio_mode": "ritual",
+		"pack_mode": "ritual",
 		"library_sort": "name",
 		"deck_sort": "name",
 		"saved_views": [],
 		"hints_seen": {},
 	}
+
+func _emit_packs_changed() -> void:
+	packs_changed.emit()
+	folios_changed.emit()
 
 ## ---------------------------------------------------------------- new game
 
@@ -154,13 +159,13 @@ func new_game(starter_id: String = STARTER_ID, seed_value: int = 0) -> void:
 		_add_stack(str(row[0]), int(row[2]), "ink.iron", "shimmer.none", int(row[1]), "starter", true)
 
 	var pack_seed := seed_value if seed_value != 0 else randi()
-	_acquire_folio("folio.paper", "starter", pack_seed)
+	_acquire_pack("pack.paper", "starter", pack_seed)
 	save_now()
 	game_ready.emit()
 	collection_changed.emit()
 	currency_changed.emit()
 	decks_changed.emit()
-	folios_changed.emit()
+	_emit_packs_changed()
 
 ## ---------------------------------------------------------------- save/load
 
@@ -194,12 +199,28 @@ func _load_doc(doc: Dictionary) -> void:
 		if raw is Dictionary:
 			packs.append(raw.duplicate(true))
 			next_pack_id = maxi(next_pack_id, int(raw.get("id", 0)) + 1)
+	# v1 -> v2: content ids and stack origins used the folio prefix.
+	for pack in packs:
+		var kind := str(pack.get("kind", ""))
+		if kind.begins_with("folio."):
+			pack["kind"] = "pack." + kind.substr(6)
+		if str(pack.get("source", "")) == "folio":
+			pack["source"] = "pack"
+	for stack in stacks:
+		if str(stack.get("source", "")) == "folio":
+			stack["source"] = "pack"
 	codex = doc.get("codex", {}).duplicate(true) if doc.get("codex", {}) is Dictionary else {}
 	settings = default_settings()
 	for key in doc.get("settings", {}).keys():
 		settings[str(key)] = doc["settings"][key]
+	# v1 -> v2: folio_mode is now pack_mode. Keep the value if the new key is absent.
+	var raw_settings: Dictionary = doc.get("settings", {})
+	if raw_settings.has("folio_mode") and not raw_settings.has("pack_mode"):
+		settings["pack_mode"] = raw_settings["folio_mode"]
 	descent = doc.get("descent", {}).duplicate(true) if doc.get("descent", {}) is Dictionary else {}
 	last_result = doc.get("last_result", {}).duplicate(true) if doc.get("last_result", {}) is Dictionary else {}
+	if last_result.has("folios") and not last_result.has("packs"):
+		last_result["packs"] = last_result["folios"]
 	first_clear_floors.clear()
 	for raw in doc.get("first_clear_floors", []):
 		first_clear_floors.append(int(raw))
@@ -880,25 +901,29 @@ func add_reagent(reagent_id: String, amount: int = 1) -> void:
 		return
 	reagents[reagent_id] = int(reagents.get(reagent_id, 0)) + amount
 
-func buy_folio(kind: String) -> Dictionary:
-	var folio: Dictionary = Content.folio(kind)
-	if folio.is_empty():
-		return {"ok": false, "reason": "Unknown folio."}
-	var price := int(folio.get("price", 0))
+func buy_pack(kind: String) -> Dictionary:
+	var pack_def: Dictionary = Content.pack(kind)
+	if pack_def.is_empty():
+		return {"ok": false, "reason": "Unknown pack."}
+	var price := int(pack_def.get("price", 0))
 	if price <= 0:
-		return {"ok": false, "reason": "That folio is not for sale."}
+		return {"ok": false, "reason": "That pack is not for sale."}
 	if not spend_marks(price):
 		return {"ok": false, "reason": "Not enough Marks."}
-	var pack := _acquire_folio(kind, "purchase", 0)
+	var pack := _acquire_pack(kind, "purchase", 0)
 	save_now()
-	folios_changed.emit()
+	_emit_packs_changed()
 	return {"ok": true, "pack": pack}
 
-func _acquire_folio(kind: String, source: String, seed_value: int) -> Dictionary:
-	var folio: Dictionary = Content.folio(kind)
+## Legacy alias; remove after the one-version compatibility window.
+func buy_folio(kind: String) -> Dictionary:
+	return buy_pack(kind)
+
+func _acquire_pack(kind: String, source: String, seed_value: int) -> Dictionary:
+	var pack_def: Dictionary = Content.pack(kind)
 	var actual_seed := seed_value if seed_value != 0 else (randi() & 0x7FFFFFFF)
-	var contents := PackRoll.roll_folio(
-		folio,
+	var contents := PackRoll.roll_pack(
+		pack_def,
 		actual_seed,
 		Content.card_list,
 		Content.reagent_list,
@@ -918,6 +943,10 @@ func _acquire_folio(kind: String, source: String, seed_value: int) -> Dictionary
 	packs.append(pack)
 	return pack
 
+## Legacy alias; remove after the one-version compatibility window.
+func _acquire_folio(kind: String, source: String, seed_value: int) -> Dictionary:
+	return _acquire_pack(kind, source, seed_value)
+
 func unopened_packs() -> Array[Dictionary]:
 	var result: Array[Dictionary] = []
 	for pack in packs:
@@ -934,16 +963,16 @@ func pack_by_id(pack_id: int) -> Dictionary:
 func open_pack(pack_id: int) -> Dictionary:
 	var pack := pack_by_id(pack_id)
 	if pack.is_empty():
-		return {"ok": false, "reason": "Folio not found."}
+		return {"ok": false, "reason": "Pack not found."}
 	if int(pack.get("opened_at", 0)) > 0:
-		return {"ok": false, "reason": "That folio is already open."}
+		return {"ok": false, "reason": "That pack is already open."}
 	var contents: Dictionary = pack.get("contents", {})
 	var cards_revealed: Array[Dictionary] = []
 	for drop in contents.get("cards", []):
 		var def: CardDef = Content.cards.get(str(drop.get("def_id", "")))
 		if def == null:
 			continue
-		_add_stack_from_drop(drop, "folio")
+		_add_stack_from_drop(drop, "pack")
 		cards_revealed.append({
 			"def_id": def.id,
 			"def": def,
@@ -961,7 +990,7 @@ func open_pack(pack_id: int) -> Dictionary:
 	save_now()
 	collection_changed.emit()
 	currency_changed.emit()
-	folios_changed.emit()
+	_emit_packs_changed()
 	return {"ok": true, "cards": cards_revealed, "reagents": reagents_revealed, "pack": pack}
 
 func print_card(def_id: String) -> Dictionary:
@@ -1306,11 +1335,11 @@ func _award_win(state: DuelState, summary: Dictionary) -> Dictionary:
 			continue
 		_add_stack_from_drop(drop, "duel")
 		cards_revealed.append(drop)
-	var folios: Array[Dictionary] = []
+	var packs_granted: Array[Dictionary] = []
 	if first_clear:
-		folios.append(_acquire_folio("folio.paper", "first-clear", 0))
+		packs_granted.append(_acquire_pack("pack.paper", "first-clear", 0))
 	if boss:
-		folios.append(_acquire_folio("folio.brass", "boss", 0))
+		packs_granted.append(_acquire_pack("pack.brass", "boss", 0))
 	var player_stats: Dictionary = summary.get("player", {})
 	descent["stats"]["damage_dealt"] = int(descent["stats"].get("damage_dealt", 0)) + int(player_stats.get("damage_dealt", 0))
 	descent["stats"]["damage_healed"] = int(descent["stats"].get("damage_healed", 0)) + int(player_stats.get("damage_healed", 0))
@@ -1358,7 +1387,7 @@ func _award_win(state: DuelState, summary: Dictionary) -> Dictionary:
 	descent_changed.emit()
 	collection_changed.emit()
 	currency_changed.emit()
-	folios_changed.emit()
+	_emit_packs_changed()
 	var result := {
 		"ok": true,
 		"kind": "win",
@@ -1366,7 +1395,7 @@ func _award_win(state: DuelState, summary: Dictionary) -> Dictionary:
 		"marks": marks,
 		"reagents": granted,
 		"cards": cards_revealed,
-		"folios": folios,
+		"packs": packs_granted,
 		"first_clear": first_clear,
 		"boss": boss,
 		"streak": int(descent.get("streak", 0)),

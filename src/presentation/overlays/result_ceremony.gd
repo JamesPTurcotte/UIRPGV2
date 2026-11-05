@@ -94,11 +94,12 @@ func _animate_in() -> void:
 	tween.tween_property(panel, "modulate:a", 1.0, 0.22)
 
 func _build_win(box: VBoxContainer) -> void:
+	var packs_reward: Array = result.get("packs", result.get("folios", []))
 	var rewards := HBoxContainer.new()
 	rewards.add_theme_constant_override("separation", 8)
 	for pair in [
 		["%d CARDS" % result.get("cards", []).size(), Tokens.INK_SECONDARY],
-		["%d FOLIOS" % result.get("folios", []).size(), Tokens.VERDIGRIS],
+		["%d PACKS" % packs_reward.size(), Tokens.VERDIGRIS],
 		["STREAK %d" % int(result.get("streak", 0)), Tokens.SELECTION],
 	]:
 		var chip := UI.chip(str(pair[0]), pair[1])

@@ -33,7 +33,7 @@ func _ready() -> void:
 	await _check_plain("gate")
 	await _check_plain("deck")
 	await _check_bench()
-	await _check_plain("folio")
+	await _check_plain("pack")
 	await _check_salvage()
 	await _check_table()
 	await _check_modals()

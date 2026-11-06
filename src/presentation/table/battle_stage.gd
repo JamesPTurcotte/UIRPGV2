@@ -42,6 +42,7 @@ var cue_text: String = ""
 var cue_color: Color = Tokens.CYAN
 var cue_alpha: float = 0.0
 var _last_size: Vector2 = Vector2.ZERO
+var _last_signature: String = ""
 
 func setup(table_ref: Node) -> void:
 	table = table_ref
@@ -78,8 +79,13 @@ func _on_resized() -> void:
 	_compute_rects()
 	queue_redraw()
 
+func _layout_signature() -> String:
+	return str(size)
+
 func _process(delta: float) -> void:
-	if size != _last_size:
+	var signature := _layout_signature()
+	if signature != _last_signature:
+		_last_signature = signature
 		_last_size = size
 		var previous_board := board_token
 		_choose_tokens()

@@ -74,6 +74,13 @@ func _choose_layout() -> void:
 func hand_size() -> Vector2:
 	return Vector2(hand_card_w, hand_card_w * 1.4)
 
+func _layout_signature() -> String:
+	return "%s|%.1f|%s" % [
+		str(size),
+		rail_width,
+		str(get_viewport_rect().size.x >= 1920.0),
+	]
+
 func set_rail_width(value: float) -> void:
 	var next := maxf(0.0, value)
 	if is_equal_approx(rail_width, next):

@@ -245,6 +245,28 @@ func _ready() -> void:
 					var hand_actor = c.stage.actors.get(hand_uid)
 					if hand_actor != null:
 						print("x2 hand pin uid=%d selected=%s clip=%s zone=%s" % [hand_uid, str(hand_actor.selected), str(hand_actor.card_clip.size), str(hand_actor.hover_zone.size)])
+		"table_x2_resize":
+			_fresh_descent("manual")
+			app.show_screen("table")
+			await get_tree().create_timer(0.8).timeout
+			if app.current_screen != null:
+				var c = app.current_screen
+				c.mode = "manual"
+				c.paused = true
+				c.timer.stop()
+				_seed_x2(c.duel)
+				c.stage.sync_all(c.duel)
+				c.stage.apply_rest(c.duel)
+				await get_tree().create_timer(0.2).timeout
+				DisplayServer.window_set_size(Vector2i(1920, 1080))
+				await get_tree().create_timer(1.0).timeout
+				var st = c.stage
+				var slot: Rect2 = st.slot_rects.get("0|monster|0", Rect2())
+				print("resize stage=%s full=%s shelf=%.1f board=%s hand=%s slot=%s overlap=%s" % [
+					str(st.size), str(st.hand_full), st.hand_shelf_h,
+					str(st.board_rect), str(st.hand_zone_rect), str(slot),
+					str(st.hand_zone_rect.position.y < st.board_rect.end.y),
+				])
 		"table_x2_drag":
 			_fresh_descent("manual")
 			app.show_screen("table")
